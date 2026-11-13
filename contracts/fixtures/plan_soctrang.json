@@ -1,10 +1,10 @@
 {
-  "decision_id": "dec_d3bb1bb4aabd",
+  "decision_id": "dec_dc0f24ae2277",
   "parent_id": null,
   "kind": "PLAN",
   "field_id": "fld_soctrang",
   "as_of": "2026-11-14",
-  "generated_at": "2026-11-13T14:10:11+00:00",
+  "generated_at": "2026-11-13T14:24:57+00:00",
   "versions": {
     "catalog": "crops-2026.11.0",
     "rules": "rules-1",
@@ -12,7 +12,7 @@
     "planner": "pareto-v1",
     "data": "power-v2.10.3@2026-11-03"
   },
-  "field_state_snapshot_id": "st_6b913ddd99b3",
+  "field_state_snapshot_id": "st_e7d2e20bc730",
   "field_state": {
     "as_of": "2026-11-14",
     "upstream_discharge": {
@@ -1168,6 +1168,1042 @@
         "years_used": 40
       }
     },
+    "distribution": {
+      "sc_clim": [
+        {
+          "member": 0,
+          "year": 2001,
+          "irrigation_mm": 1782,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 1,
+          "year": 2002,
+          "irrigation_mm": 1632,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 2,
+          "year": 2003,
+          "irrigation_mm": 1699,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 3,
+          "year": 2004,
+          "irrigation_mm": 1879,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 4,
+          "year": 2005,
+          "irrigation_mm": 1425,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 5,
+          "year": 2006,
+          "irrigation_mm": 1595,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 6,
+          "year": 2007,
+          "irrigation_mm": 1533,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 7,
+          "year": 2008,
+          "irrigation_mm": 1502,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 8,
+          "year": 2009,
+          "irrigation_mm": 1824,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 9,
+          "year": 2010,
+          "irrigation_mm": 1689,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 10,
+          "year": 2011,
+          "irrigation_mm": 1579,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 11,
+          "year": 2012,
+          "irrigation_mm": 1579,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 12,
+          "year": 2013,
+          "irrigation_mm": 1869,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 13,
+          "year": 2014,
+          "irrigation_mm": 1985,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 14,
+          "year": 2015,
+          "irrigation_mm": 1824,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 15,
+          "year": 2016,
+          "irrigation_mm": 1398,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 16,
+          "year": 2017,
+          "irrigation_mm": 1461,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 17,
+          "year": 2018,
+          "irrigation_mm": 1431,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 18,
+          "year": 2019,
+          "irrigation_mm": 1783,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 19,
+          "year": 2020,
+          "irrigation_mm": 1443,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 20,
+          "year": 2021,
+          "irrigation_mm": 1356,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 21,
+          "year": 2022,
+          "irrigation_mm": 1513,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 22,
+          "year": 2023,
+          "irrigation_mm": 1791,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 23,
+          "year": 2024,
+          "irrigation_mm": 1407,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        }
+      ],
+      "sc_dry": [
+        {
+          "member": 0,
+          "year": 2023,
+          "irrigation_mm": 1791,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 1,
+          "year": 2015,
+          "irrigation_mm": 1824,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 2,
+          "year": 2004,
+          "irrigation_mm": 1879,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        }
+      ],
+      "sc_hot": [
+        {
+          "member": 0,
+          "year": 2001,
+          "irrigation_mm": 1833,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 1,
+          "year": 2002,
+          "irrigation_mm": 1663,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 2,
+          "year": 2003,
+          "irrigation_mm": 1755,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 3,
+          "year": 2004,
+          "irrigation_mm": 1960,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 4,
+          "year": 2005,
+          "irrigation_mm": 1476,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 5,
+          "year": 2006,
+          "irrigation_mm": 1654,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 6,
+          "year": 2007,
+          "irrigation_mm": 1549,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 7,
+          "year": 2008,
+          "irrigation_mm": 1525,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 8,
+          "year": 2009,
+          "irrigation_mm": 1861,
+          "water_stress_days": 0,
+          "heat_stress_days": 2
+        },
+        {
+          "member": 9,
+          "year": 2010,
+          "irrigation_mm": 1726,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 10,
+          "year": 2011,
+          "irrigation_mm": 1614,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 11,
+          "year": 2012,
+          "irrigation_mm": 1630,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 12,
+          "year": 2013,
+          "irrigation_mm": 1914,
+          "water_stress_days": 0,
+          "heat_stress_days": 1
+        },
+        {
+          "member": 13,
+          "year": 2014,
+          "irrigation_mm": 2029,
+          "water_stress_days": 0,
+          "heat_stress_days": 1
+        },
+        {
+          "member": 14,
+          "year": 2015,
+          "irrigation_mm": 1867,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 15,
+          "year": 2016,
+          "irrigation_mm": 1447,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 16,
+          "year": 2017,
+          "irrigation_mm": 1479,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 17,
+          "year": 2018,
+          "irrigation_mm": 1480,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 18,
+          "year": 2019,
+          "irrigation_mm": 1838,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 19,
+          "year": 2020,
+          "irrigation_mm": 1494,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 20,
+          "year": 2021,
+          "irrigation_mm": 1401,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 21,
+          "year": 2022,
+          "irrigation_mm": 1565,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 22,
+          "year": 2023,
+          "irrigation_mm": 1814,
+          "water_stress_days": 0,
+          "heat_stress_days": 2
+        },
+        {
+          "member": 23,
+          "year": 2024,
+          "irrigation_mm": 1467,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        }
+      ],
+      "sc_rain_minus30": [
+        {
+          "member": 0,
+          "year": 2001,
+          "irrigation_mm": 1918,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 1,
+          "year": 2002,
+          "irrigation_mm": 1752,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 2,
+          "year": 2003,
+          "irrigation_mm": 1914,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 3,
+          "year": 2004,
+          "irrigation_mm": 2080,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 4,
+          "year": 2005,
+          "irrigation_mm": 1639,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 5,
+          "year": 2006,
+          "irrigation_mm": 1772,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 6,
+          "year": 2007,
+          "irrigation_mm": 1730,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 7,
+          "year": 2008,
+          "irrigation_mm": 1747,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 8,
+          "year": 2009,
+          "irrigation_mm": 2003,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 9,
+          "year": 2010,
+          "irrigation_mm": 1862,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 10,
+          "year": 2011,
+          "irrigation_mm": 1784,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 11,
+          "year": 2012,
+          "irrigation_mm": 1785,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 12,
+          "year": 2013,
+          "irrigation_mm": 2101,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 13,
+          "year": 2014,
+          "irrigation_mm": 2152,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 14,
+          "year": 2015,
+          "irrigation_mm": 1923,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 15,
+          "year": 2016,
+          "irrigation_mm": 1609,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 16,
+          "year": 2017,
+          "irrigation_mm": 1680,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 17,
+          "year": 2018,
+          "irrigation_mm": 1626,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 18,
+          "year": 2019,
+          "irrigation_mm": 1857,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 19,
+          "year": 2020,
+          "irrigation_mm": 1600,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 20,
+          "year": 2021,
+          "irrigation_mm": 1576,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 21,
+          "year": 2022,
+          "irrigation_mm": 1675,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 22,
+          "year": 2023,
+          "irrigation_mm": 1928,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 23,
+          "year": 2024,
+          "irrigation_mm": 1574,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        }
+      ],
+      "sc_salt_early": [
+        {
+          "member": 0,
+          "year": 2001,
+          "irrigation_mm": 1782,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 1,
+          "year": 2002,
+          "irrigation_mm": 1632,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 2,
+          "year": 2003,
+          "irrigation_mm": 1699,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 3,
+          "year": 2004,
+          "irrigation_mm": 1879,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 4,
+          "year": 2005,
+          "irrigation_mm": 1425,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 5,
+          "year": 2006,
+          "irrigation_mm": 1595,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 6,
+          "year": 2007,
+          "irrigation_mm": 1533,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 7,
+          "year": 2008,
+          "irrigation_mm": 1502,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 8,
+          "year": 2009,
+          "irrigation_mm": 1824,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 9,
+          "year": 2010,
+          "irrigation_mm": 1689,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 10,
+          "year": 2011,
+          "irrigation_mm": 1579,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 11,
+          "year": 2012,
+          "irrigation_mm": 1579,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 12,
+          "year": 2013,
+          "irrigation_mm": 1869,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 13,
+          "year": 2014,
+          "irrigation_mm": 1985,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 14,
+          "year": 2015,
+          "irrigation_mm": 1824,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 15,
+          "year": 2016,
+          "irrigation_mm": 1398,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 16,
+          "year": 2017,
+          "irrigation_mm": 1461,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 17,
+          "year": 2018,
+          "irrigation_mm": 1431,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 18,
+          "year": 2019,
+          "irrigation_mm": 1783,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 19,
+          "year": 2020,
+          "irrigation_mm": 1443,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 20,
+          "year": 2021,
+          "irrigation_mm": 1356,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 21,
+          "year": 2022,
+          "irrigation_mm": 1513,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 22,
+          "year": 2023,
+          "irrigation_mm": 1791,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 23,
+          "year": 2024,
+          "irrigation_mm": 1407,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        }
+      ],
+      "sc_wet_ref": [
+        {
+          "member": 0,
+          "year": 2021,
+          "irrigation_mm": 1356,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        }
+      ],
+      "sc_forecast": [
+        {
+          "member": 0,
+          "year": null,
+          "member_label": "SEAS5 member control",
+          "irrigation_mm": 2016,
+          "water_stress_days": 0,
+          "heat_stress_days": 1
+        },
+        {
+          "member": 1,
+          "year": null,
+          "member_label": "SEAS5 member member01",
+          "irrigation_mm": 1714,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 2,
+          "year": null,
+          "member_label": "SEAS5 member member02",
+          "irrigation_mm": 1956,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 3,
+          "year": null,
+          "member_label": "SEAS5 member member03",
+          "irrigation_mm": 1907,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 4,
+          "year": null,
+          "member_label": "SEAS5 member member05",
+          "irrigation_mm": 1695,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 5,
+          "year": null,
+          "member_label": "SEAS5 member member06",
+          "irrigation_mm": 1774,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 6,
+          "year": null,
+          "member_label": "SEAS5 member member08",
+          "irrigation_mm": 1802,
+          "water_stress_days": 0,
+          "heat_stress_days": 1
+        },
+        {
+          "member": 7,
+          "year": null,
+          "member_label": "SEAS5 member member09",
+          "irrigation_mm": 1791,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 8,
+          "year": null,
+          "member_label": "SEAS5 member member10",
+          "irrigation_mm": 1879,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 9,
+          "year": null,
+          "member_label": "SEAS5 member member11",
+          "irrigation_mm": 1939,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 10,
+          "year": null,
+          "member_label": "SEAS5 member member12",
+          "irrigation_mm": 1812,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 11,
+          "year": null,
+          "member_label": "SEAS5 member member13",
+          "irrigation_mm": 1819,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 12,
+          "year": null,
+          "member_label": "SEAS5 member member14",
+          "irrigation_mm": 2062,
+          "water_stress_days": 0,
+          "heat_stress_days": 1
+        },
+        {
+          "member": 13,
+          "year": null,
+          "member_label": "SEAS5 member member15",
+          "irrigation_mm": 2112,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 14,
+          "year": null,
+          "member_label": "SEAS5 member member17",
+          "irrigation_mm": 1812,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 15,
+          "year": null,
+          "member_label": "SEAS5 member member18",
+          "irrigation_mm": 1801,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 16,
+          "year": null,
+          "member_label": "SEAS5 member member19",
+          "irrigation_mm": 1898,
+          "water_stress_days": 0,
+          "heat_stress_days": 1
+        },
+        {
+          "member": 17,
+          "year": null,
+          "member_label": "SEAS5 member member20",
+          "irrigation_mm": 1691,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 18,
+          "year": null,
+          "member_label": "SEAS5 member member21",
+          "irrigation_mm": 1897,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 19,
+          "year": null,
+          "member_label": "SEAS5 member member22",
+          "irrigation_mm": 1658,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 20,
+          "year": null,
+          "member_label": "SEAS5 member member23",
+          "irrigation_mm": 1690,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 21,
+          "year": null,
+          "member_label": "SEAS5 member member24",
+          "irrigation_mm": 1687,
+          "water_stress_days": 0,
+          "heat_stress_days": 1
+        },
+        {
+          "member": 22,
+          "year": null,
+          "member_label": "SEAS5 member member26",
+          "irrigation_mm": 1577,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 23,
+          "year": null,
+          "member_label": "SEAS5 member member29",
+          "irrigation_mm": 1610,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 24,
+          "year": null,
+          "member_label": "SEAS5 member member31",
+          "irrigation_mm": 1946,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 25,
+          "year": null,
+          "member_label": "SEAS5 member member32",
+          "irrigation_mm": 1778,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 26,
+          "year": null,
+          "member_label": "SEAS5 member member33",
+          "irrigation_mm": 1800,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 27,
+          "year": null,
+          "member_label": "SEAS5 member member36",
+          "irrigation_mm": 2061,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 28,
+          "year": null,
+          "member_label": "SEAS5 member member37",
+          "irrigation_mm": 1705,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 29,
+          "year": null,
+          "member_label": "SEAS5 member member38",
+          "irrigation_mm": 1818,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 30,
+          "year": null,
+          "member_label": "SEAS5 member member39",
+          "irrigation_mm": 1788,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 31,
+          "year": null,
+          "member_label": "SEAS5 member member40",
+          "irrigation_mm": 1799,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 32,
+          "year": null,
+          "member_label": "SEAS5 member member41",
+          "irrigation_mm": 1696,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 33,
+          "year": null,
+          "member_label": "SEAS5 member member42",
+          "irrigation_mm": 1937,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 34,
+          "year": null,
+          "member_label": "SEAS5 member member44",
+          "irrigation_mm": 1790,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 35,
+          "year": null,
+          "member_label": "SEAS5 member member46",
+          "irrigation_mm": 1868,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 36,
+          "year": null,
+          "member_label": "SEAS5 member member47",
+          "irrigation_mm": 1984,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 37,
+          "year": null,
+          "member_label": "SEAS5 member member48",
+          "irrigation_mm": 2124,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        },
+        {
+          "member": 38,
+          "year": null,
+          "member_label": "SEAS5 member member49",
+          "irrigation_mm": 1834,
+          "water_stress_days": 0,
+          "heat_stress_days": 1
+        },
+        {
+          "member": 39,
+          "year": null,
+          "member_label": "SEAS5 member member50",
+          "irrigation_mm": 1620,
+          "water_stress_days": 0,
+          "heat_stress_days": 0
+        }
+      ]
+    },
     "delta_vs_baseline": {},
     "soil_benefit": {
       "claim_type": "POTENTIAL_QUALITATIVE",
@@ -1920,6 +2956,1042 @@
           "years_used": 40
         }
       },
+      "distribution": {
+        "sc_clim": [
+          {
+            "member": 0,
+            "year": 2001,
+            "irrigation_mm": 853,
+            "water_stress_days": 17,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 1,
+            "year": 2002,
+            "irrigation_mm": 735,
+            "water_stress_days": 4,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 2,
+            "year": 2003,
+            "irrigation_mm": 808,
+            "water_stress_days": 17,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 3,
+            "year": 2004,
+            "irrigation_mm": 899,
+            "water_stress_days": 25,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 4,
+            "year": 2005,
+            "irrigation_mm": 681,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 5,
+            "year": 2006,
+            "irrigation_mm": 675,
+            "water_stress_days": 27,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 6,
+            "year": 2007,
+            "irrigation_mm": 651,
+            "water_stress_days": 39,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 7,
+            "year": 2008,
+            "irrigation_mm": 727,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 8,
+            "year": 2009,
+            "irrigation_mm": 911,
+            "water_stress_days": 17,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 9,
+            "year": 2010,
+            "irrigation_mm": 824,
+            "water_stress_days": 9,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 10,
+            "year": 2011,
+            "irrigation_mm": 748,
+            "water_stress_days": 18,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 11,
+            "year": 2012,
+            "irrigation_mm": 701,
+            "water_stress_days": 22,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 12,
+            "year": 2013,
+            "irrigation_mm": 972,
+            "water_stress_days": 14,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 13,
+            "year": 2014,
+            "irrigation_mm": 1087,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 14,
+            "year": 2015,
+            "irrigation_mm": 892,
+            "water_stress_days": 11,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 15,
+            "year": 2016,
+            "irrigation_mm": 709,
+            "water_stress_days": 2,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 16,
+            "year": 2017,
+            "irrigation_mm": 721,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 17,
+            "year": 2018,
+            "irrigation_mm": 648,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 18,
+            "year": 2019,
+            "irrigation_mm": 840,
+            "water_stress_days": 35,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 19,
+            "year": 2020,
+            "irrigation_mm": 625,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 20,
+            "year": 2021,
+            "irrigation_mm": 489,
+            "water_stress_days": 24,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 21,
+            "year": 2022,
+            "irrigation_mm": 709,
+            "water_stress_days": 9,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 22,
+            "year": 2023,
+            "irrigation_mm": 849,
+            "water_stress_days": 19,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 23,
+            "year": 2024,
+            "irrigation_mm": 632,
+            "water_stress_days": 5,
+            "heat_stress_days": 0
+          }
+        ],
+        "sc_dry": [
+          {
+            "member": 0,
+            "year": 2023,
+            "irrigation_mm": 849,
+            "water_stress_days": 19,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 1,
+            "year": 2015,
+            "irrigation_mm": 892,
+            "water_stress_days": 11,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 2,
+            "year": 2004,
+            "irrigation_mm": 900,
+            "water_stress_days": 25,
+            "heat_stress_days": 0
+          }
+        ],
+        "sc_hot": [
+          {
+            "member": 0,
+            "year": 2001,
+            "irrigation_mm": 883,
+            "water_stress_days": 19,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 1,
+            "year": 2002,
+            "irrigation_mm": 747,
+            "water_stress_days": 5,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 2,
+            "year": 2003,
+            "irrigation_mm": 852,
+            "water_stress_days": 18,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 3,
+            "year": 2004,
+            "irrigation_mm": 954,
+            "water_stress_days": 25,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 4,
+            "year": 2005,
+            "irrigation_mm": 702,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 5,
+            "year": 2006,
+            "irrigation_mm": 708,
+            "water_stress_days": 29,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 6,
+            "year": 2007,
+            "irrigation_mm": 662,
+            "water_stress_days": 40,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 7,
+            "year": 2008,
+            "irrigation_mm": 733,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 8,
+            "year": 2009,
+            "irrigation_mm": 922,
+            "water_stress_days": 19,
+            "heat_stress_days": 2
+          },
+          {
+            "member": 9,
+            "year": 2010,
+            "irrigation_mm": 837,
+            "water_stress_days": 11,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 10,
+            "year": 2011,
+            "irrigation_mm": 778,
+            "water_stress_days": 19,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 11,
+            "year": 2012,
+            "irrigation_mm": 733,
+            "water_stress_days": 23,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 12,
+            "year": 2013,
+            "irrigation_mm": 992,
+            "water_stress_days": 15,
+            "heat_stress_days": 1
+          },
+          {
+            "member": 13,
+            "year": 2014,
+            "irrigation_mm": 1112,
+            "water_stress_days": 0,
+            "heat_stress_days": 1
+          },
+          {
+            "member": 14,
+            "year": 2015,
+            "irrigation_mm": 908,
+            "water_stress_days": 12,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 15,
+            "year": 2016,
+            "irrigation_mm": 737,
+            "water_stress_days": 2,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 16,
+            "year": 2017,
+            "irrigation_mm": 716,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 17,
+            "year": 2018,
+            "irrigation_mm": 657,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 18,
+            "year": 2019,
+            "irrigation_mm": 868,
+            "water_stress_days": 37,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 19,
+            "year": 2020,
+            "irrigation_mm": 659,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 20,
+            "year": 2021,
+            "irrigation_mm": 491,
+            "water_stress_days": 25,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 21,
+            "year": 2022,
+            "irrigation_mm": 732,
+            "water_stress_days": 10,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 22,
+            "year": 2023,
+            "irrigation_mm": 852,
+            "water_stress_days": 20,
+            "heat_stress_days": 2
+          },
+          {
+            "member": 23,
+            "year": 2024,
+            "irrigation_mm": 663,
+            "water_stress_days": 6,
+            "heat_stress_days": 0
+          }
+        ],
+        "sc_rain_minus30": [
+          {
+            "member": 0,
+            "year": 2001,
+            "irrigation_mm": 965,
+            "water_stress_days": 24,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 1,
+            "year": 2002,
+            "irrigation_mm": 856,
+            "water_stress_days": 12,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 2,
+            "year": 2003,
+            "irrigation_mm": 1009,
+            "water_stress_days": 22,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 3,
+            "year": 2004,
+            "irrigation_mm": 1099,
+            "water_stress_days": 26,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 4,
+            "year": 2005,
+            "irrigation_mm": 845,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 5,
+            "year": 2006,
+            "irrigation_mm": 841,
+            "water_stress_days": 34,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 6,
+            "year": 2007,
+            "irrigation_mm": 847,
+            "water_stress_days": 40,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 7,
+            "year": 2008,
+            "irrigation_mm": 936,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 8,
+            "year": 2009,
+            "irrigation_mm": 1084,
+            "water_stress_days": 24,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 9,
+            "year": 2010,
+            "irrigation_mm": 988,
+            "water_stress_days": 14,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 10,
+            "year": 2011,
+            "irrigation_mm": 938,
+            "water_stress_days": 23,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 11,
+            "year": 2012,
+            "irrigation_mm": 894,
+            "water_stress_days": 28,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 12,
+            "year": 2013,
+            "irrigation_mm": 1196,
+            "water_stress_days": 19,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 13,
+            "year": 2014,
+            "irrigation_mm": 1239,
+            "water_stress_days": 4,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 14,
+            "year": 2015,
+            "irrigation_mm": 982,
+            "water_stress_days": 21,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 15,
+            "year": 2016,
+            "irrigation_mm": 876,
+            "water_stress_days": 3,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 16,
+            "year": 2017,
+            "irrigation_mm": 898,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 17,
+            "year": 2018,
+            "irrigation_mm": 789,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 18,
+            "year": 2019,
+            "irrigation_mm": 910,
+            "water_stress_days": 39,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 19,
+            "year": 2020,
+            "irrigation_mm": 758,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 20,
+            "year": 2021,
+            "irrigation_mm": 680,
+            "water_stress_days": 25,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 21,
+            "year": 2022,
+            "irrigation_mm": 837,
+            "water_stress_days": 13,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 22,
+            "year": 2023,
+            "irrigation_mm": 982,
+            "water_stress_days": 21,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 23,
+            "year": 2024,
+            "irrigation_mm": 768,
+            "water_stress_days": 7,
+            "heat_stress_days": 0
+          }
+        ],
+        "sc_salt_early": [
+          {
+            "member": 0,
+            "year": 2001,
+            "irrigation_mm": 853,
+            "water_stress_days": 17,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 1,
+            "year": 2002,
+            "irrigation_mm": 735,
+            "water_stress_days": 4,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 2,
+            "year": 2003,
+            "irrigation_mm": 808,
+            "water_stress_days": 17,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 3,
+            "year": 2004,
+            "irrigation_mm": 899,
+            "water_stress_days": 25,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 4,
+            "year": 2005,
+            "irrigation_mm": 681,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 5,
+            "year": 2006,
+            "irrigation_mm": 675,
+            "water_stress_days": 27,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 6,
+            "year": 2007,
+            "irrigation_mm": 651,
+            "water_stress_days": 39,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 7,
+            "year": 2008,
+            "irrigation_mm": 727,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 8,
+            "year": 2009,
+            "irrigation_mm": 911,
+            "water_stress_days": 17,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 9,
+            "year": 2010,
+            "irrigation_mm": 824,
+            "water_stress_days": 9,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 10,
+            "year": 2011,
+            "irrigation_mm": 748,
+            "water_stress_days": 18,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 11,
+            "year": 2012,
+            "irrigation_mm": 701,
+            "water_stress_days": 22,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 12,
+            "year": 2013,
+            "irrigation_mm": 972,
+            "water_stress_days": 14,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 13,
+            "year": 2014,
+            "irrigation_mm": 1087,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 14,
+            "year": 2015,
+            "irrigation_mm": 892,
+            "water_stress_days": 11,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 15,
+            "year": 2016,
+            "irrigation_mm": 709,
+            "water_stress_days": 2,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 16,
+            "year": 2017,
+            "irrigation_mm": 721,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 17,
+            "year": 2018,
+            "irrigation_mm": 648,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 18,
+            "year": 2019,
+            "irrigation_mm": 840,
+            "water_stress_days": 35,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 19,
+            "year": 2020,
+            "irrigation_mm": 625,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 20,
+            "year": 2021,
+            "irrigation_mm": 489,
+            "water_stress_days": 24,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 21,
+            "year": 2022,
+            "irrigation_mm": 709,
+            "water_stress_days": 9,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 22,
+            "year": 2023,
+            "irrigation_mm": 849,
+            "water_stress_days": 19,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 23,
+            "year": 2024,
+            "irrigation_mm": 632,
+            "water_stress_days": 5,
+            "heat_stress_days": 0
+          }
+        ],
+        "sc_wet_ref": [
+          {
+            "member": 0,
+            "year": 2021,
+            "irrigation_mm": 488,
+            "water_stress_days": 24,
+            "heat_stress_days": 0
+          }
+        ],
+        "sc_forecast": [
+          {
+            "member": 0,
+            "year": null,
+            "member_label": "SEAS5 member control",
+            "irrigation_mm": 902,
+            "water_stress_days": 22,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 1,
+            "year": null,
+            "member_label": "SEAS5 member member01",
+            "irrigation_mm": 790,
+            "water_stress_days": 4,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 2,
+            "year": null,
+            "member_label": "SEAS5 member member02",
+            "irrigation_mm": 967,
+            "water_stress_days": 18,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 3,
+            "year": null,
+            "member_label": "SEAS5 member member03",
+            "irrigation_mm": 842,
+            "water_stress_days": 21,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 4,
+            "year": null,
+            "member_label": "SEAS5 member member05",
+            "irrigation_mm": 717,
+            "water_stress_days": 17,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 5,
+            "year": null,
+            "member_label": "SEAS5 member member06",
+            "irrigation_mm": 799,
+            "water_stress_days": 5,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 6,
+            "year": null,
+            "member_label": "SEAS5 member member08",
+            "irrigation_mm": 766,
+            "water_stress_days": 31,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 7,
+            "year": null,
+            "member_label": "SEAS5 member member09",
+            "irrigation_mm": 785,
+            "water_stress_days": 21,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 8,
+            "year": null,
+            "member_label": "SEAS5 member member10",
+            "irrigation_mm": 886,
+            "water_stress_days": 20,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 9,
+            "year": null,
+            "member_label": "SEAS5 member member11",
+            "irrigation_mm": 973,
+            "water_stress_days": 10,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 10,
+            "year": null,
+            "member_label": "SEAS5 member member12",
+            "irrigation_mm": 890,
+            "water_stress_days": 14,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 11,
+            "year": null,
+            "member_label": "SEAS5 member member13",
+            "irrigation_mm": 841,
+            "water_stress_days": 4,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 12,
+            "year": null,
+            "member_label": "SEAS5 member member14",
+            "irrigation_mm": 1005,
+            "water_stress_days": 17,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 13,
+            "year": null,
+            "member_label": "SEAS5 member member15",
+            "irrigation_mm": 1091,
+            "water_stress_days": 7,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 14,
+            "year": null,
+            "member_label": "SEAS5 member member17",
+            "irrigation_mm": 803,
+            "water_stress_days": 15,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 15,
+            "year": null,
+            "member_label": "SEAS5 member member18",
+            "irrigation_mm": 878,
+            "water_stress_days": 9,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 16,
+            "year": null,
+            "member_label": "SEAS5 member member19",
+            "irrigation_mm": 863,
+            "water_stress_days": 23,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 17,
+            "year": null,
+            "member_label": "SEAS5 member member20",
+            "irrigation_mm": 718,
+            "water_stress_days": 12,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 18,
+            "year": null,
+            "member_label": "SEAS5 member member21",
+            "irrigation_mm": 894,
+            "water_stress_days": 8,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 19,
+            "year": null,
+            "member_label": "SEAS5 member member22",
+            "irrigation_mm": 722,
+            "water_stress_days": 9,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 20,
+            "year": null,
+            "member_label": "SEAS5 member member23",
+            "irrigation_mm": 787,
+            "water_stress_days": 10,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 21,
+            "year": null,
+            "member_label": "SEAS5 member member24",
+            "irrigation_mm": 680,
+            "water_stress_days": 18,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 22,
+            "year": null,
+            "member_label": "SEAS5 member member26",
+            "irrigation_mm": 675,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 23,
+            "year": null,
+            "member_label": "SEAS5 member member29",
+            "irrigation_mm": 769,
+            "water_stress_days": 2,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 24,
+            "year": null,
+            "member_label": "SEAS5 member member31",
+            "irrigation_mm": 852,
+            "water_stress_days": 21,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 25,
+            "year": null,
+            "member_label": "SEAS5 member member32",
+            "irrigation_mm": 825,
+            "water_stress_days": 11,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 26,
+            "year": null,
+            "member_label": "SEAS5 member member33",
+            "irrigation_mm": 795,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 27,
+            "year": null,
+            "member_label": "SEAS5 member member36",
+            "irrigation_mm": 993,
+            "water_stress_days": 9,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 28,
+            "year": null,
+            "member_label": "SEAS5 member member37",
+            "irrigation_mm": 792,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 29,
+            "year": null,
+            "member_label": "SEAS5 member member38",
+            "irrigation_mm": 752,
+            "water_stress_days": 18,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 30,
+            "year": null,
+            "member_label": "SEAS5 member member39",
+            "irrigation_mm": 788,
+            "water_stress_days": 13,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 31,
+            "year": null,
+            "member_label": "SEAS5 member member40",
+            "irrigation_mm": 826,
+            "water_stress_days": 27,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 32,
+            "year": null,
+            "member_label": "SEAS5 member member41",
+            "irrigation_mm": 738,
+            "water_stress_days": 6,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 33,
+            "year": null,
+            "member_label": "SEAS5 member member42",
+            "irrigation_mm": 948,
+            "water_stress_days": 6,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 34,
+            "year": null,
+            "member_label": "SEAS5 member member44",
+            "irrigation_mm": 802,
+            "water_stress_days": 23,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 35,
+            "year": null,
+            "member_label": "SEAS5 member member46",
+            "irrigation_mm": 854,
+            "water_stress_days": 25,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 36,
+            "year": null,
+            "member_label": "SEAS5 member member47",
+            "irrigation_mm": 988,
+            "water_stress_days": 24,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 37,
+            "year": null,
+            "member_label": "SEAS5 member member48",
+            "irrigation_mm": 1125,
+            "water_stress_days": 7,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 38,
+            "year": null,
+            "member_label": "SEAS5 member member49",
+            "irrigation_mm": 800,
+            "water_stress_days": 17,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 39,
+            "year": null,
+            "member_label": "SEAS5 member member50",
+            "irrigation_mm": 772,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          }
+        ]
+      },
       "delta_vs_baseline": {
         "sc_clim": {
           "irrigation_need": {
@@ -2252,7 +4324,8 @@
       "checklist": [
         "Đo ECw nước kênh trước ngày gieo; ngưỡng tham khảo của Lúa ≈ 2.0 dS/m",
         "Trao đổi với cán bộ khuyến nông địa phương trước khi xuống giống"
-      ]
+      ],
+      "summary_vi": "Đổi vụ Đông Xuân sang Bỏ hóa / cây phủ đất: Nhu cầu tưới trung vị giảm ~856 mm (~8,560 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER."
     },
     {
       "sequence_id": "seq_mungbean_rice_rice__early_standard_standard",
@@ -2876,6 +4949,1042 @@
           "years_used": 40
         }
       },
+      "distribution": {
+        "sc_clim": [
+          {
+            "member": 0,
+            "year": 2001,
+            "irrigation_mm": 1024,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 1,
+            "year": 2002,
+            "irrigation_mm": 850,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 2,
+            "year": 2003,
+            "irrigation_mm": 975,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 3,
+            "year": 2004,
+            "irrigation_mm": 1124,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 4,
+            "year": 2005,
+            "irrigation_mm": 736,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 5,
+            "year": 2006,
+            "irrigation_mm": 838,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 6,
+            "year": 2007,
+            "irrigation_mm": 815,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 7,
+            "year": 2008,
+            "irrigation_mm": 837,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 8,
+            "year": 2009,
+            "irrigation_mm": 1082,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 9,
+            "year": 2010,
+            "irrigation_mm": 937,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 10,
+            "year": 2011,
+            "irrigation_mm": 858,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 11,
+            "year": 2012,
+            "irrigation_mm": 816,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 12,
+            "year": 2013,
+            "irrigation_mm": 1086,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 13,
+            "year": 2014,
+            "irrigation_mm": 1202,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 14,
+            "year": 2015,
+            "irrigation_mm": 1060,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 15,
+            "year": 2016,
+            "irrigation_mm": 766,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 16,
+            "year": 2017,
+            "irrigation_mm": 778,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 17,
+            "year": 2018,
+            "irrigation_mm": 760,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 18,
+            "year": 2019,
+            "irrigation_mm": 1063,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 19,
+            "year": 2020,
+            "irrigation_mm": 682,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 20,
+            "year": 2021,
+            "irrigation_mm": 661,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 21,
+            "year": 2022,
+            "irrigation_mm": 767,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 22,
+            "year": 2023,
+            "irrigation_mm": 1017,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 23,
+            "year": 2024,
+            "irrigation_mm": 743,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          }
+        ],
+        "sc_dry": [
+          {
+            "member": 0,
+            "year": 2023,
+            "irrigation_mm": 1017,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 1,
+            "year": 2015,
+            "irrigation_mm": 1059,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 2,
+            "year": 2004,
+            "irrigation_mm": 1124,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          }
+        ],
+        "sc_hot": [
+          {
+            "member": 0,
+            "year": 2001,
+            "irrigation_mm": 1056,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 1,
+            "year": 2002,
+            "irrigation_mm": 860,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 2,
+            "year": 2003,
+            "irrigation_mm": 1024,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 3,
+            "year": 2004,
+            "irrigation_mm": 1179,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 4,
+            "year": 2005,
+            "irrigation_mm": 758,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 5,
+            "year": 2006,
+            "irrigation_mm": 872,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 6,
+            "year": 2007,
+            "irrigation_mm": 822,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 7,
+            "year": 2008,
+            "irrigation_mm": 846,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 8,
+            "year": 2009,
+            "irrigation_mm": 1094,
+            "water_stress_days": 0,
+            "heat_stress_days": 2
+          },
+          {
+            "member": 9,
+            "year": 2010,
+            "irrigation_mm": 952,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 10,
+            "year": 2011,
+            "irrigation_mm": 946,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 11,
+            "year": 2012,
+            "irrigation_mm": 900,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 12,
+            "year": 2013,
+            "irrigation_mm": 1160,
+            "water_stress_days": 0,
+            "heat_stress_days": 1
+          },
+          {
+            "member": 13,
+            "year": 2014,
+            "irrigation_mm": 1227,
+            "water_stress_days": 0,
+            "heat_stress_days": 1
+          },
+          {
+            "member": 14,
+            "year": 2015,
+            "irrigation_mm": 1078,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 15,
+            "year": 2016,
+            "irrigation_mm": 794,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 16,
+            "year": 2017,
+            "irrigation_mm": 772,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 17,
+            "year": 2018,
+            "irrigation_mm": 770,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 18,
+            "year": 2019,
+            "irrigation_mm": 1088,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 19,
+            "year": 2020,
+            "irrigation_mm": 768,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 20,
+            "year": 2021,
+            "irrigation_mm": 662,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 21,
+            "year": 2022,
+            "irrigation_mm": 844,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 22,
+            "year": 2023,
+            "irrigation_mm": 1023,
+            "water_stress_days": 0,
+            "heat_stress_days": 2
+          },
+          {
+            "member": 23,
+            "year": 2024,
+            "irrigation_mm": 774,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          }
+        ],
+        "sc_rain_minus30": [
+          {
+            "member": 0,
+            "year": 2001,
+            "irrigation_mm": 1130,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 1,
+            "year": 2002,
+            "irrigation_mm": 972,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 2,
+            "year": 2003,
+            "irrigation_mm": 1178,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 3,
+            "year": 2004,
+            "irrigation_mm": 1319,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 4,
+            "year": 2005,
+            "irrigation_mm": 901,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 5,
+            "year": 2006,
+            "irrigation_mm": 1006,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 6,
+            "year": 2007,
+            "irrigation_mm": 1011,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 7,
+            "year": 2008,
+            "irrigation_mm": 1049,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 8,
+            "year": 2009,
+            "irrigation_mm": 1253,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 9,
+            "year": 2010,
+            "irrigation_mm": 1101,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 10,
+            "year": 2011,
+            "irrigation_mm": 1107,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 11,
+            "year": 2012,
+            "irrigation_mm": 1065,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 12,
+            "year": 2013,
+            "irrigation_mm": 1360,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 13,
+            "year": 2014,
+            "irrigation_mm": 1353,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 14,
+            "year": 2015,
+            "irrigation_mm": 1152,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 15,
+            "year": 2016,
+            "irrigation_mm": 932,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 16,
+            "year": 2017,
+            "irrigation_mm": 954,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 17,
+            "year": 2018,
+            "irrigation_mm": 902,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 18,
+            "year": 2019,
+            "irrigation_mm": 1128,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 19,
+            "year": 2020,
+            "irrigation_mm": 872,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 20,
+            "year": 2021,
+            "irrigation_mm": 846,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 21,
+            "year": 2022,
+            "irrigation_mm": 949,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 22,
+            "year": 2023,
+            "irrigation_mm": 1147,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 23,
+            "year": 2024,
+            "irrigation_mm": 880,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          }
+        ],
+        "sc_salt_early": [
+          {
+            "member": 0,
+            "year": 2001,
+            "irrigation_mm": 1024,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 1,
+            "year": 2002,
+            "irrigation_mm": 850,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 2,
+            "year": 2003,
+            "irrigation_mm": 975,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 3,
+            "year": 2004,
+            "irrigation_mm": 1124,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 4,
+            "year": 2005,
+            "irrigation_mm": 736,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 5,
+            "year": 2006,
+            "irrigation_mm": 838,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 6,
+            "year": 2007,
+            "irrigation_mm": 815,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 7,
+            "year": 2008,
+            "irrigation_mm": 837,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 8,
+            "year": 2009,
+            "irrigation_mm": 1082,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 9,
+            "year": 2010,
+            "irrigation_mm": 937,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 10,
+            "year": 2011,
+            "irrigation_mm": 858,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 11,
+            "year": 2012,
+            "irrigation_mm": 816,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 12,
+            "year": 2013,
+            "irrigation_mm": 1086,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 13,
+            "year": 2014,
+            "irrigation_mm": 1202,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 14,
+            "year": 2015,
+            "irrigation_mm": 1060,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 15,
+            "year": 2016,
+            "irrigation_mm": 766,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 16,
+            "year": 2017,
+            "irrigation_mm": 778,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 17,
+            "year": 2018,
+            "irrigation_mm": 760,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 18,
+            "year": 2019,
+            "irrigation_mm": 1063,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 19,
+            "year": 2020,
+            "irrigation_mm": 682,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 20,
+            "year": 2021,
+            "irrigation_mm": 661,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 21,
+            "year": 2022,
+            "irrigation_mm": 767,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 22,
+            "year": 2023,
+            "irrigation_mm": 1017,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 23,
+            "year": 2024,
+            "irrigation_mm": 743,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          }
+        ],
+        "sc_wet_ref": [
+          {
+            "member": 0,
+            "year": 2021,
+            "irrigation_mm": 661,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          }
+        ],
+        "sc_forecast": [
+          {
+            "member": 0,
+            "year": null,
+            "member_label": "SEAS5 member control",
+            "irrigation_mm": 1131,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 1,
+            "year": null,
+            "member_label": "SEAS5 member member01",
+            "irrigation_mm": 848,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 2,
+            "year": null,
+            "member_label": "SEAS5 member member02",
+            "irrigation_mm": 1141,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 3,
+            "year": null,
+            "member_label": "SEAS5 member member03",
+            "irrigation_mm": 1012,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 4,
+            "year": null,
+            "member_label": "SEAS5 member member05",
+            "irrigation_mm": 892,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 5,
+            "year": null,
+            "member_label": "SEAS5 member member06",
+            "irrigation_mm": 967,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 6,
+            "year": null,
+            "member_label": "SEAS5 member member08",
+            "irrigation_mm": 989,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 7,
+            "year": null,
+            "member_label": "SEAS5 member member09",
+            "irrigation_mm": 954,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 8,
+            "year": null,
+            "member_label": "SEAS5 member member10",
+            "irrigation_mm": 1060,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 9,
+            "year": null,
+            "member_label": "SEAS5 member member11",
+            "irrigation_mm": 1139,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 10,
+            "year": null,
+            "member_label": "SEAS5 member member12",
+            "irrigation_mm": 1059,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 11,
+            "year": null,
+            "member_label": "SEAS5 member member13",
+            "irrigation_mm": 954,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 12,
+            "year": null,
+            "member_label": "SEAS5 member member14",
+            "irrigation_mm": 1174,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 13,
+            "year": null,
+            "member_label": "SEAS5 member member15",
+            "irrigation_mm": 1261,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 14,
+            "year": null,
+            "member_label": "SEAS5 member member17",
+            "irrigation_mm": 969,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 15,
+            "year": null,
+            "member_label": "SEAS5 member member18",
+            "irrigation_mm": 990,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 16,
+            "year": null,
+            "member_label": "SEAS5 member member19",
+            "irrigation_mm": 1035,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 17,
+            "year": null,
+            "member_label": "SEAS5 member member20",
+            "irrigation_mm": 830,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 18,
+            "year": null,
+            "member_label": "SEAS5 member member21",
+            "irrigation_mm": 1065,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 19,
+            "year": null,
+            "member_label": "SEAS5 member member22",
+            "irrigation_mm": 887,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 20,
+            "year": null,
+            "member_label": "SEAS5 member member23",
+            "irrigation_mm": 905,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 21,
+            "year": null,
+            "member_label": "SEAS5 member member24",
+            "irrigation_mm": 853,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 22,
+            "year": null,
+            "member_label": "SEAS5 member member26",
+            "irrigation_mm": 788,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 23,
+            "year": null,
+            "member_label": "SEAS5 member member29",
+            "irrigation_mm": 882,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 24,
+            "year": null,
+            "member_label": "SEAS5 member member31",
+            "irrigation_mm": 1083,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 25,
+            "year": null,
+            "member_label": "SEAS5 member member32",
+            "irrigation_mm": 938,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 26,
+            "year": null,
+            "member_label": "SEAS5 member member33",
+            "irrigation_mm": 964,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 27,
+            "year": null,
+            "member_label": "SEAS5 member member36",
+            "irrigation_mm": 1214,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 28,
+            "year": null,
+            "member_label": "SEAS5 member member37",
+            "irrigation_mm": 907,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 29,
+            "year": null,
+            "member_label": "SEAS5 member member38",
+            "irrigation_mm": 918,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 30,
+            "year": null,
+            "member_label": "SEAS5 member member39",
+            "irrigation_mm": 957,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 31,
+            "year": null,
+            "member_label": "SEAS5 member member40",
+            "irrigation_mm": 1048,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 32,
+            "year": null,
+            "member_label": "SEAS5 member member41",
+            "irrigation_mm": 849,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 33,
+            "year": null,
+            "member_label": "SEAS5 member member42",
+            "irrigation_mm": 1061,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 34,
+            "year": null,
+            "member_label": "SEAS5 member member44",
+            "irrigation_mm": 975,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 35,
+            "year": null,
+            "member_label": "SEAS5 member member46",
+            "irrigation_mm": 1027,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 36,
+            "year": null,
+            "member_label": "SEAS5 member member47",
+            "irrigation_mm": 1160,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 37,
+            "year": null,
+            "member_label": "SEAS5 member member48",
+            "irrigation_mm": 1238,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 38,
+            "year": null,
+            "member_label": "SEAS5 member member49",
+            "irrigation_mm": 973,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 39,
+            "year": null,
+            "member_label": "SEAS5 member member50",
+            "irrigation_mm": 829,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          }
+        ]
+      },
       "delta_vs_baseline": {
         "sc_clim": {
           "irrigation_need": {
@@ -3273,7 +6382,8 @@
         "Đo ECw nước kênh trước ngày gieo; ngưỡng tham khảo của Lúa ≈ 2.0 dS/m",
         "Xác nhận nguồn giống và đầu ra cho Đậu xanh (Đậu xanh ngắn ngày (60-75 ngày), vốn thấp, phù hợp xen vụ giữa hai vụ lúa.)",
         "Trao đổi với cán bộ khuyến nông địa phương trước khi xuống giống"
-      ]
+      ],
+      "summary_vi": "Đổi vụ Đông Xuân sang Đậu xanh: Nhu cầu tưới trung vị giảm ~743 mm (~7,430 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER; cần xác nhận thoát nước."
     },
     {
       "sequence_id": "seq_soybean_rice_rice__early_standard_standard",
@@ -3897,6 +7007,1042 @@
           "years_used": 40
         }
       },
+      "distribution": {
+        "sc_clim": [
+          {
+            "member": 0,
+            "year": 2001,
+            "irrigation_mm": 1101,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 1,
+            "year": 2002,
+            "irrigation_mm": 922,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 2,
+            "year": 2003,
+            "irrigation_mm": 1057,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 3,
+            "year": 2004,
+            "irrigation_mm": 1206,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 4,
+            "year": 2005,
+            "irrigation_mm": 805,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 5,
+            "year": 2006,
+            "irrigation_mm": 913,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 6,
+            "year": 2007,
+            "irrigation_mm": 885,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 7,
+            "year": 2008,
+            "irrigation_mm": 851,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 8,
+            "year": 2009,
+            "irrigation_mm": 1162,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 9,
+            "year": 2010,
+            "irrigation_mm": 1007,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 10,
+            "year": 2011,
+            "irrigation_mm": 936,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 11,
+            "year": 2012,
+            "irrigation_mm": 944,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 12,
+            "year": 2013,
+            "irrigation_mm": 1218,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 13,
+            "year": 2014,
+            "irrigation_mm": 1270,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 14,
+            "year": 2015,
+            "irrigation_mm": 1143,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 15,
+            "year": 2016,
+            "irrigation_mm": 832,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 16,
+            "year": 2017,
+            "irrigation_mm": 783,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 17,
+            "year": 2018,
+            "irrigation_mm": 775,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 18,
+            "year": 2019,
+            "irrigation_mm": 1142,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 19,
+            "year": 2020,
+            "irrigation_mm": 810,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 20,
+            "year": 2021,
+            "irrigation_mm": 736,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 21,
+            "year": 2022,
+            "irrigation_mm": 831,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 22,
+            "year": 2023,
+            "irrigation_mm": 1099,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 23,
+            "year": 2024,
+            "irrigation_mm": 816,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          }
+        ],
+        "sc_dry": [
+          {
+            "member": 0,
+            "year": 2023,
+            "irrigation_mm": 1099,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 1,
+            "year": 2015,
+            "irrigation_mm": 1143,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 2,
+            "year": 2004,
+            "irrigation_mm": 1206,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          }
+        ],
+        "sc_hot": [
+          {
+            "member": 0,
+            "year": 2001,
+            "irrigation_mm": 1129,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 1,
+            "year": 2002,
+            "irrigation_mm": 993,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 2,
+            "year": 2003,
+            "irrigation_mm": 1102,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 3,
+            "year": 2004,
+            "irrigation_mm": 1260,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 4,
+            "year": 2005,
+            "irrigation_mm": 825,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 5,
+            "year": 2006,
+            "irrigation_mm": 1016,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 6,
+            "year": 2007,
+            "irrigation_mm": 901,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 7,
+            "year": 2008,
+            "irrigation_mm": 924,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 8,
+            "year": 2009,
+            "irrigation_mm": 1170,
+            "water_stress_days": 0,
+            "heat_stress_days": 2
+          },
+          {
+            "member": 9,
+            "year": 2010,
+            "irrigation_mm": 1021,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 10,
+            "year": 2011,
+            "irrigation_mm": 966,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 11,
+            "year": 2012,
+            "irrigation_mm": 977,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 12,
+            "year": 2013,
+            "irrigation_mm": 1246,
+            "water_stress_days": 0,
+            "heat_stress_days": 1
+          },
+          {
+            "member": 13,
+            "year": 2014,
+            "irrigation_mm": 1308,
+            "water_stress_days": 0,
+            "heat_stress_days": 1
+          },
+          {
+            "member": 14,
+            "year": 2015,
+            "irrigation_mm": 1161,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 15,
+            "year": 2016,
+            "irrigation_mm": 858,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 16,
+            "year": 2017,
+            "irrigation_mm": 840,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 17,
+            "year": 2018,
+            "irrigation_mm": 782,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 18,
+            "year": 2019,
+            "irrigation_mm": 1171,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 19,
+            "year": 2020,
+            "irrigation_mm": 847,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 20,
+            "year": 2021,
+            "irrigation_mm": 739,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 21,
+            "year": 2022,
+            "irrigation_mm": 919,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 22,
+            "year": 2023,
+            "irrigation_mm": 1100,
+            "water_stress_days": 0,
+            "heat_stress_days": 2
+          },
+          {
+            "member": 23,
+            "year": 2024,
+            "irrigation_mm": 849,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          }
+        ],
+        "sc_rain_minus30": [
+          {
+            "member": 0,
+            "year": 2001,
+            "irrigation_mm": 1212,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 1,
+            "year": 2002,
+            "irrigation_mm": 1103,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 2,
+            "year": 2003,
+            "irrigation_mm": 1263,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 3,
+            "year": 2004,
+            "irrigation_mm": 1412,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 4,
+            "year": 2005,
+            "irrigation_mm": 971,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 5,
+            "year": 2006,
+            "irrigation_mm": 1146,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 6,
+            "year": 2007,
+            "irrigation_mm": 1085,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 7,
+            "year": 2008,
+            "irrigation_mm": 1124,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 8,
+            "year": 2009,
+            "irrigation_mm": 1328,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 9,
+            "year": 2010,
+            "irrigation_mm": 1178,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 10,
+            "year": 2011,
+            "irrigation_mm": 1184,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 11,
+            "year": 2012,
+            "irrigation_mm": 1140,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 12,
+            "year": 2013,
+            "irrigation_mm": 1445,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 13,
+            "year": 2014,
+            "irrigation_mm": 1490,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 14,
+            "year": 2015,
+            "irrigation_mm": 1228,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 15,
+            "year": 2016,
+            "irrigation_mm": 1001,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 16,
+            "year": 2017,
+            "irrigation_mm": 1021,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 17,
+            "year": 2018,
+            "irrigation_mm": 974,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 18,
+            "year": 2019,
+            "irrigation_mm": 1217,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 19,
+            "year": 2020,
+            "irrigation_mm": 948,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 20,
+            "year": 2021,
+            "irrigation_mm": 927,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 21,
+            "year": 2022,
+            "irrigation_mm": 1025,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 22,
+            "year": 2023,
+            "irrigation_mm": 1232,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 23,
+            "year": 2024,
+            "irrigation_mm": 953,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          }
+        ],
+        "sc_salt_early": [
+          {
+            "member": 0,
+            "year": 2001,
+            "irrigation_mm": 1101,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 1,
+            "year": 2002,
+            "irrigation_mm": 922,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 2,
+            "year": 2003,
+            "irrigation_mm": 1057,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 3,
+            "year": 2004,
+            "irrigation_mm": 1206,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 4,
+            "year": 2005,
+            "irrigation_mm": 805,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 5,
+            "year": 2006,
+            "irrigation_mm": 913,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 6,
+            "year": 2007,
+            "irrigation_mm": 885,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 7,
+            "year": 2008,
+            "irrigation_mm": 851,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 8,
+            "year": 2009,
+            "irrigation_mm": 1162,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 9,
+            "year": 2010,
+            "irrigation_mm": 1007,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 10,
+            "year": 2011,
+            "irrigation_mm": 936,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 11,
+            "year": 2012,
+            "irrigation_mm": 944,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 12,
+            "year": 2013,
+            "irrigation_mm": 1218,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 13,
+            "year": 2014,
+            "irrigation_mm": 1270,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 14,
+            "year": 2015,
+            "irrigation_mm": 1143,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 15,
+            "year": 2016,
+            "irrigation_mm": 832,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 16,
+            "year": 2017,
+            "irrigation_mm": 783,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 17,
+            "year": 2018,
+            "irrigation_mm": 775,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 18,
+            "year": 2019,
+            "irrigation_mm": 1142,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 19,
+            "year": 2020,
+            "irrigation_mm": 810,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 20,
+            "year": 2021,
+            "irrigation_mm": 736,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 21,
+            "year": 2022,
+            "irrigation_mm": 831,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 22,
+            "year": 2023,
+            "irrigation_mm": 1099,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 23,
+            "year": 2024,
+            "irrigation_mm": 816,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          }
+        ],
+        "sc_wet_ref": [
+          {
+            "member": 0,
+            "year": 2021,
+            "irrigation_mm": 737,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          }
+        ],
+        "sc_forecast": [
+          {
+            "member": 0,
+            "year": null,
+            "member_label": "SEAS5 member control",
+            "irrigation_mm": 1277,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 1,
+            "year": null,
+            "member_label": "SEAS5 member member01",
+            "irrigation_mm": 983,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 2,
+            "year": null,
+            "member_label": "SEAS5 member member02",
+            "irrigation_mm": 1219,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 3,
+            "year": null,
+            "member_label": "SEAS5 member member03",
+            "irrigation_mm": 1152,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 4,
+            "year": null,
+            "member_label": "SEAS5 member member05",
+            "irrigation_mm": 968,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 5,
+            "year": null,
+            "member_label": "SEAS5 member member06",
+            "irrigation_mm": 1055,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 6,
+            "year": null,
+            "member_label": "SEAS5 member member08",
+            "irrigation_mm": 1074,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 7,
+            "year": null,
+            "member_label": "SEAS5 member member09",
+            "irrigation_mm": 1096,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 8,
+            "year": null,
+            "member_label": "SEAS5 member member10",
+            "irrigation_mm": 1200,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 9,
+            "year": null,
+            "member_label": "SEAS5 member member11",
+            "irrigation_mm": 1220,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 10,
+            "year": null,
+            "member_label": "SEAS5 member member12",
+            "irrigation_mm": 1147,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 11,
+            "year": null,
+            "member_label": "SEAS5 member member13",
+            "irrigation_mm": 1094,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 12,
+            "year": null,
+            "member_label": "SEAS5 member member14",
+            "irrigation_mm": 1312,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 13,
+            "year": null,
+            "member_label": "SEAS5 member member15",
+            "irrigation_mm": 1343,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 14,
+            "year": null,
+            "member_label": "SEAS5 member member17",
+            "irrigation_mm": 1049,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 15,
+            "year": null,
+            "member_label": "SEAS5 member member18",
+            "irrigation_mm": 1126,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 16,
+            "year": null,
+            "member_label": "SEAS5 member member19",
+            "irrigation_mm": 1177,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 17,
+            "year": null,
+            "member_label": "SEAS5 member member20",
+            "irrigation_mm": 971,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 18,
+            "year": null,
+            "member_label": "SEAS5 member member21",
+            "irrigation_mm": 1206,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 19,
+            "year": null,
+            "member_label": "SEAS5 member member22",
+            "irrigation_mm": 906,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 20,
+            "year": null,
+            "member_label": "SEAS5 member member23",
+            "irrigation_mm": 1033,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 21,
+            "year": null,
+            "member_label": "SEAS5 member member24",
+            "irrigation_mm": 929,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 22,
+            "year": null,
+            "member_label": "SEAS5 member member26",
+            "irrigation_mm": 866,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 23,
+            "year": null,
+            "member_label": "SEAS5 member member29",
+            "irrigation_mm": 954,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 24,
+            "year": null,
+            "member_label": "SEAS5 member member31",
+            "irrigation_mm": 1163,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 25,
+            "year": null,
+            "member_label": "SEAS5 member member32",
+            "irrigation_mm": 1076,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 26,
+            "year": null,
+            "member_label": "SEAS5 member member33",
+            "irrigation_mm": 1047,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 27,
+            "year": null,
+            "member_label": "SEAS5 member member36",
+            "irrigation_mm": 1304,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 28,
+            "year": null,
+            "member_label": "SEAS5 member member37",
+            "irrigation_mm": 987,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 29,
+            "year": null,
+            "member_label": "SEAS5 member member38",
+            "irrigation_mm": 1065,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 30,
+            "year": null,
+            "member_label": "SEAS5 member member39",
+            "irrigation_mm": 1037,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 31,
+            "year": null,
+            "member_label": "SEAS5 member member40",
+            "irrigation_mm": 1129,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 32,
+            "year": null,
+            "member_label": "SEAS5 member member41",
+            "irrigation_mm": 986,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 33,
+            "year": null,
+            "member_label": "SEAS5 member member42",
+            "irrigation_mm": 1204,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 34,
+            "year": null,
+            "member_label": "SEAS5 member member44",
+            "irrigation_mm": 1055,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 35,
+            "year": null,
+            "member_label": "SEAS5 member member46",
+            "irrigation_mm": 1173,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 36,
+            "year": null,
+            "member_label": "SEAS5 member member47",
+            "irrigation_mm": 1240,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 37,
+            "year": null,
+            "member_label": "SEAS5 member member48",
+            "irrigation_mm": 1381,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 38,
+            "year": null,
+            "member_label": "SEAS5 member member49",
+            "irrigation_mm": 1122,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          },
+          {
+            "member": 39,
+            "year": null,
+            "member_label": "SEAS5 member member50",
+            "irrigation_mm": 899,
+            "water_stress_days": 0,
+            "heat_stress_days": 0
+          }
+        ]
+      },
       "delta_vs_baseline": {
         "sc_clim": {
           "irrigation_need": {
@@ -4295,7 +8441,8 @@
         "Đo ECw nước kênh trước ngày gieo; ngưỡng tham khảo của Lúa ≈ 2.0 dS/m",
         "Xác nhận nguồn giống và đầu ra cho Đậu nành (Đậu nành vụ Xuân Hè trong luân canh lúa-màu; giá nội địa thấp hơn nhập khẩu, thị trường nhỏ.)",
         "Trao đổi với cán bộ khuyến nông địa phương trước khi xuống giống"
-      ]
+      ],
+      "summary_vi": "Đổi vụ Đông Xuân sang Đậu nành: Nhu cầu tưới trung vị giảm ~658 mm (~6,580 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER; cần xác nhận thoát nước."
     }
   ],
   "excluded": [
@@ -4657,7 +8804,7 @@
     "calendar_feasible": 52,
     "evaluated_feasible": 52,
     "pareto_front": 4,
-    "season_simulations": 5797
+    "season_simulations": 5722
   },
   "irrigation_cap_mm_per_season": null,
   "notes": [

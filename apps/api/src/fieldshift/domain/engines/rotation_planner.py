@@ -9,7 +9,11 @@ import itertools
 import statistics as st
 
 from fieldshift.domain.catalog import CROP_BY_ID, CROPS
-from fieldshift.domain.engines.future_outlook import build_scenarios, build_weather
+from fieldshift.domain.engines.future_outlook import (
+    build_scenarios,
+    build_weather,
+    dry_season_rain,
+)
 from fieldshift.domain.value_objects.measure import measure
 
 VERSIONS = {
@@ -153,6 +157,21 @@ def overlap_days(a0, a1, b0, b1) -> int:
     return max(0, (min(a1, b1) - max(a0, b0)).days + 1)
 
 
+def weekly_water(rows: list[dict]) -> dict:
+    return {
+        "date": str(rows[0]["date"]),
+        "stage": rows[0]["stage"],
+        "root_depth_m": rows[0]["root_depth_m"],
+        "root_zone_water": round(st.mean(x["water_frac"] for x in rows), 2),
+        "ponding_mm": round(st.mean(x["ponding_mm"] for x in rows), 1)
+        if rows[0]["ponding_mm"] is not None
+        else None,
+        "rain_week": round(sum(x["rain"] for x in rows), 1),
+        "irrigation_week": sum(x["irrigation"] for x in rows),
+        "ks": min(x["ks"] for x in rows),
+    }
+
+
 class Evaluator:
     """Simulates sequences across scenario members with memoisation (cache key = crop/sow/member/state)."""
 
@@ -170,6 +189,22 @@ class Evaluator:
         )
         self.cap = irrigation_cap
         self.scenarios = build_scenarios(ctx, as_of, span_days, override)
+        years = sorted(
+            [
+                m["year"]
+                for s in self.scenarios
+                if s["scenario_id"] == "sc_clim"
+                for m in s["members"]
+            ],
+            key=lambda year: (dry_season_rain(ctx, as_of, year), year),
+        )
+        # Rank against all historical analogs: the wettest of the dry stress-test
+        # subset must not be described as a wet year.
+        self.year_labels = {}
+        if len(years) >= 2:
+            self.year_labels.update({years[0]: "Năm hạn", years[-1]: "Năm ướt"})
+        if len(years) >= 3:
+            self.year_labels[years[len(years) // 2]] = "Năm bình thường"
         self.weather = {}
         for s in self.scenarios:
             for i, m in enumerate(s["members"]):
@@ -187,8 +222,8 @@ class Evaluator:
         self.soil = {"taw_mm_per_m": self.region["soil_prior"]["taw_mm_per_m"]}
         self.memo = {}
 
-    def season(self, crop_id, sow, key, dep, daily=False):
-        k = (crop_id, sow, key, round(dep, 1), daily)
+    def season(self, crop_id, sow, key, dep):
+        k = (crop_id, sow, key, round(dep, 1))
         if k not in self.memo:
             r = self.simulate(
                 self.weather[key],
@@ -201,16 +236,23 @@ class Evaluator:
                 round(dep, 1),
                 self.cap,
             )
-            if not daily:
-                r = {x: v for x, v in r.items() if x != "daily"}
+            # Retain compact weekly aggregates from the very same simulation. No daily
+            # reruns are needed after the shortlist is selected or when serving Twin.
+            daily = r.pop("daily")
+            weeks = {}
+            for row in daily:
+                week = (row["date"] - self.as_of).days // 7
+                weeks.setdefault(week, []).append(row)
+            r["weeks"] = {week: weekly_water(rows) for week, rows in weeks.items()}
+            r["season_weeks"] = [weekly_water(daily[i : i + 7]) for i in range(0, len(daily), 7)]
             self.memo[k] = r
         return self.memo[k]
 
-    def run(self, seq, key, daily=False):
+    def run(self, seq, key):
         dep = self.state["initial_depletion_frac"]["value"]
         out = []
         for s in seq["seasons"]:
-            r = self.season(s["crop"], s["sow"], key, dep, daily)
+            r = self.season(s["crop"], s["sow"], key, dep)
             out.append(r)
             dep = r["end_state"]["depletion_frac"]  # inter-season water carry-over (AC-05)
         return out
@@ -704,53 +746,217 @@ def metrics_view(summary: dict, base_summary: dict | None, scen: dict) -> tuple[
 # ---------- twin ----------
 
 
-def trajectory(ev: Evaluator, c: dict, scen: dict, sal_shift: int) -> dict:
-    sid = scen["scenario_id"]
-    runs = [
-        (i, sum(x["irrigation_mm"] for x in ev.run(c["seq"], (sid, i))))
-        for i in range(len(scen["members"]))
+def member_identity(scen: dict, i: int) -> dict:
+    member = scen["members"][i]
+    if scen["kind"] == "FORECAST":
+        return {"member": i, "year": None, "member_label": f"SEAS5 member {member['member_id']}"}
+    return {"member": i, "year": member["year"]}
+
+
+def distribution_view(results: dict, scenarios: dict, summary: dict) -> dict:
+    """Quantize to integer mm while retaining the existing rounded p50 exactly.
+
+    Centering the rounding grid on p50 moves any member by at most 1 mm and
+    avoids a half-mm median for an even ensemble. Stress counts are already ints.
+    Use twentieths of a mm: season totals have tenth-mm precision, and their
+    median may lie halfway between two tenths.
+    """
+    distributions = {}
+    for sid, runs in results.items():
+        tenths = [sum(round(r["irrigation_mm"] * 10) for r in run) for run in runs]
+        offset = 20 * summary[sid]["irrigation_mm"]["p50"] - round(2 * st.median(tenths))
+        distributions[sid] = [
+            {
+                **member_identity(scenarios[sid], i),
+                "irrigation_mm": round((2 * tenths[i] + offset) / 20),
+                "water_stress_days": sum(r["water_stress_days"] for r in run),
+                "heat_stress_days": sum(r["heat_stress_days_sensitive"] for r in run),
+            }
+            for i, run in enumerate(runs)
+        ]
+    return distributions
+
+
+def twin_events(ev: Evaluator, seq: dict, sal_shift: int, end: dt.date) -> list[dict]:
+    events = [
+        {"date": str(s[kind]), "type": kind, "season_index": s["index"], "crop": s["crop"]}
+        for s in seq["seasons"]
+        for kind in ("sow", "harvest")
     ]
-    i_med = sorted(runs, key=lambda t: t[1])[len(runs) // 2][0]
-    seasons = ev.run(c["seq"], (sid, i_med), daily=True)
-    sal_lo, sal_hi = salinity_window(ev.region, ev.as_of, sal_shift)
-    coastal = ev.state["canal_ecw"]
-    series = []
-    for s, r in zip(c["seq"]["seasons"], seasons):
-        cum = 0.0
-        daily = r["daily"]
-        for k in range(0, len(daily), 7):
-            wk = daily[k : k + 7]
-            cum += sum(x["irrigation"] for x in wk)
-            ks = min(x["ks"] for x in wk)
-            d0 = wk[0]["date"]
-            in_sal = ev.state["coastal_salinity_risk"]["value"] and sal_lo <= d0 <= sal_hi
-            sal = (
-                measure(coastal["value"], "dS/m", coastal["origin"], coastal["label"])
-                if coastal["value"] is not None
-                else measure(None, "dS/m", "unknown", "Chưa biết", reason="CANAL_ECW_NOT_MEASURED")
+    # Salinity boundaries describe the region, not a particular crop. Include each
+    # season intersecting the shared horizon (also works for a multi-year plan).
+    for year in range(ev.as_of.year - 1, end.year + 1):
+        lo, hi = salinity_window(ev.region, dt.date(year, 1, 1), sal_shift)
+        for kind, date in (("salinity_season_start", lo), ("salinity_season_end", hi)):
+            if ev.as_of <= date <= end:
+                events.append({"date": str(date), "type": kind, "season_index": None, "crop": None})
+    return sorted(events, key=lambda event: (event["date"], event["type"]))
+
+
+def trajectory_members(ev: Evaluator, c: dict, scen: dict, end: dt.date) -> dict:
+    """Store compact weekly values; the application adds Measures on read."""
+    sid = scen["scenario_id"]
+    outcomes = c["distribution"][sid]
+    # Preserve the original median-member selection using unquantized totals.
+    totals = [
+        sum(r["irrigation_mm"] for r in ev.run(c["seq"], (sid, i))) for i in range(len(outcomes))
+    ]
+    default = sorted(range(len(totals)), key=lambda i: (totals[i], i))[len(totals) // 2]
+    members = []
+    for i, outcome in enumerate(outcomes):
+        label = ev.year_labels.get(outcome["year"], "Năm tham chiếu")
+        if outcome["year"] is None:
+            label = outcome["member_label"]
+        elif label in ("Năm hạn", "Năm ướt"):
+            label += f" như {outcome['year']}–{outcome['year'] + 1}"
+        members.append(
+            {
+                **member_identity(scen, i),
+                "irrigation_mm": outcome["irrigation_mm"],
+                "label_vi": label,
+            }
+        )
+    series_by_member, compare_series_by_member = [], []
+    for i in range(len(members)):
+        seasons = ev.run(c["seq"], (sid, i))
+        weather = {w["date"]: w for w in ev.weather[(sid, i)]}
+        series, cum = [], 0.0
+        for week in range((end - ev.as_of).days // 7 + 1):
+            date = ev.as_of + dt.timedelta(days=week * 7)
+            active = [
+                (s, r["weeks"][week])
+                for s, r in zip(c["seq"]["seasons"], seasons)
+                if week in r["weeks"]
+            ]
+            # Turnaround rules normally keep crops in separate weeks. If a week
+            # contains a harvest and a new sow, draw the later crop; count all water.
+            season, water = active[-1] if active else (None, {})
+            irrigation = sum(row["irrigation_week"] for _, row in active)
+            cum += irrigation
+            rain = sum(
+                weather.get(date + dt.timedelta(days=d), {}).get("rain_mm", 0) or 0
+                for d in range(min(7, (end - date).days + 1))
             )
-            sal["in_salinity_season"] = bool(in_sal)
+            ks = min((row["ks"] for _, row in active), default=1)
             series.append(
                 {
-                    "date": str(d0),
-                    "season_index": s["index"],
-                    "crop": s["crop"],
-                    "stage": wk[0]["stage"],
-                    "root_zone_water": measure(
-                        round(st.mean(x["water_frac"] for x in wk), 2),
-                        "fraction",
-                        "inferred_by_model",
-                        "Dự kiến",
-                    ),
-                    "rain_week": measure(
-                        round(sum(x["rain"] for x in wk), 1), "mm", "assumed_scenario", "Kịch bản"
-                    ),
-                    "irrigation_cum": measure(round(cum), "mm", "inferred_by_model", "Dự kiến"),
-                    "salinity": sal,
+                    "date": str(date),
+                    "season_index": season["index"] if season else None,
+                    "crop": season["crop"] if season else None,
+                    "stage": water.get("stage"),
+                    "root_depth_m": water.get("root_depth_m"),
+                    "root_zone_water": water.get("root_zone_water"),
+                    "ponding_mm": water.get("ponding_mm"),
+                    "rain_week": round(rain, 1),
+                    "irrigation_week": round(irrigation, 1),
+                    "irrigation_cum": round(cum),
                     "stress_risk": "HIGH" if ks < 0.6 else "MEDIUM" if ks < 1 else "LOW",
                 }
             )
-    return {"analog_year": scen["members"][i_med]["year"], "step": "week", "series": series}
+        compare_series_by_member.append(series)
+        native = []
+        for season, result in zip(c["seq"]["seasons"], seasons):
+            cum = 0.0
+            for week in result["season_weeks"]:
+                cum += week["irrigation_week"]
+                ks = week["ks"]
+                native.append(
+                    {
+                        **{k: v for k, v in week.items() if k != "ks"},
+                        "season_index": season["index"],
+                        "crop": season["crop"],
+                        "irrigation_week": round(week["irrigation_week"], 1),
+                        "irrigation_cum": round(cum),
+                        "stress_risk": "HIGH" if ks < 0.6 else "MEDIUM" if ks < 1 else "LOW",
+                    }
+                )
+        series_by_member.append(native)
+    return {
+        "default_member": default,
+        "members": members,
+        "events": twin_events(ev, c["seq"], scen["salinity_shift_weeks"], end),
+        "series_by_member": series_by_member,
+        "compare_series_by_member": compare_series_by_member,
+        "salinity_windows": [
+            [
+                str(d)
+                for d in salinity_window(
+                    ev.region, dt.date(year, 1, 1), scen["salinity_shift_weeks"]
+                )
+            ]
+            for year in range(ev.as_of.year - 1, end.year + 1)
+        ],
+        "coastal": bool(ev.state["coastal_salinity_risk"]["value"]),
+        "canal_ecw": ev.state["canal_ecw"],
+        "evidence_ids": list(
+            dict.fromkeys([*scen["evidence_ids"], "ev_power_daily", "ev_crop_catalog"])
+        ),
+        "kind": scen["kind"],
+    }
+
+
+def trajectory(stored: dict, member: int | None = None, *, aligned: bool = False) -> dict:
+    """Expand a persisted weekly slice. No weather loading or simulation here."""
+    member = stored["default_member"] if member is None else member
+    identity = stored["members"][member]
+    coastal = stored["canal_ecw"]
+    origin = "inferred_by_model" if stored["kind"] == "CLIMATOLOGY" else "assumed_scenario"
+    label = "Dự kiến" if stored["kind"] == "CLIMATOLOGY" else "Kịch bản"
+
+    def m(value, unit, reason=None):
+        return measure(value, unit, origin, label, stored["evidence_ids"], reason=reason)
+
+    series = []
+    series_key = "compare_series_by_member" if aligned else "series_by_member"
+    for row in stored[series_key][member]:
+        sal = measure(
+            coastal["value"],
+            "dS/m",
+            coastal["origin"],
+            coastal["label"],
+            coastal.get("evidence_ids", []),
+            reason="CANAL_ECW_NOT_MEASURED",
+        )
+        in_sal = any(lo <= row["date"] <= hi for lo, hi in stored["salinity_windows"])
+        sal["in_salinity_season"] = stored["coastal"] and in_sal
+        series.append(
+            {
+                **row,
+                "root_zone_water": measure(
+                    row["root_zone_water"],
+                    "fraction",
+                    "inferred_by_model",
+                    "Dự kiến",
+                    stored["evidence_ids"],
+                    reason="NO_ACTIVE_CROP",
+                ),
+                "ponding_mm": m(
+                    row["ponding_mm"], "mm", "NOT_PADDY" if row["crop"] else "NO_ACTIVE_CROP"
+                ),
+                "root_depth_m": m(row["root_depth_m"], "m", "NO_ACTIVE_CROP"),
+                "rain_week": measure(
+                    row["rain_week"], "mm", "assumed_scenario", "Kịch bản", stored["evidence_ids"]
+                ),
+                "irrigation_week": m(row["irrigation_week"], "mm"),
+                "irrigation_cum": measure(
+                    row["irrigation_cum"],
+                    "mm",
+                    "inferred_by_model",
+                    "Dự kiến",
+                    stored["evidence_ids"],
+                ),
+                "salinity": sal,
+            }
+        )
+    return {
+        "member": member,
+        "analog_year": identity["year"],
+        **({"member_label": identity["member_label"]} if "member_label" in identity else {}),
+        "members": stored["members"],
+        "step": "week",
+        "events": stored["events"],
+        "series": series,
+    }
 
 
 # ---------- orchestration ----------
@@ -846,6 +1052,7 @@ def run_plan(
         c = {
             "seq": seq,
             "summary": summary,
+            "distribution": distribution_view(res, scen, summary),
             "rules": rules,
             "status": status_of(rules),
             "soil_indicators": soil_indicators(seq),
@@ -923,6 +1130,7 @@ def run_plan(
                 {**s, "sow": str(s["sow"]), "harvest": str(s["harvest"])} for s in seq["seasons"]
             ],
             "metrics": metrics,
+            "distribution": c["distribution"],
             "delta_vs_baseline": delta,
             "soil_benefit": {
                 "claim_type": "POTENTIAL_QUALITATIVE",
@@ -949,13 +1157,28 @@ def run_plan(
                 "checklist": [],
             }
         )
+        if c is not base:
+            changes = [
+                f"Đổi vụ {s['window_name_vi']} sang {s['crop_name_vi']}"
+                for s, b in zip(seq["seasons"], base["seq"]["seasons"])
+                if s["crop"] != b["crop"]
+            ]
+            summary = "; ".join(changes) + ": " + out["reasons"][0]["text"]
+            if any(r["rule_id"] == "R_DRAINAGE_UNKNOWN" for r in c["rules"]):
+                summary = summary.rstrip(".") + "; cần xác nhận thoát nước."
+            out["summary_vi"] = summary
         return out
 
     chosen = [base] + [c for _, c in picked]
-    trajectories = {}
+    trajectories, member_trajectories = {}, {}
+    end = max(s["harvest"] for c in chosen for s in c["seq"]["seasons"])
     for c in chosen:
-        trajectories[c["seq"]["sequence_id"]] = {
-            sid: trajectory(ev, c, s, s["salinity_shift_weeks"]) for sid, s in scen.items()
+        sequence_id = c["seq"]["sequence_id"]
+        member_trajectories[sequence_id] = {
+            sid: trajectory_members(ev, c, s, end) for sid, s in scen.items()
+        }
+        trajectories[sequence_id] = {
+            sid: trajectory(stored) for sid, stored in member_trajectories[sequence_id].items()
         }
 
     seen_ex = {}
@@ -997,5 +1220,6 @@ def run_plan(
         },
         "irrigation_cap_mm_per_season": cap,
         "trajectories": trajectories,
+        "member_trajectories": member_trajectories,
         "notes": notes,
     }

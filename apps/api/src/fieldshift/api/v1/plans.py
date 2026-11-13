@@ -3,7 +3,7 @@
 import datetime as dt
 import html
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
 from fastapi.responses import HTMLResponse
 
 from fieldshift.api.schemas.requests import PlanRequest, ReplanIn, WhatIfIn
@@ -45,14 +45,25 @@ def replan(decision_id: str, body: ReplanIn):
 
 
 @router.get("/{decision_id}/twin")
-def twin(decision_id: str, sequence_id: str, scenario_id: str = "sc_clim"):
+def twin(
+    decision_id: str,
+    sequence_id: str,
+    scenario_id: str = "sc_clim",
+    member: int | None = Query(default=None, ge=0),
+):
     pkg = must(db.connect(), "decisions", decision_id, "DECISION_NOT_FOUND")["package"]
-    t = pkg.get("trajectories", {}).get(sequence_id, {}).get(scenario_id)
-    if t is None:
-        raise uc.NotFound(
-            "TRAJECTORY_NOT_FOUND", "sequence_id/scenario_id không có trong decision này"
-        )
-    return {"decision_id": decision_id, "sequence_id": sequence_id, "scenario_id": scenario_id, **t}
+    return uc.twin_slice(pkg, sequence_id, scenario_id, member)
+
+
+@router.get("/{decision_id}/twin-compare")
+def twin_compare(
+    decision_id: str,
+    sequence_id: str,
+    scenario_id: str = "sc_clim",
+    member: int | None = Query(default=None, ge=0),
+):
+    pkg = must(db.connect(), "decisions", decision_id, "DECISION_NOT_FOUND")["package"]
+    return uc.twin_compare(pkg, sequence_id, scenario_id, member)
 
 
 @router.get("/{decision_id}/export", response_class=HTMLResponse)

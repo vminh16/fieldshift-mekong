@@ -1272,6 +1272,23 @@
               "title": "Scenario Id",
               "type": "string"
             }
+          },
+          {
+            "in": "query",
+            "name": "member",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Member"
+            }
           }
         ],
         "responses": {
@@ -1295,6 +1312,82 @@
           }
         },
         "summary": "Twin",
+        "tags": [
+          "plans"
+        ]
+      }
+    },
+    "/v1/plans/{decision_id}/twin-compare": {
+      "get": {
+        "operationId": "twin_compare_v1_plans__decision_id__twin_compare_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "decision_id",
+            "required": true,
+            "schema": {
+              "title": "Decision Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sequence_id",
+            "required": true,
+            "schema": {
+              "title": "Sequence Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "scenario_id",
+            "required": false,
+            "schema": {
+              "default": "sc_clim",
+              "title": "Scenario Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "member",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Member"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Twin Compare",
         "tags": [
           "plans"
         ]

@@ -7,7 +7,12 @@ from fieldshift.application.errors import InvalidInput, NotFound
 from fieldshift.application.use_cases.outlook_context import add_outlook
 from fieldshift.domain.engines.evidence_gate import enforce_evidence
 from fieldshift.domain.engines.field_state import estimate_state
-from fieldshift.domain.engines.rotation_planner import VERSIONS, rerank_options, run_plan
+from fieldshift.domain.engines.rotation_planner import (
+    VERSIONS,
+    rerank_options,
+    run_plan,
+    trajectory,
+)
 from fieldshift.domain.engines.trigger_evaluation import evaluate_triggers
 from fieldshift.infrastructure.crop_models.fao56_water import simulate_season
 from fieldshift.infrastructure.data_sources.context_builder import build_context
@@ -44,7 +49,42 @@ def context_for(field, as_of):
 
 def public(pkg):
     """Trajectories are served by /twin to keep the decision response small."""
-    return {k: v for k, v in pkg.items() if k != "trajectories"}
+    return {k: v for k, v in pkg.items() if k not in ("trajectories", "member_trajectories")}
+
+
+def twin_slice(pkg, sequence_id, scenario_id, member=None, *, aligned=False):
+    stored = pkg.get("member_trajectories", {}).get(sequence_id, {}).get(scenario_id)
+    if stored is not None:
+        if member is not None and not 0 <= member < len(stored["members"]):
+            raise NotFound("MEMBER_NOT_FOUND", "member không có trong scenario này")
+        twin = trajectory(stored, member, aligned=aligned)
+    else:
+        # Old immutable decisions retain their original default Twin.
+        twin = pkg.get("trajectories", {}).get(sequence_id, {}).get(scenario_id)
+        if twin is None:
+            raise NotFound(
+                "TRAJECTORY_NOT_FOUND", "sequence_id/scenario_id không có trong decision này"
+            )
+        if member is not None and member != twin.get("member"):
+            raise NotFound(
+                "MEMBER_NOT_FOUND", "Decision cũ chưa lưu member này; hãy lập kế hoạch mới"
+            )
+    return {
+        "decision_id": pkg["decision_id"],
+        "sequence_id": sequence_id,
+        "scenario_id": scenario_id,
+        **twin,
+    }
+
+
+def twin_compare(pkg, sequence_id, scenario_id, member=None):
+    option = twin_slice(pkg, sequence_id, scenario_id, member, aligned=True)
+    if "member" not in option:
+        raise NotFound("MEMBER_NOT_FOUND", "Decision cũ chưa lưu member; hãy lập kế hoạch mới")
+    baseline = twin_slice(
+        pkg, pkg["baseline"]["sequence_id"], scenario_id, option["member"], aligned=True
+    )
+    return {"baseline": baseline, "option": option}
 
 
 def make_plan(c, f, req: dict, kind: str, parent_id=None, override=None, history=None):

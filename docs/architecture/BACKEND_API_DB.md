@@ -130,7 +130,8 @@ Catalog cây và vùng: **file JSON có version** (`data/crops.json`, `data/regi
 | GET | `/plans/{id}` | đọc lại DecisionPackage | §13.3 |
 | POST | `/plans/{id}/what-if` | `ScenarioOverride` hoặc đổi ưu tiên → DecisionPackage **mới** (`parent_id`) | §11.4, AC-09 |
 | POST | `/plans/{id}/replan` | sau vụ 1: giữ lịch sử, đề xuất từ vụ 2 | AC-10 |
-| GET | `/plans/{id}/twin?sequence_id=&scenario_id=` | timeline theo tuần cho Twin, **cắt từ cùng package** | AC-09 |
+| GET | `/plans/{id}/twin?sequence_id=&scenario_id=&member=` | timeline theo tuần cho Twin, **cắt từ cùng package** | AC-09 |
+| GET | `/plans/{id}/twin-compare?sequence_id=&scenario_id=&member=` | baseline và phương án cùng member/năm và trục tuần | AC-09 |
 | GET | `/plans/{id}/export` | tóm tắt 1 trang (HTML in được) | §11.5 |
 
 Lỗi: `{"error": {"code": "LOCATION_INVALID", "message": "...", "gate": "G1"}}`. **Gate fail ≠ HTTP lỗi**: thiếu EC vẫn trả 200 với `decision_status = CONDITIONAL_PENDING_CHECK` (§13.2 fail-safe).
@@ -250,7 +251,70 @@ Thiếu dữ liệu: `{ "value": null, "unit": "dS/m", "origin": "unknown", "rea
       "irrigation_cum": {"value": 40, "unit": "mm", "label": "Dự kiến"} }
   ] }
 ```
-Twin **chỉ cắt** `package.trajectories[sequence_id][scenario_id]` — không tính lại (AC-09).
+Twin **chỉ cắt dữ liệu đã lưu** — không tải lại nguồn hoặc chạy mô hình (AC-09). `scenario_id`
+mặc định `sc_clim`; `member` là chỉ số nguyên từ 0, chung giữa mọi chuỗi trong cùng kịch bản.
+Bỏ `member` → chọn member có tổng tưới ở vị trí giữa (nếu số member chẵn, chọn vị trí giữa trên),
+giữ cách chọn mặc định trước đây. Twin bổ sung `member`, `analog_year`, `members` và `events`.
+FORECAST có `analog_year: null` và `member_label` (ID ensemble gốc); năm POWER dùng nối dữ liệu
+không được hiển thị thành một năm dự báo quan trắc.
+
+`members = [{member, year, irrigation_mm, label_vi}]` liệt kê tất cả member của chuỗi/kịch bản.
+Với analog, `label_vi` đánh dấu **Năm hạn / Năm bình thường / Năm ướt** bằng thứ hạng tổng mưa
+**tháng 12 năm bắt đầu → tháng 4 năm kế tiếp** trong toàn bộ analog `sc_clim`, không dùng lượng
+tưới để gán tên năm (không gọi năm ít khô nhất trong `sc_dry` là năm ướt). Các năm còn
+lại mang nhãn `Năm tham chiếu`; số lượng ít có thể không đủ cả ba nhãn. Nhãn khô/ướt ghi khoảng
+năm, ví dụ `Năm hạn như 2015–2016`. FORECAST chỉ dùng nhãn member, không gán nhãn hạn từ năm analog
+nối đuôi. CLIMATE_PROJECTION vẫn ghi năm analog nền; không diễn giải đó là năm tương lai.
+
+Weekly rows bổ sung các **Measure** `ponding_mm` (trung bình các ngày trồng lúa trong tuần),
+`irrigation_week`, `rain_week` (tổng mm trong tuần) và `root_depth_m` (độ sâu rễ tại ngày đầu có cây
+trong tuần, từ đường cong tăng trưởng FAO-56). `root_zone_water` giữ nguyên; `ponding_mm.value`
+là null với `reason=NOT_PADDY` cho cây cạn/nghỉ đất. Hàng ngày của adapter FAO-56 có `ponding_mm`
+cho lúa, `depletion_mm` và `taw_mm` cho cây cạn (và bucket nghỉ đất), cùng `root_depth_m`.
+Các trường nước không áp dụng cho chế độ cây hiện tại là null.
+
+`events = [{date, type, season_index, crop}]`: `sow` / `harvest` giữ ngày lịch chính xác và vụ/cây;
+`salinity_season_start` / `salinity_season_end` là ranh giới mùa mặn theo vùng/kịch bản trong
+horizon chung, có `season_index: null, crop: null`. Đây là mùa mặn giả định theo lịch vùng,
+không phải số đo ECw. Số đo kênh vẫn null nếu chưa đo.
+
+`GET /plans/{id}/twin-compare` trả `{baseline: twin, option: twin}`. Khi thiếu `member`, **chọn
+member trung vị của option rồi dùng cùng member đó cho baseline**. Hai series dùng lưới 7 ngày
+từ `as_of` tới ngày thu hoạch cuối trong shortlist; ngày giống nhau kể cả khi đổi ngày gieo hay
+độ dài vụ. `irrigation_cum` ở endpoint mới cộng dồn **cả kế hoạch**. Tuần không có cây có
+`season_index/crop/stage: null`, các Measure về cây/nước ruộng null (`NO_ACTIVE_CROP`); mưa vẫn
+được tính và tưới tuần bằng 0. Tuần có thu hoạch rồi gieo cây khác vẽ cây sau, cộng tưới của cả hai.
+Endpoint `/twin` giữ tuần bắt đầu tại ngày gieo từng vụ và `irrigation_cum` cộng dồn **trong vụ**.
+Khoảng trống giữa vụ không có ước lượng ẩm đất bổ sung.
+
+Lưu trữ: `package.member_trajectories[sequence_id][scenario_id]` chứa các weekly aggregates số
+gọn cho mọi member và hai lưới tuần; các aggregate được lấy ngay từ **lần Evaluator đã chạy**.
+`package.trajectories` giữ lát mặc định để tương thích. Cả hai không xuất hiện trong response
+`POST/GET /plans`; priority-only what-if giữ nguyên chúng. Decision cũ chưa có member data vẫn
+đọc được Twin mặc định, nhưng chọn member/compare trả 404 `MEMBER_NOT_FOUND` và cần lập plan mới.
+Member âm/không nguyên trả 422; member vượt phạm vi hoặc sequence/scenario không có trả 404.
+
+### 4.5.1. Phân bố và câu tóm tắt cho simulation UI
+
+Baseline **và mỗi option** bổ sung:
+
+```json
+{"distribution": {"sc_clim": [
+  {"member": 0, "year": 2001, "irrigation_mm": 1747, "water_stress_days": 0, "heat_stress_days": 4}
+]}}
+```
+
+Mỗi scenario đều có phân bố. `year` là **năm bắt đầu analog** cho CLIMATOLOGY, STRESS_TEST và
+CLIMATE_PROJECTION; FORECAST có `year: null` cùng `member_label`. Đây là kết quả toàn chuỗi
+từ các Evaluator runs đã tính metrics, không chạy thêm mô phỏng. Số liệu mỗi dot là int.
+Để median của dots bằng chính xác p50 mm hiện hữu (kể cả ensemble chẵn), grid làm tròn mm được
+dịch tối đa 0,5 mm về p50 trước khi làm tròn; chênh lệch mỗi dot so với tổng mô hình tối đa 1 mm.
+Không thay đổi metrics/p50/p90 hay kết quả chọn phương án. Stress days giữ số nguyên chính xác.
+
+Mỗi option có `summary_vi`: tên vụ/cây thay đổi + lý do đầu tiên trong `reasons`, thêm yêu cầu
+xác nhận thoát nước **chỉ khi** đã có rule `R_DRAINAGE_UNKNOWN`. Không tạo thêm khẳng định
+năng suất, lợi nhuận hay an toàn mặn. Fixtures thật: `contracts/fixtures/plan_cantho.json`,
+`twin_cantho.json`, `twin_compare_cantho.json` (các số trong ví dụ trên chỉ minh họa định dạng).
 
 ### 4.6. `POST /plans/{id}/what-if`
 

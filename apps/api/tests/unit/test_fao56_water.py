@@ -56,6 +56,18 @@ def test_real_data():
     for r in (rice, mung):
         print({k: v for k, v in r.items() if k != "daily"})
         assert r["et0_mm"] > 0 and r["etc_mm"] > 0 and r["irrigation_mm"] > 0
+    for row in rice["daily"]:
+        assert 0 <= row["ponding_mm"] <= PADDY["max_ponding_mm"]
+        assert row["depletion_mm"] is None and row["taw_mm"] is None
+    for i, row in enumerate(mung["daily"]):
+        assert row["ponding_mm"] is None
+        assert row["depletion_mm"] >= 0 and row["taw_mm"] > 0
+        depth = MUNG["root_depth_m"]["min"] + (
+            MUNG["root_depth_m"]["max"] - MUNG["root_depth_m"]["min"]
+        ) * min(1, i / 40)
+        assert row["root_depth_m"] == round(depth, 3)
+        assert abs(row["taw_mm"] - SOIL["taw_mm_per_m"] * depth) < 0.001
+        assert abs(row["water_frac"] - (1 - row["depletion_mm"] / row["taw_mm"])) < 0.001
     assert rice["irrigation_mm"] > mung["irrigation_mm"]
     # upland mass balance: rain + irrigation - etc - drainage = change in storage (storage = -Dr, Dr0 = 0)
     taw_end = SOIL["taw_mm_per_m"] * MUNG["root_depth_m"]["max"]

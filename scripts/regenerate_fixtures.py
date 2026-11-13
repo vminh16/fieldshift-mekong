@@ -1,4 +1,4 @@
-"""Regenerate the four planning fixtures from a live local API (default port 8095)."""
+"""Regenerate planning, Twin, comparison and context fixtures from a local API (port 8095)."""
 
 import argparse
 import json
@@ -37,6 +37,16 @@ def main():
             "twin_cantho.json",
             client.get(
                 f"plans/{inland['decision_id']}/twin",
+                params={
+                    "sequence_id": inland["options"][0]["sequence_id"],
+                    "scenario_id": "sc_clim",
+                },
+            ),
+        )
+        save(
+            "twin_compare_cantho.json",
+            client.get(
+                f"plans/{inland['decision_id']}/twin-compare",
                 params={
                     "sequence_id": inland["options"][0]["sequence_id"],
                     "scenario_id": "sc_clim",

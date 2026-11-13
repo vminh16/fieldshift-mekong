@@ -244,6 +244,10 @@ def simulate_season(
                 "rain": round(rain, 3),
                 "irrigation": round(irr, 3),
                 "water_frac": round(frac, 3),
+                "ponding_mm": round(h, 3) if regime == "paddy" else None,
+                "depletion_mm": round(dr, 3) if regime != "paddy" else None,
+                "taw_mm": round(taw, 3) if regime != "paddy" else None,
+                "root_depth_m": round(zr(i), 3),
                 "ks": round(ks, 3),
             }
         )
