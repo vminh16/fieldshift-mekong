@@ -136,7 +136,9 @@ def main():
     if first > last:
         ap.error("start must be <= end")
     credentials = None if args.probe else earthdata_credentials()
-    with httpx.Client(timeout=90, follow_redirects=True) as client:
+    # IPv4 only: IPv6 to URS/GES DISC stalls ~20 s here and breaks TLS handshakes
+    transport = httpx.HTTPTransport(local_address="0.0.0.0", retries=2)
+    with httpx.Client(timeout=90, follow_redirects=True, transport=transport) as client:
         catalog = granules(client, args.start, args.end)
         if not catalog:
             raise RuntimeError("No CMR granules for requested dates")

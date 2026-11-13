@@ -78,7 +78,8 @@ def main():
     body = task_body(args.start, args.end)
     body_hash = hashlib.sha256(json.dumps(body, sort_keys=True).encode()).hexdigest()
     state_path = args.cache_root / "appeears" / "task.json"
-    with httpx.Client(timeout=120, follow_redirects=True) as client:
+    transport = httpx.HTTPTransport(local_address="0.0.0.0", retries=2)  # IPv4: IPv6 stalls here
+    with httpx.Client(timeout=120, follow_redirects=True, transport=transport) as client:
         products = {p["ProductAndVersion"]: p for p in get(client, API + "/product").json()}
         metadata = {}
         for product in sorted({x["product"] for x in LAYERS}):
