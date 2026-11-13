@@ -7,6 +7,7 @@ import { getField, useActiveFieldId, useFields, type LocalField } from '../../sh
 import { CROP_SHORT, SOIL_INDICATOR, cropTone, loadDecision, type DecisionPackage, type DecisionResult, type Option } from '../../shared/decision/source'
 import { CompareBars, PairedBars, RotationRibbon } from './charts'
 import { ParcelMiniMap } from './ParcelMiniMap'
+import { CropArt } from './CropArt'
 import './recommend.css'
 
 /* ---------- plain-language helpers (format engine output; never decide anything) ---------- */
@@ -185,18 +186,20 @@ function Recommendation({ field, decision: d }: { field: LocalField; decision: D
           </h1>
           {h.sub && <p className="answer__sub">{h.sub}</p>}
 
-          <ol className="seasons" aria-label="Chuỗi luân canh đề xuất">
+          <ol className="plan" aria-label="Chuỗi luân canh đề xuất">
             {pick.seasons.map((s, i) => {
               const was = base.seasons[i]
-              const changed = was && was.crop !== s.crop
+              const changed = Boolean(was && was.crop !== s.crop)
               return (
-                <li key={s.index} className="season" data-changed={changed || undefined} data-tone={cropTone(s.crop)}>
-                  <span className="season__window">{windowName(s.window_name_vi)}</span>
-                  <span className="season__crop">{crop(s.crop)}</span>
-                  <span className="season__dates">
+                <li key={s.index} className="plan__step" data-changed={changed || undefined} data-tone={cropTone(s.crop)}>
+                  <CropArt crop={s.crop} />
+                  <span className="plan__node" aria-hidden="true" />
+                  <span className="plan__window">{windowName(s.window_name_vi)}</span>
+                  <span className="plan__crop">{crop(s.crop)}</span>
+                  <span className="plan__dates">
                     {day(s.sow)} – {day(s.harvest)}
                   </span>
-                  {was && <span className="season__was">{changed ? `thay ${crop(was.crop).toLowerCase()}` : 'như cũ'}</span>}
+                  {was && <span className="plan__was">{changed ? `Đổi từ ${crop(was.crop).toLowerCase()}` : 'Như cũ'}</span>}
                 </li>
               )
             })}
@@ -229,12 +232,12 @@ function Recommendation({ field, decision: d }: { field: LocalField; decision: D
 
           {conditions.length > 0 && (
             <div className="conditions">
-              <p>Chỉ làm khi</p>
-              <ul>
+              <p>Trước khi gieo, cần chắc</p>
+              <ol>
                 {conditions.map((c) => (
                   <li key={c}>{c}</li>
                 ))}
-              </ul>
+              </ol>
             </div>
           )}
 
@@ -283,8 +286,11 @@ function Recommendation({ field, decision: d }: { field: LocalField; decision: D
                     </span>
                     <ChainStrip option={o} />
                     <span className="alt__facts">
-                      {p !== null && `${p < 0 ? 'Ít' : 'Nhiều'} nước hơn ${Math.abs(p)}%`} · {harvests(o)} vụ thu hoạch · {conditionsOf(o).length} điều cần kiểm tra
+                      {p !== null && <span>{`${p < 0 ? '−' : '+'}${Math.abs(p)}% nước`}</span>}
+                      <span>{harvests(o)} vụ thu</span>
+                      <span>{conditionsOf(o).length} cần kiểm tra</span>
                     </span>
+                    <span className="alt__go">Xem</span>
                   </button>
                 </li>
               )
@@ -293,7 +299,11 @@ function Recommendation({ field, decision: d }: { field: LocalField; decision: D
             <div className="alt alt--base">
               <span className="alt__name">Giữ như hiện nay</span>
               <ChainStrip option={base} />
-              <span className="alt__facts">Tốn nước tưới nhất · không phải thay đổi</span>
+              <span className="alt__facts">
+                <span>Tốn nước tưới nhất</span>
+                <span>Không phải thay đổi</span>
+              </span>
+              <span />
             </div>
           </li>
         </ul>
