@@ -7,17 +7,14 @@ import { getField, useActiveFieldId, useFields, type LocalField } from '../../sh
 import { CROP_SHORT, SOIL_INDICATOR, cropTone, loadDecision, type DecisionPackage, type DecisionResult, type Option } from '../../shared/decision/source'
 import { CompareBars, PairedBars, RotationRibbon } from './charts'
 import { ParcelMiniMap } from './ParcelMiniMap'
-import { CropArt } from './CropArt'
+import { SeasonTimeline } from './SeasonTimeline'
+import { CROP_PHOTO } from '../../shared/decision/photos'
 import './recommend.css'
 
 /* ---------- plain-language helpers (format engine output; never decide anything) ---------- */
 const nf = (n: number) => n.toLocaleString('vi-VN', { maximumFractionDigits: 0 })
 const crop = (c: string) => CROP_SHORT[c] ?? c
 const windowName = (w: string) => w.split(' /')[0]
-const day = (iso: string) => {
-  const d = new Date(iso)
-  return `${d.getDate()}/${d.getMonth() + 1}`
-}
 const PRIORITY: Record<string, string> = {
   avoid_crop_failure: 'tránh mất mùa',
   save_water: 'tiết kiệm nước',
@@ -176,7 +173,7 @@ function Recommendation({ field, decision: d }: { field: LocalField; decision: D
       {/* ---------- the answer ---------- */}
       <section className="answer" aria-labelledby="answer-title">
         <ParcelMiniMap field={field} />
-        <div className="answer__body">
+        <div className="answer__head">
           <p className="answer__kicker">
             {isTop ? 'Engine đề xuất' : 'Lựa chọn khác'} · 3 vụ tới
             {isChosen && <span className="answer__chosen">Bạn đã chọn</span>}
@@ -185,26 +182,11 @@ function Recommendation({ field, decision: d }: { field: LocalField; decision: D
             {h.main}
           </h1>
           {h.sub && <p className="answer__sub">{h.sub}</p>}
+        </div>
 
-          <ol className="plan" aria-label="Chuỗi luân canh đề xuất">
-            {pick.seasons.map((s, i) => {
-              const was = base.seasons[i]
-              const changed = Boolean(was && was.crop !== s.crop)
-              return (
-                <li key={s.index} className="plan__step" data-changed={changed || undefined} data-tone={cropTone(s.crop)}>
-                  <CropArt crop={s.crop} />
-                  <span className="plan__node" aria-hidden="true" />
-                  <span className="plan__window">{windowName(s.window_name_vi)}</span>
-                  <span className="plan__crop">{crop(s.crop)}</span>
-                  <span className="plan__dates">
-                    {day(s.sow)} – {day(s.harvest)}
-                  </span>
-                  {was && <span className="plan__was">{changed ? `Đổi từ ${crop(was.crop).toLowerCase()}` : 'Như cũ'}</span>}
-                </li>
-              )
-            })}
-          </ol>
+        <SeasonTimeline pick={pick.seasons} base={base.seasons} today={d.as_of} />
 
+        <div className="answer__rest">
           <dl className="gains">
             {pct !== null && (
               <div>
@@ -280,6 +262,7 @@ function Recommendation({ field, decision: d }: { field: LocalField; decision: D
               return (
                 <li key={o.sequence_id}>
                   <button type="button" className="alt" onClick={() => setShownId(o.sequence_id)}>
+                    <AltPhoto option={o} base={base} />
                     <span className="alt__name">
                       {o.strategy_name_vi}
                       {o.sequence_id === d.options[0].sequence_id && <span className="alt__top">Engine đề xuất</span>}
@@ -297,6 +280,7 @@ function Recommendation({ field, decision: d }: { field: LocalField; decision: D
             })}
           <li>
             <div className="alt alt--base">
+              <AltPhoto option={base} base={base} />
               <span className="alt__name">Giữ như hiện nay</span>
               <ChainStrip option={base} />
               <span className="alt__facts">
@@ -313,6 +297,13 @@ function Recommendation({ field, decision: d }: { field: LocalField; decision: D
       <Why open={why} onToggle={setWhy} d={d} pick={pick} base={base} baseName={baseName} />
     </>
   )
+}
+
+/** Photo of the crop that changes (or the current crop for "keep as is"). */
+function AltPhoto({ option, base }: { option: Option; base: Option }) {
+  const changed = option.seasons.find((s, i) => s.crop !== base.seasons[i]?.crop) ?? option.seasons[0]
+  const photo = CROP_PHOTO[changed.crop]
+  return photo ? <img className="alt__photo" src={photo.src} alt="" loading="lazy" /> : <span className="alt__photo" />
 }
 
 function ChainStrip({ option }: { option: Option }) {
@@ -466,6 +457,21 @@ function Why({
                   </ul>
                 </div>
               )}
+              <p className="why__note">
+                Ảnh cây trồng: Wikimedia Commons —{' '}
+                {Object.entries(CROP_PHOTO)
+                  .filter(([c]) => [base, ...d.options].some((o) => o.seasons.some((s) => s.crop === c)))
+                  .map(([c, ph], i) => (
+                    <span key={c}>
+                      {i > 0 && ', '}
+                      <a href={ph.page} target="_blank" rel="noreferrer">
+                        {CROP_SHORT[c] ?? c}
+                      </a>{' '}
+                      ({ph.author}, {ph.license})
+                    </span>
+                  ))}
+                ; đã cắt và thu nhỏ.
+              </p>
               <p className="why__note">
                 Nguồn: {sources.join(' · ')}. {d.excluded.length} chuỗi bị loại vì không hợp lịch vụ hoặc ràng buộc của ruộng.
               </p>
