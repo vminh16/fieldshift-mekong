@@ -2,6 +2,7 @@ import { useEffect, useImperativeHandle, useRef, type Ref } from 'react'
 import maplibregl, { type Map as MlMap, type PaddingOptions } from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import type { Place } from '../../shared/geo/types'
+import { IMAGERY_ATTRIBUTION, IMAGERY_TILES, LABEL_TILES } from '../../shared/geo/tiles'
 
 export interface Focus {
   /** Screen fraction (0–1) where the map's centre should sit. */
@@ -26,11 +27,6 @@ interface Props {
   onPlaceClick: (p: Place) => void
 }
 
-const IMAGERY =
-  (import.meta.env.VITE_IMAGERY_TILE_URL as string | undefined) ??
-  'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
-const LABELS =
-  'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}'
 
 /** Padding that moves MapLibre's focal point to screen fraction (fx, fy). */
 function paddingFor(map: MlMap, { fx, fy }: Focus): PaddingOptions {
@@ -56,12 +52,12 @@ export function WorldMap({ ref, places, selectedId, onPlaceClick }: Props) {
         sources: {
           imagery: {
             type: 'raster',
-            tiles: [IMAGERY],
+            tiles: [IMAGERY_TILES],
             tileSize: 256,
             maxzoom: 19,
-            attribution: 'Ảnh vệ tinh: Esri, Maxar, Earthstar Geographics',
+            attribution: IMAGERY_ATTRIBUTION,
           },
-          labels: { type: 'raster', tiles: [LABELS], tileSize: 256, maxzoom: 19 },
+          labels: { type: 'raster', tiles: [LABEL_TILES], tileSize: 256, maxzoom: 19 },
         },
         layers: [
           { id: 'imagery', type: 'raster', source: 'imagery', paint: { 'raster-fade-duration': 120 } },
@@ -132,7 +128,7 @@ export function WorldMap({ ref, places, selectedId, onPlaceClick }: Props) {
       const map = mapRef.current
       if (!map) return
       const apply = () => map.setPaintProperty('labels', 'raster-opacity', visible ? 0.85 : 0)
-      if (map.isStyleLoaded()) apply()
+      if (map.getLayer('labels')) apply()
       else map.once('load', apply)
     },
     view: () => {

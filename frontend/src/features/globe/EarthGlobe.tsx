@@ -8,6 +8,8 @@ import './globe.css'
 export interface EarthGlobeHandle {
   flyTo: (place: Place) => void
   reset: () => void
+  /** Current map camera, so the next screen can open exactly where the user is looking. */
+  view: () => { lat: number; lng: number; zoom: number } | null
 }
 
 interface Props {
@@ -146,6 +148,8 @@ export function EarthGlobe({ ref, places, selected, onPlaceClick, onSurfaceClick
   }
 
   useImperativeHandle(ref, () => ({
+    view: () => (modeRef.current === 'map' ? (mapRef.current?.view() ?? null) : null),
+
     flyTo: (place) => {
       const earth = earthRef.current
       const host = hostRef.current

@@ -11,13 +11,16 @@ import {
 } from '../../shared/geo/mekongProvinces'
 import { PRECISION_LABEL } from '../../shared/geo/types'
 import { reverseGeocode } from '../../shared/geo/geocode'
+import { href, navigate } from '../../shared/router'
+import { useFields } from '../../shared/fields/store'
 import './landing.css'
 
-const STEPS = ['Định vị thửa ruộng', 'Khai báo điều kiện canh tác', 'So sánh phương án luân canh']
+const STEPS = ['Định vị thửa ruộng', 'Khai báo điều kiện canh tác', 'So sánh phương án luân canh', 'Theo dõi & tính lại']
 
 export function LandingPage() {
   const globe = useRef<EarthGlobeHandle>(null)
   const [selected, setSelected] = useState<Place | null>(null)
+  const fieldCount = useFields().length
 
   const locate = (place: Place) => {
     setSelected(place)
@@ -38,6 +41,13 @@ export function LandingPage() {
         ),
       )
       .catch(() => setSelected((cur) => (cur?.id === id ? { ...cur, context: '' } : cur)))
+  }
+
+  /** Open the parcel screen exactly where the map is looking. */
+  const startParcel = () => {
+    const v = globe.current?.view()
+    const at = v ?? (selected ? { lat: selected.lat, lng: selected.lng, zoom: selected.zoom } : null)
+    navigate('/ruong/moi', at ? { lat: at.lat.toFixed(5), lng: at.lng.toFixed(5), z: at.zoom.toFixed(2), noi: selected?.name } : undefined)
   }
 
   const backToGlobe = () => {
@@ -72,6 +82,9 @@ export function LandingPage() {
           <a href="#gioi-thieu">Giới thiệu</a>
           <a href="#phuong-phap">Phương pháp</a>
           <a href="#du-lieu">Dữ liệu NASA</a>
+          <a className="topnav__app" href={href('/ruong')}>
+            {fieldCount > 0 ? `Ruộng của tôi (${fieldCount})` : 'Vào ứng dụng'}
+          </a>
         </nav>
       </header>
 
@@ -111,7 +124,7 @@ export function LandingPage() {
             </div>
           </dl>
           <div className="place-card__actions">
-            <button type="button" className="btn btn--primary" disabled title="Bước tiếp theo đang được thiết kế">
+            <button type="button" className="btn btn--primary" onClick={startParcel}>
               Khoanh thửa ruộng
             </button>
             <button type="button" className="btn btn--ghost" onClick={backToGlobe}>
