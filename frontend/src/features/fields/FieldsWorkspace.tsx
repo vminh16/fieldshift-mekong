@@ -709,10 +709,10 @@ export function FieldsWorkspace({ route }: { route: Route }) {
                 </dl>
                 <ul className="rows">
                   <Row icon="edit" label="Chỉnh sửa ranh giới" onClick={() => navigate(`/ruong/${active.id}/sua`)} />
-                  <Row icon="sprout" label="Thông tin canh tác" tag="Chưa cập nhật" onClick={() => navigate('/mo-phong', { thua: active.id })} />
+                  <Row icon="sprout" label="Thông tin canh tác" tag="Chưa cập nhật" onClick={() => navigate('/de-xuat', { thua: active.id })} />
                   <Row icon="history" label="Lịch sử phân tích" tag="Chưa có" onClick={() => navigate('/theo-doi', { thua: active.id })} />
                 </ul>
-                <button type="button" className="btn btn--primary card__cta" onClick={() => navigate('/mo-phong', { thua: active.id })}>
+                <button type="button" className="btn btn--primary card__cta" onClick={() => navigate('/de-xuat', { thua: active.id })}>
                   <Icon name="chart" /> Phân tích & đề xuất luân canh <Icon name="arrowRight" />
                 </button>
               </Card>

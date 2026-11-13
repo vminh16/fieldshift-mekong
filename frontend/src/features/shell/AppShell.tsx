@@ -13,7 +13,7 @@ interface NavItem {
 export const NAV: NavItem[] = [
   { path: '/', label: 'Trang chủ', short: 'Trang chủ', icon: 'home' },
   { path: '/ruong', label: 'Ruộng của tôi', short: 'Ruộng', icon: 'fields' },
-  { path: '/mo-phong', label: 'Mô phỏng luân canh', short: 'Mô phỏng', icon: 'sprout' },
+  { path: '/de-xuat', label: 'Đề xuất luân canh', short: 'Đề xuất', icon: 'sprout' },
   { path: '/theo-doi', label: 'Theo dõi vụ', short: 'Theo dõi', icon: 'calendar' },
   { path: '/nguon', label: 'Dữ liệu NASA', short: 'Dữ liệu', icon: 'database' },
 ]

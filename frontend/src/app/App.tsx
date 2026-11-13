@@ -12,7 +12,8 @@ export function App() {
   // One workspace for browsing, drawing and editing parcels, so the map survives mode changes.
   if (path === '/ruong' || path.startsWith('/ruong/')) return <FieldsWorkspace route={route} />
 
-  if (path === '/mo-phong') return <RecommendScreen fieldId={route.params.get('thua')} />
+  // /mo-phong was the old name of this screen; simulation (twin) will get its own route.
+  if (path === '/de-xuat' || path === '/mo-phong') return <RecommendScreen fieldId={route.params.get('thua')} />
   if (path === '/theo-doi')
     return (
       <PlannedScreen
