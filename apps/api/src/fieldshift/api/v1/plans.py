@@ -9,6 +9,7 @@ from fastapi.responses import HTMLResponse
 from fieldshift.api.schemas.requests import PlanRequest, ReplanIn, WhatIfIn
 from fieldshift.application.use_cases import plan_rotation as uc
 from fieldshift.application.use_cases.plan_rotation import must
+from fieldshift.domain.formatting import number_vi
 from fieldshift.infrastructure.persistence import sqlite as db
 
 router = APIRouter(prefix="/plans", tags=["plans"])
@@ -76,7 +77,7 @@ def export(decision_id: str):
         rows += (
             f"<tr><td>{'Hiện tại' if o['is_baseline'] else e(o['strategy_name_vi'] or '')}</td>"
             f"<td>{' → '.join(e(s['crop_name_vi']) + ' (' + s['sow'] + ')' for s in o['seasons'])}</td>"
-            f"<td>{e(o['decision_status'])}</td><td>{m['irrigation_need']['value']} mm</td>"
+            f"<td>{e(o['decision_status'])}</td><td>{number_vi(m['irrigation_need']['value']) if m['irrigation_need']['value'] is not None else '—'} mm</td>"
             f"<td>{'<br>'.join(e(r['text']) for r in o['reasons']) or '—'}</td>"
             f"<td>{'<br>'.join(e(x) for x in o['checklist']) or '—'}</td></tr>"
         )

@@ -111,7 +111,7 @@ def build_scenarios(
             "scenario_id": "sc_hot",
             "kind": "STRESS_TEST",
             "probability_semantics": "NONE_ASSUMPTION",
-            "name": "Nóng hơn +1.5 °C",
+            "name": "Nóng hơn +1,5 °C",
             "assumptions": ["tmax_tmin_tdew_plus_1.5C"],
             "members": [{"year": y, "temp_delta": 1.5} for y in years],
         },

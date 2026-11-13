@@ -7,6 +7,8 @@ Pareto front and picks diverse strategies; farmer priorities only order the pres
 import datetime as dt
 import itertools
 import statistics as st
+from functools import lru_cache
+from time import perf_counter
 
 from fieldshift.domain.catalog import CROP_BY_ID, CROPS
 from fieldshift.domain.engines.future_outlook import (
@@ -14,6 +16,7 @@ from fieldshift.domain.engines.future_outlook import (
     build_weather,
     dry_season_rain,
 )
+from fieldshift.domain.formatting import number_vi
 from fieldshift.domain.value_objects.measure import measure
 
 VERSIONS = {
@@ -39,6 +42,9 @@ STRATEGY_VI = {
     "soil_support": "Hỗ trợ đất",
     "balanced": "Thay đổi ít, cân bằng",
 }
+# criteria() reads climate/dry summaries; field_rules() reads climate only.
+# Keep this set aligned with those dependencies so optional outlooks cannot change selection.
+SCREENING_SCENARIOS = frozenset({"sc_clim", "sc_dry"})
 
 
 # ---------- season windows & generator ----------
@@ -120,7 +126,7 @@ def calendar_rules(seq: dict, windows: list[dict], turnaround: int) -> list[dict
                     "R_SEASON_OVERLAP",
                     "HARD",
                     b["index"],
-                    f"Thu hoạch {a['crop_name_vi']} ({a['harvest']}) + {turnaround} ngày làm đất vượt ngày gieo vụ {b['index']} ({b['sow']})",
+                    f"Thu hoạch {a['crop_name_vi']} ({a['harvest']}) + {number_vi(turnaround)} ngày làm đất vượt ngày gieo vụ {number_vi(b['index'])} ({b['sow']})",
                     ["crops.duration_days", "regions.min_turnaround_days"],
                     "Gieo vụ trước sớm hơn hoặc chọn giống ngắn ngày",
                     ["ev_crop_catalog", "ev_region_calendar"],
@@ -157,13 +163,20 @@ def overlap_days(a0, a1, b0, b1) -> int:
     return max(0, (min(a1, b1) - max(a0, b0)).days + 1)
 
 
+@lru_cache(maxsize=8192)
+def weekly_mean(values: tuple[float, ...], digits: int) -> float:
+    # Repeated water-state patterns are common across crops/scenarios. Retain the
+    # exact statistics.mean arithmetic (including rounding at half-way values).
+    return round(st.mean(values), digits)
+
+
 def weekly_water(rows: list[dict]) -> dict:
     return {
         "date": str(rows[0]["date"]),
         "stage": rows[0]["stage"],
         "root_depth_m": rows[0]["root_depth_m"],
-        "root_zone_water": round(st.mean(x["water_frac"] for x in rows), 2),
-        "ponding_mm": round(st.mean(x["ponding_mm"] for x in rows), 1)
+        "root_zone_water": weekly_mean(tuple(x["water_frac"] for x in rows), 2),
+        "ponding_mm": weekly_mean(tuple(x["ponding_mm"] for x in rows), 1)
         if rows[0]["ponding_mm"] is not None
         else None,
         "rain_week": round(sum(x["rain"] for x in rows), 1),
@@ -206,24 +219,42 @@ class Evaluator:
         if len(years) >= 3:
             self.year_labels[years[len(years) // 2]] = "Năm bình thường"
         self.weather = {}
+        self.simulation_keys = {}
+        weather_keys = {}
         for s in self.scenarios:
             for i, m in enumerate(s["members"]):
-                self.weather[(s["scenario_id"], i)] = build_weather(
-                    ctx,
-                    as_of,
-                    span_days,
+                key = (s["scenario_id"], i)
+                # Climate, dry/wet analogs and salinity-only scenarios can share water
+                # simulations. Forecast members retain distinct daily weather inputs.
+                weather_key = (
                     m["year"],
                     m.get("temp_delta", 0.0),
                     m.get("rain_factor", 1.0),
-                    m.get("monthly_tmax_delta"),
-                    m.get("monthly_rain_factor"),
-                    m.get("daily"),
+                    tuple(sorted((m.get("monthly_tmax_delta") or {}).items())),
+                    tuple(sorted((m.get("monthly_rain_factor") or {}).items())),
+                    key if m.get("daily") else None,
                 )
+                canonical = weather_keys.setdefault(weather_key, key)
+                self.simulation_keys[key] = canonical
+                if canonical == key:
+                    self.weather[key] = build_weather(
+                        ctx,
+                        as_of,
+                        span_days,
+                        m["year"],
+                        m.get("temp_delta", 0.0),
+                        m.get("rain_factor", 1.0),
+                        m.get("monthly_tmax_delta"),
+                        m.get("monthly_rain_factor"),
+                        m.get("daily"),
+                    )
+                else:
+                    self.weather[key] = self.weather[canonical]
         self.soil = {"taw_mm_per_m": self.region["soil_prior"]["taw_mm_per_m"]}
         self.memo = {}
 
     def season(self, crop_id, sow, key, dep):
-        k = (crop_id, sow, key, round(dep, 1))
+        k = (crop_id, sow, self.simulation_keys[key], round(dep, 1))
         if k not in self.memo:
             r = self.simulate(
                 self.weather[key],
@@ -236,17 +267,21 @@ class Evaluator:
                 round(dep, 1),
                 self.cap,
             )
-            # Retain compact weekly aggregates from the very same simulation. No daily
-            # reruns are needed after the shortlist is selected or when serving Twin.
-            daily = r.pop("daily")
+            self.memo[k] = r
+        return self.memo[k]
+
+    def weekly(self, result):
+        """Aggregate the original simulation only when a selected sequence needs Twin data."""
+        if "weeks" not in result:
+            daily = result.pop("daily")
             weeks = {}
             for row in daily:
                 week = (row["date"] - self.as_of).days // 7
                 weeks.setdefault(week, []).append(row)
-            r["weeks"] = {week: weekly_water(rows) for week, rows in weeks.items()}
-            r["season_weeks"] = [weekly_water(daily[i : i + 7]) for i in range(0, len(daily), 7)]
-            self.memo[k] = r
-        return self.memo[k]
+            result["weeks"] = {week: weekly_water(rows) for week, rows in weeks.items()}
+            result["season_weeks"] = [
+                weekly_water(daily[i : i + 7]) for i in range(0, len(daily), 7)
+            ]
 
     def run(self, seq, key):
         dep = self.state["initial_depletion_frac"]["value"]
@@ -257,9 +292,11 @@ class Evaluator:
             dep = r["end_state"]["depletion_frac"]  # inter-season water carry-over (AC-05)
         return out
 
-    def evaluate(self, seq) -> dict:
+    def evaluate(self, seq, scenario_ids=None) -> dict:
         res = {}
         for s in self.scenarios:
+            if scenario_ids is not None and s["scenario_id"] not in scenario_ids:
+                continue
             runs = [self.run(seq, (s["scenario_id"], i)) for i in range(len(s["members"]))]
             res[s["scenario_id"]] = runs
         return res
@@ -362,9 +399,9 @@ def field_rules(seq, ev: "Evaluator", summ: dict, constraints: dict) -> list[dic
                             "R_SALINITY_UNKNOWN",
                             "UNKNOWN_REQUIRES_CHECK",
                             i,
-                            f"Vụ {i} ({c['name_vi']}) trùng mùa mặn {ov} ngày ({ov_early} ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh",
+                            f"Vụ {number_vi(i)} ({c['name_vi']}) trùng mùa mặn {number_vi(ov)} ngày ({number_vi(ov_early)} ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh",
                             ["state.canal_ecw", "regions.salinity_season", "crops.salinity"],
-                            f"Đo ECw nước kênh trước ngày gieo; ngưỡng tham khảo của {c['name_vi']} ≈ {thr} dS/m",
+                            f"Đo ECw nước kênh trước ngày gieo; ngưỡng tham khảo của {c['name_vi']} ≈ {number_vi(thr)} dS/m",
                             ["ev_salinity_season", "ev_crop_catalog"],
                         )
                     )
@@ -380,7 +417,7 @@ def field_rules(seq, ev: "Evaluator", summ: dict, constraints: dict) -> list[dic
                             "R_SALINITY",
                             "SOFT",
                             i,
-                            f"ECw đo được {ecw} dS/m > ngưỡng {thr} dS/m của {c['name_vi']}; giảm năng suất tham khảo ~{min(100, round(loss))}% (Maas-Hoffman, ECe≈1.5·ECw)",
+                            f"ECw đo được {number_vi(ecw)} dS/m > ngưỡng {number_vi(thr)} dS/m của {c['name_vi']}; giảm năng suất tham khảo ~{number_vi(min(100, round(loss)))}% (Maas-Hoffman, ECe≈1,5·ECw)",
                             ["state.canal_ecw", "crops.salinity"],
                             "Trữ nước ngọt, chọn cây/giống chịu mặn hơn hoặc dời lịch",
                             ["ev_crop_catalog"],
@@ -394,7 +431,7 @@ def field_rules(seq, ev: "Evaluator", summ: dict, constraints: dict) -> list[dic
                     "R_HEAT",
                     "SOFT",
                     i,
-                    f"{c['name_vi']}: trung vị {ps['heat_stress_days_sensitive']} ngày Tmax ≥ {c['heat']['tmax_threshold_c']} °C ở giai đoạn nhạy cảm",
+                    f"{c['name_vi']}: trung vị {number_vi(ps['heat_stress_days_sensitive'])} ngày Tmax ≥ {number_vi(c['heat']['tmax_threshold_c'])} °C ở giai đoạn nhạy cảm",
                     ["NASA POWER T2M_MAX", "crops.heat"],
                     "Dời ngày gieo để giai đoạn nhạy cảm tránh tháng nóng",
                     ["ev_power_daily", "ev_crop_catalog"],
@@ -406,7 +443,7 @@ def field_rules(seq, ev: "Evaluator", summ: dict, constraints: dict) -> list[dic
                     "R_WATER_STRESS",
                     "SOFT",
                     i,
-                    f"{c['name_vi']}: trung vị {ps['water_stress_days']} ngày thiếu nước với nguồn tưới đã khai báo",
+                    f"{c['name_vi']}: trung vị {number_vi(ps['water_stress_days'])} ngày thiếu nước với nguồn tưới đã khai báo",
                     ["NASA POWER", "constraints.irrigation"],
                     "Tăng nguồn tưới hoặc chọn cây ít nước hơn",
                     ["ev_power_daily", "ev_crop_catalog"],
@@ -422,7 +459,7 @@ def field_rules(seq, ev: "Evaluator", summ: dict, constraints: dict) -> list[dic
                     "R_WATERLOG",
                     "SOFT",
                     i,
-                    f"{c['name_vi']} chịu úng kém; mưa trung vị trong vụ {ps['rain_mm']} mm",
+                    f"{c['name_vi']} chịu úng kém; mưa trung vị trong vụ {number_vi(ps['rain_mm'])} mm",
                     ["NASA POWER PRECTOTCORR", "crops.waterlogging_tolerance"],
                     "Lên liếp, rãnh thoát; tránh gieo đầu mùa mưa",
                     ["ev_power_daily"],
@@ -565,7 +602,7 @@ def explain(c, base, ev) -> dict:
     if d <= -50:
         reasons.append(
             {
-                "text": f"Nhu cầu tưới trung vị giảm ~{-d} mm (~{-d * 10:,} m³/ha) so với hiện tại trên cùng {s['members']} năm lịch sử NASA POWER.",
+                "text": f"Nhu cầu tưới trung vị giảm ~{number_vi(-d)} mm (~{number_vi(-d * 10)} m³/ha) so với hiện tại trên cùng {number_vi(s['members'])} năm lịch sử NASA POWER.",
                 "evidence_ids": ["ev_power_daily", "ev_crop_catalog"],
             }
         )
@@ -573,7 +610,7 @@ def explain(c, base, ev) -> dict:
     if dd <= -50:
         reasons.append(
             {
-                "text": f"Trong các năm khô nhất, giảm ~{-dd} mm nước tưới so với hiện tại.",
+                "text": f"Trong các năm khô nhất, giảm ~{number_vi(-dd)} mm nước tưới so với hiện tại.",
                 "evidence_ids": ["ev_power_daily"],
             }
         )
@@ -581,7 +618,7 @@ def explain(c, base, ev) -> dict:
     if ds <= -3:
         reasons.append(
             {
-                "text": f"Giảm ~{-ds:g} ngày nắng nóng (≥ ngưỡng cây) ở giai đoạn nhạy cảm.",
+                "text": f"Giảm ~{number_vi(-ds)} ngày nắng nóng (≥ ngưỡng cây) ở giai đoạn nhạy cảm.",
                 "evidence_ids": ["ev_power_daily", "ev_crop_catalog"],
             }
         )
@@ -618,14 +655,14 @@ def explain(c, base, ev) -> dict:
             thr = crop["salinity"]["ecw_threshold_ds_m"]
             triggers.append(
                 {
-                    "condition": f"ECw nước kênh > {thr} dS/m (≈ {thr * PPT_PER_DS_M:.1f} ‰) trước {season['sow']}",
+                    "condition": f"ECw nước kênh > {number_vi(thr)} dS/m (≈ {number_vi(thr * PPT_PER_DS_M, 1)} ‰) trước {season['sow']}",
                     "measure": "ECw nước kênh (máy đo EC cầm tay)",
                     "variable": "canal_ecw",
                     "op": "gt",
                     "threshold": thr,
                     "season_index": r["season_index"],
                     "unit": "dS/m",
-                    "action": f"Không gieo {crop['name_vi']} vụ {r['season_index']}; tái lập kế hoạch",
+                    "action": f"Không gieo {crop['name_vi']} vụ {number_vi(r['season_index'])}; tái lập kế hoạch",
                 }
             )
         if r["severity"] == "UNKNOWN_REQUIRES_CHECK":
@@ -635,7 +672,7 @@ def explain(c, base, ev) -> dict:
         if crop["requires_good_drainage"]:
             triggers.append(
                 {
-                    "condition": f"Thoát nước kém trước vụ {season['index']}",
+                    "condition": f"Thoát nước kém trước vụ {number_vi(season['index'])}",
                     "variable": "drainage",
                     "op": "eq",
                     "threshold": "poor",
@@ -656,7 +693,7 @@ def explain(c, base, ev) -> dict:
             threshold = crop["salinity"]["ecw_threshold_ds_m"]
             triggers.append(
                 {
-                    "condition": f"ECw nước kênh > {threshold} dS/m trước {season['sow']}",
+                    "condition": f"ECw nước kênh > {number_vi(threshold)} dS/m trước {season['sow']}",
                     "variable": "canal_ecw",
                     "op": "gt",
                     "threshold": threshold,
@@ -819,6 +856,8 @@ def trajectory_members(ev: Evaluator, c: dict, scen: dict, end: dt.date) -> dict
     series_by_member, compare_series_by_member = [], []
     for i in range(len(members)):
         seasons = ev.run(c["seq"], (sid, i))
+        for result in seasons:
+            ev.weekly(result)
         weather = {w["date"]: w for w in ev.weather[(sid, i)]}
         series, cum = [], 0.0
         for week in range((end - ev.as_of).days // 7 + 1):
@@ -965,6 +1004,15 @@ def trajectory(stored: dict, member: int | None = None, *, aligned: bool = False
 def run_plan(
     field: dict, ctx: dict, state: dict, req: dict, override: dict | None = None, *, simulate
 ) -> dict:
+    started = stage = perf_counter()
+    timings = {}
+
+    def timed(name):
+        nonlocal stage
+        now = perf_counter()
+        timings[name] = round((now - stage) * 1000, 2)
+        stage = now
+
     as_of = dt.date.fromisoformat(req["as_of"])
     region = ctx["region"]
     n = req.get("horizon_seasons", 3)
@@ -1010,6 +1058,7 @@ def run_plan(
             ],
         }
     scen = {s["scenario_id"]: s for s in ev.scenarios}
+    timed("setup")
 
     sow_shift = (override or {}).get("sow_shift_days") or {}
     turnaround = region["min_turnaround_days"]
@@ -1043,8 +1092,10 @@ def run_plan(
                 continue
             candidates.append(seq)
 
+    timed("candidate_generation")
+
     def evaluate(seq):
-        res = ev.evaluate(seq)
+        res = ev.evaluate(seq, SCREENING_SCENARIOS)
         summary = {sid: summarize(runs) for sid, runs in res.items()}
         rules = calendar_rules(seq, windows, turnaround) + field_rules(
             seq, ev, summary, constraints
@@ -1052,7 +1103,6 @@ def run_plan(
         c = {
             "seq": seq,
             "summary": summary,
-            "distribution": distribution_view(res, scen, summary),
             "rules": rules,
             "status": status_of(rules),
             "soil_indicators": soil_indicators(seq),
@@ -1069,9 +1119,20 @@ def run_plan(
             continue
         c["crit"] = criteria(c, base)
         evaluated.append(c)
+    timed("screening")
     front = pareto(evaluated)
     priorities = req.get("priorities") or ["avoid_crop_failure", "save_water", "soil_health"]
     picked = pick_strategies(front, base, priorities)
+    timed("selection")
+
+    # The shortlist is fixed using exactly the same criteria and candidate order as before.
+    # Extra scenarios and display distributions are needed only for returned sequences.
+    chosen = [base] + [c for _, c in picked]
+    for c in chosen:
+        res = ev.evaluate(c["seq"])
+        c["summary"] = {sid: summarize(runs) for sid, runs in res.items()}
+        c["distribution"] = distribution_view(res, scen, c["summary"])
+    timed("selected_scenarios")
 
     # gates
     coastal = state["coastal_salinity_risk"]["value"]
@@ -1079,7 +1140,7 @@ def run_plan(
         {
             "gate": "G3",
             "passed": True,
-            "message": f"Catalog {CROPS['version']}: {len(crop_ids)} lựa chọn có tham số.",
+            "message": f"Catalog {CROPS['version']}: {number_vi(len(crop_ids))} lựa chọn có tham số.",
         }
     )
     if any(r["rule_id"] == "R_DRAINAGE_UNKNOWN" for _, c in picked for r in c["rules"]):
@@ -1169,7 +1230,7 @@ def run_plan(
             out["summary_vi"] = summary
         return out
 
-    chosen = [base] + [c for _, c in picked]
+    timed("explanation_setup")
     trajectories, member_trajectories = {}, {}
     end = max(s["harvest"] for c in chosen for s in c["seq"]["seasons"])
     for c in chosen:
@@ -1181,6 +1242,7 @@ def run_plan(
             sid: trajectory(stored) for sid, stored in member_trajectories[sequence_id].items()
         }
 
+    timed("trajectories")
     seen_ex = {}
     for seq, rules in excluded:
         key = (tuple(seq["crops"]), rules[0]["rule_id"])
@@ -1198,7 +1260,7 @@ def run_plan(
         notes.append(
             "Không đủ hai phương án thay thế khả thi khác biệt; không bịa thêm ứng viên (AC-01)."
         )
-    return {
+    result = {
         "gates": gates,
         "windows": [
             {**w, "sow_from": str(w["sow_from"]), "sow_to": str(w["sow_to"])} for w in windows
@@ -1217,9 +1279,13 @@ def run_plan(
             "evaluated_feasible": len(evaluated),
             "pareto_front": len(front),
             "season_simulations": len(ev.memo),
+            "timings_ms": timings,
         },
         "irrigation_cap_mm_per_season": cap,
         "trajectories": trajectories,
         "member_trajectories": member_trajectories,
         "notes": notes,
     }
+    timed("packaging")
+    timings["total"] = round((perf_counter() - started) * 1000, 2)
+    return result

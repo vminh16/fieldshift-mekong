@@ -5,6 +5,7 @@ Units: temperatures degC, radiation MJ m-2 day-1, wind m/s at 2 m, water mm, pre
 
 import datetime
 import math
+from functools import lru_cache
 
 _GSC = 0.0820  # solar constant, MJ m-2 min-1
 _SIGMA = 4.903e-9  # Stefan-Boltzmann, MJ K-4 m-2 day-1
@@ -32,6 +33,7 @@ def _ra(doy: int, lat_deg: float) -> float:
     )  # Eq. 21
 
 
+@lru_cache(maxsize=65536)
 def et0_pm(
     doy: int,
     lat_deg: float,
@@ -42,7 +44,11 @@ def et0_pm(
     rs_mj: float,
     u2: float,
 ) -> float:
-    """FAO-56 Penman-Monteith reference ET0, mm/day (Eq. 6), G = 0."""
+    """FAO-56 Penman-Monteith reference ET0, mm/day (Eq. 6), G = 0.
+
+    Pure daily weather calculation, shared across crops and sow dates; every physical
+    input is part of the bounded cache key. Crop water balances remain independent.
+    """
     tmean = (tmax + tmin) / 2
     p = 101.3 * ((293 - 0.0065 * elev_m) / 293) ** 5.26  # Eq. 7
     gamma = 0.000665 * p  # Eq. 8

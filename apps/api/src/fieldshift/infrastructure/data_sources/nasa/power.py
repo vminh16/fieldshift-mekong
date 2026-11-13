@@ -56,6 +56,6 @@ def _nearest(lat: float, lon: float, max_deg: float = 0.5) -> tuple[dict, str]:
             best = (d, payload)
     if best is None:
         raise PowerUnavailable(
-            "NASA POWER không truy cập được và không có cache gần (≤0.5°) cho vị trí này"
+            "NASA POWER không truy cập được và không có cache gần (≤0,5°) cho vị trí này"
         )
     return best[1], "CACHED_NEARBY_CELL"

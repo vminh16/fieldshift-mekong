@@ -1,10 +1,10 @@
 {
-  "decision_id": "dec_8607286f4844",
+  "decision_id": "dec_9797d31f4f71",
   "parent_id": null,
   "kind": "PLAN",
   "field_id": "fld_cantho",
   "as_of": "2026-11-14",
-  "generated_at": "2026-11-13T14:24:50+00:00",
+  "generated_at": "2026-11-13T14:41:20+00:00",
   "versions": {
     "catalog": "crops-2026.11.0",
     "rules": "rules-1",
@@ -12,7 +12,7 @@
     "planner": "pareto-v1",
     "data": "power-v2.10.3@2026-11-03"
   },
-  "field_state_snapshot_id": "st_599a8dc8a909",
+  "field_state_snapshot_id": "st_39ddfdaee5b3",
   "field_state": {
     "as_of": "2026-11-14",
     "upstream_discharge": {
@@ -290,7 +290,7 @@
       "scenario_id": "sc_hot",
       "kind": "STRESS_TEST",
       "probability_semantics": "NONE_ASSUMPTION",
-      "name": "Nóng hơn +1.5 °C",
+      "name": "Nóng hơn +1,5 °C",
       "assumptions": [
         "tmax_tmin_tdew_plus_1.5C"
       ],
@@ -3560,7 +3560,7 @@
         "rule_id": "R_HEAT",
         "severity": "SOFT",
         "season_index": 1,
-        "reason": "Lúa: trung vị 12.5 ngày Tmax ≥ 35 °C ở giai đoạn nhạy cảm",
+        "reason": "Lúa: trung vị 12,5 ngày Tmax ≥ 35 °C ở giai đoạn nhạy cảm",
         "inputs_used": [
           "NASA POWER T2M_MAX",
           "crops.heat"
@@ -3591,7 +3591,7 @@
         "code": "R_HEAT",
         "severity": "SOFT",
         "season_index": 1,
-        "text": "Lúa: trung vị 12.5 ngày Tmax ≥ 35 °C ở giai đoạn nhạy cảm"
+        "text": "Lúa: trung vị 12,5 ngày Tmax ≥ 35 °C ở giai đoạn nhạy cảm"
       },
       {
         "code": "R_PEST_CYCLE",
@@ -6686,7 +6686,7 @@
       ],
       "reasons": [
         {
-          "text": "Nhu cầu tưới trung vị giảm ~694 mm (~6,940 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER.",
+          "text": "Nhu cầu tưới trung vị giảm ~694 mm (~6.940 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER.",
           "evidence_ids": [
             "ev_power_daily",
             "ev_crop_catalog"
@@ -6731,7 +6731,7 @@
         "Xác nhận nguồn giống và đầu ra cho Đậu nành (Đậu nành vụ Xuân Hè trong luân canh lúa-màu; giá nội địa thấp hơn nhập khẩu, thị trường nhỏ.)",
         "Trao đổi với cán bộ khuyến nông địa phương trước khi xuống giống"
       ],
-      "summary_vi": "Đổi vụ Đông Xuân sang Đậu nành: Nhu cầu tưới trung vị giảm ~694 mm (~6,940 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER; cần xác nhận thoát nước."
+      "summary_vi": "Đổi vụ Đông Xuân sang Đậu nành: Nhu cầu tưới trung vị giảm ~694 mm (~6.940 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER; cần xác nhận thoát nước."
     },
     {
       "sequence_id": "seq_mungbean_rice_rice__early_standard_standard",
@@ -9814,7 +9814,7 @@
       ],
       "reasons": [
         {
-          "text": "Nhu cầu tưới trung vị giảm ~799 mm (~7,990 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER.",
+          "text": "Nhu cầu tưới trung vị giảm ~799 mm (~7.990 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER.",
           "evidence_ids": [
             "ev_power_daily",
             "ev_crop_catalog"
@@ -9827,7 +9827,7 @@
           ]
         },
         {
-          "text": "Giảm ~14.5 ngày nắng nóng (≥ ngưỡng cây) ở giai đoạn nhạy cảm.",
+          "text": "Giảm ~14,5 ngày nắng nóng (≥ ngưỡng cây) ở giai đoạn nhạy cảm.",
           "evidence_ids": [
             "ev_power_daily",
             "ev_crop_catalog"
@@ -9859,7 +9859,7 @@
         "Xác nhận nguồn giống và đầu ra cho Đậu xanh (Đậu xanh ngắn ngày (60-75 ngày), vốn thấp, phù hợp xen vụ giữa hai vụ lúa.)",
         "Trao đổi với cán bộ khuyến nông địa phương trước khi xuống giống"
       ],
-      "summary_vi": "Đổi vụ Đông Xuân sang Đậu xanh: Nhu cầu tưới trung vị giảm ~799 mm (~7,990 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER; cần xác nhận thoát nước."
+      "summary_vi": "Đổi vụ Đông Xuân sang Đậu xanh: Nhu cầu tưới trung vị giảm ~799 mm (~7.990 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER; cần xác nhận thoát nước."
     },
     {
       "sequence_id": "seq_rice_peanut_rice__early_standard_standard",
@@ -12943,7 +12943,7 @@
       ],
       "reasons": [
         {
-          "text": "Nhu cầu tưới trung vị giảm ~670 mm (~6,700 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER.",
+          "text": "Nhu cầu tưới trung vị giảm ~670 mm (~6.700 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER.",
           "evidence_ids": [
             "ev_power_daily",
             "ev_crop_catalog"
@@ -12988,7 +12988,7 @@
         "Xác nhận nguồn giống và đầu ra cho Đậu phộng (lạc) (Đậu phộng trồng đất cát/đất giồng, lợi nhuận cao hơn lúa nhưng cần đất thoát nước tốt.)",
         "Trao đổi với cán bộ khuyến nông địa phương trước khi xuống giống"
       ],
-      "summary_vi": "Đổi vụ Xuân Hè / Hè Thu sang Đậu phộng (lạc): Nhu cầu tưới trung vị giảm ~670 mm (~6,700 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER; cần xác nhận thoát nước."
+      "summary_vi": "Đổi vụ Xuân Hè / Hè Thu sang Đậu phộng (lạc): Nhu cầu tưới trung vị giảm ~670 mm (~6.700 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER; cần xác nhận thoát nước."
     },
     {
       "sequence_id": "seq_fallow_cover_rice_rice__early_standard_standard",
@@ -16056,20 +16056,20 @@
       "rules": [],
       "reasons": [
         {
-          "text": "Nhu cầu tưới trung vị giảm ~943 mm (~9,430 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER.",
+          "text": "Nhu cầu tưới trung vị giảm ~943 mm (~9.430 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER.",
           "evidence_ids": [
             "ev_power_daily",
             "ev_crop_catalog"
           ]
         },
         {
-          "text": "Trong các năm khô nhất, giảm ~1017 mm nước tưới so với hiện tại.",
+          "text": "Trong các năm khô nhất, giảm ~1.017 mm nước tưới so với hiện tại.",
           "evidence_ids": [
             "ev_power_daily"
           ]
         },
         {
-          "text": "Giảm ~14.5 ngày nắng nóng (≥ ngưỡng cây) ở giai đoạn nhạy cảm.",
+          "text": "Giảm ~14,5 ngày nắng nóng (≥ ngưỡng cây) ở giai đoạn nhạy cảm.",
           "evidence_ids": [
             "ev_power_daily",
             "ev_crop_catalog"
@@ -16081,7 +16081,7 @@
       "checklist": [
         "Trao đổi với cán bộ khuyến nông địa phương trước khi xuống giống"
       ],
-      "summary_vi": "Đổi vụ Đông Xuân sang Bỏ hóa / cây phủ đất: Nhu cầu tưới trung vị giảm ~943 mm (~9,430 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER."
+      "summary_vi": "Đổi vụ Đông Xuân sang Bỏ hóa / cây phủ đất: Nhu cầu tưới trung vị giảm ~943 mm (~9.430 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER."
     }
   ],
   "excluded": [
@@ -16443,7 +16443,18 @@
     "calendar_feasible": 52,
     "evaluated_feasible": 52,
     "pareto_front": 5,
-    "season_simulations": 9605
+    "season_simulations": 2962,
+    "timings_ms": {
+      "setup": 221.93,
+      "candidate_generation": 1.58,
+      "screening": 500.34,
+      "selection": 0.36,
+      "selected_scenarios": 1079.98,
+      "explanation_setup": 0.02,
+      "trajectories": 1625.82,
+      "packaging": 0.56,
+      "total": 3430.59
+    }
   },
   "irrigation_cap_mm_per_season": null,
   "notes": [],
