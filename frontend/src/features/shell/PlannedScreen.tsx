@@ -5,7 +5,7 @@ import { href } from '../../shared/router'
 /** Placeholder for a section whose design is agreed but not built yet. Lists what it will contain. */
 export function PlannedScreen({ title, icon, lead, items }: { title: string; icon: IconName; lead: string; items: string[] }) {
   return (
-    <AppShell crumbs={[{ label: title }]}>
+    <AppShell>
       <section className="planned">
         <div className="planned__icon" aria-hidden="true">
           <Icon name={icon} className="icon" />

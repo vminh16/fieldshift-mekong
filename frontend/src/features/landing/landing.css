@@ -76,10 +76,10 @@
   padding: 0 16px;
   border: 1px solid var(--color-action-border);
   border-radius: var(--radius-pill);
-  background: rgba(15, 84, 80, 0.55);
+  background: transparent;
   opacity: 1;
 }
-.topnav .topnav__app:hover { background: var(--color-action); color: #fff; }
+.topnav .topnav__app:hover { background: var(--color-action); color: var(--color-on-action); }
 
 /* ---------- hero ---------- */
 .hero {

@@ -1,26 +1,33 @@
 /* Design tokens — FieldShift Mekong (dark, space-night theme) */
 :root {
-  /* Surfaces */
-  --color-bg: #0b1720;
-  --color-bg-deep: #07111a;
-  --color-surface: rgba(16, 33, 44, 0.72);
-  --color-border: rgba(214, 232, 240, 0.14);
-  --color-border-strong: rgba(214, 232, 240, 0.28);
+  /* Surfaces — neutral graphite with a faint green cast; no navy, no glass */
+  --color-bg: #121513;
+  --color-bg-deep: #0d0f0e;
+  --color-surface: #181c19;        /* panels, cards */
+  --color-surface-2: #20251f;      /* hover, inputs */
+  --color-border: rgba(232, 240, 228, 0.09);
+  --color-border-strong: rgba(232, 240, 228, 0.17);
 
   /* Text — all pass 4.5:1 on --color-bg */
-  --color-text: #f3f6f7;
-  --color-text-muted: #b4c2cb;
-  --color-text-subtle: #8fa1ad;
+  --color-text: #eef0eb;
+  --color-text-muted: #b1b8ae;
+  --color-text-subtle: #8b9388;
 
-  /* Brand */
-  --color-accent: #4fd8b4;        /* mint — headline accent, eyebrow, icon */
-  --color-accent-strong: #7be6c8;
-  --color-action: #0f5450;        /* primary button */
-  --color-action-hover: #146b65;
-  --color-action-border: #2a8a80;
+  /* Brand — one muted rice-leaf green. Used sparingly: active state, primary action, selected parcel. */
+  --color-accent: #a6d388;
+  --color-accent-strong: #c2e3a8;
+  --color-accent-soft: rgba(166, 211, 136, 0.12);
+  --color-action: #9fcf7d;         /* primary button: light fill, dark text */
+  --color-action-hover: #b3da97;
+  --color-action-border: #9fcf7d;
+  --color-on-action: #11200b;
   --color-input: #f2f0e8;          /* cream search field */
   --color-input-text: #14232c;
   --color-input-placeholder: #5f6d74;
+
+  /* Status */
+  --color-warn: #e3b866;
+  --color-danger: #e58b7b;
 
   /* Type */
   --font-sans: 'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -31,7 +38,7 @@
 
   /* Shape & motion */
   --radius-sm: 8px;
-  --radius-md: 14px;
+  --radius-md: 10px;
   --radius-pill: 999px;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --gutter: clamp(16px, 4vw, 64px);

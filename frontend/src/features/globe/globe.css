@@ -90,7 +90,7 @@
 .earth-hint__pulse::before {
   width: 10px; height: 10px; margin: -5px;
   background: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(6, 32, 25, 0.5), 0 0 16px 2px rgba(79, 216, 180, 0.8);
+  box-shadow: 0 0 0 3px rgba(6, 32, 25, 0.5), 0 0 16px 2px rgba(166, 211, 136, 0.5);
 }
 .earth-hint__pulse::after {
   width: 44px; height: 44px; margin: -22px;
@@ -109,7 +109,7 @@
   backdrop-filter: blur(6px);
 }
 .earth-hint:hover .earth-hint__label,
-.earth-hint:focus-visible .earth-hint__label { background: var(--color-action); }
+.earth-hint:focus-visible .earth-hint__label { background: var(--color-action); color: var(--color-on-action); }
 
 /* ---------- province markers on the map ---------- */
 .map-marker {
@@ -126,11 +126,11 @@
   white-space: nowrap;
   cursor: pointer;
 }
-.map-marker:hover { border-color: var(--color-accent); background: rgba(15, 84, 80, 0.9); }
+.map-marker:hover { border-color: var(--color-accent); background: rgba(32, 37, 31, 0.95); }
 .map-marker__dot {
   width: 8px; height: 8px; border-radius: 50%;
   background: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(79, 216, 180, 0.25);
+  box-shadow: 0 0 0 3px rgba(166, 211, 136, 0.25);
 }
 .map-marker.is-active {
   background: var(--color-accent);

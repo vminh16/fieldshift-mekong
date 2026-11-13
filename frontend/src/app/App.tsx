@@ -1,32 +1,21 @@
 import { LandingPage } from '../features/landing/LandingPage'
-import { FieldsScreen } from '../features/fields/FieldsScreen'
-import { ParcelDrawScreen, initialViewFrom } from '../features/parcel/ParcelDrawScreen'
+import { FieldsWorkspace } from '../features/fields/FieldsWorkspace'
 import { PlannedScreen } from '../features/shell/PlannedScreen'
 import { useRoute } from '../shared/router'
-import { getField, useFields } from '../shared/fields/store'
 
 export function App() {
-  const { path, params } = useRoute()
-  useFields() // re-render when parcels change so edit routes resolve
+  const route = useRoute()
+  const { path } = route
 
   if (path === '/') return <LandingPage />
-  if (path === '/ruong') return <FieldsScreen key={params.get('chon') ?? ''} highlightNew={params.get('moi') === '1'} />
-  if (path === '/ruong/moi') return <ParcelDrawScreen key={params.toString()} initial={initialViewFrom(params)} />
-
-  const edit = path.match(/^\/ruong\/([^/]+)\/sua$/)
-  if (edit) {
-    const field = getField(edit[1])
-    if (field) {
-      const initial = { lat: field.centroid.lat, lng: field.centroid.lng, zoom: 17, place: field.place_name }
-      return <ParcelDrawScreen key={field.id} initial={initial} editing={field} />
-    }
-  }
+  // One workspace for browsing, drawing and editing parcels, so the map survives mode changes.
+  if (path === '/ruong' || path.startsWith('/ruong/')) return <FieldsWorkspace route={route} />
 
   if (path === '/mo-phong')
     return (
       <PlannedScreen
         title="Mô phỏng luân canh"
-        icon="rotate"
+        icon="sprout"
         lead="So sánh chuỗi vụ đang trồng với 2–4 phương án thay thế, cùng một kịch bản thời tiết, rồi xem diễn biến từng tuần trên ruộng."
         items={[
           'Khai báo điều kiện: chuỗi vụ hiện tại, tưới, thoát nước, độ mặn nước kênh — “Chưa biết” là một câu trả lời hợp lệ',
@@ -49,8 +38,8 @@ export function App() {
   if (path === '/nguon')
     return (
       <PlannedScreen
-        title="Nguồn dữ liệu"
-        icon="satellite"
+        title="Dữ liệu NASA"
+        icon="database"
         lead="Mỗi con số trong ứng dụng ghi rõ nguồn, độ phân giải và giới hạn của nó."
         items={['NASA POWER, GPM IMERG, SMAP, NASADEM — trạng thái và thời điểm cập nhật', 'Khác nhau giữa đo tại ruộng, ước lượng vùng và kịch bản', 'Giới hạn: ô lưới vệ tinh không phải số đo tại thửa']}
       />

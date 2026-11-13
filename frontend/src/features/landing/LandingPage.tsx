@@ -15,7 +15,7 @@ import { href, navigate } from '../../shared/router'
 import { useFields } from '../../shared/fields/store'
 import './landing.css'
 
-const STEPS = ['Định vị thửa ruộng', 'Khai báo điều kiện canh tác', 'So sánh phương án luân canh', 'Theo dõi & tính lại']
+const STEPS = ['Định vị thửa ruộng', 'Khai báo điều kiện canh tác', 'So sánh phương án luân canh']
 
 export function LandingPage() {
   const globe = useRef<EarthGlobeHandle>(null)
