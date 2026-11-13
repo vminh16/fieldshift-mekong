@@ -3,7 +3,7 @@
 **Climate-Adaptive Crop Rotation Decision Support System**  
 NASA Space Apps Challenge 2026 · Field Shift: Adapting Farms with NASA Data
 
-> **Trạng thái:** Repository scaffold (bộ khung kỹ thuật), **chưa phải sản phẩm dự báo hay khuyến nghị nông học đã hoạt động**. HTTP health check và giao diện khởi động có thể chạy; các module lập kế hoạch, NASA adapters, mô hình cây trồng và Digital Twin hiện chưa được triển khai. Không sử dụng dữ liệu demo để ra quyết định canh tác thật.
+> **Trạng thái (MVP backend):** API lập kế hoạch luân canh chạy end-to-end trên dữ liệu NASA POWER thật (cache sẵn 4 ruộng mẫu → chạy offline): field profile → context/state → scenarios (CLIMATOLOGY + STRESS_TEST) → generator/feasibility → FAO-56 water balance → Pareto planner → explanation/checklist → what-if/replan/twin/export. **Chưa có:** FORECAST/CLIMATE_PROJECTION thật, IMERG/SMAP/HLS (cần Earthdata), dữ liệu mặn tự động, năng suất/lợi nhuận (trả `null` + lý do, gate G7). Tham số cây là FAO tham khảo, chưa hiệu chỉnh giống ĐBSCL — **không dùng để ra quyết định canh tác thật**.
 
 ## 1. Vấn đề và đầu ra sản phẩm
 
@@ -103,7 +103,16 @@ npm run dev
 - API health: http://localhost:8000/v1/health
 - API docs: http://localhost:8000/docs
 
-Frontend chỉ hiển thị tình trạng scaffold/API; **chưa có API trả khuyến nghị luân canh**. Endpoint tương lai trả `501 Not Implemented` để tránh nhầm lẫn với kết quả thật.
+Thử nhanh (4 ruộng mẫu được seed sẵn: `fld_cantho`, `fld_chaudoc`, `fld_bentre`, `fld_soctrang`):
+
+```bash
+curl -X POST localhost:8000/v1/plans -H 'Content-Type: application/json' \
+  -d '{"field_id":"fld_soctrang","as_of":"2026-11-14"}'
+```
+
+Luồng FE: `POST /v1/plans` → `GET /v1/plans/{id}/twin?sequence_id=…&scenario_id=sc_dry` → `POST /v1/fields/{id}/observations` (ECw) → `POST /v1/plans/{id}/what-if` / `/replan` → `GET /v1/plans/{id}/export`. Response mẫu thật để mock: [`contracts/fixtures/`](contracts/fixtures/). Chi tiết API/DB/engine: [BACKEND_API_DB](docs/architecture/BACKEND_API_DB.md); phân tích dữ liệu: [DATA_ANALYSIS_MEKONG](docs/data/DATA_ANALYSIS_MEKONG.md), [DATA_ACCESS](docs/data/DATA_ACCESS.md).
+
+Runtime data (SQLite + cache NASA cho ruộng mới) ghi vào `FIELDSHIFT_DATA_DIR` (mặc định `.fieldshift/`, đã gitignore).
 
 ### Cách B — Docker Compose
 

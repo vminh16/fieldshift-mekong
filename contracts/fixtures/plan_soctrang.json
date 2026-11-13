@@ -1,0 +1,3607 @@
+{
+ "decision_id": "dec_8b76c4d2bdf3",
+ "parent_id": null,
+ "kind": "PLAN",
+ "field_id": "fld_soctrang",
+ "as_of": "2026-11-14",
+ "generated_at": "2026-11-13T11:01:04+00:00",
+ "versions": {
+  "catalog": "crops-2026.11.0",
+  "rules": "rules-1",
+  "water_model": "fao56-v1",
+  "planner": "pareto-v1",
+  "data": "power-v2.10.3@2026-11-03"
+ },
+ "field_state_snapshot_id": "st_dccb309abfc0",
+ "field_state": {
+  "as_of": "2026-11-14",
+  "root_zone_wetness": {
+   "value": 0.905,
+   "unit": "fraction_0_1",
+   "origin": "estimated_from_regional_data",
+   "label": "Ước lượng vùng",
+   "evidence_ids": [
+    "ev_power_gwet"
+   ]
+  },
+  "root_zone_wetness_anomaly": {
+   "value": -0.02,
+   "unit": "fraction_0_1",
+   "origin": "estimated_from_regional_data",
+   "label": "Ước lượng vùng",
+   "evidence_ids": [
+    "ev_power_gwet"
+   ]
+  },
+  "initial_depletion_frac": {
+   "value": 0.09,
+   "unit": "fraction_TAW",
+   "origin": "inferred_by_model",
+   "label": "Dự kiến",
+   "evidence_ids": [
+    "ev_power_gwet"
+   ]
+  },
+  "canal_ecw": {
+   "value": null,
+   "unit": "dS/m",
+   "origin": "unknown",
+   "label": "Chưa biết",
+   "evidence_ids": [],
+   "reason": "CANAL_ECW_NOT_MEASURED"
+  },
+  "drainage": {
+   "value": "unknown",
+   "origin": "unknown",
+   "label": "Chưa biết"
+  },
+  "irrigation": {
+   "value": "full",
+   "origin": "reported_by_farmer"
+  },
+  "coastal_salinity_risk": {
+   "value": true,
+   "origin": "regional_config",
+   "evidence_ids": [
+    "ev_salinity_season"
+   ]
+  },
+  "elevation_m": {
+   "value": 0.0,
+   "unit": "m",
+   "origin": "estimated_from_regional_data",
+   "label": "Ước lượng vùng",
+   "evidence_ids": [
+    "ev_srtm"
+   ]
+  },
+  "soil": {
+   "source": "SoilGrids v2.0",
+   "kind": "OBSERVED_REMOTE_ESTIMATE",
+   "properties": {
+    "clay": {
+     "0-5cm": null,
+     "15-30cm": null
+    },
+    "phh2o": {
+     "0-5cm": null,
+     "15-30cm": null
+    },
+    "sand": {
+     "0-5cm": null,
+     "15-30cm": null
+    },
+    "soc": {
+     "0-5cm": null,
+     "15-30cm": null
+    }
+   },
+   "evidence_ids": [
+    "ev_soil"
+   ]
+  },
+  "crop_history": [],
+  "data_last_date": "2026-11-03"
+ },
+ "request": {
+  "field_id": "fld_soctrang",
+  "as_of": "2026-11-14",
+  "horizon_seasons": 3,
+  "baseline": null,
+  "priorities": [
+   "avoid_crop_failure",
+   "save_water",
+   "soil_health"
+  ],
+  "constraints": {
+   "no_new_machinery": true,
+   "budget_level": null,
+   "irrigation": null,
+   "irrigation_cap_mm": null,
+   "max_changed_seasons": 1,
+   "max_fallow_seasons": 1
+  },
+  "outlook_modes": [
+   "CLIMATOLOGY",
+   "STRESS_TEST"
+  ]
+ },
+ "override": null,
+ "history": [],
+ "gates": [
+  {
+   "gate": "G1",
+   "passed": true,
+   "message": "Đã xác định thửa và vùng."
+  },
+  {
+   "gate": "G2",
+   "passed": true,
+   "message": "Đã có chuỗi hiện tại."
+  },
+  {
+   "gate": "G3",
+   "passed": true,
+   "message": "Catalog crops-2026.11.0: 8 lựa chọn có tham số."
+  },
+  {
+   "gate": "G4",
+   "passed": false,
+   "message": "Chưa xác nhận thoát nước cho cây cạn → phương án có điều kiện."
+  },
+  {
+   "gate": "G5",
+   "passed": false,
+   "message": "Vùng có rủi ro mặn nhưng chưa đo ECw nước kênh; không khẳng định an toàn mặn."
+  },
+  {
+   "gate": "G6",
+   "passed": false,
+   "message": "Không có dự báo mùa được kiểm chứng (NASA POWER Projection chưa có dữ liệu cho ĐBSCL); dùng lịch sử + kịch bản giả định."
+  },
+  {
+   "gate": "G7",
+   "passed": false,
+   "message": "Chưa có mô hình năng suất/lợi nhuận đã hiệu chỉnh → chỉ so sánh nước, stress, lịch và lợi ích đất tiềm năng."
+  }
+ ],
+ "windows": [
+  {
+   "id": "dong_xuan",
+   "name_vi": "Đông Xuân",
+   "sow_from": "2026-11-15",
+   "sow_to": "2026-12-31"
+  },
+  {
+   "id": "xuan_he",
+   "name_vi": "Xuân Hè / Hè Thu",
+   "sow_from": "2027-03-01",
+   "sow_to": "2027-04-30"
+  },
+  {
+   "id": "thu_dong",
+   "name_vi": "Thu Đông / Hè Thu muộn",
+   "sow_from": "2027-07-01",
+   "sow_to": "2027-08-31"
+  }
+ ],
+ "scenarios": [
+  {
+   "probability": null,
+   "evidence_ids": [
+    "ev_power_daily"
+   ],
+   "salinity_shift_weeks": 0,
+   "scenario_id": "sc_clim",
+   "kind": "CLIMATOLOGY",
+   "probability_semantics": "HISTORICAL_DISTRIBUTION_NOT_FORECAST",
+   "name": "Lịch sử 2001–2025 (24 năm)",
+   "assumptions": [
+    "future_resembles_past_distribution"
+   ],
+   "representative_year": 2013,
+   "analog_years": [
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ]
+  },
+  {
+   "probability": null,
+   "evidence_ids": [
+    "ev_power_daily"
+   ],
+   "salinity_shift_weeks": 0,
+   "scenario_id": "sc_dry",
+   "kind": "STRESS_TEST",
+   "probability_semantics": "NONE_ASSUMPTION",
+   "name": "Mùa khô như các năm khô nhất (2023–2024, 2015–2016, 2004–2005)",
+   "assumptions": [
+    "analog_dry_season_2023_2024",
+    "analog_dry_season_2015_2016",
+    "analog_dry_season_2004_2005"
+   ],
+   "representative_year": 2015,
+   "analog_years": [
+    2004,
+    2015,
+    2023
+   ]
+  },
+  {
+   "probability": null,
+   "evidence_ids": [
+    "ev_power_daily"
+   ],
+   "salinity_shift_weeks": 0,
+   "scenario_id": "sc_hot",
+   "kind": "STRESS_TEST",
+   "probability_semantics": "NONE_ASSUMPTION",
+   "name": "Nóng hơn +1.5 °C",
+   "assumptions": [
+    "tmax_tmin_tdew_plus_1.5C"
+   ],
+   "representative_year": 2013,
+   "analog_years": [
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ]
+  },
+  {
+   "probability": null,
+   "evidence_ids": [
+    "ev_power_daily"
+   ],
+   "salinity_shift_weeks": 0,
+   "scenario_id": "sc_rain_minus30",
+   "kind": "STRESS_TEST",
+   "probability_semantics": "NONE_ASSUMPTION",
+   "name": "Mưa giảm 30 %",
+   "assumptions": [
+    "rain_x0.7"
+   ],
+   "representative_year": 2013,
+   "analog_years": [
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ]
+  },
+  {
+   "probability": null,
+   "evidence_ids": [
+    "ev_salinity_season"
+   ],
+   "salinity_shift_weeks": -4,
+   "scenario_id": "sc_salt_early",
+   "kind": "STRESS_TEST",
+   "probability_semantics": "NONE_ASSUMPTION",
+   "name": "Mặn đến sớm 4 tuần",
+   "assumptions": [
+    "salinity_onset_minus_4_weeks_user_defined"
+   ],
+   "representative_year": 2013,
+   "analog_years": [
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+   ]
+  },
+  {
+   "probability": null,
+   "evidence_ids": [
+    "ev_power_daily"
+   ],
+   "salinity_shift_weeks": 0,
+   "scenario_id": "sc_wet_ref",
+   "kind": "CLIMATOLOGY",
+   "probability_semantics": "HISTORICAL_DISTRIBUTION_NOT_FORECAST",
+   "name": "Năm mùa khô ướt nhất (2021–2022)",
+   "assumptions": [
+    "analog_year_2021"
+   ],
+   "representative_year": 2021,
+   "analog_years": [
+    2021
+   ]
+  }
+ ],
+ "baseline": {
+  "sequence_id": "seq_rice_rice_rice__standard_standard_standard",
+  "is_baseline": true,
+  "strategy_tag": null,
+  "strategy_name_vi": null,
+  "decision_status": "CONDITIONAL_PENDING_CHECK",
+  "seasons": [
+   {
+    "index": 1,
+    "window": "dong_xuan",
+    "window_name_vi": "Đông Xuân",
+    "crop": "rice",
+    "crop_name_vi": "Lúa",
+    "sow_timing": "standard",
+    "sow": "2026-12-08",
+    "harvest": "2027-03-17"
+   },
+   {
+    "index": 2,
+    "window": "xuan_he",
+    "window_name_vi": "Xuân Hè / Hè Thu",
+    "crop": "rice",
+    "crop_name_vi": "Lúa",
+    "sow_timing": "standard",
+    "sow": "2027-03-31",
+    "harvest": "2027-07-08"
+   },
+   {
+    "index": 3,
+    "window": "thu_dong",
+    "window_name_vi": "Thu Đông / Hè Thu muộn",
+    "crop": "rice",
+    "crop_name_vi": "Lúa",
+    "sow_timing": "standard",
+    "sow": "2027-07-31",
+    "harvest": "2027-11-07"
+   }
+  ],
+  "metrics": {
+   "sc_clim": {
+    "irrigation_need": {
+     "value": 1587,
+     "unit": "mm",
+     "origin": "inferred_by_model",
+     "label": "Dự kiến",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    "irrigation_need_bad_year": {
+     "value": 1856,
+     "unit": "mm",
+     "origin": "inferred_by_model",
+     "label": "Dự kiến",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    "water_stress_days": {
+     "value": 0.0,
+     "unit": "day",
+     "origin": "inferred_by_model",
+     "label": "Dự kiến",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    "heat_stress_days_sensitive_stage": {
+     "value": 0.0,
+     "unit": "day",
+     "origin": "inferred_by_model",
+     "label": "Dự kiến",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    "yield": {
+     "value": null,
+     "unit": "t/ha",
+     "origin": "unknown",
+     "label": "Chưa biết",
+     "evidence_ids": [],
+     "reason": "MODEL_NOT_CALIBRATED_G7"
+    },
+    "profit": {
+     "value": null,
+     "unit": "VND/ha",
+     "origin": "unknown",
+     "label": "Chưa biết",
+     "evidence_ids": [],
+     "reason": "NO_PRICE_COST_DATA"
+    },
+    "per_season": [
+     {
+      "irrigation_mm": 881,
+      "water_stress_days": 0.0,
+      "heat_stress_days_sensitive": 0.0,
+      "rain_mm": 43,
+      "etc_mm": 530
+     },
+     {
+      "irrigation_mm": 477,
+      "water_stress_days": 0.0,
+      "heat_stress_days_sensitive": 0.0,
+      "rain_mm": 518,
+      "etc_mm": 548
+     },
+     {
+      "irrigation_mm": 241,
+      "water_stress_days": 0.0,
+      "heat_stress_days_sensitive": 0.0,
+      "rain_mm": 818,
+      "etc_mm": 435
+     }
+    ],
+    "years_used": 24
+   },
+   "sc_dry": {
+    "irrigation_need": {
+     "value": 1824,
+     "unit": "mm",
+     "origin": "assumed_scenario",
+     "label": "Kịch bản",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    "irrigation_need_bad_year": {
+     "value": 1868,
+     "unit": "mm",
+     "origin": "assumed_scenario",
+     "label": "Kịch bản",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    "water_stress_days": {
+     "value": 0,
+     "unit": "day",
+     "origin": "assumed_scenario",
+     "label": "Kịch bản",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    "heat_stress_days_sensitive_stage": {
+     "value": 0,
+     "unit": "day",
+     "origin": "assumed_scenario",
+     "label": "Kịch bản",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    "yield": {
+     "value": null,
+     "unit": "t/ha",
+     "origin": "unknown",
+     "label": "Chưa biết",
+     "evidence_ids": [],
+     "reason": "MODEL_NOT_CALIBRATED_G7"
+    },
+    "profit": {
+     "value": null,
+     "unit": "VND/ha",
+     "origin": "unknown",
+     "label": "Chưa biết",
+     "evidence_ids": [],
+     "reason": "NO_PRICE_COST_DATA"
+    },
+    "per_season": [
+     {
+      "irrigation_mm": 943,
+      "water_stress_days": 0,
+      "heat_stress_days_sensitive": 0,
+      "rain_mm": 8,
+      "etc_mm": 578
+     },
+     {
+      "irrigation_mm": 618,
+      "water_stress_days": 0,
+      "heat_stress_days_sensitive": 0,
+      "rain_mm": 444,
+      "etc_mm": 601
+     },
+     {
+      "irrigation_mm": 254,
+      "water_stress_days": 0,
+      "heat_stress_days_sensitive": 0,
+      "rain_mm": 920,
+      "etc_mm": 436
+     }
+    ],
+    "years_used": 3
+   },
+   "sc_hot": {
+    "irrigation_need": {
+     "value": 1642,
+     "unit": "mm",
+     "origin": "assumed_scenario",
+     "label": "Kịch bản",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    "irrigation_need_bad_year": {
+     "value": 1900,
+     "unit": "mm",
+     "origin": "assumed_scenario",
+     "label": "Kịch bản",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    "water_stress_days": {
+     "value": 0.0,
+     "unit": "day",
+     "origin": "assumed_scenario",
+     "label": "Kịch bản",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    "heat_stress_days_sensitive_stage": {
+     "value": 0.0,
+     "unit": "day",
+     "origin": "assumed_scenario",
+     "label": "Kịch bản",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    "yield": {
+     "value": null,
+     "unit": "t/ha",
+     "origin": "unknown",
+     "label": "Chưa biết",
+     "evidence_ids": [],
+     "reason": "MODEL_NOT_CALIBRATED_G7"
+    },
+    "profit": {
+     "value": null,
+     "unit": "VND/ha",
+     "origin": "unknown",
+     "label": "Chưa biết",
+     "evidence_ids": [],
+     "reason": "NO_PRICE_COST_DATA"
+    },
+    "per_season": [
+     {
+      "irrigation_mm": 899,
+      "water_stress_days": 0.0,
+      "heat_stress_days_sensitive": 0.0,
+      "rain_mm": 43,
+      "etc_mm": 554
+     },
+     {
+      "irrigation_mm": 499,
+      "water_stress_days": 0.0,
+      "heat_stress_days_sensitive": 0.0,
+      "rain_mm": 518,
+      "etc_mm": 570
+     },
+     {
+      "irrigation_mm": 253,
+      "water_stress_days": 0.0,
+      "heat_stress_days_sensitive": 0.0,
+      "rain_mm": 818,
+      "etc_mm": 454
+     }
+    ],
+    "years_used": 24
+   },
+   "sc_rain_minus30": {
+    "irrigation_need": {
+     "value": 1778,
+     "unit": "mm",
+     "origin": "assumed_scenario",
+     "label": "Kịch bản",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    "irrigation_need_bad_year": {
+     "value": 2057,
+     "unit": "mm",
+     "origin": "assumed_scenario",
+     "label": "Kịch bản",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    "water_stress_days": {
+     "value": 0.0,
+     "unit": "day",
+     "origin": "assumed_scenario",
+     "label": "Kịch bản",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    "heat_stress_days_sensitive_stage": {
+     "value": 0.0,
+     "unit": "day",
+     "origin": "assumed_scenario",
+     "label": "Kịch bản",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    "yield": {
+     "value": null,
+     "unit": "t/ha",
+     "origin": "unknown",
+     "label": "Chưa biết",
+     "evidence_ids": [],
+     "reason": "MODEL_NOT_CALIBRATED_G7"
+    },
+    "profit": {
+     "value": null,
+     "unit": "VND/ha",
+     "origin": "unknown",
+     "label": "Chưa biết",
+     "evidence_ids": [],
+     "reason": "NO_PRICE_COST_DATA"
+    },
+    "per_season": [
+     {
+      "irrigation_mm": 893,
+      "water_stress_days": 0.0,
+      "heat_stress_days_sensitive": 0.0,
+      "rain_mm": 30,
+      "etc_mm": 530
+     },
+     {
+      "irrigation_mm": 585,
+      "water_stress_days": 0.0,
+      "heat_stress_days_sensitive": 0.0,
+      "rain_mm": 362,
+      "etc_mm": 548
+     },
+     {
+      "irrigation_mm": 307,
+      "water_stress_days": 0.0,
+      "heat_stress_days_sensitive": 0.0,
+      "rain_mm": 573,
+      "etc_mm": 435
+     }
+    ],
+    "years_used": 24
+   },
+   "sc_salt_early": {
+    "irrigation_need": {
+     "value": 1587,
+     "unit": "mm",
+     "origin": "assumed_scenario",
+     "label": "Kịch bản",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    "irrigation_need_bad_year": {
+     "value": 1856,
+     "unit": "mm",
+     "origin": "assumed_scenario",
+     "label": "Kịch bản",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    "water_stress_days": {
+     "value": 0.0,
+     "unit": "day",
+     "origin": "assumed_scenario",
+     "label": "Kịch bản",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    "heat_stress_days_sensitive_stage": {
+     "value": 0.0,
+     "unit": "day",
+     "origin": "assumed_scenario",
+     "label": "Kịch bản",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    "yield": {
+     "value": null,
+     "unit": "t/ha",
+     "origin": "unknown",
+     "label": "Chưa biết",
+     "evidence_ids": [],
+     "reason": "MODEL_NOT_CALIBRATED_G7"
+    },
+    "profit": {
+     "value": null,
+     "unit": "VND/ha",
+     "origin": "unknown",
+     "label": "Chưa biết",
+     "evidence_ids": [],
+     "reason": "NO_PRICE_COST_DATA"
+    },
+    "per_season": [
+     {
+      "irrigation_mm": 881,
+      "water_stress_days": 0.0,
+      "heat_stress_days_sensitive": 0.0,
+      "rain_mm": 43,
+      "etc_mm": 530
+     },
+     {
+      "irrigation_mm": 477,
+      "water_stress_days": 0.0,
+      "heat_stress_days_sensitive": 0.0,
+      "rain_mm": 518,
+      "etc_mm": 548
+     },
+     {
+      "irrigation_mm": 241,
+      "water_stress_days": 0.0,
+      "heat_stress_days_sensitive": 0.0,
+      "rain_mm": 818,
+      "etc_mm": 435
+     }
+    ],
+    "years_used": 24
+   },
+   "sc_wet_ref": {
+    "irrigation_need": {
+     "value": 1356,
+     "unit": "mm",
+     "origin": "inferred_by_model",
+     "label": "Dự kiến",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    "irrigation_need_bad_year": {
+     "value": 1356,
+     "unit": "mm",
+     "origin": "inferred_by_model",
+     "label": "Dự kiến",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    "water_stress_days": {
+     "value": 0,
+     "unit": "day",
+     "origin": "inferred_by_model",
+     "label": "Dự kiến",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    "heat_stress_days_sensitive_stage": {
+     "value": 0,
+     "unit": "day",
+     "origin": "inferred_by_model",
+     "label": "Dự kiến",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    "yield": {
+     "value": null,
+     "unit": "t/ha",
+     "origin": "unknown",
+     "label": "Chưa biết",
+     "evidence_ids": [],
+     "reason": "MODEL_NOT_CALIBRATED_G7"
+    },
+    "profit": {
+     "value": null,
+     "unit": "VND/ha",
+     "origin": "unknown",
+     "label": "Chưa biết",
+     "evidence_ids": [],
+     "reason": "NO_PRICE_COST_DATA"
+    },
+    "per_season": [
+     {
+      "irrigation_mm": 868,
+      "water_stress_days": 0,
+      "heat_stress_days_sensitive": 0,
+      "rain_mm": 30,
+      "etc_mm": 516
+     },
+     {
+      "irrigation_mm": 288,
+      "water_stress_days": 0,
+      "heat_stress_days_sensitive": 0,
+      "rain_mm": 726,
+      "etc_mm": 497
+     },
+     {
+      "irrigation_mm": 200,
+      "water_stress_days": 0,
+      "heat_stress_days_sensitive": 0,
+      "rain_mm": 835,
+      "etc_mm": 423
+     }
+    ],
+    "years_used": 1
+   }
+  },
+  "delta_vs_baseline": {},
+  "soil_benefit": {
+   "claim_type": "POTENTIAL_QUALITATIVE",
+   "value": null,
+   "indicators": [
+    "residue_return"
+   ]
+  },
+  "rules": [
+   {
+    "rule_id": "R_SALINITY_UNKNOWN",
+    "severity": "UNKNOWN_REQUIRES_CHECK",
+    "season_index": 1,
+    "reason": "Vụ 1 (Lúa) trùng mùa mặn 62 ngày (90 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh",
+    "inputs_used": [
+     "state.canal_ecw",
+     "regions.salinity_season",
+     "crops.salinity"
+    ],
+    "how_to_resolve": "Đo ECw nước kênh trước ngày gieo; ngưỡng tham khảo của Lúa ≈ 2.0 dS/m",
+    "evidence": [
+     "ev_salinity_season",
+     "ev_crop_catalog"
+    ]
+   },
+   {
+    "rule_id": "R_SALINITY_UNKNOWN",
+    "severity": "UNKNOWN_REQUIRES_CHECK",
+    "season_index": 2,
+    "reason": "Vụ 2 (Lúa) trùng mùa mặn 77 ngày (77 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh",
+    "inputs_used": [
+     "state.canal_ecw",
+     "regions.salinity_season",
+     "crops.salinity"
+    ],
+    "how_to_resolve": "Đo ECw nước kênh trước ngày gieo; ngưỡng tham khảo của Lúa ≈ 2.0 dS/m",
+    "evidence": [
+     "ev_salinity_season",
+     "ev_crop_catalog"
+    ]
+   },
+   {
+    "rule_id": "R_PEST_CYCLE",
+    "severity": "SOFT",
+    "season_index": null,
+    "reason": "Lúa liên tục các vụ không cắt vòng đời sâu bệnh (ví dụ rầy nâu) — lợi ích luân canh tiềm năng, định tính",
+    "inputs_used": [
+     "crops.soil_support_indicators"
+    ],
+    "how_to_resolve": "Cân nhắc 1 vụ màu hoặc nghỉ đất",
+    "evidence": [
+     "ev_crop_catalog"
+    ]
+   }
+  ],
+  "reasons": [],
+  "risks": [
+   {
+    "code": "R_SALINITY_UNKNOWN",
+    "severity": "UNKNOWN_REQUIRES_CHECK",
+    "season_index": 1,
+    "text": "Vụ 1 (Lúa) trùng mùa mặn 62 ngày (90 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh"
+   },
+   {
+    "code": "R_SALINITY_UNKNOWN",
+    "severity": "UNKNOWN_REQUIRES_CHECK",
+    "season_index": 2,
+    "text": "Vụ 2 (Lúa) trùng mùa mặn 77 ngày (77 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh"
+   },
+   {
+    "code": "R_PEST_CYCLE",
+    "severity": "SOFT",
+    "season_index": null,
+    "text": "Lúa liên tục các vụ không cắt vòng đời sâu bệnh (ví dụ rầy nâu) — lợi ích luân canh tiềm năng, định tính"
+   }
+  ],
+  "triggers": [],
+  "checklist": []
+ },
+ "options": [
+  {
+   "sequence_id": "seq_fallow_cover_rice_rice__early_standard_standard",
+   "is_baseline": false,
+   "strategy_tag": "low_risk",
+   "strategy_name_vi": "Giảm rủi ro",
+   "decision_status": "CONDITIONAL_PENDING_CHECK",
+   "seasons": [
+    {
+     "index": 1,
+     "window": "dong_xuan",
+     "window_name_vi": "Đông Xuân",
+     "crop": "fallow_cover",
+     "crop_name_vi": "Bỏ hóa / cây phủ đất",
+     "sow_timing": "early",
+     "sow": "2026-11-15",
+     "harvest": "2027-01-13"
+    },
+    {
+     "index": 2,
+     "window": "xuan_he",
+     "window_name_vi": "Xuân Hè / Hè Thu",
+     "crop": "rice",
+     "crop_name_vi": "Lúa",
+     "sow_timing": "standard",
+     "sow": "2027-03-31",
+     "harvest": "2027-07-08"
+    },
+    {
+     "index": 3,
+     "window": "thu_dong",
+     "window_name_vi": "Thu Đông / Hè Thu muộn",
+     "crop": "rice",
+     "crop_name_vi": "Lúa",
+     "sow_timing": "standard",
+     "sow": "2027-07-31",
+     "harvest": "2027-11-07"
+    }
+   ],
+   "metrics": {
+    "sc_clim": {
+     "irrigation_need": {
+      "value": 731,
+      "unit": "mm",
+      "origin": "inferred_by_model",
+      "label": "Dự kiến",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "irrigation_need_bad_year": {
+      "value": 907,
+      "unit": "mm",
+      "origin": "inferred_by_model",
+      "label": "Dự kiến",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "water_stress_days": {
+      "value": 12.5,
+      "unit": "day",
+      "origin": "inferred_by_model",
+      "label": "Dự kiến",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0.0,
+      "unit": "day",
+      "origin": "inferred_by_model",
+      "label": "Dự kiến",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "yield": {
+      "value": null,
+      "unit": "t/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "MODEL_NOT_CALIBRATED_G7"
+     },
+     "profit": {
+      "value": null,
+      "unit": "VND/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "NO_PRICE_COST_DATA"
+     },
+     "per_season": [
+      {
+       "irrigation_mm": 0,
+       "water_stress_days": 12.5,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 110,
+       "etc_mm": 76
+      },
+      {
+       "irrigation_mm": 477,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 518,
+       "etc_mm": 548
+      },
+      {
+       "irrigation_mm": 241,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 818,
+       "etc_mm": 435
+      }
+     ],
+     "years_used": 24
+    },
+    "sc_dry": {
+     "irrigation_need": {
+      "value": 892,
+      "unit": "mm",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "irrigation_need_bad_year": {
+      "value": 898,
+      "unit": "mm",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "water_stress_days": {
+      "value": 19,
+      "unit": "day",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0,
+      "unit": "day",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "yield": {
+      "value": null,
+      "unit": "t/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "MODEL_NOT_CALIBRATED_G7"
+     },
+     "profit": {
+      "value": null,
+      "unit": "VND/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "NO_PRICE_COST_DATA"
+     },
+     "per_season": [
+      {
+       "irrigation_mm": 0,
+       "water_stress_days": 19,
+       "heat_stress_days_sensitive": 0,
+       "rain_mm": 60,
+       "etc_mm": 75
+      },
+      {
+       "irrigation_mm": 618,
+       "water_stress_days": 0,
+       "heat_stress_days_sensitive": 0,
+       "rain_mm": 444,
+       "etc_mm": 601
+      },
+      {
+       "irrigation_mm": 254,
+       "water_stress_days": 0,
+       "heat_stress_days_sensitive": 0,
+       "rain_mm": 920,
+       "etc_mm": 436
+      }
+     ],
+     "years_used": 3
+    },
+    "sc_hot": {
+     "irrigation_need": {
+      "value": 742,
+      "unit": "mm",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "irrigation_need_bad_year": {
+      "value": 945,
+      "unit": "mm",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "water_stress_days": {
+      "value": 13.5,
+      "unit": "day",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0.0,
+      "unit": "day",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "yield": {
+      "value": null,
+      "unit": "t/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "MODEL_NOT_CALIBRATED_G7"
+     },
+     "profit": {
+      "value": null,
+      "unit": "VND/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "NO_PRICE_COST_DATA"
+     },
+     "per_season": [
+      {
+       "irrigation_mm": 0,
+       "water_stress_days": 13.5,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 110,
+       "etc_mm": 78
+      },
+      {
+       "irrigation_mm": 499,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 518,
+       "etc_mm": 570
+      },
+      {
+       "irrigation_mm": 253,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 818,
+       "etc_mm": 454
+      }
+     ],
+     "years_used": 24
+    },
+    "sc_rain_minus30": {
+     "irrigation_need": {
+      "value": 904,
+      "unit": "mm",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "irrigation_need_bad_year": {
+      "value": 1095,
+      "unit": "mm",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "water_stress_days": {
+      "value": 20.0,
+      "unit": "day",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0.0,
+      "unit": "day",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "yield": {
+      "value": null,
+      "unit": "t/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "MODEL_NOT_CALIBRATED_G7"
+     },
+     "profit": {
+      "value": null,
+      "unit": "VND/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "NO_PRICE_COST_DATA"
+     },
+     "per_season": [
+      {
+       "irrigation_mm": 0,
+       "water_stress_days": 20.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 77,
+       "etc_mm": 73
+      },
+      {
+       "irrigation_mm": 585,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 362,
+       "etc_mm": 548
+      },
+      {
+       "irrigation_mm": 307,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 573,
+       "etc_mm": 435
+      }
+     ],
+     "years_used": 24
+    },
+    "sc_salt_early": {
+     "irrigation_need": {
+      "value": 731,
+      "unit": "mm",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "irrigation_need_bad_year": {
+      "value": 907,
+      "unit": "mm",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "water_stress_days": {
+      "value": 12.5,
+      "unit": "day",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0.0,
+      "unit": "day",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "yield": {
+      "value": null,
+      "unit": "t/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "MODEL_NOT_CALIBRATED_G7"
+     },
+     "profit": {
+      "value": null,
+      "unit": "VND/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "NO_PRICE_COST_DATA"
+     },
+     "per_season": [
+      {
+       "irrigation_mm": 0,
+       "water_stress_days": 12.5,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 110,
+       "etc_mm": 76
+      },
+      {
+       "irrigation_mm": 477,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 518,
+       "etc_mm": 548
+      },
+      {
+       "irrigation_mm": 241,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 818,
+       "etc_mm": 435
+      }
+     ],
+     "years_used": 24
+    },
+    "sc_wet_ref": {
+     "irrigation_need": {
+      "value": 488,
+      "unit": "mm",
+      "origin": "inferred_by_model",
+      "label": "Dự kiến",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "irrigation_need_bad_year": {
+      "value": 488,
+      "unit": "mm",
+      "origin": "inferred_by_model",
+      "label": "Dự kiến",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "water_stress_days": {
+      "value": 24,
+      "unit": "day",
+      "origin": "inferred_by_model",
+      "label": "Dự kiến",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0,
+      "unit": "day",
+      "origin": "inferred_by_model",
+      "label": "Dự kiến",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "yield": {
+      "value": null,
+      "unit": "t/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "MODEL_NOT_CALIBRATED_G7"
+     },
+     "profit": {
+      "value": null,
+      "unit": "VND/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "NO_PRICE_COST_DATA"
+     },
+     "per_season": [
+      {
+       "irrigation_mm": 0,
+       "water_stress_days": 24,
+       "heat_stress_days_sensitive": 0,
+       "rain_mm": 157,
+       "etc_mm": 64
+      },
+      {
+       "irrigation_mm": 288,
+       "water_stress_days": 0,
+       "heat_stress_days_sensitive": 0,
+       "rain_mm": 726,
+       "etc_mm": 497
+      },
+      {
+       "irrigation_mm": 200,
+       "water_stress_days": 0,
+       "heat_stress_days_sensitive": 0,
+       "rain_mm": 835,
+       "etc_mm": 423
+      }
+     ],
+     "years_used": 1
+    }
+   },
+   "delta_vs_baseline": {
+    "sc_clim": {
+     "irrigation_need": {
+      "value": -856,
+      "unit": "mm"
+     },
+     "water_stress_days": {
+      "value": 12.5,
+      "unit": "day"
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0.0,
+      "unit": "day"
+     }
+    },
+    "sc_dry": {
+     "irrigation_need": {
+      "value": -932,
+      "unit": "mm"
+     },
+     "water_stress_days": {
+      "value": 19,
+      "unit": "day"
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0,
+      "unit": "day"
+     }
+    },
+    "sc_hot": {
+     "irrigation_need": {
+      "value": -900,
+      "unit": "mm"
+     },
+     "water_stress_days": {
+      "value": 13.5,
+      "unit": "day"
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0.0,
+      "unit": "day"
+     }
+    },
+    "sc_rain_minus30": {
+     "irrigation_need": {
+      "value": -874,
+      "unit": "mm"
+     },
+     "water_stress_days": {
+      "value": 20.0,
+      "unit": "day"
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0.0,
+      "unit": "day"
+     }
+    },
+    "sc_salt_early": {
+     "irrigation_need": {
+      "value": -856,
+      "unit": "mm"
+     },
+     "water_stress_days": {
+      "value": 12.5,
+      "unit": "day"
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0.0,
+      "unit": "day"
+     }
+    },
+    "sc_wet_ref": {
+     "irrigation_need": {
+      "value": -868,
+      "unit": "mm"
+     },
+     "water_stress_days": {
+      "value": 24,
+      "unit": "day"
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0,
+      "unit": "day"
+     }
+    }
+   },
+   "soil_benefit": {
+    "claim_type": "POTENTIAL_QUALITATIVE",
+    "value": null,
+    "indicators": [
+     "ground_cover",
+     "residue_return",
+     "crop_diversity_2"
+    ]
+   },
+   "rules": [
+    {
+     "rule_id": "R_SALINITY_UNKNOWN",
+     "severity": "UNKNOWN_REQUIRES_CHECK",
+     "season_index": 2,
+     "reason": "Vụ 2 (Lúa) trùng mùa mặn 77 ngày (77 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh",
+     "inputs_used": [
+      "state.canal_ecw",
+      "regions.salinity_season",
+      "crops.salinity"
+     ],
+     "how_to_resolve": "Đo ECw nước kênh trước ngày gieo; ngưỡng tham khảo của Lúa ≈ 2.0 dS/m",
+     "evidence": [
+      "ev_salinity_season",
+      "ev_crop_catalog"
+     ]
+    }
+   ],
+   "reasons": [
+    {
+     "text": "Nhu cầu tưới trung vị giảm ~856 mm (~8,560 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER.",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    {
+     "text": "Trong các năm khô nhất, giảm ~932 mm nước tưới so với hiện tại.",
+     "evidence_ids": [
+      "ev_power_daily"
+     ]
+    },
+    {
+     "text": "Ít vụ trùng mùa mặn hơn chuỗi hiện tại.",
+     "evidence_ids": [
+      "ev_salinity_season"
+     ]
+    }
+   ],
+   "risks": [
+    {
+     "code": "R_SALINITY_UNKNOWN",
+     "severity": "UNKNOWN_REQUIRES_CHECK",
+     "season_index": 2,
+     "text": "Vụ 2 (Lúa) trùng mùa mặn 77 ngày (77 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh"
+    }
+   ],
+   "triggers": [
+    {
+     "condition": "ECw nước kênh > 2.0 dS/m (≈ 1.3 ‰) trước 2027-03-31",
+     "measure": "ECw nước kênh (máy đo EC cầm tay)",
+     "unit": "dS/m",
+     "action": "Không gieo Lúa vụ 2; tái lập kế hoạch"
+    }
+   ],
+   "checklist": [
+    "Đo ECw nước kênh trước ngày gieo; ngưỡng tham khảo của Lúa ≈ 2.0 dS/m",
+    "Trao đổi với cán bộ khuyến nông địa phương trước khi xuống giống"
+   ]
+  },
+  {
+   "sequence_id": "seq_mungbean_rice_rice__early_standard_standard",
+   "is_baseline": false,
+   "strategy_tag": "save_water",
+   "strategy_name_vi": "Tiết kiệm nước",
+   "decision_status": "CONDITIONAL_PENDING_CHECK",
+   "seasons": [
+    {
+     "index": 1,
+     "window": "dong_xuan",
+     "window_name_vi": "Đông Xuân",
+     "crop": "mungbean",
+     "crop_name_vi": "Đậu xanh",
+     "sow_timing": "early",
+     "sow": "2026-11-15",
+     "harvest": "2027-01-23"
+    },
+    {
+     "index": 2,
+     "window": "xuan_he",
+     "window_name_vi": "Xuân Hè / Hè Thu",
+     "crop": "rice",
+     "crop_name_vi": "Lúa",
+     "sow_timing": "standard",
+     "sow": "2027-03-31",
+     "harvest": "2027-07-08"
+    },
+    {
+     "index": 3,
+     "window": "thu_dong",
+     "window_name_vi": "Thu Đông / Hè Thu muộn",
+     "crop": "rice",
+     "crop_name_vi": "Lúa",
+     "sow_timing": "standard",
+     "sow": "2027-07-31",
+     "harvest": "2027-11-07"
+    }
+   ],
+   "metrics": {
+    "sc_clim": {
+     "irrigation_need": {
+      "value": 844,
+      "unit": "mm",
+      "origin": "inferred_by_model",
+      "label": "Dự kiến",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "irrigation_need_bad_year": {
+      "value": 1084,
+      "unit": "mm",
+      "origin": "inferred_by_model",
+      "label": "Dự kiến",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "water_stress_days": {
+      "value": 0.0,
+      "unit": "day",
+      "origin": "inferred_by_model",
+      "label": "Dự kiến",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0.0,
+      "unit": "day",
+      "origin": "inferred_by_model",
+      "label": "Dự kiến",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "yield": {
+      "value": null,
+      "unit": "t/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "MODEL_NOT_CALIBRATED_G7"
+     },
+     "profit": {
+      "value": null,
+      "unit": "VND/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "NO_PRICE_COST_DATA"
+     },
+     "per_season": [
+      {
+       "irrigation_mm": 115,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 110,
+       "etc_mm": 214
+      },
+      {
+       "irrigation_mm": 477,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 518,
+       "etc_mm": 548
+      },
+      {
+       "irrigation_mm": 241,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 818,
+       "etc_mm": 435
+      }
+     ],
+     "years_used": 24
+    },
+    "sc_dry": {
+     "irrigation_need": {
+      "value": 1059,
+      "unit": "mm",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "irrigation_need_bad_year": {
+      "value": 1111,
+      "unit": "mm",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "water_stress_days": {
+      "value": 0,
+      "unit": "day",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0,
+      "unit": "day",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "yield": {
+      "value": null,
+      "unit": "t/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "MODEL_NOT_CALIBRATED_G7"
+     },
+     "profit": {
+      "value": null,
+      "unit": "VND/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "NO_PRICE_COST_DATA"
+     },
+     "per_season": [
+      {
+       "irrigation_mm": 168,
+       "water_stress_days": 0,
+       "heat_stress_days_sensitive": 0,
+       "rain_mm": 60,
+       "etc_mm": 244
+      },
+      {
+       "irrigation_mm": 618,
+       "water_stress_days": 0,
+       "heat_stress_days_sensitive": 0,
+       "rain_mm": 444,
+       "etc_mm": 601
+      },
+      {
+       "irrigation_mm": 254,
+       "water_stress_days": 0,
+       "heat_stress_days_sensitive": 0,
+       "rain_mm": 920,
+       "etc_mm": 436
+      }
+     ],
+     "years_used": 3
+    },
+    "sc_hot": {
+     "irrigation_need": {
+      "value": 886,
+      "unit": "mm",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "irrigation_need_bad_year": {
+      "value": 1140,
+      "unit": "mm",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "water_stress_days": {
+      "value": 0.0,
+      "unit": "day",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0.0,
+      "unit": "day",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "yield": {
+      "value": null,
+      "unit": "t/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "MODEL_NOT_CALIBRATED_G7"
+     },
+     "profit": {
+      "value": null,
+      "unit": "VND/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "NO_PRICE_COST_DATA"
+     },
+     "per_season": [
+      {
+       "irrigation_mm": 161,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 110,
+       "etc_mm": 223
+      },
+      {
+       "irrigation_mm": 499,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 518,
+       "etc_mm": 570
+      },
+      {
+       "irrigation_mm": 253,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 818,
+       "etc_mm": 454
+      }
+     ],
+     "years_used": 24
+    },
+    "sc_rain_minus30": {
+     "irrigation_need": {
+      "value": 1057,
+      "unit": "mm",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "irrigation_need_bad_year": {
+      "value": 1299,
+      "unit": "mm",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "water_stress_days": {
+      "value": 0.0,
+      "unit": "day",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0.0,
+      "unit": "day",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "yield": {
+      "value": null,
+      "unit": "t/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "MODEL_NOT_CALIBRATED_G7"
+     },
+     "profit": {
+      "value": null,
+      "unit": "VND/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "NO_PRICE_COST_DATA"
+     },
+     "per_season": [
+      {
+       "irrigation_mm": 163,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 77,
+       "etc_mm": 214
+      },
+      {
+       "irrigation_mm": 585,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 362,
+       "etc_mm": 548
+      },
+      {
+       "irrigation_mm": 307,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 573,
+       "etc_mm": 435
+      }
+     ],
+     "years_used": 24
+    },
+    "sc_salt_early": {
+     "irrigation_need": {
+      "value": 844,
+      "unit": "mm",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "irrigation_need_bad_year": {
+      "value": 1084,
+      "unit": "mm",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "water_stress_days": {
+      "value": 0.0,
+      "unit": "day",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0.0,
+      "unit": "day",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "yield": {
+      "value": null,
+      "unit": "t/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "MODEL_NOT_CALIBRATED_G7"
+     },
+     "profit": {
+      "value": null,
+      "unit": "VND/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "NO_PRICE_COST_DATA"
+     },
+     "per_season": [
+      {
+       "irrigation_mm": 115,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 110,
+       "etc_mm": 214
+      },
+      {
+       "irrigation_mm": 477,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 518,
+       "etc_mm": 548
+      },
+      {
+       "irrigation_mm": 241,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 818,
+       "etc_mm": 435
+      }
+     ],
+     "years_used": 24
+    },
+    "sc_wet_ref": {
+     "irrigation_need": {
+      "value": 661,
+      "unit": "mm",
+      "origin": "inferred_by_model",
+      "label": "Dự kiến",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "irrigation_need_bad_year": {
+      "value": 661,
+      "unit": "mm",
+      "origin": "inferred_by_model",
+      "label": "Dự kiến",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "water_stress_days": {
+      "value": 0,
+      "unit": "day",
+      "origin": "inferred_by_model",
+      "label": "Dự kiến",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0,
+      "unit": "day",
+      "origin": "inferred_by_model",
+      "label": "Dự kiến",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "yield": {
+      "value": null,
+      "unit": "t/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "MODEL_NOT_CALIBRATED_G7"
+     },
+     "profit": {
+      "value": null,
+      "unit": "VND/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "NO_PRICE_COST_DATA"
+     },
+     "per_season": [
+      {
+       "irrigation_mm": 172,
+       "water_stress_days": 0,
+       "heat_stress_days_sensitive": 0,
+       "rain_mm": 157,
+       "etc_mm": 215
+      },
+      {
+       "irrigation_mm": 288,
+       "water_stress_days": 0,
+       "heat_stress_days_sensitive": 0,
+       "rain_mm": 726,
+       "etc_mm": 497
+      },
+      {
+       "irrigation_mm": 200,
+       "water_stress_days": 0,
+       "heat_stress_days_sensitive": 0,
+       "rain_mm": 835,
+       "etc_mm": 423
+      }
+     ],
+     "years_used": 1
+    }
+   },
+   "delta_vs_baseline": {
+    "sc_clim": {
+     "irrigation_need": {
+      "value": -743,
+      "unit": "mm"
+     },
+     "water_stress_days": {
+      "value": 0.0,
+      "unit": "day"
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0.0,
+      "unit": "day"
+     }
+    },
+    "sc_dry": {
+     "irrigation_need": {
+      "value": -765,
+      "unit": "mm"
+     },
+     "water_stress_days": {
+      "value": 0,
+      "unit": "day"
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0,
+      "unit": "day"
+     }
+    },
+    "sc_hot": {
+     "irrigation_need": {
+      "value": -756,
+      "unit": "mm"
+     },
+     "water_stress_days": {
+      "value": 0.0,
+      "unit": "day"
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0.0,
+      "unit": "day"
+     }
+    },
+    "sc_rain_minus30": {
+     "irrigation_need": {
+      "value": -721,
+      "unit": "mm"
+     },
+     "water_stress_days": {
+      "value": 0.0,
+      "unit": "day"
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0.0,
+      "unit": "day"
+     }
+    },
+    "sc_salt_early": {
+     "irrigation_need": {
+      "value": -743,
+      "unit": "mm"
+     },
+     "water_stress_days": {
+      "value": 0.0,
+      "unit": "day"
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0.0,
+      "unit": "day"
+     }
+    },
+    "sc_wet_ref": {
+     "irrigation_need": {
+      "value": -695,
+      "unit": "mm"
+     },
+     "water_stress_days": {
+      "value": 0,
+      "unit": "day"
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0,
+      "unit": "day"
+     }
+    }
+   },
+   "soil_benefit": {
+    "claim_type": "POTENTIAL_QUALITATIVE",
+    "value": null,
+    "indicators": [
+     "breaks_rice_pest_cycle",
+     "legume_n_fixation_potential",
+     "residue_return",
+     "crop_diversity_2"
+    ]
+   },
+   "rules": [
+    {
+     "rule_id": "R_DRAINAGE_UNKNOWN",
+     "severity": "UNKNOWN_REQUIRES_CHECK",
+     "season_index": 1,
+     "reason": "Đậu xanh cần thoát nước tốt; chưa xác nhận khả năng thoát nước",
+     "inputs_used": [
+      "state.drainage"
+     ],
+     "how_to_resolve": "Kiểm tra ruộng còn đọng nước sau mưa lớn 24 h hay không",
+     "evidence": [
+      "ev_crop_catalog"
+     ]
+    },
+    {
+     "rule_id": "R_SALINITY_UNKNOWN",
+     "severity": "UNKNOWN_REQUIRES_CHECK",
+     "season_index": 1,
+     "reason": "Vụ 1 (Đậu xanh) trùng mùa mặn 9 ngày (37 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh",
+     "inputs_used": [
+      "state.canal_ecw",
+      "regions.salinity_season",
+      "crops.salinity"
+     ],
+     "how_to_resolve": "Đo ECw nước kênh trước ngày gieo; ngưỡng tham khảo của Đậu xanh ≈ 1.2 dS/m",
+     "evidence": [
+      "ev_salinity_season",
+      "ev_crop_catalog"
+     ]
+    },
+    {
+     "rule_id": "R_SALINITY_UNKNOWN",
+     "severity": "UNKNOWN_REQUIRES_CHECK",
+     "season_index": 2,
+     "reason": "Vụ 2 (Lúa) trùng mùa mặn 77 ngày (77 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh",
+     "inputs_used": [
+      "state.canal_ecw",
+      "regions.salinity_season",
+      "crops.salinity"
+     ],
+     "how_to_resolve": "Đo ECw nước kênh trước ngày gieo; ngưỡng tham khảo của Lúa ≈ 2.0 dS/m",
+     "evidence": [
+      "ev_salinity_season",
+      "ev_crop_catalog"
+     ]
+    }
+   ],
+   "reasons": [
+    {
+     "text": "Nhu cầu tưới trung vị giảm ~743 mm (~7,430 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER.",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    {
+     "text": "Trong các năm khô nhất, giảm ~765 mm nước tưới so với hiện tại.",
+     "evidence_ids": [
+      "ev_power_daily"
+     ]
+    },
+    {
+     "text": "Lợi ích tiềm năng cho đất (định tính): breaks_rice_pest_cycle, legume_n_fixation_potential, crop_diversity_2",
+     "evidence_ids": [
+      "ev_crop_catalog"
+     ]
+    }
+   ],
+   "risks": [
+    {
+     "code": "R_DRAINAGE_UNKNOWN",
+     "severity": "UNKNOWN_REQUIRES_CHECK",
+     "season_index": 1,
+     "text": "Đậu xanh cần thoát nước tốt; chưa xác nhận khả năng thoát nước"
+    },
+    {
+     "code": "R_SALINITY_UNKNOWN",
+     "severity": "UNKNOWN_REQUIRES_CHECK",
+     "season_index": 1,
+     "text": "Vụ 1 (Đậu xanh) trùng mùa mặn 9 ngày (37 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh"
+    },
+    {
+     "code": "R_SALINITY_UNKNOWN",
+     "severity": "UNKNOWN_REQUIRES_CHECK",
+     "season_index": 2,
+     "text": "Vụ 2 (Lúa) trùng mùa mặn 77 ngày (77 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh"
+    }
+   ],
+   "triggers": [
+    {
+     "condition": "ECw nước kênh > 1.2 dS/m (≈ 0.8 ‰) trước 2026-11-15",
+     "measure": "ECw nước kênh (máy đo EC cầm tay)",
+     "unit": "dS/m",
+     "action": "Không gieo Đậu xanh vụ 1; tái lập kế hoạch"
+    },
+    {
+     "condition": "ECw nước kênh > 2.0 dS/m (≈ 1.3 ‰) trước 2027-03-31",
+     "measure": "ECw nước kênh (máy đo EC cầm tay)",
+     "unit": "dS/m",
+     "action": "Không gieo Lúa vụ 2; tái lập kế hoạch"
+    }
+   ],
+   "checklist": [
+    "Kiểm tra ruộng còn đọng nước sau mưa lớn 24 h hay không",
+    "Đo ECw nước kênh trước ngày gieo; ngưỡng tham khảo của Đậu xanh ≈ 1.2 dS/m",
+    "Đo ECw nước kênh trước ngày gieo; ngưỡng tham khảo của Lúa ≈ 2.0 dS/m",
+    "Xác nhận nguồn giống và đầu ra cho Đậu xanh (Đậu xanh ngắn ngày (60-75 ngày), vốn thấp, phù hợp xen vụ giữa hai vụ lúa.)",
+    "Trao đổi với cán bộ khuyến nông địa phương trước khi xuống giống"
+   ]
+  },
+  {
+   "sequence_id": "seq_soybean_rice_rice__early_standard_standard",
+   "is_baseline": false,
+   "strategy_tag": "soil_support",
+   "strategy_name_vi": "Hỗ trợ đất",
+   "decision_status": "CONDITIONAL_PENDING_CHECK",
+   "seasons": [
+    {
+     "index": 1,
+     "window": "dong_xuan",
+     "window_name_vi": "Đông Xuân",
+     "crop": "soybean",
+     "crop_name_vi": "Đậu nành",
+     "sow_timing": "early",
+     "sow": "2026-11-15",
+     "harvest": "2027-02-07"
+    },
+    {
+     "index": 2,
+     "window": "xuan_he",
+     "window_name_vi": "Xuân Hè / Hè Thu",
+     "crop": "rice",
+     "crop_name_vi": "Lúa",
+     "sow_timing": "standard",
+     "sow": "2027-03-31",
+     "harvest": "2027-07-08"
+    },
+    {
+     "index": 3,
+     "window": "thu_dong",
+     "window_name_vi": "Thu Đông / Hè Thu muộn",
+     "crop": "rice",
+     "crop_name_vi": "Lúa",
+     "sow_timing": "standard",
+     "sow": "2027-07-31",
+     "harvest": "2027-11-07"
+    }
+   ],
+   "metrics": {
+    "sc_clim": {
+     "irrigation_need": {
+      "value": 929,
+      "unit": "mm",
+      "origin": "inferred_by_model",
+      "label": "Dự kiến",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "irrigation_need_bad_year": {
+      "value": 1193,
+      "unit": "mm",
+      "origin": "inferred_by_model",
+      "label": "Dự kiến",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "water_stress_days": {
+      "value": 0.0,
+      "unit": "day",
+      "origin": "inferred_by_model",
+      "label": "Dự kiến",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0.0,
+      "unit": "day",
+      "origin": "inferred_by_model",
+      "label": "Dự kiến",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "yield": {
+      "value": null,
+      "unit": "t/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "MODEL_NOT_CALIBRATED_G7"
+     },
+     "profit": {
+      "value": null,
+      "unit": "VND/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "NO_PRICE_COST_DATA"
+     },
+     "per_season": [
+      {
+       "irrigation_mm": 212,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 112,
+       "etc_mm": 298
+      },
+      {
+       "irrigation_mm": 477,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 518,
+       "etc_mm": 548
+      },
+      {
+       "irrigation_mm": 241,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 818,
+       "etc_mm": 435
+      }
+     ],
+     "years_used": 24
+    },
+    "sc_dry": {
+     "irrigation_need": {
+      "value": 1143,
+      "unit": "mm",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "irrigation_need_bad_year": {
+      "value": 1194,
+      "unit": "mm",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "water_stress_days": {
+      "value": 0,
+      "unit": "day",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0,
+      "unit": "day",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "yield": {
+      "value": null,
+      "unit": "t/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "MODEL_NOT_CALIBRATED_G7"
+     },
+     "profit": {
+      "value": null,
+      "unit": "VND/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "NO_PRICE_COST_DATA"
+     },
+     "per_season": [
+      {
+       "irrigation_mm": 252,
+       "water_stress_days": 0,
+       "heat_stress_days_sensitive": 0,
+       "rain_mm": 62,
+       "etc_mm": 339
+      },
+      {
+       "irrigation_mm": 618,
+       "water_stress_days": 0,
+       "heat_stress_days_sensitive": 0,
+       "rain_mm": 444,
+       "etc_mm": 601
+      },
+      {
+       "irrigation_mm": 254,
+       "water_stress_days": 0,
+       "heat_stress_days_sensitive": 0,
+       "rain_mm": 920,
+       "etc_mm": 436
+      }
+     ],
+     "years_used": 3
+    },
+    "sc_hot": {
+     "irrigation_need": {
+      "value": 985,
+      "unit": "mm",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "irrigation_need_bad_year": {
+      "value": 1224,
+      "unit": "mm",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "water_stress_days": {
+      "value": 0.0,
+      "unit": "day",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0.0,
+      "unit": "day",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "yield": {
+      "value": null,
+      "unit": "t/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "MODEL_NOT_CALIBRATED_G7"
+     },
+     "profit": {
+      "value": null,
+      "unit": "VND/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "NO_PRICE_COST_DATA"
+     },
+     "per_season": [
+      {
+       "irrigation_mm": 241,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 112,
+       "etc_mm": 312
+      },
+      {
+       "irrigation_mm": 499,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 518,
+       "etc_mm": 570
+      },
+      {
+       "irrigation_mm": 253,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 818,
+       "etc_mm": 454
+      }
+     ],
+     "years_used": 24
+    },
+    "sc_rain_minus30": {
+     "irrigation_need": {
+      "value": 1143,
+      "unit": "mm",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "irrigation_need_bad_year": {
+      "value": 1387,
+      "unit": "mm",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "water_stress_days": {
+      "value": 0.0,
+      "unit": "day",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0.0,
+      "unit": "day",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "yield": {
+      "value": null,
+      "unit": "t/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "MODEL_NOT_CALIBRATED_G7"
+     },
+     "profit": {
+      "value": null,
+      "unit": "VND/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "NO_PRICE_COST_DATA"
+     },
+     "per_season": [
+      {
+       "irrigation_mm": 246,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 78,
+       "etc_mm": 298
+      },
+      {
+       "irrigation_mm": 585,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 362,
+       "etc_mm": 548
+      },
+      {
+       "irrigation_mm": 307,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 573,
+       "etc_mm": 435
+      }
+     ],
+     "years_used": 24
+    },
+    "sc_salt_early": {
+     "irrigation_need": {
+      "value": 929,
+      "unit": "mm",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "irrigation_need_bad_year": {
+      "value": 1193,
+      "unit": "mm",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "water_stress_days": {
+      "value": 0.0,
+      "unit": "day",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0.0,
+      "unit": "day",
+      "origin": "assumed_scenario",
+      "label": "Kịch bản",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "yield": {
+      "value": null,
+      "unit": "t/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "MODEL_NOT_CALIBRATED_G7"
+     },
+     "profit": {
+      "value": null,
+      "unit": "VND/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "NO_PRICE_COST_DATA"
+     },
+     "per_season": [
+      {
+       "irrigation_mm": 212,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 112,
+       "etc_mm": 298
+      },
+      {
+       "irrigation_mm": 477,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 518,
+       "etc_mm": 548
+      },
+      {
+       "irrigation_mm": 241,
+       "water_stress_days": 0.0,
+       "heat_stress_days_sensitive": 0.0,
+       "rain_mm": 818,
+       "etc_mm": 435
+      }
+     ],
+     "years_used": 24
+    },
+    "sc_wet_ref": {
+     "irrigation_need": {
+      "value": 737,
+      "unit": "mm",
+      "origin": "inferred_by_model",
+      "label": "Dự kiến",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "irrigation_need_bad_year": {
+      "value": 737,
+      "unit": "mm",
+      "origin": "inferred_by_model",
+      "label": "Dự kiến",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "water_stress_days": {
+      "value": 0,
+      "unit": "day",
+      "origin": "inferred_by_model",
+      "label": "Dự kiến",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0,
+      "unit": "day",
+      "origin": "inferred_by_model",
+      "label": "Dự kiến",
+      "evidence_ids": [
+       "ev_power_daily",
+       "ev_crop_catalog"
+      ]
+     },
+     "yield": {
+      "value": null,
+      "unit": "t/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "MODEL_NOT_CALIBRATED_G7"
+     },
+     "profit": {
+      "value": null,
+      "unit": "VND/ha",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "NO_PRICE_COST_DATA"
+     },
+     "per_season": [
+      {
+       "irrigation_mm": 248,
+       "water_stress_days": 0,
+       "heat_stress_days_sensitive": 0,
+       "rain_mm": 157,
+       "etc_mm": 299
+      },
+      {
+       "irrigation_mm": 288,
+       "water_stress_days": 0,
+       "heat_stress_days_sensitive": 0,
+       "rain_mm": 726,
+       "etc_mm": 497
+      },
+      {
+       "irrigation_mm": 200,
+       "water_stress_days": 0,
+       "heat_stress_days_sensitive": 0,
+       "rain_mm": 835,
+       "etc_mm": 423
+      }
+     ],
+     "years_used": 1
+    }
+   },
+   "delta_vs_baseline": {
+    "sc_clim": {
+     "irrigation_need": {
+      "value": -658,
+      "unit": "mm"
+     },
+     "water_stress_days": {
+      "value": 0.0,
+      "unit": "day"
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0.0,
+      "unit": "day"
+     }
+    },
+    "sc_dry": {
+     "irrigation_need": {
+      "value": -681,
+      "unit": "mm"
+     },
+     "water_stress_days": {
+      "value": 0,
+      "unit": "day"
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0,
+      "unit": "day"
+     }
+    },
+    "sc_hot": {
+     "irrigation_need": {
+      "value": -657,
+      "unit": "mm"
+     },
+     "water_stress_days": {
+      "value": 0.0,
+      "unit": "day"
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0.0,
+      "unit": "day"
+     }
+    },
+    "sc_rain_minus30": {
+     "irrigation_need": {
+      "value": -635,
+      "unit": "mm"
+     },
+     "water_stress_days": {
+      "value": 0.0,
+      "unit": "day"
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0.0,
+      "unit": "day"
+     }
+    },
+    "sc_salt_early": {
+     "irrigation_need": {
+      "value": -658,
+      "unit": "mm"
+     },
+     "water_stress_days": {
+      "value": 0.0,
+      "unit": "day"
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0.0,
+      "unit": "day"
+     }
+    },
+    "sc_wet_ref": {
+     "irrigation_need": {
+      "value": -619,
+      "unit": "mm"
+     },
+     "water_stress_days": {
+      "value": 0,
+      "unit": "day"
+     },
+     "heat_stress_days_sensitive_stage": {
+      "value": 0,
+      "unit": "day"
+     }
+    }
+   },
+   "soil_benefit": {
+    "claim_type": "POTENTIAL_QUALITATIVE",
+    "value": null,
+    "indicators": [
+     "breaks_rice_pest_cycle",
+     "legume_n_fixation_potential",
+     "residue_return",
+     "root_diversity",
+     "crop_diversity_2"
+    ]
+   },
+   "rules": [
+    {
+     "rule_id": "R_DRAINAGE_UNKNOWN",
+     "severity": "UNKNOWN_REQUIRES_CHECK",
+     "season_index": 1,
+     "reason": "Đậu nành cần thoát nước tốt; chưa xác nhận khả năng thoát nước",
+     "inputs_used": [
+      "state.drainage"
+     ],
+     "how_to_resolve": "Kiểm tra ruộng còn đọng nước sau mưa lớn 24 h hay không",
+     "evidence": [
+      "ev_crop_catalog"
+     ]
+    },
+    {
+     "rule_id": "R_SALINITY_UNKNOWN",
+     "severity": "UNKNOWN_REQUIRES_CHECK",
+     "season_index": 1,
+     "reason": "Vụ 1 (Đậu nành) trùng mùa mặn 24 ngày (52 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh",
+     "inputs_used": [
+      "state.canal_ecw",
+      "regions.salinity_season",
+      "crops.salinity"
+     ],
+     "how_to_resolve": "Đo ECw nước kênh trước ngày gieo; ngưỡng tham khảo của Đậu nành ≈ 3.33 dS/m",
+     "evidence": [
+      "ev_salinity_season",
+      "ev_crop_catalog"
+     ]
+    },
+    {
+     "rule_id": "R_SALINITY_UNKNOWN",
+     "severity": "UNKNOWN_REQUIRES_CHECK",
+     "season_index": 2,
+     "reason": "Vụ 2 (Lúa) trùng mùa mặn 77 ngày (77 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh",
+     "inputs_used": [
+      "state.canal_ecw",
+      "regions.salinity_season",
+      "crops.salinity"
+     ],
+     "how_to_resolve": "Đo ECw nước kênh trước ngày gieo; ngưỡng tham khảo của Lúa ≈ 2.0 dS/m",
+     "evidence": [
+      "ev_salinity_season",
+      "ev_crop_catalog"
+     ]
+    }
+   ],
+   "reasons": [
+    {
+     "text": "Nhu cầu tưới trung vị giảm ~658 mm (~6,580 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER.",
+     "evidence_ids": [
+      "ev_power_daily",
+      "ev_crop_catalog"
+     ]
+    },
+    {
+     "text": "Trong các năm khô nhất, giảm ~681 mm nước tưới so với hiện tại.",
+     "evidence_ids": [
+      "ev_power_daily"
+     ]
+    },
+    {
+     "text": "Lợi ích tiềm năng cho đất (định tính): breaks_rice_pest_cycle, legume_n_fixation_potential, root_diversity, crop_diversity_2",
+     "evidence_ids": [
+      "ev_crop_catalog"
+     ]
+    }
+   ],
+   "risks": [
+    {
+     "code": "R_DRAINAGE_UNKNOWN",
+     "severity": "UNKNOWN_REQUIRES_CHECK",
+     "season_index": 1,
+     "text": "Đậu nành cần thoát nước tốt; chưa xác nhận khả năng thoát nước"
+    },
+    {
+     "code": "R_SALINITY_UNKNOWN",
+     "severity": "UNKNOWN_REQUIRES_CHECK",
+     "season_index": 1,
+     "text": "Vụ 1 (Đậu nành) trùng mùa mặn 24 ngày (52 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh"
+    },
+    {
+     "code": "R_SALINITY_UNKNOWN",
+     "severity": "UNKNOWN_REQUIRES_CHECK",
+     "season_index": 2,
+     "text": "Vụ 2 (Lúa) trùng mùa mặn 77 ngày (77 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh"
+    }
+   ],
+   "triggers": [
+    {
+     "condition": "ECw nước kênh > 3.33 dS/m (≈ 2.1 ‰) trước 2026-11-15",
+     "measure": "ECw nước kênh (máy đo EC cầm tay)",
+     "unit": "dS/m",
+     "action": "Không gieo Đậu nành vụ 1; tái lập kế hoạch"
+    },
+    {
+     "condition": "ECw nước kênh > 2.0 dS/m (≈ 1.3 ‰) trước 2027-03-31",
+     "measure": "ECw nước kênh (máy đo EC cầm tay)",
+     "unit": "dS/m",
+     "action": "Không gieo Lúa vụ 2; tái lập kế hoạch"
+    }
+   ],
+   "checklist": [
+    "Kiểm tra ruộng còn đọng nước sau mưa lớn 24 h hay không",
+    "Đo ECw nước kênh trước ngày gieo; ngưỡng tham khảo của Đậu nành ≈ 3.33 dS/m",
+    "Đo ECw nước kênh trước ngày gieo; ngưỡng tham khảo của Lúa ≈ 2.0 dS/m",
+    "Xác nhận nguồn giống và đầu ra cho Đậu nành (Đậu nành vụ Xuân Hè trong luân canh lúa-màu; giá nội địa thấp hơn nhập khẩu, thị trường nhỏ.)",
+    "Trao đổi với cán bộ khuyến nông địa phương trước khi xuống giống"
+   ]
+  }
+ ],
+ "excluded": [
+  {
+   "sequence_id": "seq_rice_rice_rice__early_early_early",
+   "crops": [
+    "rice",
+    "rice",
+    "rice"
+   ],
+   "rule_id": "R_SEASON_OVERLAP",
+   "severity": "HARD",
+   "reason": "Thu hoạch Lúa (2027-02-22) + 10 ngày làm đất vượt ngày gieo vụ 2 (2027-03-01)",
+   "inputs_used": [
+    "crops.duration_days",
+    "regions.min_turnaround_days"
+   ],
+   "how_to_resolve": "Gieo vụ trước sớm hơn hoặc chọn giống ngắn ngày"
+  },
+  {
+   "sequence_id": "seq_rice_rice_maize__early_early_early",
+   "crops": [
+    "rice",
+    "rice",
+    "maize"
+   ],
+   "rule_id": "R_WINDOW",
+   "severity": "HARD",
+   "reason": "Ngô không thuộc lịch vụ Thu Đông / Hè Thu muộn của vùng",
+   "inputs_used": [
+    "crops.allowed_windows",
+    "regions.season_windows"
+   ],
+   "how_to_resolve": "Chọn cây khác cho vụ này"
+  },
+  {
+   "sequence_id": "seq_rice_rice_soybean__early_early_early",
+   "crops": [
+    "rice",
+    "rice",
+    "soybean"
+   ],
+   "rule_id": "R_WINDOW",
+   "severity": "HARD",
+   "reason": "Đậu nành không thuộc lịch vụ Thu Đông / Hè Thu muộn của vùng",
+   "inputs_used": [
+    "crops.allowed_windows",
+    "regions.season_windows"
+   ],
+   "how_to_resolve": "Chọn cây khác cho vụ này"
+  },
+  {
+   "sequence_id": "seq_rice_rice_mungbean__early_early_early",
+   "crops": [
+    "rice",
+    "rice",
+    "mungbean"
+   ],
+   "rule_id": "R_WINDOW",
+   "severity": "HARD",
+   "reason": "Đậu xanh không thuộc lịch vụ Thu Đông / Hè Thu muộn của vùng",
+   "inputs_used": [
+    "crops.allowed_windows",
+    "regions.season_windows"
+   ],
+   "how_to_resolve": "Chọn cây khác cho vụ này"
+  },
+  {
+   "sequence_id": "seq_rice_rice_sesame__early_early_early",
+   "crops": [
+    "rice",
+    "rice",
+    "sesame"
+   ],
+   "rule_id": "R_WINDOW",
+   "severity": "HARD",
+   "reason": "Mè (vừng) không thuộc lịch vụ Thu Đông / Hè Thu muộn của vùng",
+   "inputs_used": [
+    "crops.allowed_windows",
+    "regions.season_windows"
+   ],
+   "how_to_resolve": "Chọn cây khác cho vụ này"
+  },
+  {
+   "sequence_id": "seq_rice_rice_peanut__early_early_early",
+   "crops": [
+    "rice",
+    "rice",
+    "peanut"
+   ],
+   "rule_id": "R_WINDOW",
+   "severity": "HARD",
+   "reason": "Đậu phộng (lạc) không thuộc lịch vụ Thu Đông / Hè Thu muộn của vùng",
+   "inputs_used": [
+    "crops.allowed_windows",
+    "regions.season_windows"
+   ],
+   "how_to_resolve": "Chọn cây khác cho vụ này"
+  },
+  {
+   "sequence_id": "seq_rice_rice_watermelon__early_early_early",
+   "crops": [
+    "rice",
+    "rice",
+    "watermelon"
+   ],
+   "rule_id": "R_WINDOW",
+   "severity": "HARD",
+   "reason": "Dưa hấu không thuộc lịch vụ Thu Đông / Hè Thu muộn của vùng",
+   "inputs_used": [
+    "crops.allowed_windows",
+    "regions.season_windows"
+   ],
+   "how_to_resolve": "Chọn cây khác cho vụ này"
+  },
+  {
+   "sequence_id": "seq_rice_rice_fallow_cover__early_early_early",
+   "crops": [
+    "rice",
+    "rice",
+    "fallow_cover"
+   ],
+   "rule_id": "R_SEASON_OVERLAP",
+   "severity": "HARD",
+   "reason": "Thu hoạch Lúa (2027-02-22) + 10 ngày làm đất vượt ngày gieo vụ 2 (2027-03-01)",
+   "inputs_used": [
+    "crops.duration_days",
+    "regions.min_turnaround_days"
+   ],
+   "how_to_resolve": "Gieo vụ trước sớm hơn hoặc chọn giống ngắn ngày"
+  },
+  {
+   "sequence_id": "seq_rice_maize_rice__early_early_early",
+   "crops": [
+    "rice",
+    "maize",
+    "rice"
+   ],
+   "rule_id": "R_SEASON_OVERLAP",
+   "severity": "HARD",
+   "reason": "Thu hoạch Lúa (2027-02-22) + 10 ngày làm đất vượt ngày gieo vụ 2 (2027-03-01)",
+   "inputs_used": [
+    "crops.duration_days",
+    "regions.min_turnaround_days"
+   ],
+   "how_to_resolve": "Gieo vụ trước sớm hơn hoặc chọn giống ngắn ngày"
+  },
+  {
+   "sequence_id": "seq_rice_soybean_rice__early_early_early",
+   "crops": [
+    "rice",
+    "soybean",
+    "rice"
+   ],
+   "rule_id": "R_SEASON_OVERLAP",
+   "severity": "HARD",
+   "reason": "Thu hoạch Lúa (2027-02-22) + 10 ngày làm đất vượt ngày gieo vụ 2 (2027-03-01)",
+   "inputs_used": [
+    "crops.duration_days",
+    "regions.min_turnaround_days"
+   ],
+   "how_to_resolve": "Gieo vụ trước sớm hơn hoặc chọn giống ngắn ngày"
+  },
+  {
+   "sequence_id": "seq_rice_mungbean_rice__early_early_early",
+   "crops": [
+    "rice",
+    "mungbean",
+    "rice"
+   ],
+   "rule_id": "R_SEASON_OVERLAP",
+   "severity": "HARD",
+   "reason": "Thu hoạch Lúa (2027-02-22) + 10 ngày làm đất vượt ngày gieo vụ 2 (2027-03-01)",
+   "inputs_used": [
+    "crops.duration_days",
+    "regions.min_turnaround_days"
+   ],
+   "how_to_resolve": "Gieo vụ trước sớm hơn hoặc chọn giống ngắn ngày"
+  },
+  {
+   "sequence_id": "seq_rice_sesame_rice__early_early_early",
+   "crops": [
+    "rice",
+    "sesame",
+    "rice"
+   ],
+   "rule_id": "R_SEASON_OVERLAP",
+   "severity": "HARD",
+   "reason": "Thu hoạch Lúa (2027-02-22) + 10 ngày làm đất vượt ngày gieo vụ 2 (2027-03-01)",
+   "inputs_used": [
+    "crops.duration_days",
+    "regions.min_turnaround_days"
+   ],
+   "how_to_resolve": "Gieo vụ trước sớm hơn hoặc chọn giống ngắn ngày"
+  },
+  {
+   "sequence_id": "seq_rice_peanut_rice__early_early_early",
+   "crops": [
+    "rice",
+    "peanut",
+    "rice"
+   ],
+   "rule_id": "R_SEASON_OVERLAP",
+   "severity": "HARD",
+   "reason": "Thu hoạch Lúa (2027-02-22) + 10 ngày làm đất vượt ngày gieo vụ 2 (2027-03-01)",
+   "inputs_used": [
+    "crops.duration_days",
+    "regions.min_turnaround_days"
+   ],
+   "how_to_resolve": "Gieo vụ trước sớm hơn hoặc chọn giống ngắn ngày"
+  },
+  {
+   "sequence_id": "seq_rice_watermelon_rice__early_early_early",
+   "crops": [
+    "rice",
+    "watermelon",
+    "rice"
+   ],
+   "rule_id": "R_SEASON_OVERLAP",
+   "severity": "HARD",
+   "reason": "Thu hoạch Lúa (2027-02-22) + 10 ngày làm đất vượt ngày gieo vụ 2 (2027-03-01)",
+   "inputs_used": [
+    "crops.duration_days",
+    "regions.min_turnaround_days"
+   ],
+   "how_to_resolve": "Gieo vụ trước sớm hơn hoặc chọn giống ngắn ngày"
+  },
+  {
+   "sequence_id": "seq_rice_fallow_cover_rice__early_early_early",
+   "crops": [
+    "rice",
+    "fallow_cover",
+    "rice"
+   ],
+   "rule_id": "R_SEASON_OVERLAP",
+   "severity": "HARD",
+   "reason": "Thu hoạch Lúa (2027-02-22) + 10 ngày làm đất vượt ngày gieo vụ 2 (2027-03-01)",
+   "inputs_used": [
+    "crops.duration_days",
+    "regions.min_turnaround_days"
+   ],
+   "how_to_resolve": "Gieo vụ trước sớm hơn hoặc chọn giống ngắn ngày"
+  },
+  {
+   "sequence_id": "seq_maize_rice_rice__early_standard_early",
+   "crops": [
+    "maize",
+    "rice",
+    "rice"
+   ],
+   "rule_id": "R_SEASON_OVERLAP",
+   "severity": "HARD",
+   "reason": "Thu hoạch Lúa (2027-07-08) + 10 ngày làm đất vượt ngày gieo vụ 3 (2027-07-01)",
+   "inputs_used": [
+    "crops.duration_days",
+    "regions.min_turnaround_days"
+   ],
+   "how_to_resolve": "Gieo vụ trước sớm hơn hoặc chọn giống ngắn ngày"
+  },
+  {
+   "sequence_id": "seq_soybean_rice_rice__early_standard_early",
+   "crops": [
+    "soybean",
+    "rice",
+    "rice"
+   ],
+   "rule_id": "R_SEASON_OVERLAP",
+   "severity": "HARD",
+   "reason": "Thu hoạch Lúa (2027-07-08) + 10 ngày làm đất vượt ngày gieo vụ 3 (2027-07-01)",
+   "inputs_used": [
+    "crops.duration_days",
+    "regions.min_turnaround_days"
+   ],
+   "how_to_resolve": "Gieo vụ trước sớm hơn hoặc chọn giống ngắn ngày"
+  },
+  {
+   "sequence_id": "seq_mungbean_rice_rice__early_standard_early",
+   "crops": [
+    "mungbean",
+    "rice",
+    "rice"
+   ],
+   "rule_id": "R_SEASON_OVERLAP",
+   "severity": "HARD",
+   "reason": "Thu hoạch Lúa (2027-07-08) + 10 ngày làm đất vượt ngày gieo vụ 3 (2027-07-01)",
+   "inputs_used": [
+    "crops.duration_days",
+    "regions.min_turnaround_days"
+   ],
+   "how_to_resolve": "Gieo vụ trước sớm hơn hoặc chọn giống ngắn ngày"
+  },
+  {
+   "sequence_id": "seq_sesame_rice_rice__early_standard_early",
+   "crops": [
+    "sesame",
+    "rice",
+    "rice"
+   ],
+   "rule_id": "R_SEASON_OVERLAP",
+   "severity": "HARD",
+   "reason": "Thu hoạch Lúa (2027-07-08) + 10 ngày làm đất vượt ngày gieo vụ 3 (2027-07-01)",
+   "inputs_used": [
+    "crops.duration_days",
+    "regions.min_turnaround_days"
+   ],
+   "how_to_resolve": "Gieo vụ trước sớm hơn hoặc chọn giống ngắn ngày"
+  },
+  {
+   "sequence_id": "seq_peanut_rice_rice__early_early_early",
+   "crops": [
+    "peanut",
+    "rice",
+    "rice"
+   ],
+   "rule_id": "R_SEASON_OVERLAP",
+   "severity": "HARD",
+   "reason": "Thu hoạch Đậu phộng (lạc) (2027-02-22) + 10 ngày làm đất vượt ngày gieo vụ 2 (2027-03-01)",
+   "inputs_used": [
+    "crops.duration_days",
+    "regions.min_turnaround_days"
+   ],
+   "how_to_resolve": "Gieo vụ trước sớm hơn hoặc chọn giống ngắn ngày"
+  },
+  {
+   "sequence_id": "seq_watermelon_rice_rice__early_standard_early",
+   "crops": [
+    "watermelon",
+    "rice",
+    "rice"
+   ],
+   "rule_id": "R_SEASON_OVERLAP",
+   "severity": "HARD",
+   "reason": "Thu hoạch Lúa (2027-07-08) + 10 ngày làm đất vượt ngày gieo vụ 3 (2027-07-01)",
+   "inputs_used": [
+    "crops.duration_days",
+    "regions.min_turnaround_days"
+   ],
+   "how_to_resolve": "Gieo vụ trước sớm hơn hoặc chọn giống ngắn ngày"
+  },
+  {
+   "sequence_id": "seq_fallow_cover_rice_rice__early_standard_early",
+   "crops": [
+    "fallow_cover",
+    "rice",
+    "rice"
+   ],
+   "rule_id": "R_SEASON_OVERLAP",
+   "severity": "HARD",
+   "reason": "Thu hoạch Lúa (2027-07-08) + 10 ngày làm đất vượt ngày gieo vụ 3 (2027-07-01)",
+   "inputs_used": [
+    "crops.duration_days",
+    "regions.min_turnaround_days"
+   ],
+   "how_to_resolve": "Gieo vụ trước sớm hơn hoặc chọn giống ngắn ngày"
+  }
+ ],
+ "stats": {
+  "generated": 176,
+  "calendar_feasible": 52,
+  "evaluated_feasible": 52,
+  "pareto_front": 4,
+  "season_simulations": 4167
+ },
+ "irrigation_cap_mm_per_season": null,
+ "notes": [],
+ "evidence": {
+  "ev_power_daily": {
+   "kind": "OBSERVED_REMOTE_ESTIMATE",
+   "source": "NASA POWER Daily (MERRA-2/CERES), community AG",
+   "version": "v2.10.3",
+   "spatial_scale": "regional",
+   "resolution": "0.5x0.625 deg (~50 km)",
+   "time_scope": [
+    "2001-01-01",
+    "2026-11-03"
+   ],
+   "status": "CACHED",
+   "url": "https://power.larc.nasa.gov/docs/services/api/temporal/daily/",
+   "limitations": [
+    "Ô lưới ~50 km, không phải đo tại thửa",
+    "Ô ven biển có thể lẫn biển"
+   ],
+   "quality_flags": [
+    "COASTAL_CELL_MIXED"
+   ]
+  },
+  "ev_power_gwet": {
+   "kind": "MODEL_ESTIMATE",
+   "source": "NASA POWER GWETROOT (MERRA-2 root-zone wetness 0-1)",
+   "spatial_scale": "regional",
+   "status": "CACHED",
+   "limitations": [
+    "Độ ẩm mô hình quy mô vùng, không phải % ẩm tại ruộng"
+   ]
+  },
+  "ev_srtm": {
+   "kind": "OBSERVED_REMOTE_ESTIMATE",
+   "source": "SRTM 30 m via OpenTopoData",
+   "spatial_scale": "field",
+   "status": "CACHED",
+   "limitations": [
+    "Không thể hiện đê bao/cống; không chứng minh ngập"
+   ]
+  },
+  "ev_soil": {
+   "kind": "OBSERVED_REMOTE_ESTIMATE",
+   "source": "SoilGrids v2.0",
+   "spatial_scale": "regional",
+   "status": "CACHED",
+   "limitations": [
+    "Không thay thế xét nghiệm đất tại thửa"
+   ]
+  },
+  "ev_crop_catalog": {
+   "kind": "LITERATURE_RULE",
+   "source": "crops.json (crops-2026.11.0): FAO-56, FAO-29, Maas-Hoffman",
+   "limitations": [
+    "Tham số tham khảo, chưa hiệu chỉnh giống địa phương"
+   ]
+  },
+  "ev_region_calendar": {
+   "kind": "LITERATURE_RULE",
+   "source": "regions.json: MARD/Cuc Trong trot cropping calendars for Mekong Delta (Đông Xuân Nov-Dec, Hè Thu Mar-May, Thu Đông Jul-Aug)",
+   "limitations": [
+    "Windows are widened to guarantee a 3-crop rice sequence: latest sowing + 110 d + 10 d turnaround fits the next window's end; actual local calendars vary by province and flood/salinity status.",
+    "Upland crops in Hè Thu face rain onset in May; their duration must be checked per sowing date."
+   ]
+  },
+  "ev_salinity_season": {
+   "kind": "ASSUMPTION",
+   "source": "MARD/SIWRP salinity intrusion reports 2016, 2020, 2024; MRC Mekong salinity intrusion studies",
+   "limitations": [
+    "Dates are multi-year typical; actual onset and peak shift with El Nino years and upstream discharge.",
+    "Applies to coastal zones only; inland sites have negligible risk."
+   ]
+  }
+ },
+ "disclaimer": "Công cụ hỗ trợ tham khảo, không thay thế quyết định của nông dân và cán bộ khuyến nông."
+}
