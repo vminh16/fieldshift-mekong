@@ -11,7 +11,7 @@ export const BASEMAPS: Record<BasemapId, { label: string }> = {
 const TOPO_TILES = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}'
 
 /** A flat (no rotation, no pitch) raster map shared by every map screen in the app. */
-export function createBaseMap(container: HTMLElement, view: { lat: number; lng: number; zoom: number }): MlMap {
+export function createBaseMap(container: HTMLElement, view: { lat: number; lng: number; zoom: number }, opts: { interactive?: boolean } = {}): MlMap {
   const map = new maplibregl.Map({
     container,
     style: {
@@ -35,6 +35,7 @@ export function createBaseMap(container: HTMLElement, view: { lat: number; lng: 
     dragRotate: false,
     pitchWithRotate: false,
     doubleClickZoom: false,
+    interactive: opts.interactive ?? true,
   })
   map.touchZoomRotate.disableRotation()
   return map

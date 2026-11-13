@@ -1,6 +1,7 @@
 import { LandingPage } from '../features/landing/LandingPage'
 import { FieldsWorkspace } from '../features/fields/FieldsWorkspace'
 import { PlannedScreen } from '../features/shell/PlannedScreen'
+import { RecommendScreen } from '../features/recommend/RecommendScreen'
 import { useRoute } from '../shared/router'
 
 export function App() {
@@ -11,21 +12,7 @@ export function App() {
   // One workspace for browsing, drawing and editing parcels, so the map survives mode changes.
   if (path === '/ruong' || path.startsWith('/ruong/')) return <FieldsWorkspace route={route} />
 
-  if (path === '/mo-phong')
-    return (
-      <PlannedScreen
-        title="Mô phỏng luân canh"
-        icon="sprout"
-        lead="So sánh chuỗi vụ đang trồng với 2–4 phương án thay thế, cùng một kịch bản thời tiết, rồi xem diễn biến từng tuần trên ruộng."
-        items={[
-          'Khai báo điều kiện: chuỗi vụ hiện tại, tưới, thoát nước, độ mặn nước kênh — “Chưa biết” là một câu trả lời hợp lệ',
-          'Thẻ phương án cạnh baseline, chip chênh lệch nước tưới và ngày stress',
-          'Biểu đồ “mỗi chấm = 1 năm” thay cho con số xác suất',
-          'Mặt cắt ruộng theo tuần: nước mặt ruộng, ẩm vùng rễ, mùa mặn',
-          'Thử “nếu… thì…”: mưa −30%, mặn sớm 4 tuần, gieo trễ 7 ngày',
-        ]}
-      />
-    )
+  if (path === '/mo-phong') return <RecommendScreen fieldId={route.params.get('thua')} />
   if (path === '/theo-doi')
     return (
       <PlannedScreen
