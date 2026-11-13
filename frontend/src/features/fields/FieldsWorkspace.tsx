@@ -9,7 +9,7 @@ import { formatHa, ringCentroid } from '../../shared/geo/area'
 import { MEKONG_REGION, nearestProvince } from '../../shared/geo/mekongProvinces'
 import { reverseGeocode } from '../../shared/geo/geocode'
 import { COARSE_M, GPS_ERROR_MSG, PRECISE_M, accuracyCircle, formatAccuracy, watchPosition, type GpsError, type GpsFix } from '../../shared/geo/gps'
-import { getField, removeField, setActiveField, upsertField, useActiveFieldId, useFields, type LocalField } from '../../shared/fields/store'
+import { removeField, renamePlace, saveField, setActiveField, syncFields, useActiveFieldId, useFields, useSync, type LocalField } from '../../shared/fields/store'
 import { MIN_DRAW_ZOOM, OUTSIDE_MSG, ParcelEditor, inServiceArea, type DrawMode, type EditorState } from '../parcel/ParcelEditor'
 import { FieldThumb } from './FieldThumb'
 import './workspace.css'
@@ -44,11 +44,17 @@ function fieldFeatures(fields: LocalField[], activeId: string | null): GeoJSON.F
   }
 }
 
+/** Seeded demo parcels carry no place label; derive one from the gazetteer. */
+const placeOf = (f: LocalField) => f.place_name || nearestProvince(f.centroid.lat, f.centroid.lng, 0.6)?.name || 'Đồng bằng sông Cửu Long'
 const areaLabel = (f: LocalField) => (f.area_ha === null ? 'Chưa biết' : formatHa(f.area_ha))
-const areaSource = (f: LocalField) => (f.area_source === 'drawn' ? 'Ước lượng từ hình vẽ' : f.area_source === 'reported' ? 'Người dùng báo' : 'Chưa đo')
+const areaSource = (f: LocalField) =>
+  f.area_source === 'drawn' ? 'Ước lượng từ hình vẽ' : f.area_source === 'reported' ? 'Người dùng báo' : f.area_source === 'sample' ? 'Giá trị mẫu' : 'Chưa đo'
 
 export function FieldsWorkspace({ route }: { route: Route }) {
   const fields = useFields()
+  const sync = useSync()
+  const [saving, setSaving] = useState(false)
+  const [deleting, setDeleting] = useState(false)
   const activeId = useActiveFieldId()
   const active = fields.find((f) => f.id === activeId) ?? null
 
@@ -153,6 +159,12 @@ export function FieldsWorkspace({ route }: { route: Route }) {
       setName('')
       setReportedHa('')
       editor.start({ mode: route.params.get('kieu') === 'diem' ? 'point' : 'polygon' })
+      // The workspace stays mounted across routes, so a draw link carrying a view must move the camera here.
+      const lat = Number(route.params.get('lat'))
+      const lng = Number(route.params.get('lng'))
+      if (route.params.has('lat') && Number.isFinite(lat) && Number.isFinite(lng)) {
+        map.jumpTo({ center: [lng, lat], zoom: Number(route.params.get('z')) || map.getZoom() })
+      }
       return
     }
     // edit
@@ -235,7 +247,7 @@ export function FieldsWorkspace({ route }: { route: Route }) {
     editorRef.current?.lock(s === 'name')
   }
 
-  const save = () => {
+  const save = async () => {
     const editor = editorRef.current!
     const st = editor.snapshot
     const trimmed = name.trim()
@@ -247,26 +259,49 @@ export function FieldsWorkspace({ route }: { route: Route }) {
     // Offline first: nearest province centroid from the gazetteer; refined below by the geocoder when available.
     const moved = !editing || Math.hypot(centroid.lat - editing.centroid.lat, centroid.lng - editing.centroid.lng) > 0.01
     const place = (!moved && editing?.place_name) || route.params.get('noi') || nearestProvince(centroid.lat, centroid.lng, 0.6)?.name || 'Đồng bằng sông Cửu Long'
-    const saved = upsertField({
-      id: editing?.id,
-      name: trimmed,
-      ring: polygon ? st.ring : null,
-      centroid,
-      area_ha: polygon ? Math.round(editor.areaHa * 1000) / 1000 : reported,
-      area_source: polygon ? 'drawn' : reported !== null ? 'reported' : null,
-      place_name: place,
-    })
-    if (moved) {
-      reverseGeocode(centroid.lat, centroid.lng)
-        .then((p) => {
-          const current = getField(saved.id)
-          if (p?.name && current && current.updated_at === saved.updated_at) upsertField({ ...current, place_name: p.name })
-        })
-        .catch(() => undefined)
+    setSaving(true)
+    try {
+      const { field, offline } = await saveField({
+        id: editing?.id,
+        name: trimmed,
+        ring: polygon ? st.ring : null,
+        centroid,
+        area_ha: polygon ? Math.round(editor.areaHa * 1000) / 1000 : reported,
+        area_source: polygon ? 'drawn' : reported !== null ? 'reported' : null,
+        place_name: place,
+      })
+      if (moved && !offline) {
+        reverseGeocode(centroid.lat, centroid.lng)
+          .then((p) => (p?.name ? renamePlace(field.id, p.name) : undefined))
+          .catch(() => undefined)
+      }
+      setCardOpen(true)
+      navigate('/ruong')
+      flash(
+        offline
+          ? `Chưa kết nối được máy chủ — đã lưu “${trimmed}” trên máy này, sẽ tự đồng bộ khi có mạng.`
+          : editing
+            ? 'Đã lưu thay đổi.'
+            : `Đã lưu “${trimmed}”. Bước tiếp: cập nhật thông tin canh tác.`,
+      )
+    } catch (e) {
+      flash(e instanceof Error ? e.message : 'Không lưu được thửa.')
+    } finally {
+      setSaving(false)
     }
-    setCardOpen(true)
-    navigate('/ruong')
-    flash(editing ? 'Đã lưu thay đổi.' : `Đã lưu “${trimmed}”. Bước tiếp: cập nhật thông tin canh tác.`)
+  }
+
+  const remove = async (f: LocalField) => {
+    setDeleting(true)
+    try {
+      await removeField(f.id)
+      setMenuFor(null)
+      flash(`Đã xoá “${f.name}”.`)
+    } catch (e) {
+      flash(e instanceof Error ? e.message : 'Không xoá được thửa.')
+    } finally {
+      setDeleting(false)
+    }
   }
 
   // ---------- GPS ----------
@@ -359,6 +394,14 @@ export function FieldsWorkspace({ route }: { route: Route }) {
                 </button>
               </header>
               <p className="ws-list__lead">Quản lý và theo dõi các thửa ruộng của bạn.</p>
+              {sync === 'offline' && (
+                <div className="sync-note" role="status">
+                  <span>Chưa kết nối được máy chủ. Thửa mới sẽ lưu trên máy này và tự đồng bộ sau.</span>
+                  <button type="button" className="btn btn--ghost btn--sm" onClick={() => syncFields()}>
+                    Thử lại
+                  </button>
+                </div>
+              )}
               <button type="button" className="btn btn--primary ws-list__add" onClick={() => startDraw('polygon')} disabled={drawing}>
                 <Icon name="plus" /> Thêm ruộng
               </button>
@@ -373,8 +416,9 @@ export function FieldsWorkspace({ route }: { route: Route }) {
                         <span className="ws-item__text">
                           <span className="ws-item__name">{f.name}</span>
                           <span className="ws-item__meta">
-                            {areaLabel(f)} · {f.place_name}
+                            {f.sample ? 'Ruộng mẫu' : areaLabel(f)} · {placeOf(f)}
                           </span>
+                          {f.pending && <span className="ws-item__flag">Chưa đồng bộ</span>}
                         </span>
                       </button>
                       <button
@@ -402,12 +446,10 @@ export function FieldsWorkspace({ route }: { route: Route }) {
                                 <button
                                   type="button"
                                   className="btn btn--danger btn--sm"
-                                  onClick={() => {
-                                    removeField(f.id)
-                                    setMenuFor(null)
-                                  }}
+                                  disabled={deleting}
+                                  onClick={() => remove(f)}
                                 >
-                                  Xoá
+                                  {deleting ? 'Đang xoá…' : 'Xoá'}
                                 </button>
                               </div>
                             </div>
@@ -416,9 +458,13 @@ export function FieldsWorkspace({ route }: { route: Route }) {
                               <button type="button" role="menuitem" onClick={() => navigate(`/ruong/${f.id}/sua`)}>
                                 <Icon name="edit" /> Chỉnh sửa ranh giới
                               </button>
-                              <button type="button" role="menuitem" className="menu__danger" onClick={() => setConfirmDelete(f.id)}>
-                                <Icon name="trash" /> Xoá thửa
-                              </button>
+                              {f.sample ? (
+                                <p className="menu__note">Ruộng mẫu của hệ thống — không xoá được.</p>
+                              ) : (
+                                <button type="button" role="menuitem" className="menu__danger" onClick={() => setConfirmDelete(f.id)}>
+                                  <Icon name="trash" /> Xoá thửa
+                                </button>
+                              )}
                             </>
                           )}
                         </div>
@@ -627,8 +673,8 @@ export function FieldsWorkspace({ route }: { route: Route }) {
                       <Icon name="arrowLeft" /> Sửa vị trí
                     </button>
                   </div>
-                  <button type="submit" className="btn btn--primary card__cta">
-                    <Icon name="check" /> {mode === 'edit' ? 'Lưu thay đổi' : 'Lưu thửa'}
+                  <button type="submit" className="btn btn--primary card__cta" disabled={saving}>
+                    <Icon name="check" /> {saving ? 'Đang lưu…' : mode === 'edit' ? 'Lưu thay đổi' : 'Lưu thửa'}
                   </button>
                 </form>
               )}
@@ -640,7 +686,9 @@ export function FieldsWorkspace({ route }: { route: Route }) {
                 title={active.name}
                 subtitle={
                   <>
-                    <Icon name="pin" className="icon icon--xs" /> {active.place_name}
+                    <Icon name="pin" className="icon icon--xs" /> {placeOf(active)}
+                    {active.sample && <span className="tag">Ruộng mẫu</span>}
+                    {active.pending && <span className="tag tag--warn">Chưa đồng bộ</span>}
                   </>
                 }
                 icon={<FieldThumb field={active} size={40} />}
