@@ -1,0 +1,3 @@
+version: "0.1-draft"
+# Empty intentionally: no invented weather or salinity forecasts.
+scenarios: []

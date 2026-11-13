@@ -1,0 +1,5 @@
+version: "0.1-draft"
+status: draft
+# Do not auto-reject unknown field measurements; request verification.
+allowed_results: [FEASIBLE, INFEASIBLE, UNKNOWN_REQUIRES_CHECK]
+rules: []

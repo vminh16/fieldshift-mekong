@@ -1,0 +1,14 @@
+# This is an image-build rehearsal, NOT a production deployment.
+# Configure registry, secrets, environment approvals and rollback first.
+name: Container build (manual)
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build API container
+        run: docker build -f apps/api/Dockerfile apps/api
+      - name: Build Web container
+        run: docker build -f apps/web/Dockerfile apps/web

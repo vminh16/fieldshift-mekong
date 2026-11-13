@@ -1,0 +1,30 @@
+version: "0.1-draft"
+sources:
+  - id: nasa_power
+    type: historical_weather
+    connected: false
+    url: https://power.larc.nasa.gov/
+  - id: nasa_gpm_imerg
+    type: precipitation_observation_estimate
+    connected: false
+    url: https://gpm.nasa.gov/data/imerg
+  - id: nasa_smap_l4
+    type: modeled_soil_moisture
+    connected: false
+    url: https://nsidc.org/data/spl4smgp
+  - id: nasa_hls
+    type: vegetation_observation
+    connected: false
+    url: https://www.earthdata.nasa.gov/data/projects/hls
+  - id: nasa_nasadem
+    type: terrain
+    connected: false
+    url: https://www.earthdata.nasa.gov/
+  - id: nasa_power_projection
+    type: climate_projection_not_forecast
+    connected: false
+    url: https://power.larc.nasa.gov/docs/services/api/projection/
+  - id: local_salinity
+    type: local_hydrology_required
+    connected: false
+    url: null

@@ -1,0 +1,4 @@
+# Replace placeholders with actual GitHub user/team before activating review rules.
+# /apps/api/src/fieldshift/domain/ @your-org/agronomy-reviewers
+# /configs/crops/ @your-org/agronomy-reviewers
+# /apps/web/ @your-org/frontend-reviewers

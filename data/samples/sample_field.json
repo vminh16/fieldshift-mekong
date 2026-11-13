@@ -1,0 +1,12 @@
+{
+  "sample_type": "SYNTHETIC_DEMO_ONLY",
+  "field_id": "sample-field-001",
+  "region": "mekong",
+  "location": null,
+  "crop_history": ["rice", "rice", "rice"],
+  "soil_ph": null,
+  "canal_water_ec_ds_per_m": null,
+  "drainage": "UNKNOWN",
+  "water_source": "canal",
+  "notice": "This does not represent a real farm, measurement or recommendation."
+}

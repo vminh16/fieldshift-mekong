@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+.coverage
+htmlcov/
+dist/
+build/
+# Frontend
+node_modules/
+apps/web/dist/
+apps/web/coverage/
+# Secrets / local
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+# Storage / downloaded science data
+*.tif
+*.tiff
+*.nc
+*.h5
+*.hdf5
+*.zarr/
+.parquet/
+data/raw/
+data/cache/
+data/processed/
+artifacts/
+outputs/
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store

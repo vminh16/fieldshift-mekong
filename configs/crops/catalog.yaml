@@ -1,0 +1,24 @@
+version: "0.1-draft"
+notes: "Names only. No crop is approved until local cultivar parameters and agronomic evidence are validated."
+crops:
+  - id: rice
+    name_vi: "Lúa"
+    approved_for_planning: false
+  - id: maize
+    name_vi: "Ngô"
+    approved_for_planning: false
+  - id: mung_bean
+    name_vi: "Đậu xanh"
+    approved_for_planning: false
+  - id: soybean
+    name_vi: "Đậu nành"
+    approved_for_planning: false
+  - id: sesame
+    name_vi: "Mè"
+    approved_for_planning: false
+  - id: peanut
+    name_vi: "Đậu phộng"
+    approved_for_planning: false
+  - id: watermelon
+    name_vi: "Dưa hấu"
+    approved_for_planning: false

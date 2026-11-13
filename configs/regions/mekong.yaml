@@ -1,0 +1,5 @@
+id: mekong
+name: Mekong Delta (illustrative region config)
+status: draft
+notes: "Season windows, salinity rules, soil and water management require local validation."
+season_windows: []
