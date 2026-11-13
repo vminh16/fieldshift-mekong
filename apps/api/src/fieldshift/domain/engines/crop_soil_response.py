@@ -1,4 +1,4 @@
-"""TODO: Evaluate candidate x scenario without claiming certainty.
+"""MVP: implemented in rotation_planner.py -> Evaluator, summarize (§6.6); water model = infrastructure/crop_models/fao56_water.py.
 
-See docs/architecture/SOLUTION_DESIGN.md for behavior and acceptance tests.
+Split into this module when it grows; keep the public names.
 """

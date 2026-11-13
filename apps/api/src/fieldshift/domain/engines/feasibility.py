@@ -1,4 +1,4 @@
-"""TODO: Check crop/field/season/management feasibility with unknowns.
+"""MVP: implemented in rotation_planner.py -> calendar_rules, field_rules (§6.4).
 
-See docs/architecture/SOLUTION_DESIGN.md for behavior and acceptance tests.
+Split into this module when it grows; keep the public names.
 """

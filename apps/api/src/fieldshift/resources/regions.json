@@ -1,0 +1,121 @@
+{
+ "version": "regions-2026.11.0",
+ "regions": [
+  {
+   "id": "mekong",
+   "name_vi": "Đồng bằng sông Cửu Long",
+   "season_windows": [
+    {
+     "id": "dong_xuan",
+     "name_vi": "Đông Xuân",
+     "sow_from": "11-15",
+     "sow_to": "12-31",
+     "order": 1
+    },
+    {
+     "id": "xuan_he",
+     "name_vi": "Xuân Hè / Hè Thu",
+     "sow_from": "03-01",
+     "sow_to": "04-30",
+     "order": 2
+    },
+    {
+     "id": "thu_dong",
+     "name_vi": "Thu Đông / Hè Thu muộn",
+     "sow_from": "07-01",
+     "sow_to": "08-31",
+     "order": 3
+    }
+   ],
+   "min_turnaround_days": 10,
+   "paddy": {
+    "percolation_mm_day": 2.0,
+    "land_prep_mm": 200,
+    "target_ponding_mm": 50,
+    "max_ponding_mm": 100,
+    "sources": [
+     "FAO-56 section on rice (land prep ~200 mm, ponding 50-100 mm)",
+     "FAO Irrigation Paper 33/IRRI: percolation 1-5 mm/d on heavy clay",
+     "Mekong alluvial paddy studies (Can Tho Univ.)"
+    ],
+    "limitations": [
+     "Percolation 2 mm/day is a mid value for heavy clay; varies 1-5 mm/day by soil and water table.",
+     "Land prep 200 mm is the FAO-56 standard, not locally measured.",
+     "Ponding depths are agronomic guidance, not field-specific."
+    ]
+   },
+   "soil_prior": {
+    "texture": "clay",
+    "taw_mm_per_m": 150.0,
+    "ph_range": [
+     4.5,
+     6.5
+    ],
+    "notes_vi": "Đất phù sa sét điển hình ĐBSCL; vùng phèn pH thấp hơn. Đây là giá trị vùng (prior), không phải đo tại ruộng.",
+    "sources": [
+     "FAO-56 Table 19 (clay TAW 120-200 mm/m)",
+     "Vietnamese Mekong soil surveys (SIWRP / Can Tho Univ.)"
+    ],
+    "limitations": [
+     "Regional prior only; replace with field soil data when available.",
+     "TAW 150 mm/m is a mid value; acid sulfate soils have pH down to ~3.5-4.5."
+    ]
+   },
+   "salinity_season": {
+    "typical_onset": "01-15",
+    "peak": "04-15",
+    "typical_end": "06-15",
+    "affected_zone_note_vi": "Ven biển: Bến Tre, Sóc Trăng, Trà Vinh, Cà Mau, Bạc Liêu, Tiền Giang, Kiên Giang; mặn xâm nhập đỉnh cuối mùa khô (tháng 3-5).",
+    "sources": [
+     "MARD/SIWRP salinity intrusion reports 2016, 2020, 2024",
+     "MRC Mekong salinity intrusion studies"
+    ],
+    "limitations": [
+     "Dates are multi-year typical; actual onset and peak shift with El Nino years and upstream discharge.",
+     "Applies to coastal zones only; inland sites have negligible risk."
+    ]
+   },
+   "demo_fields": [
+    {
+     "id": "fld_cantho",
+     "name_vi": "Ruộng mẫu Cần Thơ (nội đồng)",
+     "lat": 10.03,
+     "lon": 105.78,
+     "coastal_salinity_risk": false,
+     "cache_key": "cantho"
+    },
+    {
+     "id": "fld_chaudoc",
+     "name_vi": "Ruộng mẫu Châu Đốc (đầu nguồn)",
+     "lat": 10.7,
+     "lon": 105.12,
+     "coastal_salinity_risk": false,
+     "cache_key": "chaudoc"
+    },
+    {
+     "id": "fld_bentre",
+     "name_vi": "Ruộng mẫu Bến Tre (ven biển)",
+     "lat": 10.1,
+     "lon": 106.45,
+     "coastal_salinity_risk": true,
+     "cache_key": "bentre"
+    },
+    {
+     "id": "fld_soctrang",
+     "name_vi": "Ruộng mẫu Sóc Trăng (ven biển)",
+     "lat": 9.55,
+     "lon": 106.2,
+     "coastal_salinity_risk": true,
+     "cache_key": "soctrang"
+    }
+   ],
+   "sources": [
+    "MARD/Cuc Trong trot cropping calendars for Mekong Delta (Đông Xuân Nov-Dec, Hè Thu Mar-May, Thu Đông Jul-Aug)"
+   ],
+   "limitations": [
+    "Windows are widened to guarantee a 3-crop rice sequence: latest sowing + 110 d + 10 d turnaround fits the next window's end; actual local calendars vary by province and flood/salinity status.",
+    "Upland crops in Hè Thu face rain onset in May; their duration must be checked per sowing date."
+   ]
+  }
+ ]
+}

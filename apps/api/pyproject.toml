@@ -5,17 +5,17 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "fieldshift-api"
 version = "0.1.0"
-description = "FieldShift-Mekong starter API (no recommendation engine implemented)"
+description = "FieldShift-Mekong API: risk-aware crop rotation planner (MVP)"
 requires-python = ">=3.11"
 dependencies = [
   "fastapi==0.128.2",
   "uvicorn[standard]>=0.30,<1",
   "pydantic>=2.10,<3",
+  "httpx>=0.27,<1",
 ]
 
 [project.optional-dependencies]
 dev = [
-  "httpx>=0.27,<1",
   "pytest>=8,<10",
   "ruff>=0.13,<1",
   "PyYAML>=6,<7",
@@ -23,6 +23,9 @@ dev = [
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+fieldshift = ["resources/*.json", "resources/demo_cache/*/*"]
 
 [tool.ruff]
 line-length = 100
@@ -33,3 +36,4 @@ select = ["E4", "E7", "E9", "F", "I"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["src"]

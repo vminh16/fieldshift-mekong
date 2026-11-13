@@ -1,8 +1,8 @@
-version: "0.1-draft"
+version: "0.2"
 sources:
   - id: nasa_power
     type: historical_weather
-    connected: false
+    connected: true  # daily point API, no auth; demo cells bundled (apps/api/src/fieldshift/resources/demo_cache)
     url: https://power.larc.nasa.gov/
   - id: nasa_gpm_imerg
     type: precipitation_observation_estimate
@@ -18,13 +18,17 @@ sources:
     url: https://www.earthdata.nasa.gov/data/projects/hls
   - id: nasa_nasadem
     type: terrain
-    connected: false
+    connected: true  # SRTM 30 m via OpenTopoData (no auth)
     url: https://www.earthdata.nasa.gov/
   - id: nasa_power_projection
     type: climate_projection_not_forecast
-    connected: false
+    connected: false  # tested 2026-11-13: returns -999 for Asian points; use NEX-GDDP-CMIP6 via NCCS (scripts/data)
     url: https://power.larc.nasa.gov/docs/services/api/projection/
   - id: local_salinity
     type: local_hydrology_required
     connected: false
     url: null
+  - id: soilgrids
+    type: soil_prior
+    connected: true  # intermittent 503; falls back to regional prior labelled ASSUMPTION
+    url: https://rest.isric.org/soilgrids/v2.0/docs
