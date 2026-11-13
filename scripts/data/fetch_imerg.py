@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""CMR discovery + Hyrax ASCII point daily IMERG Late V07, stdlib + httpx.
+"""Fetch IMERG V07 monthly Final or daily Late windows covering four Mekong sites.
 
---probe requires no credentials: inspect DDS/DAS and the data auth gate.
-Real data require ~/.netrc Earthdata credentials. Default = all four sites.
+CMR discovery; IPv4 curl with netrc and private persistent session cookies.
+Atomic per-granule raw cache and compact processed checkpoints allow safe resume.
 """
 
 from __future__ import annotations
@@ -10,7 +10,7 @@ from __future__ import annotations
 import argparse
 import math
 import re
-from datetime import date, timedelta
+from datetime import date
 from pathlib import Path
 from urllib.parse import quote
 
@@ -18,9 +18,6 @@ import httpx
 from common import (
     DEFAULT_CACHE,
     SITES,
-    earthdata_credentials,
-    earthdata_get,
-    envelope,
     get,
     write_json,
 )
@@ -28,14 +25,14 @@ from common import (
 CMR = "https://cmr.earthdata.nasa.gov/search/granules.json"
 
 
-def granules(client, start, end):
+def granules(client, start, end, product="GPM_3IMERGDL"):
     result, page = {}, 1
     while True:
         r = get(
             client,
             CMR,
             params={
-                "short_name": "GPM_3IMERGDL",
+                "short_name": product,
                 "version": "07",
                 "page_size": 2000,
                 "page_num": page,
@@ -96,141 +93,163 @@ def point_window(sites):
 
 
 def parse_window(text, indices, bounds):
-    parts = text.split("---------------------------------------------", 1)
-    if len(parts) != 2:
-        raise ValueError("Not a Hyrax ASCII response")
-    block = re.search(
-        r"(?m)^precipitation(?:\.precipitation)?\[[^\n]*\n((?:\s*\[0\]\[\d+\],[^\n]*\n?)+)",
-        parts[1],
-    )
-    if not block:
-        raise ValueError("Cannot locate precipitation window")
-    rows = {
-        int(m[1]): [float(v.strip()) for v in m[2].split(",")]
-        for m in re.finditer(r"\[0\]\[(\d+)\],\s*([^\n]+)", block[1])
-    }
+    """Parse Hyrax and GES DISC DAP2 ASCII, validating the whole window."""
     x0, y0, nx, ny = bounds
+    if "---------------------------------------------" in text or re.search(
+        r"precipitation\[0\]\[\d+\],", text
+    ):
+        rows = {
+            int(m[1]): [float(v.strip()) for v in m[2].split(",")]
+            for m in re.finditer(r"\[0\]\[(\d+)\],\s*([^\n]+)", text)
+        }
+    else:
+        matches = re.findall(r"(?m)^precipitation\.precipitation\[[^\n]+?\],\s*([^\n]+)", text)
+        rows = {i: [float(v.strip()) for v in row.split(",")] for i, row in enumerate(matches)}
     if set(rows) != set(range(nx)) or any(len(r) != ny for r in rows.values()):
-        raise ValueError("Incomplete Hyrax window")
-    output = {}
-    for site, (x, y) in indices.items():
-        value = rows[x - x0][y - y0]
-        output[site] = value if math.isfinite(value) and 0 <= value < 1e10 else None
-    return output
+        raise ValueError("Incomplete or unexpected GES DISC window")
+    return {
+        site: (v if math.isfinite(v) and 0 <= v < 1e10 else None)
+        for site, (x, y) in indices.items()
+        for v in [rows[x - x0][y - y0]]
+    }
 
 
 def main():
+    import calendar
+    import time
+
+    from observations import EarthdataCurl, power_values, publish, stats
+
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--start", default="2026-11-01")
-    ap.add_argument("--end", default="2026-11-10")
+    ap.add_argument("--start", default="2023-01-01")
+    ap.add_argument("--end", default=date.today().isoformat())
+    ap.add_argument("--product", choices=["GPM_3IMERGDL", "GPM_3IMERGM"], default="GPM_3IMERGDL")
     ap.add_argument("--sites", nargs="+", choices=SITES, default=list(SITES))
-    ap.add_argument(
-        "--legacy",
-        action="store_true",
-        help="Use tested legacy gpm1 host; cloud is default",
-    )
-    ap.add_argument("--probe", action="store_true")
+    ap.add_argument("--legacy", action="store_true")
     ap.add_argument("--cache-root", type=Path, default=DEFAULT_CACHE)
     args = ap.parse_args()
-    first, last = date.fromisoformat(args.start), date.fromisoformat(args.end)
-    if first > last:
-        ap.error("start must be <= end")
-    credentials = None if args.probe else earthdata_credentials()
-    # IPv4 only: IPv6 to URS/GES DISC stalls ~20 s here and breaks TLS handshakes
-    transport = httpx.HTTPTransport(local_address="0.0.0.0", retries=2)
-    with httpx.Client(timeout=90, follow_redirects=True, transport=transport) as client:
-        catalog = granules(client, args.start, args.end)
-        if not catalog:
-            raise RuntimeError("No CMR granules for requested dates")
-        if args.probe:
-            import json
+    monthly = args.product == "GPM_3IMERGM"
+    source = "imerg_monthly" if monthly else "imerg_late"
+    directory = args.cache_root / source
+    directory.mkdir(parents=True, exist_ok=True)
+    with httpx.Client(timeout=90, transport=httpx.HTTPTransport(local_address="0.0.0.0")) as client:
+        catalog = granules(client, args.start, args.end, args.product)
+    if not catalog:
+        raise RuntimeError("No CMR granules")
+    write_json(directory / "catalog.json", catalog)
+    ce, indices, bounds = point_window(args.sites)
+    curl = EarthdataCurl()
+    rows = {site: [] for site in args.sites}
+    started = time.monotonic()
+    variable = "precipitation_mm_month" if monthly else "precipitation_mm_day"
 
-            item = next(iter(catalog.values()))
-            url = dap_url(item, args.legacy)
-            ce, _, _ = point_window(args.sites)
-            output = {
-                "granule": item["producer_granule_id"],
-                "cmr_days": len(catalog),
-                "base_url": url,
-            }
-            for suffix in (".dds", ".das", ".ascii?" + quote(ce, safe=",:.")):
-                r = client.get(url + suffix)
-                output[suffix] = {
-                    "status": r.status_code,
-                    "final_host": r.url.host,
-                    "body_preview": r.text[:2400],
-                }
-            print(json.dumps(output, indent=2))
-            return
-        ce, indices, bounds = point_window(args.sites)
-        for_check = next(iter(catalog.values()))
-        dds = earthdata_get(client, dap_url(for_check, args.legacy) + ".dds", credentials).text
-        if not re.search(r"Float32 precipitation\[time = 1\]\[lon = 3600\]\[lat = 1800\]", dds):
-            raise ValueError("Unexpected dimension order; refusing incorrect point indexing")
-        all_rows, sources, current = {site: [] for site in args.sites}, [], first
-        while current <= last:
-            iso = current.isoformat()
-            if iso in catalog:
-                url = dap_url(catalog[iso], args.legacy) + ".ascii?" + quote(ce, safe=",:.")
-                raw_path = (
-                    args.cache_root
-                    / "imerg_late"
-                    / "raw"
-                    / (catalog[iso]["producer_granule_id"] + "_" + str(bounds) + ".ascii")
-                )
-                text = (
-                    raw_path.read_text()
-                    if raw_path.exists()
-                    else earthdata_get(client, url, credentials).text
-                )
-                values = parse_window(text, indices, bounds)
-                raw_path.parent.mkdir(parents=True, exist_ok=True)
-                tmp = raw_path.with_suffix(".tmp")
-                tmp.write_text(text)
-                tmp.replace(raw_path)
-                sources.append(url)
-            else:
-                values = {site: None for site in args.sites}
-            for site in args.sites:
-                quality = (
-                    "GRANULE_UNAVAILABLE"
-                    if iso not in catalog
-                    else "VALUE_PRESENT_QA_NOT_EVALUATED"
-                    if values[site] is not None
-                    else "FILL_OR_INVALID"
-                )
-                all_rows[site].append(
-                    {
-                        "date": iso,
-                        "precipitation_mm_day": values[site],
-                        "quality": quality,
-                    }
-                )
-            current += timedelta(days=1)
-        for site, rows in all_rows.items():
-            x, y = indices[site]
-            write_json(
-                args.cache_root / "imerg_late" / f"{site}.json",
-                envelope(
-                    "GPM_3IMERGDL",
-                    site,
-                    version="07",
-                    evidence_kind="OBSERVED_REMOTE_ESTIMATE",
-                    units={"precipitation_mm_day": "mm/day"},
-                    cell={
-                        "longitude": round(-179.95 + x * 0.1, 5),
-                        "latitude": round(-89.95 + y * 0.1, 5),
-                    },
-                    period=[args.start, args.end],
-                    values=rows,
-                    source_urls=sources,
-                    limitations=[
-                        "Daily mean rate already in mm/day: do not multiply by 24",
-                        "UTC day; satellite grid estimate, not canal salinity",
-                    ],
-                ),
+    def checkpoint():
+        for site, series in rows.items():
+            reference = power_values(site, "PRECTOTCORR", monthly=monthly)
+            compare = stats(
+                [
+                    (r[variable], reference.get(r["date"][:7] if monthly else r["date"]))
+                    for r in series
+                ]
             )
-            print(f"{site}: {len(rows)} days")
+            x, y = indices[site]
+            publish(
+                source,
+                site,
+                product=args.product,
+                version="07",
+                variables={
+                    variable: {
+                        "unit": "mm/month" if monthly else "mm/day",
+                        "scale_applied": "rate * 24 * calendar_days" if monthly else 1,
+                    }
+                },
+                resolution="0.1 degree",
+                cell={
+                    "longitude": round(-179.95 + x * 0.1, 5),
+                    "latitude": round(-89.95 + y * 0.1, 5),
+                },
+                series=series,
+                qa={
+                    "POWER_PRECTOTCORR": compare,
+                    "comparison_unit": "mm/month" if monthly else "mm/day",
+                    "note": "UTC grid estimate; no gauge validation. Completion: see progress.json.",
+                },
+            )
+        write_json(
+            directory / "progress.json",
+            {
+                "product": args.product,
+                "completed": len(rows[args.sites[0]]),
+                "requested": len(catalog),
+                "seconds": round(time.monotonic() - started, 2),
+                "time_range": [min(catalog), max(catalog)],
+                "updated_at": __import__("common").now(),
+            },
+        )
+
+    try:
+        url = dap_url(next(iter(catalog.values())), args.legacy)
+        if monthly:
+            dds, das = curl.get(url + ".dds"), curl.get(url + ".das")
+            (directory / "sample.dds").write_text(dds)
+            (directory / "sample.das").write_text(das)
+            if not re.search(
+                r"Float32 (?:/Grid/)?precipitation\[time = 1\]\[lon = 3600\]\[lat = 1800\]", dds
+            ):
+                raise ValueError("Unexpected precipitation dimensions")
+            block = re.search(r"(?:/Grid/)?precipitation \{(.*?)\}", das, re.S)[1]
+            if '"mm/hr"' not in block:
+                raise ValueError("Unexpected monthly precipitation units")
+        else:
+            # V07B includes UInt64 attributes that unconstrained DAP2 DDS/DAS cannot represent.
+            # DAP4 metadata is lossless; constrained ASCII precipitation remains DAP2 compatible.
+            import xml.etree.ElementTree as ET
+
+            dmr = curl.get(url + ".dmr")
+            (directory / "sample.dmr").write_text(dmr)
+            root = ET.fromstring(dmr)
+            ns = {"d": "http://xml.opendap.org/ns/DAP/4.0#"}
+            variable_meta = root.find("d:Float32[@name='precipitation']", ns)
+            dimensions = [d.attrib["name"] for d in variable_meta.findall("d:Dim", ns)]
+            sizes = {
+                d.attrib["name"]: int(d.attrib["size"]) for d in root.findall("d:Dimension", ns)
+            }
+            unit = variable_meta.find("d:Attribute[@name='units']/d:Value", ns).text
+            if (
+                dimensions != ["/time", "/lon", "/lat"]
+                or sizes.get("lon") != 3600
+                or sizes.get("lat") != 1800
+                or unit != "mm/day"
+            ):
+                raise ValueError("Unexpected daily precipitation metadata")
+        for n, (iso, item) in enumerate(sorted(catalog.items()), 1):
+            raw = directory / "raw" / (iso + ".ascii")
+            raw.parent.mkdir(parents=True, exist_ok=True)
+            text = (
+                raw.read_text()
+                if raw.exists()
+                else curl.get(dap_url(item, args.legacy) + ".ascii?" + quote(ce, safe=",:."))
+            )
+            values = parse_window(text, indices, bounds)
+            if not raw.exists():
+                raw.with_suffix(".tmp").write_text(text)
+                raw.with_suffix(".tmp").replace(raw)
+            scale = 24 * calendar.monthrange(int(iso[:4]), int(iso[5:7]))[1] if monthly else 1
+            for site, value in values.items():
+                rows[site].append(
+                    {"date": iso, variable: round(value * scale, 6) if value is not None else None}
+                )
+            if n % 10 == 0 or n == len(catalog) or n == 1:
+                checkpoint()
+                print(
+                    f"{source} {n}/{len(catalog)} {iso} elapsed={time.monotonic() - started:.1f}s",
+                    flush=True,
+                )
+    finally:
+        if rows[args.sites[0]]:
+            checkpoint()
+        curl.close()
 
 
 if __name__ == "__main__":

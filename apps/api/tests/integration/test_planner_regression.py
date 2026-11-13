@@ -66,7 +66,16 @@ def test_fixture_picks_metrics_and_selected_only_details(field, monkeypatch, tmp
             [actual["baseline"], *actual["options"]], [expected["baseline"], *expected["options"]]
         ):
             for key in ("sequence_id", "metrics", "distribution", "delta_vs_baseline", "seasons"):
-                assert result[key] == fixture[key], (result["sequence_id"], key)
+                if key in ("metrics", "distribution", "delta_vs_baseline") and fixture[key]:
+                    # New projection data adds scenarios. Preserve every original
+                    # scenario's numerical regression without rewriting the fixture.
+                    assert set(result[key]) == {s["scenario_id"] for s in actual["scenarios"]}
+                    assert {sid: result[key][sid] for sid in fixture[key]} == fixture[key], (
+                        result["sequence_id"],
+                        key,
+                    )
+                else:
+                    assert result[key] == fixture[key], (result["sequence_id"], key)
         assert actual["excluded"] == expected["excluded"]
         for key in ("generated", "calendar_feasible", "evaluated_feasible", "pareto_front"):
             assert actual["stats"][key] == expected["stats"][key]
