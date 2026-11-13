@@ -1,4 +1,4 @@
-export type Precision = 'country' | 'region' | 'province' | 'city' | 'district' | 'street' | 'address'
+export type Precision = 'country' | 'region' | 'province' | 'city' | 'district' | 'street' | 'address' | 'gps'
 
 export interface Place {
   id: string
@@ -21,4 +21,5 @@ export const PRECISION_LABEL: Record<Precision, string> = {
   district: 'Cấp quận/huyện',
   street: 'Cấp đường phố',
   address: 'Theo địa chỉ',
+  gps: 'Theo GPS thiết bị',
 }

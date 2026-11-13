@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState, type FormEvent, type KeyboardEvent } from 'react'
 import { searchPlaces } from '../../shared/geo/geocode'
+import { COARSE_M, GPS_ERROR_MSG, PRECISE_M, formatAccuracy, locateOnce, type GpsError } from '../../shared/geo/gps'
 import { MEKONG_PROVINCES, SUGGESTED_IDS, searchGazetteer } from '../../shared/geo/mekongProvinces'
 import type { Place } from '../../shared/geo/types'
 import './location-search.css'
@@ -8,7 +9,7 @@ interface Props {
   onLocate: (place: Place) => void
 }
 
-type Status = 'idle' | 'loading' | 'not-found' | 'error'
+type Status = 'idle' | 'loading' | 'not-found' | 'error' | 'gps' | 'gps-error'
 
 export function LocationSearch({ onLocate }: Props) {
   const [query, setQuery] = useState('')
@@ -16,6 +17,7 @@ export function LocationSearch({ onLocate }: Props) {
   const [open, setOpen] = useState(false)
   const [activeIdx, setActiveIdx] = useState(-1)
   const [status, setStatus] = useState<Status>('idle')
+  const [gpsError, setGpsError] = useState<GpsError | null>(null)
   const abortRef = useRef<AbortController | null>(null)
   const pendingRef = useRef<Promise<Place[]> | null>(null)
   const listId = useId()
@@ -62,6 +64,31 @@ export function LocationSearch({ onLocate }: Props) {
     setActiveIdx(-1)
     setStatus('idle')
     onLocate(place)
+  }
+
+  /** Device GPS → a Place the globe can fly to. Zoom matches what the fix can resolve. */
+  const locateMe = () => {
+    setStatus('gps')
+    locateOnce()
+      .then((fix) => {
+        setStatus('idle')
+        setOpen(false)
+        // Not via choose(): the search box should keep what the user typed, not "Vị trí của bạn".
+        onLocate({
+          id: `gps-${fix.at}`,
+          name: 'Vị trí của bạn',
+          context: `GPS ${formatAccuracy(fix.accuracy)}`,
+          lat: fix.lat,
+          lng: fix.lng,
+          zoom: fix.accuracy <= PRECISE_M ? 16.5 : fix.accuracy <= COARSE_M ? 15.5 : 12,
+          precision: 'gps',
+          source: 'geocoder',
+        })
+      })
+      .catch((err: GpsError) => {
+        setGpsError(err)
+        setStatus('gps-error')
+      })
   }
 
   const submit = async (e: FormEvent) => {
@@ -126,6 +153,18 @@ export function LocationSearch({ onLocate }: Props) {
           />
           {status === 'loading' && <span className="search__spinner" aria-hidden="true" />}
         </label>
+        <button
+          type="button"
+          className="search__gps"
+          onClick={locateMe}
+          disabled={status === 'gps'}
+          aria-label="Dùng vị trí của tôi (GPS)"
+          title="Dùng vị trí của tôi (GPS)"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 4V2m0 20v-2m8-8h2M2 12h2m8 6a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm0-3.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
+          </svg>
+        </button>
         <button className="search__submit" type="submit">
           Định vị
           <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -156,6 +195,8 @@ export function LocationSearch({ onLocate }: Props) {
       <p className="search__status" id={statusId} role="status">
         {status === 'not-found' && `Chưa tìm thấy “${query.trim()}”. Thử tên khác hoặc thêm tỉnh/thành phố.`}
         {status === 'error' && 'Không kết nối được dịch vụ tìm địa điểm. Bạn vẫn có thể chọn tỉnh ĐBSCL bên dưới.'}
+        {status === 'gps' && 'Đang lấy vị trí từ thiết bị…'}
+        {status === 'gps-error' && gpsError && GPS_ERROR_MSG[gpsError]}
       </p>
 
       <div className="search__chips" aria-label="Gợi ý khu vực">

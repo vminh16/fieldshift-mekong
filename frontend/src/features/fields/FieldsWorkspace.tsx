@@ -8,6 +8,7 @@ import { BASEMAPS, createBaseMap, setBasemap, setLayerVisible, type BasemapId } 
 import { formatHa, ringCentroid } from '../../shared/geo/area'
 import { MEKONG_REGION, nearestProvince } from '../../shared/geo/mekongProvinces'
 import { reverseGeocode } from '../../shared/geo/geocode'
+import { COARSE_M, GPS_ERROR_MSG, PRECISE_M, accuracyCircle, formatAccuracy, watchPosition, type GpsError, type GpsFix } from '../../shared/geo/gps'
 import { getField, removeField, setActiveField, upsertField, useActiveFieldId, useFields, type LocalField } from '../../shared/fields/store'
 import { MIN_DRAW_ZOOM, OUTSIDE_MSG, ParcelEditor, inServiceArea, type DrawMode, type EditorState } from '../parcel/ParcelEditor'
 import { FieldThumb } from './FieldThumb'
@@ -74,6 +75,9 @@ export function FieldsWorkspace({ route }: { route: Route }) {
   const [basemap, setBasemapId] = useState<BasemapId>('satellite')
   const [showLabels, setShowLabels] = useState(true)
   const [showOthers, setShowOthers] = useState(true)
+  const [gps, setGps] = useState<{ status: 'off' | 'locating' | 'on'; fix: GpsFix | null }>({ status: 'off', fix: null })
+  const stopGpsRef = useRef<(() => void) | null>(null)
+  const gpsDotRef = useRef<Marker | null>(null)
 
   const noticeTimer = useRef(0)
   const flash = (msg: string) => {
@@ -107,6 +111,9 @@ export function FieldsWorkspace({ route }: { route: Route }) {
         source: 'fields',
         paint: { 'line-color': ['case', ['get', 'active'], '#c2e3a8', '#eef0eb'], 'line-width': ['case', ['get', 'active'], 2.5, 1.25], 'line-opacity': ['case', ['get', 'active'], 1, 0.75] },
       })
+      map.addSource('gps', { type: 'geojson', data: EMPTY_FC })
+      map.addLayer({ id: 'gps-acc-fill', type: 'fill', source: 'gps', paint: { 'fill-color': '#8fb8e8', 'fill-opacity': 0.12 } })
+      map.addLayer({ id: 'gps-acc-line', type: 'line', source: 'gps', paint: { 'line-color': '#8fb8e8', 'line-width': 1, 'line-opacity': 0.7 } })
       const editor = new ParcelEditor(map, { onChange: (s) => setEd({ ...s }), onNotice: flash })
       editor.attach()
       editorRef.current = editor
@@ -123,6 +130,8 @@ export function FieldsWorkspace({ route }: { route: Route }) {
       setReady(true)
     })
     return () => {
+      stopGpsRef.current?.()
+      gpsDotRef.current?.remove()
       editorRef.current?.destroy()
       map.remove()
       mapRef.current = null
@@ -260,17 +269,69 @@ export function FieldsWorkspace({ route }: { route: Route }) {
     flash(editing ? 'Đã lưu thay đổi.' : `Đã lưu “${trimmed}”. Bước tiếp: cập nhật thông tin canh tác.`)
   }
 
+  // ---------- GPS ----------
+  const flyToFix = (fix: GpsFix, first: boolean) => {
+    const map = mapRef.current
+    if (!map) return
+    // Zoom to what the fix can actually resolve: a coarse Wi-Fi/cell fix should not pretend to show a paddy.
+    const zoom = fix.accuracy <= PRECISE_M ? Math.max(DRAW_ZOOM, map.getZoom()) : fix.accuracy <= COARSE_M ? 16 : 13
+    map.flyTo({ center: [fix.lng, fix.lat], zoom: first ? zoom : Math.max(map.getZoom(), Math.min(zoom, DRAW_ZOOM)), duration: 1100 })
+  }
+
+  const showFix = (fix: GpsFix) => {
+    const map = mapRef.current
+    if (!map) return
+    ;(map.getSource('gps') as GeoJSONSource | undefined)?.setData({ type: 'FeatureCollection', features: [accuracyCircle(fix)] })
+    if (!gpsDotRef.current) {
+      const el = document.createElement('div')
+      el.className = 'gps-dot'
+      el.setAttribute('role', 'img')
+      el.setAttribute('aria-label', 'Vị trí của bạn')
+      gpsDotRef.current = new maplibregl.Marker({ element: el })
+    }
+    gpsDotRef.current.setLngLat([fix.lng, fix.lat]).addTo(map)
+  }
+
+  const stopGps = () => {
+    stopGpsRef.current?.()
+    stopGpsRef.current = null
+    gpsDotRef.current?.remove()
+    gpsDotRef.current = null
+    ;(mapRef.current?.getSource('gps') as GeoJSONSource | undefined)?.setData(EMPTY_FC)
+    setGps({ status: 'off', fix: null })
+  }
+
+  /** First press: start tracking and fly there. Later presses: re-center on the latest fix. */
   const locateMe = () => {
-    if (!('geolocation' in navigator)) return flash('Trình duyệt không hỗ trợ định vị.')
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        const p: [number, number] = [pos.coords.longitude, pos.coords.latitude]
-        if (!inServiceArea(p)) flash(`Bạn đang ở ngoài vùng hỗ trợ. ${OUTSIDE_MSG}`)
-        mapRef.current?.flyTo({ center: p, zoom: Math.max(DRAW_ZOOM, mapRef.current.getZoom()), duration: 1200 })
+    if (gps.fix) return flyToFix(gps.fix, false)
+    if (gps.status === 'locating') return
+    setGps({ status: 'locating', fix: null })
+    flash('Đang định vị…')
+    let first = true
+    stopGpsRef.current = watchPosition(
+      (fix) => {
+        setGps({ status: 'on', fix })
+        showFix(fix)
+        if (!first) return
+        first = false
+        flyToFix(fix, true)
+        if (!inServiceArea([fix.lng, fix.lat])) flash(`Bạn đang ở ngoài vùng hỗ trợ. ${OUTSIDE_MSG}`)
+        else if (fix.accuracy > COARSE_M) flash(`Đã định vị nhưng sai số lớn (${formatAccuracy(fix.accuracy)}). Bật GPS / vị trí chính xác cao để chính xác hơn.`)
+        else flash(`Đã định vị · sai số ${formatAccuracy(fix.accuracy)}`)
       },
-      () => flash('Không lấy được vị trí. Kiểm tra quyền định vị của trình duyệt.'),
-      { enableHighAccuracy: true, timeout: 10_000 },
+      (err: GpsError) => {
+        flash(GPS_ERROR_MSG[err])
+        // Keep the last good fix if the signal drops mid-walk; otherwise turn GPS off.
+        if (first || err === 'denied') stopGps()
+      },
     )
+  }
+
+  const placeAtGps = () => {
+    const fix = gps.fix
+    if (!fix) return locateMe()
+    if (fix.accuracy > PRECISE_M) return flash(`Sai số hiện tại ${formatAccuracy(fix.accuracy)} — quá lớn để chấm góc ruộng. Đợi tín hiệu tốt hơn hoặc chấm trên ảnh.`)
+    if (editorRef.current?.placeAt([fix.lng, fix.lat])) mapRef.current?.easeTo({ center: [fix.lng, fix.lat], duration: 500 })
   }
 
   const drawing = mode !== 'browse'
@@ -406,9 +467,26 @@ export function FieldsWorkspace({ route }: { route: Route }) {
                 <Icon name="minus" />
               </button>
             </div>
-            <button type="button" className="map-ctrls__single" aria-label="Đến vị trí của tôi" title="Đến vị trí của tôi" onClick={locateMe}>
-              <Icon name="navigate" />
-            </button>
+            <div className="gps-ctrl">
+              <button
+                type="button"
+                className="map-ctrls__single"
+                data-gps={gps.status}
+                aria-label={gps.fix ? 'Về vị trí của tôi' : 'Định vị vị trí của tôi'}
+                title={gps.fix ? 'Về vị trí của tôi' : 'Định vị vị trí của tôi'}
+                onClick={locateMe}
+              >
+                <Icon name="navigate" />
+              </button>
+              {gps.status !== 'off' && (
+                <span className="gps-chip" data-precise={(gps.fix && gps.fix.accuracy <= PRECISE_M) || undefined}>
+                  {gps.fix ? `GPS ${formatAccuracy(gps.fix.accuracy)}` : 'Đang định vị…'}
+                  <button type="button" aria-label="Tắt định vị" title="Tắt định vị" onClick={stopGps}>
+                    <Icon name="close" className="icon icon--xs" />
+                  </button>
+                </span>
+              )}
+            </div>
           </div>
 
           <div className="basemap popover-anchor">
@@ -463,6 +541,25 @@ export function FieldsWorkspace({ route }: { route: Route }) {
                   <p className="card__hint" aria-live="polite">
                     {hintFor(ed)}
                   </p>
+                  {!(ed.mode === 'polygon' && ed.closed) && (
+                    <div className="gps-box">
+                      {gps.fix ? (
+                        <>
+                          <button type="button" className="btn btn--ghost btn--sm" onClick={placeAtGps}>
+                            <Icon name="navigate" /> {ed.mode === 'point' ? 'Ghim tại chỗ tôi đứng' : 'Chấm góc tại chỗ tôi đứng'}
+                          </button>
+                          <span className="gps-box__acc" data-ok={gps.fix.accuracy <= PRECISE_M || undefined}>
+                            {formatAccuracy(gps.fix.accuracy)}
+                          </span>
+                        </>
+                      ) : (
+                        <button type="button" className="btn btn--ghost btn--sm" onClick={locateMe} disabled={gps.status === 'locating'}>
+                          <Icon name="navigate" /> {gps.status === 'locating' ? 'Đang định vị…' : 'Đang đứng ở ruộng? Dùng GPS'}
+                        </button>
+                      )}
+                      {ed.mode === 'polygon' && gps.fix && <p className="gps-box__tip">Đi dọc bờ ruộng, đến mỗi góc thì bấm một lần.</p>}
+                    </div>
+                  )}
                   {ed.mode === 'polygon' && (
                     <dl className="stats">
                       <div>

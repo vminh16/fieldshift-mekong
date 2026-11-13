@@ -47,7 +47,9 @@ export function LandingPage() {
   const startParcel = () => {
     const v = globe.current?.view()
     const at = v ?? (selected ? { lat: selected.lat, lng: selected.lng, zoom: selected.zoom } : null)
-    navigate('/ruong/moi', at ? { lat: at.lat.toFixed(5), lng: at.lng.toFixed(5), z: at.zoom.toFixed(2), noi: selected?.name } : undefined)
+    // A GPS fix has no place name yet; the parcel screen derives one from the drawn location.
+    const noi = selected && selected.precision !== 'gps' ? selected.name : null
+    navigate('/ruong/moi', at ? { lat: at.lat.toFixed(5), lng: at.lng.toFixed(5), z: at.zoom.toFixed(2), noi } : undefined)
   }
 
   const backToGlobe = () => {

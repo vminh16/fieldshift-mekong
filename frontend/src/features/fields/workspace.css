@@ -204,7 +204,7 @@
 .check-row input { accent-color: var(--color-accent); width: 16px; height: 16px; }
 .popover__note { margin: 6px 8px 4px; padding-top: 8px; border-top: 1px solid var(--color-border); font-size: 0.75rem; line-height: 1.45; color: var(--color-text-subtle); }
 
-.map-ctrls { position: absolute; left: 16px; bottom: 52px; z-index: 3; display: grid; gap: 8px; }
+.map-ctrls { position: absolute; left: 16px; bottom: 52px; z-index: 3; display: grid; justify-items: start; gap: 8px; }
 .map-ctrls__stack { display: grid; border-radius: var(--radius-sm); overflow: hidden; }
 .map-ctrls button {
   display: grid;
@@ -377,6 +377,52 @@
 .field-pin svg { fill: #eef0eb; }
 .field-pin.is-active svg { fill: var(--color-accent); }
 .edit-pin circle, .field-pin circle { fill: #0d0f0e; stroke: none; }
+
+/* ---------- GPS ---------- */
+.gps-ctrl { display: flex; align-items: center; gap: 8px; }
+.map-ctrls__single[data-gps='on'] { color: #8fb8e8; }
+.map-ctrls__single[data-gps='locating'] { color: var(--color-text-subtle); }
+.gps-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 32px;
+  padding: 0 4px 0 10px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: rgba(18, 21, 19, 0.96);
+  color: var(--color-text-muted);
+  font: 500 0.8125rem var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.gps-chip[data-precise] { color: var(--color-text); }
+.gps-chip button { display: grid; place-items: center; width: 24px; height: 24px; padding: 0; border: 0; border-radius: 4px; background: none; color: inherit; cursor: pointer; }
+.gps-chip button:hover { background: var(--color-surface-2); }
+.map-ctrls .gps-chip button { width: 24px; height: 24px; }
+/* Blue, not the brand green: the user's position is a different kind of thing than a parcel. */
+.gps-dot {
+  width: 16px;
+  height: 16px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: #4a8fd9;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+.gps-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  margin: 0 0 12px;
+  padding: 10px 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+.gps-box__acc { font-size: 0.8125rem; color: var(--color-warn); font-variant-numeric: tabular-nums; }
+.gps-box__acc[data-ok] { color: var(--color-text-muted); }
+.gps-box__tip { width: 100%; margin: 0; font-size: 0.75rem; color: var(--color-text-subtle); }
 
 /* ---------- responsive ---------- */
 @media (max-width: 1180px) {

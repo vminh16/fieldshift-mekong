@@ -152,19 +152,35 @@ export class ParcelEditor {
 
   // ---------- events ----------
   private onClick = (e: MapMouseEvent) => {
-    const s = this.state
     if (!this.active || this.locked) return
-    const p: LngLat = [e.lngLat.lng, e.lngLat.lat]
     if (this.map.getZoom() < MIN_DRAW_ZOOM) return this.cb.onNotice('Phóng to tới đúng thửa ruộng (thấy rõ bờ) rồi mới bắt đầu chấm.')
-    if (!inServiceArea(p)) return this.cb.onNotice(OUTSIDE_MSG)
+    this.placeAt([e.lngLat.lng, e.lngLat.lat])
+  }
+
+  /** Add a corner (outline mode) or set the pin (point mode) — from a map click or a GPS fix. Returns true if accepted. */
+  placeAt(p: LngLat): boolean {
+    const s = this.state
+    if (!this.active || this.locked) return false
+    if (!inServiceArea(p)) {
+      this.cb.onNotice(OUTSIDE_MSG)
+      return false
+    }
     if (s.mode === 'point') {
       this.state = { ...s, point: p }
-      return this.render()
+      this.render()
+      return true
     }
-    if (s.closed) return
-    if (wouldSelfIntersect(s.ring, p)) return this.cb.onNotice('Đường viền không được tự cắt nhau. Chấm điểm khác.')
+    if (s.closed) {
+      this.cb.onNotice('Vùng đã đóng. Bấm Hoàn tác để mở lại nếu muốn thêm góc.')
+      return false
+    }
+    if (wouldSelfIntersect(s.ring, p)) {
+      this.cb.onNotice('Đường viền không được tự cắt nhau. Chấm điểm khác.')
+      return false
+    }
     this.state = { ...s, ring: [...s.ring, p] }
     this.render()
+    return true
   }
 
   private onMove = (e: MapMouseEvent) => {
