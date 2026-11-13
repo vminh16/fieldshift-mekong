@@ -1,0 +1,380 @@
+{
+  "schema_version": 1,
+  "source": "NEX-GDDP-CMIP6",
+  "site": {
+    "id": "chaudoc",
+    "name": "Châu Đốc",
+    "latitude": 10.7,
+    "longitude": 105.12
+  },
+  "retrieved_at": "2026-11-13T05:32:38.789471+00:00",
+  "spatial_scale": "regional",
+  "evidence_kind": "PROJECTION",
+  "version": "2.0",
+  "method": "NCCS NCSS point CSV; AWS key discovery",
+  "period": [
+    2025,
+    2025
+  ],
+  "probability": null,
+  "series": [
+    {
+      "model": "ACCESS-CM2",
+      "scenario": "ssp245",
+      "variable": "tasmax",
+      "unit": "degC",
+      "aggregation": "mean of daily maximum",
+      "values": [
+        {
+          "month": "2025-01",
+          "value": 33.00133419354841,
+          "n_days": 31
+        },
+        {
+          "month": "2025-02",
+          "value": 33.90999392857145,
+          "n_days": 28
+        },
+        {
+          "month": "2025-03",
+          "value": 37.218548387096796,
+          "n_days": 31
+        },
+        {
+          "month": "2025-04",
+          "value": 39.240480666666684,
+          "n_days": 30
+        },
+        {
+          "month": "2025-05",
+          "value": 38.42435064516131,
+          "n_days": 31
+        },
+        {
+          "month": "2025-06",
+          "value": 34.63987700000003,
+          "n_days": 30
+        },
+        {
+          "month": "2025-07",
+          "value": 33.03763387096776,
+          "n_days": 31
+        },
+        {
+          "month": "2025-08",
+          "value": 32.96231419354841,
+          "n_days": 31
+        },
+        {
+          "month": "2025-09",
+          "value": 32.51733733333336,
+          "n_days": 30
+        },
+        {
+          "month": "2025-10",
+          "value": 32.138835483870984,
+          "n_days": 31
+        },
+        {
+          "month": "2025-11",
+          "value": 31.088983000000024,
+          "n_days": 30
+        },
+        {
+          "month": "2025-12",
+          "value": 31.150636774193572,
+          "n_days": 31
+        }
+      ],
+      "files": [
+        {
+          "model": "ACCESS-CM2",
+          "scenario": "ssp245",
+          "variable": "tasmax",
+          "year": 2025,
+          "s3_key": "NEX-GDDP-CMIP6/ACCESS-CM2/ssp245/r1i1p1f1/tasmax/tasmax_day_ACCESS-CM2_ssp245_r1i1p1f1_gn_2025_v2.0.nc",
+          "global_file_bytes": 246259972,
+          "site": "chaudoc",
+          "cell_lat_lon": [
+            10.625,
+            105.125
+          ],
+          "url": "https://ds.nccs.nasa.gov/thredds/ncss/grid/AMES/NEX/GDDP-CMIP6/ACCESS-CM2/ssp245/r1i1p1f1/tasmax/tasmax_day_ACCESS-CM2_ssp245_r1i1p1f1_gn_2025_v2.0.nc?var=tasmax&latitude=10.7&longitude=105.12&time_start=2025-01-01T00%3A00%3A00Z&time_end=2025-12-31T23%3A59%3A59Z&accept=csv",
+          "response_bytes": 30998,
+          "seconds": 7.982,
+          "cached": false
+        }
+      ]
+    },
+    {
+      "model": "ACCESS-CM2",
+      "scenario": "ssp245",
+      "variable": "pr",
+      "unit": "mm/month",
+      "aggregation": "sum daily precipitation",
+      "values": [
+        {
+          "month": "2025-01",
+          "value": 25.803125657280003,
+          "n_days": 31
+        },
+        {
+          "month": "2025-02",
+          "value": 0.49295477520576,
+          "n_days": 28
+        },
+        {
+          "month": "2025-03",
+          "value": 3.1356716544000003,
+          "n_days": 31
+        },
+        {
+          "month": "2025-04",
+          "value": 10.2335913864,
+          "n_days": 30
+        },
+        {
+          "month": "2025-05",
+          "value": 19.182778109856,
+          "n_days": 31
+        },
+        {
+          "month": "2025-06",
+          "value": 501.19074166752,
+          "n_days": 30
+        },
+        {
+          "month": "2025-07",
+          "value": 207.97685276544001,
+          "n_days": 31
+        },
+        {
+          "month": "2025-08",
+          "value": 270.61277829696,
+          "n_days": 31
+        },
+        {
+          "month": "2025-09",
+          "value": 343.93745778912,
+          "n_days": 30
+        },
+        {
+          "month": "2025-10",
+          "value": 354.6085301712,
+          "n_days": 31
+        },
+        {
+          "month": "2025-11",
+          "value": 67.42077247008,
+          "n_days": 30
+        },
+        {
+          "month": "2025-12",
+          "value": 92.456558027136,
+          "n_days": 31
+        }
+      ],
+      "files": [
+        {
+          "model": "ACCESS-CM2",
+          "scenario": "ssp245",
+          "variable": "pr",
+          "year": 2025,
+          "s3_key": "NEX-GDDP-CMIP6/ACCESS-CM2/ssp245/r1i1p1f1/pr/pr_day_ACCESS-CM2_ssp245_r1i1p1f1_gn_2025_v2.0.nc",
+          "global_file_bytes": 218420721,
+          "site": "chaudoc",
+          "cell_lat_lon": [
+            10.625,
+            105.125
+          ],
+          "url": "https://ds.nccs.nasa.gov/thredds/ncss/grid/AMES/NEX/GDDP-CMIP6/ACCESS-CM2/ssp245/r1i1p1f1/pr/pr_day_ACCESS-CM2_ssp245_r1i1p1f1_gn_2025_v2.0.nc?var=pr&latitude=10.7&longitude=105.12&time_start=2025-01-01T00%3A00%3A00Z&time_end=2025-12-31T23%3A59%3A59Z&accept=csv",
+          "response_bytes": 30636,
+          "seconds": 7.472,
+          "cached": false
+        }
+      ]
+    },
+    {
+      "model": "ACCESS-CM2",
+      "scenario": "ssp585",
+      "variable": "tasmax",
+      "unit": "degC",
+      "aggregation": "mean of daily maximum",
+      "values": [
+        {
+          "month": "2025-01",
+          "value": 31.919104193548414,
+          "n_days": 31
+        },
+        {
+          "month": "2025-02",
+          "value": 33.55334892857145,
+          "n_days": 28
+        },
+        {
+          "month": "2025-03",
+          "value": 35.63388000000002,
+          "n_days": 31
+        },
+        {
+          "month": "2025-04",
+          "value": 34.86752466666668,
+          "n_days": 30
+        },
+        {
+          "month": "2025-05",
+          "value": 36.58720903225808,
+          "n_days": 31
+        },
+        {
+          "month": "2025-06",
+          "value": 32.840583000000024,
+          "n_days": 30
+        },
+        {
+          "month": "2025-07",
+          "value": 32.540619354838725,
+          "n_days": 31
+        },
+        {
+          "month": "2025-08",
+          "value": 33.25767806451614,
+          "n_days": 31
+        },
+        {
+          "month": "2025-09",
+          "value": 32.81642166666669,
+          "n_days": 30
+        },
+        {
+          "month": "2025-10",
+          "value": 32.873216451612926,
+          "n_days": 31
+        },
+        {
+          "month": "2025-11",
+          "value": 32.577946000000026,
+          "n_days": 30
+        },
+        {
+          "month": "2025-12",
+          "value": 32.0584019354839,
+          "n_days": 31
+        }
+      ],
+      "files": [
+        {
+          "model": "ACCESS-CM2",
+          "scenario": "ssp585",
+          "variable": "tasmax",
+          "year": 2025,
+          "s3_key": "NEX-GDDP-CMIP6/ACCESS-CM2/ssp585/r1i1p1f1/tasmax/tasmax_day_ACCESS-CM2_ssp585_r1i1p1f1_gn_2025_v2.0.nc",
+          "global_file_bytes": 246280044,
+          "site": "chaudoc",
+          "cell_lat_lon": [
+            10.625,
+            105.125
+          ],
+          "url": "https://ds.nccs.nasa.gov/thredds/ncss/grid/AMES/NEX/GDDP-CMIP6/ACCESS-CM2/ssp585/r1i1p1f1/tasmax/tasmax_day_ACCESS-CM2_ssp585_r1i1p1f1_gn_2025_v2.0.nc?var=tasmax&latitude=10.7&longitude=105.12&time_start=2025-01-01T00%3A00%3A00Z&time_end=2025-12-31T23%3A59%3A59Z&accept=csv",
+          "response_bytes": 30991,
+          "seconds": 8.702,
+          "cached": false
+        }
+      ]
+    },
+    {
+      "model": "ACCESS-CM2",
+      "scenario": "ssp585",
+      "variable": "pr",
+      "unit": "mm/month",
+      "aggregation": "sum daily precipitation",
+      "values": [
+        {
+          "month": "2025-01",
+          "value": 40.029581798928,
+          "n_days": 31
+        },
+        {
+          "month": "2025-02",
+          "value": 3.2685832596960003,
+          "n_days": 28
+        },
+        {
+          "month": "2025-03",
+          "value": 5.3085448243872,
+          "n_days": 31
+        },
+        {
+          "month": "2025-04",
+          "value": 98.98014803328,
+          "n_days": 30
+        },
+        {
+          "month": "2025-05",
+          "value": 77.56342170912001,
+          "n_days": 31
+        },
+        {
+          "month": "2025-06",
+          "value": 344.80749384,
+          "n_days": 30
+        },
+        {
+          "month": "2025-07",
+          "value": 263.3914647936,
+          "n_days": 31
+        },
+        {
+          "month": "2025-08",
+          "value": 277.14821693472,
+          "n_days": 31
+        },
+        {
+          "month": "2025-09",
+          "value": 385.86004643808,
+          "n_days": 30
+        },
+        {
+          "month": "2025-10",
+          "value": 347.53576803264,
+          "n_days": 31
+        },
+        {
+          "month": "2025-11",
+          "value": 276.5045450304,
+          "n_days": 30
+        },
+        {
+          "month": "2025-12",
+          "value": 135.71894688998398,
+          "n_days": 31
+        }
+      ],
+      "files": [
+        {
+          "model": "ACCESS-CM2",
+          "scenario": "ssp585",
+          "variable": "pr",
+          "year": 2025,
+          "s3_key": "NEX-GDDP-CMIP6/ACCESS-CM2/ssp585/r1i1p1f1/pr/pr_day_ACCESS-CM2_ssp585_r1i1p1f1_gn_2025_v2.0.nc",
+          "global_file_bytes": 222177797,
+          "site": "chaudoc",
+          "cell_lat_lon": [
+            10.625,
+            105.125
+          ],
+          "url": "https://ds.nccs.nasa.gov/thredds/ncss/grid/AMES/NEX/GDDP-CMIP6/ACCESS-CM2/ssp585/r1i1p1f1/pr/pr_day_ACCESS-CM2_ssp585_r1i1p1f1_gn_2025_v2.0.nc?var=pr&latitude=10.7&longitude=105.12&time_start=2025-01-01T00%3A00%3A00Z&time_end=2025-12-31T23%3A59%3A59Z&accept=csv",
+          "response_bytes": 31150,
+          "seconds": 8.605,
+          "cached": false
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Nearest 0.25 degree cell; not field observation",
+    "Two models are not a probabilistic ensemble",
+    "CMIP6 dates are scenario days, not weather forecasts"
+  ],
+  "elapsed_seconds": 100.011
+}

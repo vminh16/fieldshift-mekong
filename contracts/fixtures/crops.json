@@ -1,0 +1,524 @@
+{
+    "version": "crops-2026.11.0",
+    "crops": [
+        {
+            "id": "rice",
+            "name_vi": "Lúa",
+            "name_en": "Rice",
+            "family": "poaceae",
+            "water_regime": "paddy",
+            "duration_days": {
+                "min": 90,
+                "typical": 100,
+                "max": 110
+            },
+            "stages_days": {
+                "initial": 20,
+                "development": 30,
+                "mid": 30,
+                "late": 20
+            },
+            "kc": {
+                "ini": 1.05,
+                "mid": 1.2,
+                "end": 0.75
+            },
+            "root_depth_m": {
+                "min": 0.3,
+                "max": 0.5
+            },
+            "p_depletion": 0.2,
+            "heat": {
+                "sensitive_stage": "mid",
+                "tmax_threshold_c": 35,
+                "note": "Spikelet sterility rises when Tmax >~35C at anthesis (Satake & Yoshida 1978)."
+            },
+            "salinity": {
+                "tolerance_class": "MS",
+                "ece_threshold_ds_m": 3.0,
+                "slope_pct_per_ds_m": 12,
+                "ecw_threshold_ds_m": 2.0
+            },
+            "waterlogging_tolerance": "high",
+            "requires_good_drainage": false,
+            "n_fixing": false,
+            "soil_support_indicators": [
+                "residue_return"
+            ],
+            "machinery_required": [],
+            "allowed_windows": [
+                "dong_xuan",
+                "xuan_he",
+                "thu_dong"
+            ],
+            "relative_cost_level": "medium",
+            "market_note_vi": "Lúa OM/ST ngắn ngày (90-105 ngày), đầu ra ổn định qua thương lái/doanh nghiệp; giá phụ thuộc xuất khẩu.",
+            "sources": [
+                "FAO-56 Table 12 (Kc), Table 22 (root depth, p)",
+                "FAO-29 Table (rice ECe 3.0, 12%/dS/m)",
+                "Maas & Hoffman 1977",
+                "Mekong short-duration varieties OM5451/OM18 (SIAP/MARD, ~90-105 d)"
+            ],
+            "limitations": [
+                "Stage lengths are a short-duration Mekong variety split, not FAO-56 long-season values.",
+                "Kc end 0.75 is a mid-value of FAO-56 range 0.90-0.60 (depends on drain-down timing).",
+                "Rice is most salt-sensitive at seedling and flowering; a single seasonal threshold overstates tolerance there.",
+                "Root depth is FAO-56 shallow-puddled soil value; p=0.20 is only relevant if not ponded.",
+                "ecw_threshold_ds_m approximated as ECe/1.5 (FAO-29 convention ECe ~ 1.5 ECw); salinity values are Maas-Hoffman steady-state, not Mekong-calibrated."
+            ]
+        },
+        {
+            "id": "maize",
+            "name_vi": "Ngô",
+            "name_en": "Maize",
+            "family": "poaceae",
+            "water_regime": "upland",
+            "duration_days": {
+                "min": 85,
+                "typical": 95,
+                "max": 110
+            },
+            "stages_days": {
+                "initial": 20,
+                "development": 30,
+                "mid": 30,
+                "late": 15
+            },
+            "kc": {
+                "ini": 0.3,
+                "mid": 1.2,
+                "end": 0.6
+            },
+            "root_depth_m": {
+                "min": 0.5,
+                "max": 1.0
+            },
+            "p_depletion": 0.55,
+            "heat": {
+                "sensitive_stage": "mid",
+                "tmax_threshold_c": 35,
+                "note": "Silking/pollen viability drops above ~35C."
+            },
+            "salinity": {
+                "tolerance_class": "MS",
+                "ece_threshold_ds_m": 1.7,
+                "slope_pct_per_ds_m": 12,
+                "ecw_threshold_ds_m": 1.13
+            },
+            "waterlogging_tolerance": "low",
+            "requires_good_drainage": true,
+            "n_fixing": false,
+            "soil_support_indicators": [
+                "residue_return",
+                "root_diversity",
+                "breaks_rice_pest_cycle"
+            ],
+            "machinery_required": [],
+            "allowed_windows": [
+                "dong_xuan",
+                "xuan_he"
+            ],
+            "relative_cost_level": "medium",
+            "market_note_vi": "Ngô lai (bắp) cho chăn nuôi; giá biến động, có thương lái thu mua tại ruộng.",
+            "sources": [
+                "FAO-56 Table 12 (Kc), Table 22 (root depth, p)",
+                "FAO-29 / Maas-Hoffman (maize ECe 1.7, 12%)",
+                "FAO-33 maize yield response Ky ~1.25"
+            ],
+            "limitations": [
+                "Kc end 0.60 is for grain harvested at high moisture; 0.35 if field-dried.",
+                "Duration is typical hybrid in the Mekong, regional estimate.",
+                "Very sensitive to waterlogging; needs raised beds in clay soil.",
+                "ecw_threshold_ds_m approximated as ECe/1.5 (FAO-29 convention ECe ~ 1.5 ECw); salinity values are Maas-Hoffman steady-state, not Mekong-calibrated."
+            ]
+        },
+        {
+            "id": "soybean",
+            "name_vi": "Đậu nành",
+            "name_en": "Soybean",
+            "family": "fabaceae",
+            "water_regime": "upland",
+            "duration_days": {
+                "min": 75,
+                "typical": 85,
+                "max": 100
+            },
+            "stages_days": {
+                "initial": 15,
+                "development": 25,
+                "mid": 30,
+                "late": 15
+            },
+            "kc": {
+                "ini": 0.4,
+                "mid": 1.15,
+                "end": 0.5
+            },
+            "root_depth_m": {
+                "min": 0.4,
+                "max": 0.8
+            },
+            "p_depletion": 0.5,
+            "heat": {
+                "sensitive_stage": "mid",
+                "tmax_threshold_c": 35,
+                "note": "Flower/pod abortion above ~35C."
+            },
+            "salinity": {
+                "tolerance_class": "MT",
+                "ece_threshold_ds_m": 5.0,
+                "slope_pct_per_ds_m": 20,
+                "ecw_threshold_ds_m": 3.33
+            },
+            "waterlogging_tolerance": "low",
+            "requires_good_drainage": true,
+            "n_fixing": true,
+            "soil_support_indicators": [
+                "legume_n_fixation_potential",
+                "residue_return",
+                "root_diversity",
+                "breaks_rice_pest_cycle"
+            ],
+            "machinery_required": [],
+            "allowed_windows": [
+                "dong_xuan",
+                "xuan_he"
+            ],
+            "relative_cost_level": "medium",
+            "market_note_vi": "Đậu nành vụ Xuân Hè trong luân canh lúa-màu; giá nội địa thấp hơn nhập khẩu, thị trường nhỏ.",
+            "sources": [
+                "FAO-56 Table 12 (Kc), Table 22 (root depth, p)",
+                "FAO-29 / Maas-Hoffman (soybean ECe 5.0, 20%)",
+                "FAO-33"
+            ],
+            "limitations": [
+                "Stage lengths scaled from FAO-56 130-day values to a short Mekong cultivar (estimate).",
+                "Root max 0.8 m limited by shallow Mekong water table, below FAO-56 1.3 m.",
+                "Maas-Hoffman threshold 5.0 is for mature plants; germination is more sensitive.",
+                "ecw_threshold_ds_m approximated as ECe/1.5 (FAO-29 convention ECe ~ 1.5 ECw); salinity values are Maas-Hoffman steady-state, not Mekong-calibrated."
+            ]
+        },
+        {
+            "id": "mungbean",
+            "name_vi": "Đậu xanh",
+            "name_en": "Mung bean",
+            "family": "fabaceae",
+            "water_regime": "upland",
+            "duration_days": {
+                "min": 60,
+                "typical": 70,
+                "max": 80
+            },
+            "stages_days": {
+                "initial": 10,
+                "development": 20,
+                "mid": 25,
+                "late": 15
+            },
+            "kc": {
+                "ini": 0.4,
+                "mid": 1.05,
+                "end": 0.35
+            },
+            "root_depth_m": {
+                "min": 0.4,
+                "max": 0.8
+            },
+            "p_depletion": 0.45,
+            "heat": {
+                "sensitive_stage": "mid",
+                "tmax_threshold_c": 35,
+                "note": "Flower drop above ~35C."
+            },
+            "salinity": {
+                "tolerance_class": "S",
+                "ece_threshold_ds_m": 1.8,
+                "slope_pct_per_ds_m": 20,
+                "ecw_threshold_ds_m": 1.2
+            },
+            "waterlogging_tolerance": "low",
+            "requires_good_drainage": true,
+            "n_fixing": true,
+            "soil_support_indicators": [
+                "legume_n_fixation_potential",
+                "residue_return",
+                "breaks_rice_pest_cycle"
+            ],
+            "machinery_required": [],
+            "allowed_windows": [
+                "dong_xuan",
+                "xuan_he"
+            ],
+            "relative_cost_level": "low",
+            "market_note_vi": "Đậu xanh ngắn ngày (60-75 ngày), vốn thấp, phù hợp xen vụ giữa hai vụ lúa.",
+            "sources": [
+                "FAO-56 Table 12 (pulses/green gram), Table 22",
+                "Maas-Hoffman 1977 (mungbean sensitive, estimate)",
+                "FAO-33"
+            ],
+            "limitations": [
+                "Salinity threshold 1.8 dS/m is a best-estimate from mungbean/cowpea literature, not a measured Mekong value.",
+                "Kc mid 1.05 is within FAO-56 pulses range; no mungbean-specific entry.",
+                "Stage lengths are regional estimates.",
+                "ecw_threshold_ds_m approximated as ECe/1.5 (FAO-29 convention ECe ~ 1.5 ECw); salinity values are Maas-Hoffman steady-state, not Mekong-calibrated."
+            ]
+        },
+        {
+            "id": "sesame",
+            "name_vi": "Mè (vừng)",
+            "name_en": "Sesame",
+            "family": "pedaliaceae",
+            "water_regime": "upland",
+            "duration_days": {
+                "min": 75,
+                "typical": 90,
+                "max": 100
+            },
+            "stages_days": {
+                "initial": 15,
+                "development": 25,
+                "mid": 35,
+                "late": 15
+            },
+            "kc": {
+                "ini": 0.35,
+                "mid": 1.1,
+                "end": 0.25
+            },
+            "root_depth_m": {
+                "min": 0.5,
+                "max": 1.0
+            },
+            "p_depletion": 0.6,
+            "heat": {
+                "sensitive_stage": "mid",
+                "tmax_threshold_c": 36,
+                "note": "Capsule set declines above ~36C."
+            },
+            "salinity": {
+                "tolerance_class": "MS",
+                "ece_threshold_ds_m": 2.5,
+                "slope_pct_per_ds_m": 15,
+                "ecw_threshold_ds_m": 1.67
+            },
+            "waterlogging_tolerance": "low",
+            "requires_good_drainage": true,
+            "n_fixing": false,
+            "soil_support_indicators": [
+                "residue_return",
+                "root_diversity"
+            ],
+            "machinery_required": [],
+            "allowed_windows": [
+                "dong_xuan",
+                "xuan_he"
+            ],
+            "relative_cost_level": "low",
+            "market_note_vi": "Mè đen/vàng trồng trên đất giồng cát và đất cao; giá cao nhưng thị trường nhỏ.",
+            "sources": [
+                "FAO-56 Table 12 (sesame Kc 0.35/1.10/0.25), Table 22",
+                "AquaCrop/FAO-33 oilcrop data",
+                "FAO-29 (sesame sensitive at germination)"
+            ],
+            "limitations": [
+                "Salinity threshold 2.5 dS/m and slope 15 are uncertain best estimates, not Maas-Hoffman listed values.",
+                "Very intolerant of waterlogging; unsuitable on poorly drained clay.",
+                "Stage lengths are regional estimates.",
+                "ecw_threshold_ds_m approximated as ECe/1.5 (FAO-29 convention ECe ~ 1.5 ECw); salinity values are Maas-Hoffman steady-state, not Mekong-calibrated."
+            ]
+        },
+        {
+            "id": "peanut",
+            "name_vi": "Đậu phộng (lạc)",
+            "name_en": "Peanut",
+            "family": "fabaceae",
+            "water_regime": "upland",
+            "duration_days": {
+                "min": 90,
+                "typical": 100,
+                "max": 115
+            },
+            "stages_days": {
+                "initial": 20,
+                "development": 30,
+                "mid": 35,
+                "late": 15
+            },
+            "kc": {
+                "ini": 0.4,
+                "mid": 1.15,
+                "end": 0.6
+            },
+            "root_depth_m": {
+                "min": 0.5,
+                "max": 1.0
+            },
+            "p_depletion": 0.5,
+            "heat": {
+                "sensitive_stage": "mid",
+                "tmax_threshold_c": 35,
+                "note": "Pegging and pod set reduced above ~35C."
+            },
+            "salinity": {
+                "tolerance_class": "MS",
+                "ece_threshold_ds_m": 3.2,
+                "slope_pct_per_ds_m": 29,
+                "ecw_threshold_ds_m": 2.13
+            },
+            "waterlogging_tolerance": "low",
+            "requires_good_drainage": true,
+            "n_fixing": true,
+            "soil_support_indicators": [
+                "legume_n_fixation_potential",
+                "residue_return",
+                "root_diversity",
+                "breaks_rice_pest_cycle"
+            ],
+            "machinery_required": [],
+            "allowed_windows": [
+                "dong_xuan",
+                "xuan_he"
+            ],
+            "relative_cost_level": "medium",
+            "market_note_vi": "Đậu phộng trồng đất cát/đất giồng, lợi nhuận cao hơn lúa nhưng cần đất thoát nước tốt.",
+            "sources": [
+                "FAO-56 Table 12 (Kc), Table 22 (root depth, p) (groundnut)",
+                "Maas & Hoffman 1977 (peanut ECe 3.2, 29%)",
+                "FAO-33"
+            ],
+            "limitations": [
+                "Stage lengths scaled from FAO-56 130-day groundnut to ~100 days (estimate).",
+                "Sensitive to waterlogging at pod filling; needs sandy-loam or raised bed.",
+                "Kc end 0.60 assumes harvest at moderate moisture.",
+                "ecw_threshold_ds_m approximated as ECe/1.5 (FAO-29 convention ECe ~ 1.5 ECw); salinity values are Maas-Hoffman steady-state, not Mekong-calibrated."
+            ]
+        },
+        {
+            "id": "watermelon",
+            "name_vi": "Dưa hấu",
+            "name_en": "Watermelon",
+            "family": "cucurbitaceae",
+            "water_regime": "upland",
+            "duration_days": {
+                "min": 75,
+                "typical": 85,
+                "max": 95
+            },
+            "stages_days": {
+                "initial": 15,
+                "development": 20,
+                "mid": 30,
+                "late": 20
+            },
+            "kc": {
+                "ini": 0.4,
+                "mid": 1.0,
+                "end": 0.75
+            },
+            "root_depth_m": {
+                "min": 0.8,
+                "max": 1.5
+            },
+            "p_depletion": 0.4,
+            "heat": {
+                "sensitive_stage": "mid",
+                "tmax_threshold_c": 35,
+                "note": "Fruit set and quality fall above ~35C."
+            },
+            "salinity": {
+                "tolerance_class": "MS",
+                "ece_threshold_ds_m": 2.2,
+                "slope_pct_per_ds_m": 16,
+                "ecw_threshold_ds_m": 1.47
+            },
+            "waterlogging_tolerance": "low",
+            "requires_good_drainage": true,
+            "n_fixing": false,
+            "soil_support_indicators": [
+                "ground_cover"
+            ],
+            "machinery_required": [],
+            "allowed_windows": [
+                "dong_xuan",
+                "xuan_he"
+            ],
+            "relative_cost_level": "high",
+            "market_note_vi": "Dưa hấu thu nhập cao nhưng rủi ro giá lớn; vốn đầu tư (phân, màng phủ) cao.",
+            "sources": [
+                "FAO-56 Table 12 (Kc), Table 22 (root depth, p) (watermelon)",
+                "Maas & Hoffman 1977 (watermelon ECe 2.2, 16%)",
+                "FAO-33"
+            ],
+            "limitations": [
+                "Rooting depth 0.8-1.5 m exceeds usable Mekong depth with high water table; real effective depth likely lower.",
+                "Highly susceptible to waterlogging and soil-borne disease, needs raised beds.",
+                "Salinity values are lower-confidence (limited trials).",
+                "ecw_threshold_ds_m approximated as ECe/1.5 (FAO-29 convention ECe ~ 1.5 ECw); salinity values are Maas-Hoffman steady-state, not Mekong-calibrated."
+            ]
+        },
+        {
+            "id": "fallow_cover",
+            "name_vi": "Bỏ hóa / cây phủ đất",
+            "name_en": "Fallow / cover",
+            "family": "mixed",
+            "water_regime": "none",
+            "duration_days": {
+                "min": 30,
+                "typical": 60,
+                "max": 90
+            },
+            "stages_days": {
+                "initial": 10,
+                "development": 15,
+                "mid": 25,
+                "late": 10
+            },
+            "kc": {
+                "ini": 0.3,
+                "mid": 0.4,
+                "end": 0.3
+            },
+            "root_depth_m": {
+                "min": 0.1,
+                "max": 0.3
+            },
+            "p_depletion": 0.5,
+            "heat": {
+                "sensitive_stage": "mid",
+                "tmax_threshold_c": 45,
+                "note": "Not applicable: no heat-sensitive crop stage."
+            },
+            "salinity": {
+                "tolerance_class": "T",
+                "ece_threshold_ds_m": 99.0,
+                "slope_pct_per_ds_m": 0.0,
+                "ecw_threshold_ds_m": 66.0
+            },
+            "waterlogging_tolerance": "high",
+            "requires_good_drainage": false,
+            "n_fixing": false,
+            "soil_support_indicators": [
+                "ground_cover",
+                "residue_return"
+            ],
+            "machinery_required": [],
+            "allowed_windows": [
+                "dong_xuan",
+                "xuan_he",
+                "thu_dong"
+            ],
+            "relative_cost_level": "low",
+            "market_note_vi": "Không thu hoạch; giữ đất phủ, giảm xói mòn và cỏ dại, chi phí rất thấp.",
+            "sources": [
+                "FAO-56 Table 12 (bare soil/ground cover Kc 0.15-0.5)",
+                "FAO-56 Table 22 (generic p 0.5)"
+            ],
+            "limitations": [
+                "Salinity: not applicable, values are placeholders (tolerance T, threshold 99) so salinity penalty is zero.",
+                "Kc ~0.3-0.4 is a mid-value for sparse cover/weeds, not a specific species.",
+                "Duration and stages are nominal; farmer-set.",
+                "ecw_threshold_ds_m approximated as ECe/1.5 (FAO-29 convention ECe ~ 1.5 ECw); salinity values are Maas-Hoffman steady-state, not Mekong-calibrated."
+            ]
+        }
+    ]
+}

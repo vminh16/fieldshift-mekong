@@ -1,8 +1,8 @@
-version: "0.1-draft"
+version: "0.2"
 sources:
   - id: nasa_power
     type: historical_weather
-    connected: false
+    connected: true  # daily point API, no auth; demo cells bundled (apps/api/src/fieldshift/resources/demo_cache)
     url: https://power.larc.nasa.gov/
   - id: nasa_gpm_imerg
     type: precipitation_observation_estimate
@@ -18,13 +18,38 @@ sources:
     url: https://www.earthdata.nasa.gov/data/projects/hls
   - id: nasa_nasadem
     type: terrain
-    connected: false
+    connected: true  # SRTM 30 m via OpenTopoData (no auth)
     url: https://www.earthdata.nasa.gov/
   - id: nasa_power_projection
     type: climate_projection_not_forecast
-    connected: false
+    connected: false  # tested 2026-11-13: returns -999 for Asian points; use NEX-GDDP-CMIP6 via NCCS (scripts/data)
     url: https://power.larc.nasa.gov/docs/services/api/projection/
   - id: local_salinity
     type: local_hydrology_required
     connected: false
     url: null
+  - id: soilgrids
+    type: soil_prior
+    connected: true  # intermittent 503; falls back to regional prior labelled ASSUMPTION
+    url: https://rest.isric.org/soilgrids/v2.0/docs
+  - id: open_meteo_seasonal
+    type: seasonal_forecast
+    connected: true
+    url: https://open-meteo.com/en/docs/seasonal-forecast-api
+    provider: Open-Meteo / ECMWF SEAS5 (non-NASA)
+    license: CC-BY 4.0
+    license_url: https://creativecommons.org/licenses/by/4.0/
+    limitations: Skill not evaluated for Mekong; uncalibrated ensemble; POWER analog splice and FAO-56 ancillary variables.
+  - id: nasa_nex_gddp_cmip6
+    type: climate_projection_not_forecast
+    connected: true
+    url: https://nccs.smce.nasa.gov/data-collections/nex-gddp-cmip6/
+    limitations: Monthly delta method; full 2025–2050 demo coverage only at Can Tho; no SSP probabilities.
+  - id: glofas_discharge
+    type: regional_hydrology_context
+    connected: true
+    url: https://open-meteo.com/en/docs/flood-api
+    provider: Open-Meteo / Copernicus GloFAS (non-NASA)
+    license: CC-BY 4.0
+    license_url: https://creativecommons.org/licenses/by/4.0/
+    limitations: Modeled discharge at Tan Chau; not salinity or canal ECw. Same-calendar 7-day anomaly vs 2001–2020.

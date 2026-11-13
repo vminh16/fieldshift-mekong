@@ -1,4 +1,4 @@
-"""TODO: Evidence-backed explanations and field checklist.
+"""MVP: implemented in rotation_planner.py -> explain, metrics_view, trajectory (§6.8, §11).
 
-See docs/architecture/SOLUTION_DESIGN.md for behavior and acceptance tests.
+Split into this module when it grows; keep the public names.
 """

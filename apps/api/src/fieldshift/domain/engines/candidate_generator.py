@@ -1,4 +1,4 @@
-"""TODO: Generate feasible sequences with baseline and fallow options.
+"""MVP: implemented in rotation_planner.py -> window_instances, sow_options, make_sequence (§6.5).
 
-See docs/architecture/SOLUTION_DESIGN.md for behavior and acceptance tests.
+Split into this module when it grows; keep the public names.
 """
