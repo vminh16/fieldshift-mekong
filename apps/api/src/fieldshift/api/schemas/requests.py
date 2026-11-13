@@ -39,6 +39,9 @@ class FieldIn(BaseModel):
 
 class FieldPatch(BaseModel):
     name: str | None = Field(default=None, min_length=1, max_length=120)
+    # Redrawing a parcel moves its centroid; NASA context is fetched for these coordinates.
+    lat: float | None = Field(default=None, ge=8.0, le=11.5)
+    lon: float | None = Field(default=None, ge=104.0, le=107.5)
     area_ha: float | None = Field(default=None, gt=0, le=10000)
     geometry: dict | None = None
     profile: FieldProfile | None = None

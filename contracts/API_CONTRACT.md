@@ -22,7 +22,8 @@
 | GET | `/fields` | danh sách ruộng | |
 | POST | `/fields` | tạo ruộng `{name, lat 8–11.5, lon 104–107.5, area_ha?, profile}` | 201 |
 | GET | `/fields/{id}` | ruộng + observations | |
-| PATCH | `/fields/{id}` | sửa `{name?, profile?}` (merge profile) | |
+| DELETE | `/fields/{id}` | xoá ruộng cùng observations, field_states, decisions của nó | 204; 404 `FIELD_NOT_FOUND` |
+| PATCH | `/fields/{id}` | sửa `{name?, lat?, lon?, area_ha?, geometry?, profile?}` (merge profile) | lat/lon khi vẽ lại ranh giới |
 | POST | `/fields/{id}/observations` | đo ECw: `{variable:"canal_ecw", value, unit:"dS/m", observed_at:"YYYY-MM-DD", evidence_kind:"OBSERVED_FIELD"}` | 0–60 dS/m, sai → 422 `ECW_OUT_OF_RANGE` |
 | GET | `/fields/{id}/context?as_of=` | trạng thái ruộng + khí hậu tháng + evidence | ~0.1–15 s lần đầu |
 | GET | `/fields/{id}/plans` | lịch sử decision của ruộng | |
@@ -54,6 +55,7 @@ Lỗi: `{"detail": {"code": "...", "message": "..."}}` — 404 `FIELD_NOT_FOUND`
 { "priorities": ["soil_health"],     // chỉ priorities -> xếp lại, không mô phỏng lại
   "override": { "rain_delta_pct": -30, "temp_delta_c": 1.5, "salinity_shift_weeks": -4, "sow_shift_days": 7 } }
 ```
+`geometry` (FE `frontend/`): GeoJSON **Feature** — `geometry` là `Polygon` (ranh giới đã khoanh) hoặc `Point` (chỉ ghim), `properties: {place_name, area_source: "drawn"|"reported"}`. Backend lưu nguyên, không đọc. `null` = ruộng mẫu/chưa có hình.
 `profile`: `{baseline: CropId[], irrigation: "full"|"canal_limited"|"rainfed", drainage: "good"|"poor"|"unknown", coastal_salinity_risk: bool, equipment: string[], history: []}`.
 `CropId`: `rice | maize | soybean | mungbean | sesame | peanut | watermelon | fallow_cover`.
 

@@ -221,6 +221,32 @@
             ],
             "title": "Geometry"
           },
+          "lat": {
+            "anyOf": [
+              {
+                "maximum": 11.5,
+                "minimum": 8.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lat"
+          },
+          "lon": {
+            "anyOf": [
+              {
+                "maximum": 107.5,
+                "minimum": 104.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lon"
+          },
           "name": {
             "anyOf": [
               {
@@ -772,6 +798,40 @@
       }
     },
     "/v1/fields/{field_id}": {
+      "delete": {
+        "description": "Remove a field and everything recorded for it (decisions, states, observations).\n\nDecisions reference each other (parent_id) and field_states, so children go first,\nall in one transaction.",
+        "operationId": "delete_field_v1_fields__field_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "field_id",
+            "required": true,
+            "schema": {
+              "title": "Field Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Delete Field",
+        "tags": [
+          "fields"
+        ]
+      },
       "get": {
         "operationId": "get_field_v1_fields__field_id__get",
         "parameters": [
