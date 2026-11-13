@@ -38,3 +38,8 @@ outputs/
 .idea/
 .vscode/
 .DS_Store
+
+# Local runtime data (SQLite + NASA cache for new fields)
+.fieldshift/
+*.db
+scripts/data/nex_cmip6/

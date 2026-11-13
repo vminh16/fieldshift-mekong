@@ -1,0 +1,2 @@
+# Repo-wide ruff config (scripts/ had none, so CI fell back to ruff defaults).
+extend = "apps/api/pyproject.toml"
