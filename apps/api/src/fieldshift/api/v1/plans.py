@@ -28,6 +28,11 @@ def get_plan(decision_id: str):
     return uc.public(must(db.connect(), "decisions", decision_id, "DECISION_NOT_FOUND")["package"])
 
 
+@router.get("/{decision_id}/status")
+def plan_status(decision_id: str):
+    return uc.plan_status(db.connect(), decision_id)
+
+
 @router.post("/{decision_id}/what-if", status_code=201)
 def what_if(decision_id: str, body: WhatIfIn):
     override = body.override.model_dump(mode="json") if body.override else None

@@ -1,0 +1,380 @@
+{
+  "schema_version": 1,
+  "source": "NEX-GDDP-CMIP6",
+  "site": {
+    "id": "bentre",
+    "name": "Bến Tre",
+    "latitude": 10.1,
+    "longitude": 106.45
+  },
+  "retrieved_at": "2026-11-13T05:32:38.789711+00:00",
+  "spatial_scale": "regional",
+  "evidence_kind": "PROJECTION",
+  "version": "2.0",
+  "method": "NCCS NCSS point CSV; AWS key discovery",
+  "period": [
+    2025,
+    2025
+  ],
+  "probability": null,
+  "series": [
+    {
+      "model": "ACCESS-CM2",
+      "scenario": "ssp245",
+      "variable": "tasmax",
+      "unit": "degC",
+      "aggregation": "mean of daily maximum",
+      "values": [
+        {
+          "month": "2025-01",
+          "value": 32.19032387096777,
+          "n_days": 31
+        },
+        {
+          "month": "2025-02",
+          "value": 32.65241821428573,
+          "n_days": 28
+        },
+        {
+          "month": "2025-03",
+          "value": 35.48958225806454,
+          "n_days": 31
+        },
+        {
+          "month": "2025-04",
+          "value": 37.704117000000025,
+          "n_days": 30
+        },
+        {
+          "month": "2025-05",
+          "value": 37.0788619354839,
+          "n_days": 31
+        },
+        {
+          "month": "2025-06",
+          "value": 34.41047433333336,
+          "n_days": 30
+        },
+        {
+          "month": "2025-07",
+          "value": 32.896453225806475,
+          "n_days": 31
+        },
+        {
+          "month": "2025-08",
+          "value": 32.81804225806454,
+          "n_days": 31
+        },
+        {
+          "month": "2025-09",
+          "value": 32.57290766666669,
+          "n_days": 30
+        },
+        {
+          "month": "2025-10",
+          "value": 32.581812580645185,
+          "n_days": 31
+        },
+        {
+          "month": "2025-11",
+          "value": 31.809994666666686,
+          "n_days": 30
+        },
+        {
+          "month": "2025-12",
+          "value": 31.26090064516131,
+          "n_days": 31
+        }
+      ],
+      "files": [
+        {
+          "model": "ACCESS-CM2",
+          "scenario": "ssp245",
+          "variable": "tasmax",
+          "year": 2025,
+          "s3_key": "NEX-GDDP-CMIP6/ACCESS-CM2/ssp245/r1i1p1f1/tasmax/tasmax_day_ACCESS-CM2_ssp245_r1i1p1f1_gn_2025_v2.0.nc",
+          "global_file_bytes": 246259972,
+          "site": "bentre",
+          "cell_lat_lon": [
+            10.125,
+            106.375
+          ],
+          "url": "https://ds.nccs.nasa.gov/thredds/ncss/grid/AMES/NEX/GDDP-CMIP6/ACCESS-CM2/ssp245/r1i1p1f1/tasmax/tasmax_day_ACCESS-CM2_ssp245_r1i1p1f1_gn_2025_v2.0.nc?var=tasmax&latitude=10.1&longitude=106.45&time_start=2025-01-01T00%3A00%3A00Z&time_end=2025-12-31T23%3A59%3A59Z&accept=csv",
+          "response_bytes": 31003,
+          "seconds": 8.501,
+          "cached": false
+        }
+      ]
+    },
+    {
+      "model": "ACCESS-CM2",
+      "scenario": "ssp245",
+      "variable": "pr",
+      "unit": "mm/month",
+      "aggregation": "sum daily precipitation",
+      "values": [
+        {
+          "month": "2025-01",
+          "value": 50.148171607968,
+          "n_days": 31
+        },
+        {
+          "month": "2025-02",
+          "value": 3.04294416882912,
+          "n_days": 28
+        },
+        {
+          "month": "2025-03",
+          "value": 1.61800113745152,
+          "n_days": 31
+        },
+        {
+          "month": "2025-04",
+          "value": 17.5367382568992,
+          "n_days": 30
+        },
+        {
+          "month": "2025-05",
+          "value": 34.429464985247996,
+          "n_days": 31
+        },
+        {
+          "month": "2025-06",
+          "value": 439.99013739744,
+          "n_days": 30
+        },
+        {
+          "month": "2025-07",
+          "value": 231.12514833408,
+          "n_days": 31
+        },
+        {
+          "month": "2025-08",
+          "value": 243.370761192,
+          "n_days": 31
+        },
+        {
+          "month": "2025-09",
+          "value": 324.253989084672,
+          "n_days": 30
+        },
+        {
+          "month": "2025-10",
+          "value": 345.0281435424,
+          "n_days": 31
+        },
+        {
+          "month": "2025-11",
+          "value": 102.1693096213056,
+          "n_days": 30
+        },
+        {
+          "month": "2025-12",
+          "value": 91.665190178064,
+          "n_days": 31
+        }
+      ],
+      "files": [
+        {
+          "model": "ACCESS-CM2",
+          "scenario": "ssp245",
+          "variable": "pr",
+          "year": 2025,
+          "s3_key": "NEX-GDDP-CMIP6/ACCESS-CM2/ssp245/r1i1p1f1/pr/pr_day_ACCESS-CM2_ssp245_r1i1p1f1_gn_2025_v2.0.nc",
+          "global_file_bytes": 218420721,
+          "site": "bentre",
+          "cell_lat_lon": [
+            10.125,
+            106.375
+          ],
+          "url": "https://ds.nccs.nasa.gov/thredds/ncss/grid/AMES/NEX/GDDP-CMIP6/ACCESS-CM2/ssp245/r1i1p1f1/pr/pr_day_ACCESS-CM2_ssp245_r1i1p1f1_gn_2025_v2.0.nc?var=pr&latitude=10.1&longitude=106.45&time_start=2025-01-01T00%3A00%3A00Z&time_end=2025-12-31T23%3A59%3A59Z&accept=csv",
+          "response_bytes": 31537,
+          "seconds": 8.394,
+          "cached": false
+        }
+      ]
+    },
+    {
+      "model": "ACCESS-CM2",
+      "scenario": "ssp585",
+      "variable": "tasmax",
+      "unit": "degC",
+      "aggregation": "mean of daily maximum",
+      "values": [
+        {
+          "month": "2025-01",
+          "value": 31.14430806451615,
+          "n_days": 31
+        },
+        {
+          "month": "2025-02",
+          "value": 32.45026000000002,
+          "n_days": 28
+        },
+        {
+          "month": "2025-03",
+          "value": 34.306957419354866,
+          "n_days": 31
+        },
+        {
+          "month": "2025-04",
+          "value": 34.10063066666669,
+          "n_days": 30
+        },
+        {
+          "month": "2025-05",
+          "value": 35.79527387096776,
+          "n_days": 31
+        },
+        {
+          "month": "2025-06",
+          "value": 32.56848433333335,
+          "n_days": 30
+        },
+        {
+          "month": "2025-07",
+          "value": 32.35386870967745,
+          "n_days": 31
+        },
+        {
+          "month": "2025-08",
+          "value": 32.82660612903228,
+          "n_days": 31
+        },
+        {
+          "month": "2025-09",
+          "value": 32.65458800000002,
+          "n_days": 30
+        },
+        {
+          "month": "2025-10",
+          "value": 32.91315354838712,
+          "n_days": 31
+        },
+        {
+          "month": "2025-11",
+          "value": 32.66184900000003,
+          "n_days": 30
+        },
+        {
+          "month": "2025-12",
+          "value": 32.068038709677445,
+          "n_days": 31
+        }
+      ],
+      "files": [
+        {
+          "model": "ACCESS-CM2",
+          "scenario": "ssp585",
+          "variable": "tasmax",
+          "year": 2025,
+          "s3_key": "NEX-GDDP-CMIP6/ACCESS-CM2/ssp585/r1i1p1f1/tasmax/tasmax_day_ACCESS-CM2_ssp585_r1i1p1f1_gn_2025_v2.0.nc",
+          "global_file_bytes": 246280044,
+          "site": "bentre",
+          "cell_lat_lon": [
+            10.125,
+            106.375
+          ],
+          "url": "https://ds.nccs.nasa.gov/thredds/ncss/grid/AMES/NEX/GDDP-CMIP6/ACCESS-CM2/ssp585/r1i1p1f1/tasmax/tasmax_day_ACCESS-CM2_ssp585_r1i1p1f1_gn_2025_v2.0.nc?var=tasmax&latitude=10.1&longitude=106.45&time_start=2025-01-01T00%3A00%3A00Z&time_end=2025-12-31T23%3A59%3A59Z&accept=csv",
+          "response_bytes": 30979,
+          "seconds": 9.319,
+          "cached": false
+        }
+      ]
+    },
+    {
+      "model": "ACCESS-CM2",
+      "scenario": "ssp585",
+      "variable": "pr",
+      "unit": "mm/month",
+      "aggregation": "sum daily precipitation",
+      "values": [
+        {
+          "month": "2025-01",
+          "value": 101.96507445235201,
+          "n_days": 31
+        },
+        {
+          "month": "2025-02",
+          "value": 6.3225344321856,
+          "n_days": 28
+        },
+        {
+          "month": "2025-03",
+          "value": 4.8563853529248,
+          "n_days": 31
+        },
+        {
+          "month": "2025-04",
+          "value": 90.5678172815616,
+          "n_days": 30
+        },
+        {
+          "month": "2025-05",
+          "value": 106.175775340224,
+          "n_days": 31
+        },
+        {
+          "month": "2025-06",
+          "value": 400.11305159808,
+          "n_days": 30
+        },
+        {
+          "month": "2025-07",
+          "value": 301.60993173696,
+          "n_days": 31
+        },
+        {
+          "month": "2025-08",
+          "value": 284.3577488304,
+          "n_days": 31
+        },
+        {
+          "month": "2025-09",
+          "value": 377.27536643999997,
+          "n_days": 30
+        },
+        {
+          "month": "2025-10",
+          "value": 357.5842306272,
+          "n_days": 31
+        },
+        {
+          "month": "2025-11",
+          "value": 282.9781838304,
+          "n_days": 30
+        },
+        {
+          "month": "2025-12",
+          "value": 179.50928089824,
+          "n_days": 31
+        }
+      ],
+      "files": [
+        {
+          "model": "ACCESS-CM2",
+          "scenario": "ssp585",
+          "variable": "pr",
+          "year": 2025,
+          "s3_key": "NEX-GDDP-CMIP6/ACCESS-CM2/ssp585/r1i1p1f1/pr/pr_day_ACCESS-CM2_ssp585_r1i1p1f1_gn_2025_v2.0.nc",
+          "global_file_bytes": 222177797,
+          "site": "bentre",
+          "cell_lat_lon": [
+            10.125,
+            106.375
+          ],
+          "url": "https://ds.nccs.nasa.gov/thredds/ncss/grid/AMES/NEX/GDDP-CMIP6/ACCESS-CM2/ssp585/r1i1p1f1/pr/pr_day_ACCESS-CM2_ssp585_r1i1p1f1_gn_2025_v2.0.nc?var=pr&latitude=10.1&longitude=106.45&time_start=2025-01-01T00%3A00%3A00Z&time_end=2025-12-31T23%3A59%3A59Z&accept=csv",
+          "response_bytes": 31691,
+          "seconds": 10.354,
+          "cached": false
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Nearest 0.25 degree cell; not field observation",
+    "Two models are not a probabilistic ensemble",
+    "CMIP6 dates are scenario days, not weather forecasts"
+  ],
+  "elapsed_seconds": 100.011
+}

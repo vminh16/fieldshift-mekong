@@ -1,251 +1,346 @@
 {
-    "field_id": "fld_cantho",
+  "field_id": "fld_cantho",
+  "as_of": "2026-11-14",
+  "state": {
     "as_of": "2026-11-14",
-    "state": {
-        "as_of": "2026-11-14",
-        "root_zone_wetness": {
-            "value": 0.921,
-            "unit": "fraction_0_1",
-            "origin": "estimated_from_regional_data",
-            "label": "Ước lượng vùng",
-            "evidence_ids": [
-                "ev_power_gwet"
-            ]
-        },
-        "root_zone_wetness_anomaly": {
-            "value": 0.037,
-            "unit": "fraction_0_1",
-            "origin": "estimated_from_regional_data",
-            "label": "Ước lượng vùng",
-            "evidence_ids": [
-                "ev_power_gwet"
-            ]
-        },
-        "initial_depletion_frac": {
-            "value": 0.08,
-            "unit": "fraction_TAW",
-            "origin": "inferred_by_model",
-            "label": "Dự kiến",
-            "evidence_ids": [
-                "ev_power_gwet"
-            ]
-        },
-        "canal_ecw": {
-            "value": null,
-            "unit": "dS/m",
-            "origin": "unknown",
-            "label": "Chưa biết",
-            "evidence_ids": [],
-            "reason": "CANAL_ECW_NOT_MEASURED"
-        },
-        "drainage": {
-            "value": "unknown",
-            "origin": "unknown",
-            "label": "Chưa biết"
-        },
-        "irrigation": {
-            "value": "full",
-            "origin": "reported_by_farmer"
-        },
-        "coastal_salinity_risk": {
-            "value": false,
-            "origin": "regional_config",
-            "evidence_ids": [
-                "ev_salinity_season"
-            ]
-        },
-        "elevation_m": {
-            "value": 2.0,
-            "unit": "m",
-            "origin": "estimated_from_regional_data",
-            "label": "Ước lượng vùng",
-            "evidence_ids": [
-                "ev_srtm"
-            ]
-        },
-        "soil": {
-            "source": "SoilGrids v2.0",
-            "kind": "OBSERVED_REMOTE_ESTIMATE",
-            "properties": {
-                "clay": {
-                    "0-5cm": null,
-                    "15-30cm": null
-                },
-                "phh2o": {
-                    "0-5cm": null,
-                    "15-30cm": null
-                },
-                "sand": {
-                    "0-5cm": null,
-                    "15-30cm": null
-                },
-                "soc": {
-                    "0-5cm": null,
-                    "15-30cm": null
-                }
-            },
-            "evidence_ids": [
-                "ev_soil"
-            ]
-        },
-        "crop_history": [],
-        "data_last_date": "2026-11-03"
+    "upstream_discharge": {
+      "value": 8932.06,
+      "unit": "m³/s",
+      "origin": "estimated_from_regional_data",
+      "label": "Ước lượng vùng",
+      "evidence_ids": [
+        "ev_glofas"
+      ],
+      "date": "2026-11-13",
+      "context_only": true
     },
-    "climate": {
-        "years": [
-            2001,
-            2025
-        ],
-        "monthly": [
-            {
-                "month": 1,
-                "rain_mm": 18.9,
-                "tmax_c": 31.7,
-                "days_tmax_ge_35": 1.8
-            },
-            {
-                "month": 2,
-                "rain_mm": 9.9,
-                "tmax_c": 34.8,
-                "days_tmax_ge_35": 14.0
-            },
-            {
-                "month": 3,
-                "rain_mm": 24.3,
-                "tmax_c": 36.7,
-                "days_tmax_ge_35": 25.6
-            },
-            {
-                "month": 4,
-                "rain_mm": 56.5,
-                "tmax_c": 36.7,
-                "days_tmax_ge_35": 22.0
-            },
-            {
-                "month": 5,
-                "rain_mm": 165.5,
-                "tmax_c": 33.6,
-                "days_tmax_ge_35": 8.0
-            },
-            {
-                "month": 6,
-                "rain_mm": 221.6,
-                "tmax_c": 31.0,
-                "days_tmax_ge_35": 0.6
-            },
-            {
-                "month": 7,
-                "rain_mm": 241.5,
-                "tmax_c": 30.1,
-                "days_tmax_ge_35": 0.0
-            },
-            {
-                "month": 8,
-                "rain_mm": 207.9,
-                "tmax_c": 30.0,
-                "days_tmax_ge_35": 0.0
-            },
-            {
-                "month": 9,
-                "rain_mm": 250.3,
-                "tmax_c": 29.8,
-                "days_tmax_ge_35": 0.0
-            },
-            {
-                "month": 10,
-                "rain_mm": 227.9,
-                "tmax_c": 29.9,
-                "days_tmax_ge_35": 0.0
-            },
-            {
-                "month": 11,
-                "rain_mm": 136.8,
-                "tmax_c": 30.0,
-                "days_tmax_ge_35": 0.0
-            },
-            {
-                "month": 12,
-                "rain_mm": 43.7,
-                "tmax_c": 30.1,
-                "days_tmax_ge_35": 0.0
-            }
-        ],
-        "evidence_ids": [
-            "ev_power_daily"
-        ]
+    "upstream_discharge_anomaly": {
+      "value": -37.5,
+      "unit": "%",
+      "origin": "estimated_from_regional_data",
+      "label": "Ước lượng vùng",
+      "evidence_ids": [
+        "ev_glofas"
+      ]
     },
-    "sources_status": {
-        "NASA_POWER": "CACHED",
-        "SRTM": "CACHED",
-        "SOILGRIDS": "CACHED"
+    "upstream_discharge_trend": {
+      "value": -88.21833333333355,
+      "unit": "m³/s/day",
+      "origin": "estimated_from_regional_data",
+      "label": "Ước lượng vùng",
+      "evidence_ids": [
+        "ev_glofas"
+      ]
     },
-    "evidence": {
-        "ev_power_daily": {
-            "kind": "OBSERVED_REMOTE_ESTIMATE",
-            "source": "NASA POWER Daily (MERRA-2/CERES), community AG",
-            "version": "v2.10.3",
-            "spatial_scale": "regional",
-            "resolution": "0.5x0.625 deg (~50 km)",
-            "time_scope": [
-                "2001-01-01",
-                "2026-11-03"
-            ],
-            "status": "CACHED",
-            "url": "https://power.larc.nasa.gov/docs/services/api/temporal/daily/",
-            "limitations": [
-                "Ô lưới ~50 km, không phải đo tại thửa",
-                "Ô ven biển có thể lẫn biển"
-            ]
+    "root_zone_wetness": {
+      "value": 0.921,
+      "unit": "fraction_0_1",
+      "origin": "estimated_from_regional_data",
+      "label": "Ước lượng vùng",
+      "evidence_ids": [
+        "ev_power_gwet"
+      ]
+    },
+    "root_zone_wetness_anomaly": {
+      "value": 0.037,
+      "unit": "fraction_0_1",
+      "origin": "estimated_from_regional_data",
+      "label": "Ước lượng vùng",
+      "evidence_ids": [
+        "ev_power_gwet"
+      ]
+    },
+    "initial_depletion_frac": {
+      "value": 0.08,
+      "unit": "fraction_TAW",
+      "origin": "inferred_by_model",
+      "label": "Dự kiến",
+      "evidence_ids": [
+        "ev_power_gwet"
+      ]
+    },
+    "canal_ecw": {
+      "value": null,
+      "unit": "dS/m",
+      "origin": "unknown",
+      "label": "Chưa biết",
+      "evidence_ids": [],
+      "reason": "CANAL_ECW_NOT_MEASURED"
+    },
+    "drainage": {
+      "value": "unknown",
+      "origin": "unknown",
+      "label": "Chưa biết"
+    },
+    "irrigation": {
+      "value": "full",
+      "origin": "reported_by_farmer"
+    },
+    "coastal_salinity_risk": {
+      "value": false,
+      "origin": "regional_config",
+      "evidence_ids": [
+        "ev_salinity_season"
+      ]
+    },
+    "elevation_m": {
+      "value": 2.0,
+      "unit": "m",
+      "origin": "estimated_from_regional_data",
+      "label": "Ước lượng vùng",
+      "evidence_ids": [
+        "ev_srtm"
+      ]
+    },
+    "soil": {
+      "source": "SoilGrids v2.0",
+      "kind": "OBSERVED_REMOTE_ESTIMATE",
+      "properties": {
+        "clay": {
+          "0-5cm": null,
+          "15-30cm": null
         },
-        "ev_power_gwet": {
-            "kind": "MODEL_ESTIMATE",
-            "source": "NASA POWER GWETROOT (MERRA-2 root-zone wetness 0-1)",
-            "spatial_scale": "regional",
-            "status": "CACHED",
-            "limitations": [
-                "Độ ẩm mô hình quy mô vùng, không phải % ẩm tại ruộng"
-            ]
+        "phh2o": {
+          "0-5cm": null,
+          "15-30cm": null
         },
-        "ev_srtm": {
-            "kind": "OBSERVED_REMOTE_ESTIMATE",
-            "source": "SRTM 30 m via OpenTopoData",
-            "spatial_scale": "field",
-            "status": "CACHED",
-            "limitations": [
-                "Không thể hiện đê bao/cống; không chứng minh ngập"
-            ]
+        "sand": {
+          "0-5cm": null,
+          "15-30cm": null
         },
-        "ev_soil": {
-            "kind": "OBSERVED_REMOTE_ESTIMATE",
-            "source": "SoilGrids v2.0",
-            "spatial_scale": "regional",
-            "status": "CACHED",
-            "limitations": [
-                "Không thay thế xét nghiệm đất tại thửa"
-            ]
-        },
-        "ev_crop_catalog": {
-            "kind": "LITERATURE_RULE",
-            "source": "crops.json (crops-2026.11.0): FAO-56, FAO-29, Maas-Hoffman",
-            "limitations": [
-                "Tham số tham khảo, chưa hiệu chỉnh giống địa phương"
-            ]
-        },
-        "ev_region_calendar": {
-            "kind": "LITERATURE_RULE",
-            "source": "regions.json: MARD/Cuc Trong trot cropping calendars for Mekong Delta (Đông Xuân Nov-Dec, Hè Thu Mar-May, Thu Đông Jul-Aug)",
-            "limitations": [
-                "Windows are widened to guarantee a 3-crop rice sequence: latest sowing + 110 d + 10 d turnaround fits the next window's end; actual local calendars vary by province and flood/salinity status.",
-                "Upland crops in Hè Thu face rain onset in May; their duration must be checked per sowing date."
-            ]
-        },
-        "ev_salinity_season": {
-            "kind": "ASSUMPTION",
-            "source": "MARD/SIWRP salinity intrusion reports 2016, 2020, 2024; MRC Mekong salinity intrusion studies",
-            "limitations": [
-                "Dates are multi-year typical; actual onset and peak shift with El Nino years and upstream discharge.",
-                "Applies to coastal zones only; inland sites have negligible risk."
-            ]
+        "soc": {
+          "0-5cm": null,
+          "15-30cm": null
         }
+      },
+      "evidence_ids": [
+        "ev_soil"
+      ]
+    },
+    "crop_history": [],
+    "data_last_date": "2026-11-03"
+  },
+  "climate": {
+    "years": [
+      2001,
+      2025
+    ],
+    "monthly": [
+      {
+        "month": 1,
+        "rain_mm": 18.9,
+        "tmax_c": 31.7,
+        "days_tmax_ge_35": 1.8
+      },
+      {
+        "month": 2,
+        "rain_mm": 9.9,
+        "tmax_c": 34.8,
+        "days_tmax_ge_35": 14.0
+      },
+      {
+        "month": 3,
+        "rain_mm": 24.3,
+        "tmax_c": 36.7,
+        "days_tmax_ge_35": 25.6
+      },
+      {
+        "month": 4,
+        "rain_mm": 56.5,
+        "tmax_c": 36.7,
+        "days_tmax_ge_35": 22.0
+      },
+      {
+        "month": 5,
+        "rain_mm": 165.5,
+        "tmax_c": 33.6,
+        "days_tmax_ge_35": 8.0
+      },
+      {
+        "month": 6,
+        "rain_mm": 221.6,
+        "tmax_c": 31.0,
+        "days_tmax_ge_35": 0.6
+      },
+      {
+        "month": 7,
+        "rain_mm": 241.5,
+        "tmax_c": 30.1,
+        "days_tmax_ge_35": 0.0
+      },
+      {
+        "month": 8,
+        "rain_mm": 207.9,
+        "tmax_c": 30.0,
+        "days_tmax_ge_35": 0.0
+      },
+      {
+        "month": 9,
+        "rain_mm": 250.3,
+        "tmax_c": 29.8,
+        "days_tmax_ge_35": 0.0
+      },
+      {
+        "month": 10,
+        "rain_mm": 227.9,
+        "tmax_c": 29.9,
+        "days_tmax_ge_35": 0.0
+      },
+      {
+        "month": 11,
+        "rain_mm": 136.8,
+        "tmax_c": 30.0,
+        "days_tmax_ge_35": 0.0
+      },
+      {
+        "month": 12,
+        "rain_mm": 43.7,
+        "tmax_c": 30.1,
+        "days_tmax_ge_35": 0.0
+      }
+    ],
+    "evidence_ids": [
+      "ev_power_daily"
+    ]
+  },
+  "sources_status": {
+    "NASA_POWER": "CACHED",
+    "SRTM": "CACHED",
+    "SOILGRIDS": "CACHED",
+    "OPEN_METEO_SEASONAL": "CACHED",
+    "GLOFAS": "CACHED",
+    "NEX_GDDP_CMIP6": "CACHED"
+  },
+  "evidence": {
+    "ev_power_daily": {
+      "kind": "OBSERVED_REMOTE_ESTIMATE",
+      "source": "NASA POWER Daily (MERRA-2/CERES), community AG",
+      "version": "v2.10.3",
+      "spatial_scale": "regional",
+      "resolution": "0.5x0.625 deg (~50 km)",
+      "time_scope": [
+        "2001-01-01",
+        "2026-11-03"
+      ],
+      "status": "CACHED",
+      "url": "https://power.larc.nasa.gov/docs/services/api/temporal/daily/",
+      "limitations": [
+        "Ô lưới ~50 km, không phải đo tại thửa",
+        "Ô ven biển có thể lẫn biển"
+      ]
+    },
+    "ev_power_gwet": {
+      "kind": "MODEL_ESTIMATE",
+      "source": "NASA POWER GWETROOT (MERRA-2 root-zone wetness 0-1)",
+      "spatial_scale": "regional",
+      "status": "CACHED",
+      "limitations": [
+        "Độ ẩm mô hình quy mô vùng, không phải % ẩm tại ruộng"
+      ]
+    },
+    "ev_srtm": {
+      "kind": "OBSERVED_REMOTE_ESTIMATE",
+      "source": "SRTM 30 m via OpenTopoData",
+      "spatial_scale": "field",
+      "status": "CACHED",
+      "limitations": [
+        "Không thể hiện đê bao/cống; không chứng minh ngập"
+      ]
+    },
+    "ev_soil": {
+      "kind": "OBSERVED_REMOTE_ESTIMATE",
+      "source": "SoilGrids v2.0",
+      "spatial_scale": "regional",
+      "status": "CACHED",
+      "limitations": [
+        "Không thay thế xét nghiệm đất tại thửa"
+      ]
+    },
+    "ev_crop_catalog": {
+      "kind": "LITERATURE_RULE",
+      "source": "crops.json (crops-2026.11.0): FAO-56, FAO-29, Maas-Hoffman",
+      "limitations": [
+        "Tham số tham khảo, chưa hiệu chỉnh giống địa phương"
+      ]
+    },
+    "ev_region_calendar": {
+      "kind": "LITERATURE_RULE",
+      "source": "regions.json: MARD/Cuc Trong trot cropping calendars for Mekong Delta (Đông Xuân Nov-Dec, Hè Thu Mar-May, Thu Đông Jul-Aug)",
+      "limitations": [
+        "Windows are widened to guarantee a 3-crop rice sequence: latest sowing + 110 d + 10 d turnaround fits the next window's end; actual local calendars vary by province and flood/salinity status.",
+        "Upland crops in Hè Thu face rain onset in May; their duration must be checked per sowing date."
+      ]
+    },
+    "ev_salinity_season": {
+      "kind": "ASSUMPTION",
+      "source": "MARD/SIWRP salinity intrusion reports 2016, 2020, 2024; MRC Mekong salinity intrusion studies",
+      "limitations": [
+        "Dates are multi-year typical; actual onset and peak shift with El Nino years and upstream discharge.",
+        "Applies to coastal zones only; inland sites have negligible risk."
+      ]
+    },
+    "ev_seasonal_forecast": {
+      "attribution": "Weather data by Open-Meteo.com / ECMWF (non-NASA)",
+      "attribution_url": "https://open-meteo.com/",
+      "license": "CC-BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "spatial_scale": "regional",
+      "kind": "FORECAST",
+      "source": "Open-Meteo Seasonal / ECMWF SEAS5 (non-NASA)",
+      "url": "https://open-meteo.com/en/docs/seasonal-forecast-api",
+      "issue_time": "2026-11-01T00:00:00+00:00",
+      "available_at": "2026-11-05T13:05:06+00:00",
+      "status": "CACHED",
+      "resolution": "36 km",
+      "quality_flags": [
+        "SKILL_NOT_EVALUATED_MEKONG",
+        "NOT_BIAS_CORRECTED",
+        "ANALOG_FAO56_VARIABLES",
+        "ANALOG_HORIZON_SPLICE",
+        "INVALID_ENSEMBLE_MEMBERS_OMITTED"
+      ],
+      "limitations": [
+        "Skill not evaluated for Mekong; no calibrated probabilities.",
+        "Not bias corrected; regional estimate, not field observation.",
+        "Members with incomplete/invalid windows (including negative precipitation in the API) omitted, never filled with zero.",
+        "Temperature/precipitation members spliced onto POWER analog years after ~180 days; dew point, radiation and wind always from analog days."
+      ]
+    },
+    "ev_nex_cmip6": {
+      "kind": "PROJECTION",
+      "source": "NASA NEX-GDDP-CMIP6 v2.0 via NCCS NCSS",
+      "version": "2.0",
+      "url": "https://nccs.smce.nasa.gov/data-collections/nex-gddp-cmip6/",
+      "spatial_scale": "regional",
+      "resolution": "0.25 deg",
+      "status": "CACHED",
+      "limitations": [
+        "2041–2050 minus 2025–2034 monthly Tmax delta and precipitation ratio applied to POWER analog days.",
+        "Only Tmax and precipitation adjusted; Tmin, dew point, radiation and wind unchanged.",
+        "SSPs have no assigned probability; not weather forecasts."
+      ]
+    },
+    "ev_glofas": {
+      "attribution": "Weather data by Open-Meteo.com / ECMWF (non-NASA)",
+      "attribution_url": "https://open-meteo.com/",
+      "license": "CC-BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "spatial_scale": "regional",
+      "kind": "MODEL_ESTIMATE",
+      "source": "Open-Meteo Flood / Copernicus GloFAS (non-NASA)",
+      "url": "https://open-meteo.com/en/docs/flood-api",
+      "resolution": "5 km",
+      "status": "CACHED",
+      "location": {
+        "name": "Mekong at Tân Châu",
+        "lat": 10.8,
+        "lon": 105.24
+      },
+      "limitations": [
+        "Modeled regional river discharge, not salinity or canal ECw; river cell requires local verification.",
+        "Trailing 7-day mean vs same calendar window in available 2001–2020 years; anomaly is not a calibrated salinity threshold.",
+        "Recent discharge may be modeled forecast data; only days through retrieval/as_of used."
+      ]
     }
+  }
 }

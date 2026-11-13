@@ -1,10 +1,12 @@
 """Future Outlook & Scenario Builder (design v2 §6.3).
 
-No verified seasonal forecast and NASA POWER Projection returns fill values for Asia (tested 2026-11-13),
-so the set is CLIMATOLOGY + STRESS_TEST. Analog years keep real daily order (no shuffling).
+Optional forecast/projection inputs are normalized by adapters and injected by application.
+Analog years keep real daily order (no shuffling).
 """
 
 import datetime as dt
+
+from fieldshift.domain.models.scenario import ScenarioKind
 
 
 def shift_year(d: dt.date, years: int) -> dt.date:
@@ -48,6 +50,9 @@ def build_weather(
     year: int,
     temp_delta: float = 0.0,
     rain_factor: float = 1.0,
+    monthly_tmax_delta: dict | None = None,
+    monthly_rain_factor: dict | None = None,
+    forecast_daily: dict | None = None,
 ) -> list[dict]:
     by_date = {w["date"]: w for w in ctx["weather"]}
     off = year - as_of.year
@@ -61,10 +66,13 @@ def build_weather(
             {
                 **h,
                 "date": d,
-                "tmax": h["tmax"] + temp_delta,
+                "tmax": h["tmax"] + temp_delta + (monthly_tmax_delta or {}).get(str(d.month), 0),
                 "tmin": h["tmin"] + temp_delta,
                 "tdew": h["tdew"] + temp_delta,
-                "rain_mm": h["rain_mm"] * rain_factor,
+                "rain_mm": h["rain_mm"]
+                * rain_factor
+                * (monthly_rain_factor or {}).get(str(d.month), 1),
+                **((forecast_daily or {}).get(str(d), {}) if i < 180 else {}),
             }
         )
     return out
@@ -158,6 +166,65 @@ def build_scenarios(
                 ],
             }
         )
+    forecast = ctx.get("forecast")
+    if forecast and 0 <= (as_of - dt.date.fromisoformat(forecast["issue_time"][:10])).days <= 35:
+        sc.append(
+            {
+                **base,
+                "scenario_id": "sc_forecast",
+                "kind": ScenarioKind.FORECAST,
+                "name": "ECMWF SEAS5 seasonal ensemble",
+                "source": forecast["source"],
+                "issue_time": forecast["issue_time"],
+                "available_at": forecast["available_at"],
+                "quality_flags": forecast["quality_flags"],
+                "omitted_member_ids": forecast.get("omitted_member_ids", []),
+                "ensemble_member_ids": [m["member_id"] for m in forecast["members"]],
+                "forecast_window": [str(as_of), min(max(m["daily"]) for m in forecast["members"])],
+                "probability_semantics": "ensemble members, skill not evaluated for Mekong",
+                "evidence_ids": ["ev_seasonal_forecast", "ev_power_daily"],
+                "assumptions": [
+                    "First up to 180 days use SEAS5 Tmax/Tmin/rain ensemble members; remaining horizon spliced onto POWER climatology analog years.",
+                    "Dew point, radiation and wind needed by FAO-56 come from the same analog-year day throughout; cross-variable coherence is approximate.",
+                    "Members paired deterministically with cycling analog years; no evaluated skill or calibrated probabilities.",
+                ],
+                "members": [
+                    {"year": years[i % len(years)], **m} for i, m in enumerate(forecast["members"])
+                ],
+            }
+        )
+    for projection in ctx.get("projections", []):
+        model, ssp = projection["model"], projection["ssp"]
+        sc.append(
+            {
+                **base,
+                "scenario_id": f"sc_proj_{model}_{ssp}",
+                "kind": ScenarioKind.CLIMATE_PROJECTION,
+                "name": f"NEX-GDDP-CMIP6 {model} {ssp}",
+                "model": model,
+                "ssp": ssp,
+                "source": "NASA NEX-GDDP-CMIP6 v2.0",
+                "issue_time": None,
+                "probability_semantics": "SSP pathways, no assigned probabilities",
+                "evidence_ids": ["ev_nex_cmip6", "ev_power_daily"],
+                "quality_flags": ["MONTHLY_DELTA_METHOD", "NOT_WEATHER_FORECAST"],
+                "assumptions": [
+                    "Monthly Tmax delta: mean 2041–2050 minus mean 2025–2034; precipitation multiplied by monthly future/base ratio.",
+                    "Applied to POWER analog-year days as a long-term sensitivity scenario; not predictions for the planning dates.",
+                    "Tmin, dew point, radiation and wind remain from the analog-year day (tasmax/pr only).",
+                ],
+                "monthly_tmax_delta": projection["monthly_tmax_delta"],
+                "monthly_rain_factor": projection["monthly_rain_factor"],
+                "members": [
+                    {
+                        "year": y,
+                        **{k: projection[k] for k in ("monthly_tmax_delta", "monthly_rain_factor")},
+                    }
+                    for y in years
+                ],
+            }
+        )
     for s in sc:
+        s.setdefault("as_of", str(as_of))
         s["representative_year"] = s["members"][len(s["members"]) // 2]["year"]
     return sc

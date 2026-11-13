@@ -1,10 +1,14 @@
 """Plan / what-if / replan use cases (design v2 §8, §11.4, §12). Decisions are immutable snapshots."""
 
+import copy
 import datetime as dt
 
 from fieldshift.application.errors import InvalidInput, NotFound
+from fieldshift.application.use_cases.outlook_context import add_outlook
+from fieldshift.domain.engines.evidence_gate import enforce_evidence
 from fieldshift.domain.engines.field_state import estimate_state
-from fieldshift.domain.engines.rotation_planner import VERSIONS, run_plan
+from fieldshift.domain.engines.rotation_planner import VERSIONS, rerank_options, run_plan
+from fieldshift.domain.engines.trigger_evaluation import evaluate_triggers
 from fieldshift.infrastructure.crop_models.fao56_water import simulate_season
 from fieldshift.infrastructure.data_sources.context_builder import build_context
 from fieldshift.infrastructure.persistence import sqlite as db
@@ -30,9 +34,11 @@ def observations(c, field_id):
 
 
 def context_for(field, as_of):
-    key = (field["id"], field["updated_at"], as_of)
+    key = (field["id"], field["updated_at"], as_of, dt.date.today())
     if key not in _CTX:
-        _CTX[key] = build_context(field, as_of)  # may raise PowerUnavailable -> 503
+        _CTX[key] = add_outlook(
+            build_context(field, as_of), field, as_of
+        )  # may raise PowerUnavailable -> 503
     return _CTX[key]
 
 
@@ -81,6 +87,7 @@ def make_plan(c, f, req: dict, kind: str, parent_id=None, override=None, history
         "evidence": ctx["evidence"],
         "disclaimer": DISCLAIMER,
     }
+    enforce_evidence(pkg, pkg["evidence"])
     if core.get("insufficient"):
         pkg["decision_status"] = "INSUFFICIENT_EVIDENCE"
     db.insert(
@@ -101,20 +108,66 @@ def make_plan(c, f, req: dict, kind: str, parent_id=None, override=None, history
     return public(pkg)
 
 
+def override_effects(override):
+    """Compare actual dependencies, including frontend payloads containing empty defaults."""
+    effects = {}
+    for key, value in (override or {}).items():
+        if key == "sow_shift_days":
+            value = {season: days for season, days in (value or {}).items() if days}
+        if value is not None and value != {} and (key == "irrigation_cap_mm" or value != 0):
+            effects[key] = value
+    return effects
+
+
 def what_if(c, decision_id: str, priorities, override):
     parent = must(c, "decisions", decision_id, "DECISION_NOT_FOUND")
-    f = must(c, "fields", parent["field_id"], "FIELD_NOT_FOUND")
     req = dict(parent["request"])
-    if priorities:
+    if priorities is not None:
         req["priorities"] = priorities
-    # ponytail: re-runs the full pipeline (~2-6 s); reuse outcomes when only priorities change
+    same_override = override is None or override_effects(override) == override_effects(
+        parent["package"].get("override")
+    )
+    if priorities is not None and same_override and "options" in parent["package"]:
+        pkg = copy.deepcopy(parent["package"])
+        pkg.update(
+            decision_id=db.new_id("dec"),
+            parent_id=decision_id,
+            kind="WHAT_IF",
+            generated_at=db.now(),
+            request=req,
+        )
+        pkg["options"] = rerank_options(
+            pkg["options"], priorities or ["avoid_crop_failure", "save_water", "soil_health"]
+        )
+        pkg["computation"] = {
+            "mode": "PRIORITIES_ONLY",
+            "reused_from": decision_id,
+            "season_simulations": 0,
+        }
+        db.insert(
+            c,
+            "decisions",
+            {
+                "id": pkg["decision_id"],
+                "field_id": parent["field_id"],
+                "parent_id": decision_id,
+                "kind": "WHAT_IF",
+                "request": req,
+                "field_state_id": parent["field_state_id"],
+                "versions": parent["versions"],
+                "package": pkg,
+                "created_at": pkg["generated_at"],
+            },
+        )
+        return public(pkg)
+    f = must(c, "fields", parent["field_id"], "FIELD_NOT_FOUND")
     return make_plan(
         c,
         f,
         req,
         "WHAT_IF",
         parent_id=decision_id,
-        override=override,
+        override=override if override is not None else parent["package"].get("override"),
         history=parent["package"].get("history"),
     )
 
@@ -159,3 +212,8 @@ def replan(c, decision_id: str, as_of: dt.date, completed: list):
     pkg = make_plan(c, f, req, "REPLAN", parent_id=decision_id, history=history)
     pkg["changed_since_parent"] = new_obs
     return pkg
+
+
+def plan_status(c, decision_id):
+    parent = must(c, "decisions", decision_id, "DECISION_NOT_FOUND")
+    return evaluate_triggers(parent["package"], observations(c, parent["field_id"]))

@@ -28,9 +28,25 @@ def test_core_invariants():
             )  # baseline always present
             assert len(p["options"]) >= 2 or p["notes"]  # AC-01
             assert all(
-                s["kind"] in ("CLIMATOLOGY", "STRESS_TEST") for s in p["scenarios"]
+                s["kind"] in ("CLIMATOLOGY", "STRESS_TEST", "FORECAST", "CLIMATE_PROJECTION")
+                for s in p["scenarios"]
             )  # AC-03: no fake forecast
             assert all(s["probability"] is None for s in p["scenarios"])
+            forecast = next(s for s in p["scenarios"] if s["kind"] == "FORECAST")
+            assert forecast["issue_time"][:10] <= AS_OF
+            assert "skill not evaluated" in forecast["probability_semantics"]
+            assert any(g["gate"] == "G6" and g["passed"] for g in p["gates"])
+            assert p["field_state"]["upstream_discharge"]["context_only"]
+            assert p["evidence"]["ev_seasonal_forecast"]["license"] == "CC-BY 4.0"
+            for option in p["options"]:
+                assert set(option["delta_vs_baseline"]) == {
+                    s["scenario_id"] for s in p["scenarios"]
+                }
+            if p is inland:
+                assert len([s for s in p["scenarios"] if s["kind"] == "CLIMATE_PROJECTION"]) == 4
+            else:
+                assert not any(s["kind"] == "CLIMATE_PROJECTION" for s in p["scenarios"])
+                assert any("skipped" in note for note in p["notes"])
             for o in p["options"]:
                 assert o["decision_status"] != "NOT_FEASIBLE"
                 assert o["metrics"]["sc_clim"]["yield"]["value"] is None  # G7: no invented yield
@@ -39,9 +55,15 @@ def test_core_invariants():
                 if any(r["severity"] == "UNKNOWN_REQUIRES_CHECK" for r in o["rules"]):
                     assert o["decision_status"] == "CONDITIONAL_PENDING_CHECK"
             assert all(r["severity"] == "HARD" for r in p["excluded"])
+            assert next(g for g in p["gates"] if g["gate"] == "G8")["passed"]
 
         # AC-02: coastal + unknown ECw -> never "safe"; salinity unknown in state
         assert coastal["field_state"]["canal_ecw"]["value"] is None
+        assert any(
+            r["rule_id"] == "R_UPSTREAM_DISCHARGE_LOW" and r["severity"] == "SOFT"
+            for r in coastal["baseline"]["rules"]
+        )
+        assert any(r["rule_id"] == "R_SALINITY_UNKNOWN" for r in coastal["baseline"]["rules"])
         assert any(g["gate"] == "G5" and not g["passed"] for g in coastal["gates"])
         assert not any(g["gate"] == "G5" for g in inland["gates"])
         rice_coastal = coastal["baseline"]

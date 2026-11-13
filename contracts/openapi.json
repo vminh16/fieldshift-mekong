@@ -1201,6 +1201,46 @@
         ]
       }
     },
+    "/v1/plans/{decision_id}/status": {
+      "get": {
+        "operationId": "plan_status_v1_plans__decision_id__status_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "decision_id",
+            "required": true,
+            "schema": {
+              "title": "Decision Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Plan Status",
+        "tags": [
+          "plans"
+        ]
+      }
+    },
     "/v1/plans/{decision_id}/twin": {
       "get": {
         "operationId": "twin_v1_plans__decision_id__twin_get",

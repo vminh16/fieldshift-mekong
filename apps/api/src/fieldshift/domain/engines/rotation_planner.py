@@ -180,6 +180,9 @@ class Evaluator:
                     m["year"],
                     m.get("temp_delta", 0.0),
                     m.get("rain_factor", 1.0),
+                    m.get("monthly_tmax_delta"),
+                    m.get("monthly_rain_factor"),
+                    m.get("daily"),
                 )
         self.soil = {"taw_mm_per_m": self.region["soil_prior"]["taw_mm_per_m"]}
         self.memo = {}
@@ -261,6 +264,19 @@ def field_rules(seq, ev: "Evaluator", summ: dict, constraints: dict) -> list[dic
     state, region = ev.state, ev.region
     rules = []
     coastal = state["coastal_salinity_risk"]["value"]
+    anomaly = state.get("upstream_discharge_anomaly", {}).get("value")
+    if coastal and anomaly is not None and anomaly < 0:
+        rules.append(
+            rule(
+                "R_UPSTREAM_DISCHARGE_LOW",
+                "SOFT",
+                None,
+                "Lưu lượng Mekong thượng nguồn thấp hơn nền cùng cửa sổ lịch; nên đo ECw nước kênh sớm hơn. Đây là tín hiệu vùng, không phải giá trị mặn.",
+                ["state.upstream_discharge_anomaly"],
+                "Đo ECw nước kênh sớm, đối chiếu bản tin địa phương",
+                ["ev_glofas"],
+            )
+        )
     ecw = state["canal_ecw"]["value"]
     drainage = state["drainage"]["value"]
     sal_lo, sal_hi = salinity_window(region, ev.as_of, 0)
@@ -456,6 +472,21 @@ def pareto(cands):
     return front
 
 
+def strategy_order(priorities):
+    order = []
+    for priority in priorities:
+        strategy = PRIORITY_TO_STRATEGY.get(priority)
+        if strategy and strategy not in order:
+            order.append(strategy)
+    return order + [s for s in STRATEGY_VI if s not in order]
+
+
+def rerank_options(options, priorities):
+    """Fixed diverse shortlist is priority-independent; priorities only reorder it (§6.7)."""
+    order = strategy_order(priorities)
+    return sorted(options, key=lambda option: order.index(option["strategy_tag"]))
+
+
 def pick_strategies(front, baseline, priorities):
     pool = [c for c in front if c["seq"]["crops"] != baseline["seq"]["crops"]]
     by = {
@@ -469,12 +500,7 @@ def pick_strategies(front, baseline, priorities):
         "soil_support": lambda c: (c["crit"]["soil"], c["crit"]["irr"]),
         "balanced": lambda c: (c["crit"]["changes"], c["crit"]["stress_p90"], c["crit"]["irr"]),
     }
-    order = []
-    for p in priorities:
-        s = PRIORITY_TO_STRATEGY.get(p)
-        if s and s not in order:
-            order.append(s)
-    order += [s for s in by if s not in order]
+    order = strategy_order(priorities)
     picked, used = [], set()
     for s in by:  # assign in fixed order so labels don't depend on priorities; priorities only reorder (§6.7.4)
         for c in sorted(pool, key=by[s]):
@@ -552,12 +578,52 @@ def explain(c, base, ev) -> dict:
                 {
                     "condition": f"ECw nước kênh > {thr} dS/m (≈ {thr * PPT_PER_DS_M:.1f} ‰) trước {season['sow']}",
                     "measure": "ECw nước kênh (máy đo EC cầm tay)",
+                    "variable": "canal_ecw",
+                    "op": "gt",
+                    "threshold": thr,
+                    "season_index": r["season_index"],
                     "unit": "dS/m",
                     "action": f"Không gieo {crop['name_vi']} vụ {r['season_index']}; tái lập kế hoạch",
                 }
             )
         if r["severity"] == "UNKNOWN_REQUIRES_CHECK":
             checklist.append(r["how_to_resolve"])
+    for season in c["seq"]["seasons"]:
+        crop = CROP_BY_ID[season["crop"]]
+        if crop["requires_good_drainage"]:
+            triggers.append(
+                {
+                    "condition": f"Thoát nước kém trước vụ {season['index']}",
+                    "variable": "drainage",
+                    "op": "eq",
+                    "threshold": "poor",
+                    "unit": None,
+                    "season_index": season["index"],
+                    "measure": "Khả năng thoát nước tại ruộng",
+                    "action": "Xác nhận thoát nước và tái lập kế hoạch",
+                }
+            )
+        if (
+            ev.state["coastal_salinity_risk"]["value"]
+            and crop["water_regime"] != "none"
+            and not any(
+                t.get("variable") == "canal_ecw" and t.get("season_index") == season["index"]
+                for t in triggers
+            )
+        ):
+            threshold = crop["salinity"]["ecw_threshold_ds_m"]
+            triggers.append(
+                {
+                    "condition": f"ECw nước kênh > {threshold} dS/m trước {season['sow']}",
+                    "variable": "canal_ecw",
+                    "op": "gt",
+                    "threshold": threshold,
+                    "unit": "dS/m",
+                    "season_index": season["index"],
+                    "measure": "ECw nước kênh (máy đo EC cầm tay)",
+                    "action": "Đo ECw, xác minh nguồn nước và tái lập kế hoạch",
+                }
+            )
     for crop in {
         c2 for c2 in c["seq"]["crops"] if c2 not in base["seq"]["crops"] and c2 != "fallow_cover"
     }:
@@ -589,8 +655,12 @@ def metrics_view(summary: dict, base_summary: dict | None, scen: dict) -> tuple[
         label = "Dự kiến" if scen[sid]["kind"] == "CLIMATOLOGY" else "Kịch bản"
         origin = "inferred_by_model" if label == "Dự kiến" else "assumed_scenario"
 
-        def m(v, u, ev=("ev_power_daily", "ev_crop_catalog")):
-            return measure(v, u, origin, label, ev)
+        evidence_ids = list(
+            dict.fromkeys([*scen[sid]["evidence_ids"], "ev_power_daily", "ev_crop_catalog"])
+        )
+
+        def m(v, u):
+            return measure(v, u, origin, label, evidence_ids)
 
         metrics[sid] = {
             "irrigation_need": m(s["irrigation_mm"]["p50"], "mm"),
@@ -626,6 +696,8 @@ def metrics_view(summary: dict, base_summary: dict | None, scen: dict) -> tuple[
                     "unit": "day",
                 },
             }
+            for metric in delta[sid].values():
+                metric.update(evidence_ids=evidence_ids, origin=origin, label=label)
     return metrics, delta
 
 
@@ -822,8 +894,12 @@ def run_plan(
     gates.append(
         {
             "gate": "G6",
-            "passed": False,
-            "message": "Không có dự báo mùa được kiểm chứng (NASA POWER Projection chưa có dữ liệu cho ĐBSCL); dùng lịch sử + kịch bản giả định.",
+            "passed": "sc_forecast" in scen,
+            "message": (
+                "Seasonal forecast present and fresh; skill not evaluated for Mekong."
+                if "sc_forecast" in scen
+                else "Forecast unavailable/stale; skill not evaluated for Mekong. Using climatology + stress tests."
+            ),
         }
     )
     gates.append(
@@ -869,7 +945,7 @@ def run_plan(
                     }
                     for r in c["rules"]
                 ],
-                "triggers": [],
+                "triggers": explain(c, base, ev)["triggers"],
                 "checklist": [],
             }
         )
@@ -894,7 +970,7 @@ def run_plan(
                     for k in ("rule_id", "severity", "reason", "inputs_used", "how_to_resolve")
                 },
             }
-    notes = []
+    notes = list(ctx.get("outlook_notes", []))
     if len(picked) < 2:
         notes.append(
             "Không đủ hai phương án thay thế khả thi khác biệt; không bịa thêm ứng viên (AC-01)."

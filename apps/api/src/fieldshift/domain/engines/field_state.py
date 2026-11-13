@@ -55,11 +55,37 @@ def estimate_state(field: dict, ctx: dict, as_of: dt.date, observations: list[di
     gw = round(st.mean(recent), 3) if recent else None
     anomaly = round(gw - st.mean(same), 3) if gw is not None and same else None
 
+    upstream = ctx.get("upstream_discharge", {})
     ecw = latest.get("canal_ecw")
     drainage = latest.get("drainage")
     drainage_val = drainage["value_text"] if drainage else prof.get("drainage", "unknown")
     return {
         "as_of": str(as_of),
+        "upstream_discharge": measure(
+            upstream.get("value"),
+            "m³/s",
+            "estimated_from_regional_data",
+            "Ước lượng vùng",
+            ["ev_glofas"],
+            reason=upstream.get("reason") or "GLOFAS_UNAVAILABLE",
+        )
+        | {"date": upstream.get("date"), "context_only": True},
+        "upstream_discharge_anomaly": measure(
+            upstream.get("anomaly_pct"),
+            "%",
+            "estimated_from_regional_data",
+            "Ước lượng vùng",
+            ["ev_glofas"],
+            reason="SAME_CALENDAR_CLIMATOLOGY_UNAVAILABLE",
+        ),
+        "upstream_discharge_trend": measure(
+            upstream.get("trend_m3_s_per_day"),
+            "m³/s/day",
+            "estimated_from_regional_data",
+            "Ước lượng vùng",
+            ["ev_glofas"],
+            reason="DISCHARGE_TREND_UNAVAILABLE",
+        ),
         "root_zone_wetness": measure(
             gw, "fraction_0_1", "estimated_from_regional_data", "Ước lượng vùng", ["ev_power_gwet"]
         ),
