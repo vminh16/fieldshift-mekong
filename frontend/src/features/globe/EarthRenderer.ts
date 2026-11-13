@@ -7,6 +7,7 @@ import {
   Mesh,
   PerspectiveCamera,
   Raycaster,
+  RepeatWrapping,
   Scene,
   ShaderMaterial,
   SphereGeometry,
@@ -184,6 +185,9 @@ export class EarthRenderer {
       this.earthMat.uniforms.maskMap.value = prep(t, false)
     })
     loader.load('/textures/earth-clouds-4k.jpg', (t) => {
+      // Clouds drift via a UV offset, so u runs past 1: wrap instead of clamping,
+      // or the last texel column smears into latitude streaks.
+      t.wrapS = RepeatWrapping
       prep(t, false)
       this.earthMat.uniforms.cloudMap.value = t
       this.cloudMat.uniforms.cloudMap.value = t
@@ -383,7 +387,8 @@ export class EarthRenderer {
     }
 
     this.earth.rotation.set(this.tilt, this.spin, 0, 'XYZ')
-    this.earthMat.uniforms.cloudOffset.value = (now / 1000) * 0.0004 // clouds drift slightly faster
+    // Kept in [0, 1) so float precision never degrades on long-open tabs.
+    this.earthMat.uniforms.cloudOffset.value = ((now / 1000) * 0.0004) % 1 // clouds drift slightly faster
     this.applyCamera()
     this.renderer.render(this.scene, this.camera)
     this.onFrame?.()
