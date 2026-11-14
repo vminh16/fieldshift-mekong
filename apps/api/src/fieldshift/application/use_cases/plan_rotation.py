@@ -91,8 +91,11 @@ def make_plan(c, f, req: dict, kind: str, parent_id=None, override=None, history
     as_of = dt.date.fromisoformat(req["as_of"])
     ctx = context_for(f, as_of)
     state = estimate_state(f, ctx, as_of, observations(c, f["id"]))
+    # Unset profile keys (None) are dropped so the planner applies its own defaults
+    # (baseline -> assumed rice + failed G2, irrigation -> "full"); state keeps them as assumed.
+    f_run = {**f, "profile": {k: v for k, v in f["profile"].items() if v is not None}}
     try:
-        core = run_plan(f, ctx, state, req, override, simulate=simulate_season)
+        core = run_plan(f_run, ctx, state, req, override, simulate=simulate_season)
     except ValueError as e:
         raise InvalidInput("PLAN_INPUT_INVALID", str(e)) from e
     st_id = db.new_id("st")
@@ -252,7 +255,7 @@ def replan(c, decision_id: str, as_of: dt.date, completed: list):
     remaining = req["horizon_seasons"] - done
     if remaining < 1:
         raise InvalidInput("NOTHING_TO_REPLAN", "Tất cả các vụ đã hoàn thành")
-    base = req.get("baseline") or f["profile"]["baseline"]
+    base = req.get("baseline") or f["profile"].get("baseline") or []
     req.update(
         as_of=str(as_of), horizon_seasons=remaining, baseline=base[done : done + remaining] or None
     )

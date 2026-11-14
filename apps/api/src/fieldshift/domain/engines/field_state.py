@@ -58,7 +58,8 @@ def estimate_state(field: dict, ctx: dict, as_of: dt.date, observations: list[di
     upstream = ctx.get("upstream_discharge", {})
     ecw = latest.get("canal_ecw")
     drainage = latest.get("drainage")
-    drainage_val = drainage["value_text"] if drainage else prof.get("drainage", "unknown")
+    drainage_val = drainage["value_text"] if drainage else prof.get("drainage") or "unknown"
+    irrigation = prof.get("irrigation")
     return {
         "as_of": str(as_of),
         "upstream_discharge": measure(
@@ -121,7 +122,10 @@ def estimate_state(field: dict, ctx: dict, as_of: dt.date, observations: list[di
             "origin": "reported_by_farmer" if drainage_val != "unknown" else "unknown",
             "label": "Nông dân khai báo" if drainage_val != "unknown" else "Chưa biết",
         },
-        "irrigation": {"value": prof.get("irrigation", "unknown"), "origin": "reported_by_farmer"},
+        # Missing irrigation is computed as "full" (planner default) but must not read as farmer-reported.
+        "irrigation": {"value": irrigation, "origin": "reported_by_farmer"}
+        if irrigation
+        else {"value": "full", "origin": "assumed_default", "label": "Giả định mặc định"},
         "coastal_salinity_risk": {
             "value": bool(prof.get("coastal_salinity_risk")),
             "origin": "regional_config",

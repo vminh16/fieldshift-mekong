@@ -16,11 +16,11 @@ Drainage = Literal["good", "poor", "unknown"]
 
 
 class FieldProfile(BaseModel):
-    baseline: list[CropId] = Field(
-        default_factory=lambda: ["rice", "rice", "rice"], min_length=1, max_length=6
-    )
-    irrigation: Irrigation = "full"
-    drainage: Drainage = "unknown"
+    # None = the farmer has not told us. Never default these to a value: the state would then
+    # label an assumption as "reported_by_farmer" and gate G2 would always pass.
+    baseline: list[CropId] | None = Field(default=None, min_length=1, max_length=6)
+    irrigation: Irrigation | None = None
+    drainage: Drainage | None = None
     coastal_salinity_risk: bool = False
     equipment: list[str] = []
     history: list[dict] = []
