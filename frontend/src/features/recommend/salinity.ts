@@ -11,7 +11,7 @@ export function salinityWindowOf(twin: Twin): SalinityWindow | null {
 
 /** Crop calendar overlap is exposure to a regional window, never observed salt concentration. */
 export function exposureDays(option: OptionWithExposure, window: SalinityWindow | null): number | null {
-  const reported = option.salinity_exposure_days?.typical
+  const reported = option.salinity_exposure_days?.option // engine's own count for this chain
   if (typeof reported === 'number' && Number.isFinite(reported)) return reported
   if (!window) return null
   const lo = Date.parse(window.start), hi = Date.parse(window.end)
