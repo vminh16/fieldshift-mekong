@@ -2,7 +2,7 @@
 
 from fieldshift.infrastructure.data_sources.forecasts.open_meteo_seasonal import load_seasonal
 from fieldshift.infrastructure.data_sources.glofas import load_discharge
-from fieldshift.infrastructure.data_sources.nasa.nex_cmip6 import load_projections
+from fieldshift.infrastructure.data_sources.nasa.nex_cmip6 import RELEASE_DATE, load_projections
 
 OPEN_METEO = {
     "attribution": "Weather data by Open-Meteo.com / ECMWF (non-NASA)",
@@ -16,7 +16,7 @@ OPEN_METEO = {
 def add_outlook(ctx, field, as_of):
     ck = field["profile"].get("cache_key")
     forecast, forecast_status = load_seasonal(field["lat"], field["lon"], as_of, ck)
-    projections, notes = load_projections(ck)
+    projections, notes = load_projections(ck, as_of)
     discharge, discharge_status = load_discharge(as_of)
     ctx.update(
         forecast=forecast,
@@ -27,7 +27,13 @@ def add_outlook(ctx, field, as_of):
     ctx["sources_status"].update(
         OPEN_METEO_SEASONAL=forecast_status,
         GLOFAS=discharge_status,
-        NEX_GDDP_CMIP6="CACHED" if projections else "INSUFFICIENT_COVERAGE",
+        NEX_GDDP_CMIP6=(
+            "CACHED"
+            if projections
+            else "PROJECTION_UNAVAILABLE_AT_AS_OF"
+            if as_of < RELEASE_DATE
+            else "INSUFFICIENT_COVERAGE"
+        ),
     )
     ctx["evidence"].update(
         {

@@ -47,7 +47,7 @@ Lỗi: `{"detail": {"code": "...", "message": "..."}}` — 404 `FIELD_NOT_FOUND`
   "field_id": "fld_cantho",
   "as_of": "2026-11-14",            // optional, mặc định hôm nay
   "horizon_seasons": 3,             // 1–3
-  "baseline": null,                 // optional, mặc định profile.baseline ["rice","rice","rice"]
+  "baseline": null,                 // optional, mặc định profile.baseline; nếu profile không có baseline → lúa liên tục GIẢ ĐỊNH và gate G2 `passed=false`
   "priorities": ["save_water", "avoid_crop_failure", "soil_health"], // + "supplemental_income" | "minimal_change"
   "constraints": { "no_new_machinery": true, "max_changed_seasons": 1, "max_fallow_seasons": 1,
                    "irrigation": null, "irrigation_cap_mm": null, "budget_level": null }
@@ -57,7 +57,7 @@ Lỗi: `{"detail": {"code": "...", "message": "..."}}` — 404 `FIELD_NOT_FOUND`
   "override": { "rain_delta_pct": -30, "temp_delta_c": 1.5, "salinity_onset_shift_weeks": -4, "sow_shift_days": { "1": 7 }, "irrigation_cap_mm": 300 } }
 ```
 `geometry` (FE `frontend/`): GeoJSON **Feature** — `geometry` là `Polygon` (ranh giới đã khoanh) hoặc `Point` (chỉ ghim), `properties: {place_name, area_source: "drawn"|"reported"}`. Backend lưu nguyên, không đọc. `null` = ruộng mẫu/chưa có hình.
-`profile`: `{baseline: CropId[], irrigation: "full"|"canal_limited"|"rainfed", drainage: "good"|"poor"|"unknown", coastal_salinity_risk: bool, equipment: string[], history: []}`.
+`profile`: `{baseline?: CropId[]|null, irrigation?: "full"|"canal_limited"|"rainfed"|null, drainage?: "good"|"poor"|"unknown"|null, coastal_salinity_risk: bool, equipment: string[], history: []}`. Trường để `null` = người dùng chưa khai báo: `field_state.irrigation` trả `origin: "assumed_default"` (label "Giả định mặc định", tính như `full`), `drainage` = `unknown`, và G2 fail với "baseline GIẢ ĐỊNH".
 `CropId`: `rice | maize | soybean | mungbean | sesame | peanut | watermelon | fallow_cover`.
 
 ## 4. DecisionPackage (POST/GET /plans)

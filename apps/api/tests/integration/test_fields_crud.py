@@ -27,7 +27,7 @@ def test_field_keeps_frontend_geometry_and_patches():
         assert created.status_code == 201, created.text
         field = created.json()
         assert field["geometry"] == PARCEL
-        assert field["profile"]["baseline"] == ["rice", "rice", "rice"]
+        assert field["profile"]["baseline"] is None  # unknown stays unknown (G2 fails)
 
         patched = client.patch(
             f"/v1/fields/{field['id']}",

@@ -1,10 +1,10 @@
 // FieldShift-Mekong API v1 — TypeScript types (hand-written from contracts/fixtures; see API_CONTRACT.md).
 // Backend changes are additive only: keep `[key: string]: unknown` tolerance where noted.
 
-export type Label = 'Đo tại ruộng' | 'Ước lượng vùng' | 'Dự kiến' | 'Kịch bản' | 'Chưa biết' | string
+export type Label = 'Đo tại ruộng' | 'Ước lượng vùng' | 'Dự kiến' | 'Kịch bản' | 'Giả định mặc định' | 'Chưa biết' | string
 export type Origin =
   | 'measured_at_field' | 'reported_by_farmer' | 'estimated_from_regional_data'
-  | 'inferred_by_model' | 'assumed_scenario' | 'unknown' | string
+  | 'inferred_by_model' | 'assumed_scenario' | 'assumed_default' | 'unknown' | string
 
 export interface Measure<T = number> {
   value: T | null
@@ -24,9 +24,11 @@ export type ScenarioKind = 'CLIMATOLOGY' | 'STRESS_TEST' | 'FORECAST' | 'CLIMATE
 export type Severity = 'HARD' | 'SOFT' | 'UNKNOWN_REQUIRES_CHECK'
 
 export interface FieldProfile {
-  baseline: CropId[]
-  irrigation: 'full' | 'canal_limited' | 'rainfed'
-  drainage: 'good' | 'poor' | 'unknown'
+  /** null = chưa khai báo → engine dùng baseline GIẢ ĐỊNH (gate G2 fail) */
+  baseline?: CropId[] | null
+  /** null = chưa khai báo → state.irrigation.origin = 'assumed_default' (tính như 'full') */
+  irrigation?: 'full' | 'canal_limited' | 'rainfed' | null
+  drainage?: 'good' | 'poor' | 'unknown' | null
   coastal_salinity_risk: boolean
   equipment: string[]
   history: unknown[]

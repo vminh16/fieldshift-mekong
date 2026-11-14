@@ -224,16 +224,9 @@
           "profile": {
             "$ref": "#/components/schemas/FieldProfile",
             "default": {
-              "baseline": [
-                "rice",
-                "rice",
-                "rice"
-              ],
               "coastal_salinity_risk": false,
-              "drainage": "unknown",
               "equipment": [],
-              "history": [],
-              "irrigation": "full"
+              "history": []
             }
           },
           "region_id": {
@@ -334,23 +327,30 @@
       "FieldProfile": {
         "properties": {
           "baseline": {
-            "items": {
-              "enum": [
-                "rice",
-                "maize",
-                "soybean",
-                "mungbean",
-                "sesame",
-                "peanut",
-                "watermelon",
-                "fallow_cover"
-              ],
-              "type": "string"
-            },
-            "maxItems": 6,
-            "minItems": 1,
-            "title": "Baseline",
-            "type": "array"
+            "anyOf": [
+              {
+                "items": {
+                  "enum": [
+                    "rice",
+                    "maize",
+                    "soybean",
+                    "mungbean",
+                    "sesame",
+                    "peanut",
+                    "watermelon",
+                    "fallow_cover"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 6,
+                "minItems": 1,
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Baseline"
           },
           "cache_key": {
             "anyOf": [
@@ -369,14 +369,20 @@
             "type": "boolean"
           },
           "drainage": {
-            "default": "unknown",
-            "enum": [
-              "good",
-              "poor",
-              "unknown"
+            "anyOf": [
+              {
+                "enum": [
+                  "good",
+                  "poor",
+                  "unknown"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
             ],
-            "title": "Drainage",
-            "type": "string"
+            "title": "Drainage"
           },
           "equipment": {
             "default": [],
@@ -396,14 +402,20 @@
             "type": "array"
           },
           "irrigation": {
-            "default": "full",
-            "enum": [
-              "full",
-              "canal_limited",
-              "rainfed"
+            "anyOf": [
+              {
+                "enum": [
+                  "full",
+                  "canal_limited",
+                  "rainfed"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
             ],
-            "title": "Irrigation",
-            "type": "string"
+            "title": "Irrigation"
           }
         },
         "title": "FieldProfile",

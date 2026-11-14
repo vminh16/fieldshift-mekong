@@ -54,10 +54,10 @@ def test_live_cache_aside(monkeypatch):
 
 
 def test_projection_delta_and_splice():
-    projections, notes = load_projections("cantho")
+    projections, notes = load_projections("cantho", AS_OF)
     assert len(projections) == 4 and not notes
-    assert load_projections("soctrang")[0] == []
-    assert load_projections("soctrang")[1]
+    assert load_projections("soctrang", AS_OF)[0] == []
+    assert load_projections("soctrang", AS_OF)[1]
     day = {
         "date": dt.date(2024, 1, 1),
         "tmax": 30,
