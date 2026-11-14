@@ -7,7 +7,7 @@ import { CROP_SHORT } from '../../shared/decision/source'
 import { openTwin, type ChainSpec, type TwinSource } from '../../shared/twin/source'
 import { ApiError } from '../../shared/api/client'
 import { ChainPicker } from './ChainPicker'
-import { SoilColumn } from './SoilColumn'
+import { FieldScene3D } from './scene/FieldScene3D'
 import { TwinTimeline } from './TwinTimeline'
 import { WhatIfPanel, describe, toOverride, type Assumptions } from './WhatIfPanel'
 import './twin.css'
@@ -43,7 +43,10 @@ export function TwinScreen({ fieldId, sequenceId }: { fieldId: string | null; se
   const [member, setMember] = useState<number | null>(null)
   const [a, setA] = useState<Side>(EMPTY)
   const [b, setB] = useState<Side>(EMPTY)
-  const [index, setIndex] = useState(0)
+  // Fractional week position: playback glides, the scene eases between weeks.
+  const [pos, setPos] = useState(0)
+  const index = Math.floor(pos)
+  const setIndex = (i: number) => setPos(i)
   const [playing, setPlaying] = useState(false)
   const [assume, setAssume] = useState<Assumptions | null>(null)
   const [history, setHistory] = useState<Assumptions[]>([])
@@ -112,20 +115,28 @@ export function TwinScreen({ fieldId, sequenceId }: { fieldId: string | null; se
 
   const weeks = Math.max(a.twin?.series.length ?? 0, b.twin?.series.length ?? 0)
 
-  // Play: one week every 320 ms; stops at the end.
-  const timer = useRef(0)
+  // Play: 3 weeks per second on requestAnimationFrame; stops at the end.
+  const raf = useRef(0)
   useEffect(() => {
     if (!playing) return
-    timer.current = window.setInterval(() => {
-      setIndex((i) => {
-        if (i >= weeks - 1) {
-          setPlaying(false)
-          return i
+    let last = performance.now()
+    const step = (now: number) => {
+      const dt = Math.min(0.1, (now - last) / 1000)
+      last = now
+      let done = false
+      setPos((p) => {
+        const next = p + dt * 3
+        if (next >= weeks - 1) {
+          done = true
+          return weeks - 1
         }
-        return i + 1
+        return next
       })
-    }, 320)
-    return () => window.clearInterval(timer.current)
+      if (done) setPlaying(false)
+      else raf.current = requestAnimationFrame(step)
+    }
+    raf.current = requestAnimationFrame(step)
+    return () => cancelAnimationFrame(raf.current)
   }, [playing, weeks])
 
   if (!field) {
@@ -253,13 +264,13 @@ export function TwinScreen({ fieldId, sequenceId }: { fieldId: string | null; se
               <SideView
                 tag="A"
                 side={a}
-                week={a.twin?.series[Math.min(index, (a.twin?.series.length ?? 1) - 1)]}
+                pos={pos}
                 picker={<ChainPicker decision={d} value={specA} onChange={setSpecA} locked={locked} busy={a.busy} />}
               />
               <SideView
                 tag="B"
                 side={b}
-                week={b.twin?.series[Math.min(index, (b.twin?.series.length ?? 1) - 1)]}
+                pos={pos}
                 picker={<ChainPicker decision={d} value={specB} onChange={setSpecB} locked={locked} busy={b.busy} />}
               />
             </div>
@@ -310,7 +321,9 @@ function errorText(e: unknown) {
   return e instanceof Error ? e.message : 'Không mô phỏng được.'
 }
 
-function SideView({ tag, side, week, picker }: { tag: 'A' | 'B'; side: Side; week: TwinWeek | undefined; picker: React.ReactNode }) {
+function SideView({ tag, side, pos, picker }: { tag: 'A' | 'B'; side: Side; pos: number; picker: React.ReactNode }) {
+  const series = side.twin?.series ?? []
+  const week: TwinWeek | undefined = series[Math.max(0, Math.min(series.length - 1, Math.floor(pos)))]
   const c = side.chain
   const hard = c?.rules.find((r) => r.severity === 'HARD')
   const checks = c?.rules.filter((r) => r.severity === 'UNKNOWN_REQUIRES_CHECK').length ?? 0
@@ -334,7 +347,7 @@ function SideView({ tag, side, week, picker }: { tag: 'A' | 'B'; side: Side; wee
                 : 'Khả thi với dữ liệu hiện có'}
       </p>
       <div className="tw-side__canvas" data-busy={side.busy || undefined}>
-        <SoilColumn week={week} />
+        {series.length ? <FieldScene3D series={series} pos={Math.min(pos, series.length - 1)} /> : <div className="scene3d scene3d--empty" />}
       </div>
       <dl className="tw-ind">
         <Ind label="Ẩm vùng rễ" m={week?.root_zone_water} fmt={(v) => `${Math.round(v * 100)}%`} empty="Đất trống" />

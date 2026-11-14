@@ -281,3 +281,48 @@
 @media (max-width: 599px) {
   .whatif__grid { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* ---------- 3D field block ---------- */
+.scene3d {
+  position: relative;
+  height: clamp(300px, 34vw, 420px);
+  overflow: hidden;
+  border-radius: 8px;
+  background: radial-gradient(120% 90% at 60% 30%, #1b211d 0%, var(--color-bg) 70%);
+}
+.scene3d--empty { background: var(--color-surface); }
+.scene3d__canvas { position: absolute; inset: 0; cursor: grab; touch-action: pan-y; }
+.scene3d__canvas:active { cursor: grabbing; }
+.scene3d__canvas canvas { display: block; width: 100%; height: 100%; }
+.scene3d__caption { position: absolute; left: 14px; top: 12px; z-index: 2; margin: 0; font-size: 0.875rem; color: var(--color-text-muted); pointer-events: none; }
+.scene3d__caption strong { color: var(--color-text); font-weight: 600; }
+.scene3d__hint { position: absolute; right: 12px; bottom: 10px; font-size: 0.6875rem; color: var(--color-text-subtle); pointer-events: none; }
+
+/* Labels are placed every frame at projected 3D anchors (translate set inline). */
+.scene3d__tag,
+.scene3d__depth {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 200ms var(--ease-out);
+  will-change: transform;
+}
+.scene3d__tag {
+  margin: -30px 0 0 0;
+  padding: 3px 8px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 4px;
+  background: rgba(13, 15, 14, 0.82);
+  color: var(--color-text);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+.scene3d__tag b { font-weight: 600; color: #9cc6f2; }
+.scene3d__tag--root { margin: -12px 0 0 10px; border-color: rgba(194, 227, 168, 0.4); }
+.scene3d__tag--canal { margin: -14px 0 0 0; }
+.scene3d__tag--canal[data-salt] { border-color: rgba(227, 184, 102, 0.6); }
+.scene3d__tag--canal b { color: var(--color-warn); }
+.scene3d__depth { margin: -7px 0 0 -44px; width: 38px; font-size: 0.6875rem; color: var(--color-text-subtle); text-align: right; font-variant-numeric: tabular-nums; }
