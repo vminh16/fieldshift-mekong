@@ -205,7 +205,7 @@ def simulate_season(
         stage, kc = _stage_kc(i, crop)
         et0 = et0s[i]
         rain = by_date[d]["rain_mm"] or 0.0
-        tmax = by_date[d]["tmax"]
+        tmax = by_date[d].get("heat_tmax", by_date[d]["tmax"])
         if stage == crop["heat"]["sensitive_stage"] and tmax is not None and tmax >= thr:
             heat += 1
         irr = out = 0.0

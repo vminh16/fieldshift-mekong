@@ -20,6 +20,7 @@ from fieldshift.domain.engines.future_outlook import (
     dry_season_rain,
     year_outlook,
 )
+from fieldshift.domain.engines.official_guidance import active_region
 from fieldshift.domain.formatting import number_vi
 from fieldshift.domain.value_objects.measure import measure
 
@@ -27,7 +28,7 @@ VERSIONS = {
     "catalog": CROPS["version"],
     "rules": "rules-1",
     "water_model": "fao56-v1",
-    "planner": "pareto-v2",
+    "planner": "pareto-v3-audit",
 }
 PPT_PER_DS_M = 0.64  # TDS ≈ 640·ECw (FAO-29, ECw < 5 dS/m); VN extension reports salinity in ‰
 DEFAULT_CANAL_CAP_MM = (
@@ -46,7 +47,7 @@ STRATEGY_VI = {
     "soil_support": "Hỗ trợ đất",
     "balanced": "Thay đổi ít, cân bằng",
     "third_season_rest": "Nghỉ vụ ba / xả lũ",
-    "salinity_avoidance": "Né mặn: xuống giống sớm",
+    "salinity_avoidance": "Gieo đầu khung vụ",
 }
 # Strategies whose ranking prefers keeping the high-value seasons (production_value_index).
 VALUE_AWARE_STRATEGIES = frozenset({"low_risk", "soil_support", "balanced"})
@@ -73,12 +74,12 @@ CONFIDENCE_HIGH_WIN_RATIO = 0.9
 CONFIDENCE_MEDIUM_WIN_RATIO = 0.6
 OUTLOOK_KINDS = ("FORECAST", "CLIMATE_PROJECTION")
 ROBUSTNESS_RULE = (
-    "Thắng một kịch bản khi trung vị nước tưới thấp hơn hiện tại VÀ trung vị (ngày thiếu nước"
-    " + ngày nắng nóng) không cao hơn hiện tại, trên cùng kịch bản."
+    "Đạt tiêu chí nội bộ khi trung vị nước tưới mô hình thấp hơn hiện tại VÀ trung vị (ngày thiếu nước"
+    " + ngày nắng nóng) không cao hơn hiện tại, trên cùng kịch bản; không phải kiểm định thực địa hay xác suất thành công."
 )
 CONFIDENCE_BASIS = (
-    "HIGH: thắng ≥ 90 % kịch bản, không thiếu dữ liệu đầu vào của luật, trạng thái"
-    " RECOMMEND_FOR_CONSIDERATION, không thua kịch bản dự báo mùa/CMIP6; MEDIUM: thắng ≥ 60 %;"
+    "Nhãn so sánh nội bộ, không phải xác suất thành công. HIGH: đạt ≥ 90 % kịch bản, không thiếu dữ liệu đầu vào của luật, trạng thái"
+    " RECOMMEND_FOR_CONSIDERATION, không thua kịch bản dự báo mùa/CMIP6; MEDIUM: đạt ≥ 60 %;"
     " còn lại LOW. Chuỗi hiện tại là mốc so sánh nên chỉ xét dữ liệu thiếu và trạng thái."
 )
 SCENARIO_PRESENTATION = {
@@ -198,7 +199,9 @@ def salinity_window(region: dict, as_of: dt.date, shift_weeks: int) -> tuple[dt.
     for y in (as_of.year, as_of.year + 1):
         lo, hi = _md(y, s["typical_onset"]), _md(y, s["typical_end"])
         if hi >= as_of:
-            return lo + dt.timedelta(weeks=shift_weeks), hi
+            return lo - dt.timedelta(
+                days=(s.get("onset_advance_days", 0) if y == s.get("onset_advance_year", y) else 0)
+            ) + dt.timedelta(weeks=shift_weeks), hi
     raise ValueError("no salinity window")
 
 
@@ -245,7 +248,22 @@ class Evaluator:
         )
         self.cap = irrigation_cap
         self.year_outlook = year_outlook(ctx, as_of, analog_years(ctx, as_of, span_days))
+        self.region, self.salinity_adjusted = active_region(
+            self.region, self.year_outlook, as_of, ctx["evidence"]
+        )
         self.scenarios = build_scenarios(ctx, as_of, span_days, override, self.year_outlook)
+        for scenario in self.scenarios:
+            if self.salinity_adjusted:
+                scenario["assumptions"].append(
+                    "ASSUMPTION: SIWRR qua báo; khung mặn bắt đầu 01/12/2026 thay 15/01/2027"
+                )
+                scenario["evidence_ids"] = list(
+                    dict.fromkeys([*scenario["evidence_ids"], "ev_siwrr_2026_press"])
+                )
+            if "ev_heat_conflict" in ctx["evidence"]:
+                scenario["evidence_ids"] = list(
+                    dict.fromkeys([*scenario["evidence_ids"], "ev_era5", "ev_heat_conflict"])
+                )
         years = sorted(
             [
                 m["year"]
@@ -534,10 +552,15 @@ def field_rules(seq, ev: "Evaluator", summ: dict, constraints: dict) -> list[dic
                     "R_HEAT",
                     "SOFT",
                     i,
-                    f"{c['name_vi']}: trung vị {number_vi(ps['heat_stress_days_sensitive'])} ngày Tmax ≥ {number_vi(c['heat']['tmax_threshold_c'])} °C ở giai đoạn nhạy cảm",
-                    ["NASA POWER T2M_MAX", "crops.heat"],
+                    f"{c['name_vi']}: ước tính trung vị {number_vi(ps['heat_stress_days_sensitive'])} ngày Tmax ≥ {number_vi(c['heat']['tmax_threshold_c'])} °C ở giai đoạn nhạy cảm",
+                    ["POWER/ERA5 heat_tmax (monthly conflict correction)", "crops.heat"],
                     "Dời ngày gieo để giai đoạn nhạy cảm tránh tháng nóng",
-                    ["ev_power_daily", "ev_crop_catalog"],
+                    ["ev_power_daily", "ev_crop_catalog"]
+                    + (
+                        ["ev_era5", "ev_heat_conflict"]
+                        if "ev_heat_conflict" in ev.ctx["evidence"]
+                        else []
+                    ),
                 )
             )
         if ps["water_stress_days"] >= WATER_STRESS_DAYS_SOFT:
@@ -854,8 +877,9 @@ def strategy_reasons(c, base, ev, strategy) -> tuple[list[dict], dict | None]:
         early = next(s for s in c["seq"]["seasons"] if s["window"] == EARLY_SOW_WINDOW)
         lead.append(
             {
-                "text": f"Giữ chuỗi cây hiện tại, xuống giống vụ {early['window_name_vi']} sớm ({early['sow']}, thu hoạch {early['harvest']}): bớt {number_vi(avoided['typical'])} ngày trùng mùa mặn điển hình ({lo}–{hi}) và {number_vi(avoided['early_onset'])} ngày nếu mặn đến sớm {number_vi(-SALINITY_EARLY_WEEKS)} tuần, so với gieo chuẩn. Không loại bỏ rủi ro mặn: vẫn phải đo ECw nước kênh trước khi gieo.",
-                "evidence_ids": ["ev_salinity_season", "ev_region_calendar"],
+                "text": f"Giữ chuỗi cây hiện tại, gieo đầu khung vụ {early['window_name_vi']} ({early['sow']}, thu hoạch {early['harvest']}): bớt {number_vi(avoided['typical'])} ngày trùng khung mặn đang dùng ({lo}–{hi}) và {number_vi(avoided['early_onset'])} ngày nếu mặn đến sớm {number_vi(-SALINITY_EARLY_WEEKS)} tuần, so với gieo chuẩn. Không loại bỏ rủi ro mặn: vẫn phải đo ECw nước kênh trước khi gieo.",
+                "evidence_ids": ["ev_salinity_season", "ev_region_calendar"]
+                + (["ev_official_2504"] if "ev_official_2504" in ev.ctx["evidence"] else []),
             }
         )
     vc, vb = c["production_value_index"], base["production_value_index"]
@@ -869,13 +893,11 @@ def strategy_reasons(c, base, ev, strategy) -> tuple[list[dict], dict | None]:
     detail = "đổi vụ " + ", ".join(s["window_name_vi"] for s in changed)
     kept = next((s for s in c["seq"]["seasons"] if s["window"] == top), None)
     if kept and all(s["window"] != top for s in changed):
-        detail = f"giữ {kept['crop_name_vi'].lower()} vụ {kept['window_name_vi']} (trọng số giá trị cao nhất), chỉ {detail}"
+        detail = f"giữ {kept['crop_name_vi'].lower()} vụ {kept['window_name_vi']} (vụ được nhóm ưu tiên giữ), chỉ {detail}"
     value = {
-        "text": f"Chỉ số giá trị sản xuất tương đối {number_vi(vc)} so với {number_vi(vb)} của chuỗi hiện tại: {detail} (heuristic nhóm [B], không phải năng suất hay lợi nhuận).",
+        "text": f"Điểm tham khảo do nhóm tự đặt là {number_vi(vc)} so với {number_vi(vb)} hiện tại: {detail}; chỉ giúp so sánh cách giữ vụ, không phải năng suất hay lợi nhuận.",
         "evidence_ids": VALUE_REASON_EVIDENCE,
     }
-    if strategy in VALUE_AWARE_STRATEGIES:
-        return lead + [value], None
     return lead, value
 
 
@@ -887,7 +909,7 @@ def explain(c, base, ev, strategy=None) -> dict:
     if d <= -50:
         reasons.append(
             {
-                "text": f"Nhu cầu tưới trung vị giảm ~{number_vi(-d)} mm (~{number_vi(-d * 10)} m³/ha) so với hiện tại trên cùng {number_vi(s['members'])} năm lịch sử NASA POWER.",
+                "text": f"Ước tính mô hình: nhu cầu tưới trung vị giảm ~{number_vi(-d)} mm (~{number_vi(-d * 10)} m³/ha) so với hiện tại trên cùng {number_vi(s['members'])} năm lịch sử NASA POWER.",
                 "evidence_ids": ["ev_power_daily", "ev_crop_catalog"],
             }
         )
@@ -901,23 +923,45 @@ def explain(c, base, ev, strategy=None) -> dict:
             reasons.insert(
                 0,
                 {
-                    "text": f"Trong các năm tương tự ENSO hiện tại ({PHASE_VI[outlook['enso']['phase']]}: {', '.join(outlook['analog_labels_vi'])}), giảm ~{number_vi(-de)} mm nước tưới so với hiện tại (năm tương tự, không phải dự báo).",
+                    "text": f"Trong các năm tương tự ENSO hiện tại ({PHASE_VI[outlook['enso']['phase']]}: {', '.join(outlook['analog_labels_vi'])}), mô hình ước tính giảm ~{number_vi(-de)} mm nước tưới so với hiện tại (năm tương tự, không phải dự báo).",
                     "evidence_ids": list(outlook["evidence_ids"]),
                 },
             )
     if dd <= -50 and de > -50:
         reasons.append(
             {
-                "text": f"Trong các năm khô nhất, giảm ~{number_vi(-dd)} mm nước tưới so với hiện tại.",
+                "text": f"Trong các năm khô nhất, mô hình ước tính giảm ~{number_vi(-dd)} mm nước tưới so với hiện tại.",
                 "evidence_ids": ["ev_power_daily"],
+            }
+        )
+    water_stress_delta = s["water_stress_days"]["p50"] - b["water_stress_days"]["p50"]
+    if water_stress_delta < 0:
+        reasons.append(
+            {
+                "text": f"Mô hình ước tính bớt {number_vi(-water_stress_delta)} ngày thiếu nước so với hiện tại.",
+                "evidence_ids": ["ev_power_daily", "ev_crop_catalog"],
+            }
+        )
+    if "R_PEST_CYCLE" in {r["rule_id"] for r in base["rules"]} and "R_PEST_CYCLE" not in {
+        r["rule_id"] for r in c["rules"]
+    }:
+        reasons.append(
+            {
+                "text": "Luân phiên cây hoặc nghỉ vụ có thể cắt vòng sâu bệnh của lúa liên tục; lợi ích định tính, chưa mô phỏng sâu bệnh.",
+                "evidence_ids": ["ev_crop_catalog"],
             }
         )
     ds = s["heat_stress_days_sensitive"]["p50"] - b["heat_stress_days_sensitive"]["p50"]
     if ds <= -3:
         reasons.append(
             {
-                "text": f"Giảm ~{number_vi(-ds)} ngày nắng nóng (≥ ngưỡng cây) ở giai đoạn nhạy cảm.",
-                "evidence_ids": ["ev_power_daily", "ev_crop_catalog"],
+                "text": f"Ước tính bớt ~{number_vi(-ds)} ngày nắng nóng (≥ ngưỡng cây) ở giai đoạn nhạy cảm; dùng quy tắc đối chiếu POWER–ERA5 nếu có.",
+                "evidence_ids": ["ev_power_daily", "ev_crop_catalog"]
+                + (
+                    ["ev_era5", "ev_heat_conflict"]
+                    if "ev_heat_conflict" in ev.ctx["evidence"]
+                    else []
+                ),
             }
         )
     sal_b = sum(1 for r in base["rules"] if r["rule_id"].startswith("R_SALINITY"))
@@ -938,9 +982,56 @@ def explain(c, base, ev, strategy=None) -> dict:
             }
         )
     lead, value = strategy_reasons(c, base, ev, strategy)
-    reasons = lead + reasons
+    reasons += lead
+    if ev.state["coastal_salinity_risk"]["value"]:
+        lo, hi = salinity_window(ev.region, ev.as_of, 0)
+        refs = ["ev_salinity_season"] + (["ev_siwrr_2026_press"] if ev.salinity_adjusted else [])
+        reasons.insert(
+            0,
+            {
+                "text": f"Cây đứng trong khung mặn {number_vi(c['salinity_exposure']['typical'])} ngày thay vì {number_vi(base['salinity_exposure']['typical'])} ngày của hiện tại ({lo}–{hi}); đây là số ngày phơi nhiễm theo lịch, chưa đo mặn tại thửa. Vẫn phải đo ECw và xác nhận nguồn nước ngọt.",
+                "evidence_ids": refs,
+            },
+        )
+    if "ev_official_2504" in ev.ctx["evidence"] and ev.as_of.year == 2026:
+        changed = [
+            (x, y)
+            for x, y in zip(c["seq"]["seasons"], base["seq"]["seasons"])
+            if x["crop"] != y["crop"] and y["crop"] == "rice"
+        ]
+        if changed:
+            direction = (
+                "giảm từ 3 vụ lúa xuống 2 vụ"
+                if any(x["crop"] == "fallow_cover" for x, _ in changed)
+                and len(c["seq"]["seasons"]) == 3
+                and base["seq"]["crops"].count("rice") == 3
+                else "chuyển một phần đất lúa sang cây cạn dùng ít nước"
+            )
+            reasons.append(
+                {
+                    "text": f"Cùng hướng Công văn 2504/TTTV-TTBVTV (19/6/2026): {direction} ở nơi thiếu nước hoặc 3 vụ kém hiệu quả. Cần xác nhận điều kiện cấp nước và thoát nước tại thửa.",
+                    "evidence_ids": ["ev_official_2504"],
+                }
+            )
+        for season in c["seq"]["seasons"]:
+            if season["window"] == EARLY_SOW_WINDOW:
+                sow = season["sow"]
+                label = (
+                    "đợt 1 (01–30/11/2026)"
+                    if dt.date(2026, 11, 1) <= sow <= dt.date(2026, 11, 30)
+                    else "đợt 2 (01–31/12/2026)"
+                    if dt.date(2026, 12, 1) <= sow <= dt.date(2026, 12, 31)
+                    else "ngoài hai đợt tháng 11–12; cần xác minh lịch địa phương"
+                )
+                reasons.append(
+                    {
+                        "text": f"Ngày gieo {sow} thuộc {label}. Khung gieo sớm né mặn chính thức 10–30/10/2026 {'đã qua' if ev.as_of > dt.date(2026, 10, 30) else 'cần đối chiếu theo ngày lập kế hoạch'}; gieo đầu khung của engine không đồng nghĩa gieo sớm né mặn.",
+                        "evidence_ids": ["ev_official_2504", "ev_region_calendar"],
+                    }
+                )
+                break
     if value:
-        reasons.insert(min(len(lead) + 1, len(reasons)), value)
+        reasons.append(value)
     if not reasons:
         reasons.append(
             {
@@ -1023,7 +1114,7 @@ def explain(c, base, ev, strategy=None) -> dict:
         if r["severity"] in ("SOFT", "UNKNOWN_REQUIRES_CHECK")
     ]
     return {
-        "reasons": reasons[:3],
+        "reasons": reasons,
         "risks": risks,
         "triggers": triggers,
         "checklist": list(dict.fromkeys(checklist)),
@@ -1326,6 +1417,7 @@ def run_plan(
     max_dur = max(c["duration_days"]["max"] for c in CROPS["crops"])
     span = (windows[-1]["sow_to"] - as_of).days + max_dur + 5
     ev = Evaluator(ctx, state, field, as_of, span, cap, override, simulate=simulate)
+    region = ev.region
     if not ev.scenarios:
         return {
             "insufficient": True,
@@ -1571,6 +1663,10 @@ def run_plan(
             "distribution": c["distribution"],
             "delta_vs_baseline": delta,
             "production_value_index": c["production_value_index"],
+            "salinity_exposure_days": {
+                "option": c["salinity_exposure"]["typical"],
+                "baseline": base["salinity_exposure"]["typical"],
+            },
             "soil_benefit": {
                 "claim_type": "POTENTIAL_QUALITATIVE",
                 "value": None,
@@ -1617,10 +1713,12 @@ def run_plan(
         if strategy in enso_driven:
             yo = ev.year_outlook
             enso_text = (
-                f"Phương án này được chọn khác so với khi coi mọi năm như nhau, vì tiêu chí năm khô"
-                f" dùng các năm tương tự ENSO ({', '.join(yo['analog_labels_vi'])}; không phải dự báo)."
+                f"Thứ tự phương án thay đổi khi tiêu chí năm khô"
+                f" dùng tín hiệu thống kê ENSO ({', '.join(yo['analog_labels_vi'])}; chênh lệch stress nhỏ, có thể do phá hòa; chưa chứng minh lợi thế tưới)."
             )
             out["reasons"].append({"text": enso_text, "evidence_ids": list(yo["evidence_ids"])})
+        # Keep the team value heuristic last, including additional what-if/ENSO notes.
+        out["reasons"].sort(key=lambda r: "ev_value_heuristic" in r.get("evidence_ids", []))
         if c is not base:
             pairs = list(zip(seq["seasons"], base["seq"]["seasons"]))
             changes = [
@@ -1628,7 +1726,7 @@ def run_plan(
                 for s, b in pairs
                 if s["crop"] != b["crop"]
             ] or [
-                f"Xuống giống vụ {s['window_name_vi']} sớm" for s, b in pairs if s["sow"] < b["sow"]
+                f"Gieo đầu khung vụ {s['window_name_vi']}" for s, b in pairs if s["sow"] < b["sow"]
             ]
             summary = "; ".join(changes) + ": " + out["reasons"][0]["text"]
             if any(r["rule_id"] == "R_DRAINAGE_UNKNOWN" for r in c["rules"]):
@@ -1670,7 +1768,20 @@ def run_plan(
         notes.append(
             "Không đủ hai phương án thay thế khả thi khác biệt; không bịa thêm ứng viên (AC-01)."
         )
+    active_lo, active_hi = salinity_window(region, as_of, 0)
+    typical_lo, typical_hi = salinity_window(ctx["region"], as_of, 0)
     result = {
+        "source_conflicts": ctx.get("source_conflicts", []),
+        "salinity_window": {
+            "start": str(active_lo),
+            "end": str(active_hi),
+            "typical_start": str(typical_lo),
+            "typical_end": str(typical_hi),
+            "adjusted": ev.salinity_adjusted,
+            "kind": "ASSUMPTION",
+            "evidence_ids": ["ev_salinity_season"]
+            + (["ev_siwrr_2026_press"] if ev.salinity_adjusted else []),
+        },
         "gates": gates,
         "windows": [
             {**w, "sow_from": str(w["sow_from"]), "sow_to": str(w["sow_to"])} for w in windows

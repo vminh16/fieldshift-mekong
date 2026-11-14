@@ -105,6 +105,8 @@ export interface Option {
   distribution?: Record<string, DistributionPoint[]>
   /** Σ season_value_weight × crop value_index; team heuristic [B], not yield/profit */
   production_value_index: number
+  /** Calendar overlap counts for every option; no salinity measurement implied. */
+  salinity_exposure_days: { option: number; baseline: number }
   /** salinity_avoidance only: overlap days removed vs the standard-sow baseline */
   salinity_overlap_avoided_days?: { typical: number; early_onset: number }
   soil_benefit: { claim_type: 'POTENTIAL_QUALITATIVE'; value: null; indicators: string[] }
@@ -152,6 +154,8 @@ export interface DecisionPackage {
   windows: { id: string; name_vi: string; sow_from: string; sow_to: string }[]
   scenarios: Scenario[]
   year_outlook: YearOutlook
+  salinity_window: { start: string; end: string; typical_start: string; typical_end: string; adjusted: boolean; kind: string; evidence_ids: string[] }
+  source_conflicts: { status: string; policy: string; note_vi?: string; evidence_ids: string[]; [key: string]: unknown }[]
   baseline: Option
   options: Option[]
   excluded: { sequence_id: string; crops: CropId[]; rule_id: string; severity: 'HARD'; reason: string }[]
@@ -183,3 +187,14 @@ export interface Twin {
 }
 export interface TwinCompare { baseline: Twin; option: Twin }
 export interface ApiError { detail: { code: string; message: string } | unknown }
+
+export type SourceUse = 'DECISION' | 'EVIDENCE' | 'CONTEXT' | 'NOT_USED'
+export interface DataSource {
+  id: string; name: string; provider: string; is_nasa: boolean; use: SourceUse
+  used_for_vi: string; variables: string[]; spatial_resolution: string
+  time_range: string | null; latency: string | null; limitations_vi: string[]
+  url: string | null; in_challenge_list: boolean
+}
+export interface SourcesResponse {
+  sources: DataSource[]; generated_at: string; nasa_used_count: number; challenge_sources_used: string[]
+}

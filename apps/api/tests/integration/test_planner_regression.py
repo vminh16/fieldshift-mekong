@@ -34,6 +34,10 @@ FIXTURES = Path(__file__).resolve().parents[4] / "contracts" / "fixtures"
 # Xuan He peanut -> Dong Xuan peanut, balanced sesame -> maize (equal-weight shortlist:
 # maize, mungbean, peanut, sesame, fallow; see the UNAVAILABLE-path test for that engine).
 # Soc Trang is unchanged.
+# Audit A2/A7: fixture numerical pins deliberately regenerated: coastal window begins
+# Dec 1 (press-reported SIWRR assumption) and heat counts use monthly POWER–ERA5 bias
+# correction above 2 C; ET0/irrigation inputs stay unchanged. Can Tho/Soc Trang sequence
+# ids remain pinned below; heat/distribution evidence and salinity dates intentionally change.
 EXPECTED_IDS = {
     "cantho": [
         "seq_rice_peanut_rice__early_standard_standard",

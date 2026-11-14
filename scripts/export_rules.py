@@ -15,6 +15,15 @@ sys.path.insert(0, str(ROOT / "apps/api/src"))
 
 from fieldshift.domain.catalog import CROPS, REGIONS  # noqa: E402
 from fieldshift.domain.engines import rotation_planner as planner  # noqa: E402
+from fieldshift.domain.engines.official_guidance import (  # noqa: E402
+    OFFICIAL_URL,
+    SIWRR_2026_ONSET_ADVANCE_DAYS,
+    SIWRR_PRESS_URL,
+)
+from fieldshift.infrastructure.data_sources.heat_conflict import (  # noqa: E402
+    HEAT_CONFLICT_THRESHOLD_C,
+    MIN_PAIRED_DAYS_PER_MONTH,
+)
 
 PLANNER_SRC = Path(planner.__file__)
 OUT = ROOT / "docs/RULES.md"
@@ -51,7 +60,7 @@ RULE_NOTES = {
     "R_HEAT": (
         "Số ngày Tmax >= ngưỡng ở giai đoạn nhạy cảm (trung vị) >= HEAT_STRESS_DAYS_SOFT",
         B,
-        "ngưỡng Tmax theo cây: xem bảng cây; ngưỡng ngày do nhóm đặt",
+        "ngưỡng Tmax/ngày theo cây; đếm nóng qua quy tắc POWER–ERA5 khi chênh lệch tháng > 2 °C (giả định nhóm); ET₀ giữ POWER gốc",
     ),
     "R_WATER_STRESS": (
         "Số ngày thiếu nước (trung vị) >= WATER_STRESS_DAYS_SOFT",
@@ -277,6 +286,13 @@ def build() -> tuple[str, str]:
         "",
     ]
 
+    parts += [
+        "## 5. Chính sách audit A2/A7\n",
+        f"- Nhiệt: |chênh lệch trung bình tháng POWER−ERA5| > {HEAT_CONFLICT_THRESHOLD_C} °C, ít nhất {MIN_PAIRED_DAYS_PER_MONTH} cặp ngày trước as_of → trừ chênh lệch chỉ khi đếm nóng. [B] giả định nhóm; giữ Tmax gốc cho ET₀. Xem HEAT_BIAS_REPORT.md.",
+        f"- Mùa 2026–27: El Niño + dẫn SIWRR qua báo → đầu khung mặn sớm {SIWRR_2026_ONSET_ADVANCE_DAYS} ngày (01/12 thay 15/01). [B] ASSUMPTION, chưa đọc bản tin gốc. [Bài báo]({SIWRR_PRESS_URL}).",
+        f"- [Công văn 2504/TTTV-TTBVTV, 19/6/2026]({OFFICIAL_URL}): đã đọc PDF gốc; lịch gieo sớm 10–30/10, đợt 1 trong tháng 11, đợt 2 tháng 12. Ngày đầu khung engine 15/11 là đợt 1.",
+        "",
+    ]
     body = "\n".join(parts)
     digest = hashlib.sha256(body.encode()).hexdigest()[:16]
     return (

@@ -200,6 +200,8 @@ def year_outlook(ctx: dict, as_of: dt.date, years: list[int]) -> dict:
             f" mưa mùa khô chỉ khoảng {number_vi(round(ratio * 100))} % năm thường — nguy cơ hạn,"
             " mặn có thể cao hơn bình thường."
         )
+        if family != "EL_NINO":
+            head = head.split(" — nguy cơ")[0] + ". Tín hiệu thống kê mưa; chưa suy ra nguy cơ mặn."
     elif ratio > WETTER_RATIO:
         head += (
             f" mưa mùa khô khoảng {number_vi(round(ratio * 100))} % năm thường — mùa khô có thể"
@@ -207,6 +209,10 @@ def year_outlook(ctx: dict, as_of: dt.date, years: list[int]) -> dict:
         )
     else:
         head += " mưa mùa khô gần như năm thường."
+    head += " Tín hiệu thống kê, không phải dự báo."
+    note += (
+        " Hindcast: hướng mưa đúng 12/15 ca; chưa cho thấy lợi thế tưới của top-1 (0/15 ca giảm)."
+    )
     return {
         **out,
         "status": "OK",
@@ -256,6 +262,17 @@ def build_weather(
                 * (monthly_rain_factor or {}).get(str(d.month), 1),
                 **((forecast_daily or {}).get(str(d), {}) if i < 180 else {}),
             }
+        )
+    for row in out:
+        h = by_date[shift_year(row["date"], off)]
+        forecast = (forecast_daily or {}).get(str(row["date"]), {})
+        # SEAS5 has no POWER bias calibration: use its own Tmax for forecast days.
+        row["heat_tmax"] = (
+            row["tmax"]
+            if "tmax" in forecast
+            else h.get("heat_tmax", h["tmax"])
+            + temp_delta
+            + (monthly_tmax_delta or {}).get(str(row["date"].month), 0)
         )
     return out
 
@@ -345,7 +362,7 @@ def build_scenarios(
                 "evidence_ids": list(ENSO_EVIDENCE),
                 "assumptions": [
                     f"analog_years_same_enso_phase_oni_{enso['centered_month']}",
-                    "salinity_timing_unchanged_typical_window",
+                    "salinity_timing_from_plan_window_not_inferred_from_enso_alone",
                 ],
                 "members": [{"year": y} for y in outlook["analog_years"]],
             }

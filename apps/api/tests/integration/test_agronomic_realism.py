@@ -44,7 +44,8 @@ def test_cantho_top_pick_keeps_dong_xuan_rice(plans):
     assert top["seasons"][0]["window"] == "dong_xuan" and crops[0] == "rice"
     assert crops[1] != "rice" or crops[2] == "fallow_cover"
     assert top["production_value_index"] < plans["fld_cantho"]["baseline"]["production_value_index"]
-    assert "Chỉ số giá trị sản xuất" in top["reasons"][0]["text"]
+    assert "ước tính" in top["reasons"][0]["text"]
+    assert "ev_value_heuristic" in top["reasons"][-1]["evidence_ids"]
 
 
 def test_production_value_index_prefers_keeping_dong_xuan_rice():
@@ -93,7 +94,7 @@ def test_inland_third_season_rest_is_qualitative_practice(plans):
     assert rest["strategy_name_vi"] == "Nghỉ vụ ba / xả lũ"
     assert [s["crop"] for s in rest["seasons"]] == ["rice", "rice", "fallow_cover"]
     assert rest["seasons"][2]["window"] == "thu_dong"
-    lead = rest["reasons"][0]
+    lead = next(r for r in rest["reasons"] if r.get("claim_type") == "POTENTIAL_QUALITATIVE")
     assert lead["claim_type"] == "POTENTIAL_QUALITATIVE" and "rầy nâu" in lead["text"]
     assert by_tag(plans["fld_soctrang"], "third_season_rest") is None
 
@@ -101,14 +102,48 @@ def test_inland_third_season_rest_is_qualitative_practice(plans):
 def test_soctrang_shortlists_early_sowing_salinity_avoidance(plans):
     p = plans["fld_soctrang"]
     option = by_tag(p, "salinity_avoidance")
-    assert option is not None and option["strategy_name_vi"] == "Né mặn: xuống giống sớm"
+    assert option is not None and option["strategy_name_vi"] == "Gieo đầu khung vụ"
     assert [s["crop"] for s in option["seasons"]] == [s["crop"] for s in p["baseline"]["seasons"]]
     assert option["seasons"][0]["window"] == "dong_xuan"
     assert option["seasons"][0]["sow_timing"] == "early"
     avoided = option["salinity_overlap_avoided_days"]
     assert avoided["typical"] > 0 and avoided["early_onset"] >= 0
-    assert f"bớt {avoided['typical']} ngày" in option["reasons"][0]["text"]
+    assert f"bớt {avoided['typical']} ngày" in " ".join(r["text"] for r in option["reasons"])
     # Not a salinity-safety claim: the ECw check is still required.
-    assert "ECw" in option["reasons"][0]["text"]
+    assert "ECw" in " ".join(r["text"] for r in option["reasons"])
     assert any(r["rule_id"] == "R_SALINITY_UNKNOWN" for r in option["rules"])
     assert by_tag(plans["fld_cantho"], "salinity_avoidance") is None
+
+
+def test_audit_reasons_and_source_inventory(plans):
+    with TestClient(app) as client:
+        response = client.get("/v1/sources").json()
+    sources = {s["id"]: s for s in response["sources"]}
+    assert response["generated_at"] and response["nasa_used_count"] > 0
+    for p in plans.values():
+        assert set(p["evidence"]) <= sources.keys()
+        assert p["source_conflicts"][0]["et0_uses"] == "ORIGINAL_POWER_TMAX"
+        assert p["salinity_window"]["start"] == "2026-12-01"
+        assert next(g for g in p["gates"] if g["gate"] == "G8")["passed"]
+        for o in p["options"]:
+            assert isinstance(o["salinity_exposure_days"]["option"], int)
+            assert (
+                o["salinity_exposure_days"]["baseline"]
+                == p["baseline"]["salinity_exposure_days"]["option"]
+            )
+            assert "ev_value_heuristic" not in o["reasons"][0]["evidence_ids"]
+            if o["production_value_index"] != p["baseline"]["production_value_index"]:
+                assert "ev_value_heuristic" in o["reasons"][-1]["evidence_ids"]
+            assert any("ev_official_2504" in r["evidence_ids"] for r in o["reasons"])
+    coastal = plans["fld_soctrang"]["options"][0]
+    assert "84 ngày thay vì 177 ngày" in coastal["reasons"][0]["text"]
+    assert "84 ngày thay vì 177 ngày" in coastal["summary_vi"]
+    assert any(
+        "đợt 1" in r["text"] and "10–30/10/2026 đã qua" in r["text"] for r in coastal["reasons"]
+    )
+    for id_ in ("ev_smap", "ev_modis", "ev_landsat", "ev_ecostress", "ev_grace"):
+        assert sources[id_]["use"] == "NOT_USED" and sources[id_]["limitations_vi"]
+    for id_ in ("ev_enso_oni", "ev_era5", "ev_seasonal_forecast", "ev_glofas", "ev_soil"):
+        assert sources[id_]["is_nasa"] is False
+    assert sources["ev_imerg_monthly"]["use"] == "EVIDENCE"
+    assert sources["ev_srtm"]["use"] == "CONTEXT"

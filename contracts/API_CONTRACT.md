@@ -122,3 +122,15 @@ Gợi ý vẽ: mặt cắt ruộng SVG — `ponding_mm` = nước mặt ruộng 
 4. `POST /plans/{id}/what-if` → decision mới (giữ bản gốc để so)
 5. Checklist/triggers/evidence → `GET /plans/{id}/export` (chia sẻ Zalo/in)
 6. Sau vụ: `POST /plans/{id}/replan`; định kỳ `GET /plans/{id}/status`
+
+## Audit 14/11/2026: nguồn, khung mặn và xung đột nhiệt
+
+`GET /v1/sources` trả `SourcesResponse` trong `types.ts`: `{sources: DataSource[], generated_at, nasa_used_count, challenge_sources_used}`. Mỗi `DataSource` có `id`, `name`, `provider`, `is_nasa`, `use`, `used_for_vi`, `variables`, `spatial_resolution`, `time_range`, `latency`, `limitations_vi`, `url`, `in_challenge_list`. Thứ tự `use`: `DECISION` → `EVIDENCE` → `CONTEXT` → `NOT_USED`; `id` khớp khóa evidence của plan demo. Số đếm NASA là số **mục evidence** NASA có dùng, nên POWER daily và GWETROOT là hai mục của cùng sản phẩm; `challenge_sources_used` chứa các id tương ứng, không phải số sản phẩm độc lập.
+
+POWER = DECISION; IMERG = EVIDENCE (thống kê mưa/banner, không thay mưa mô phỏng nước); SRTM = CONTEXT (độ cao trong ET₀ chỉ dùng áp suất khí quyển và bức xạ trời quang FAO-56; không mô hình địa hình/ngập). NOAA ONI, ERA5, SEAS5, GloFAS, SoilGrids đều `is_nasa=false`. SMAP/MODIS/Landsat/ECOSTRESS/GRACE = NOT_USED kèm lý do. SEAS5/CMIP6 không chọn shortlist nhưng có thể thay đánh giá độ bền/confidence. `sources.json` là fixture endpoint.
+
+Mỗi option và baseline có `salinity_exposure_days: {option: number, baseline: number}`: số ngày **cây có trồng** trùng khung mặn, không cộng vụ nghỉ; đây là số đếm lịch không gán unit/Measure. Với nội đồng, đây chỉ là phép so lịch, không khẳng định có mặn. `salinity_window` của plan có `start`, `end`, `typical_start`, `typical_end`, `adjusted`, `kind`, `evidence_ids`. Chỉ mùa 2026–27, khi có tín hiệu El Niño và dẫn SIWRR qua báo, khung bắt đầu 01/12/2026 thay 15/01/2027; kết thúc vẫn 15/06. Đây là ASSUMPTION, không phải mặn đo tại thửa. Twin và số ngày phơi nhiễm cùng dùng cửa sổ này; `sc_salt_early` thêm 4 tuần sớm hơn để thử.
+
+`salinity_avoidance` giữ id kỹ thuật nhưng nhãn mới là **Gieo đầu khung vụ**. `sow_timing=early` chỉ nghĩa đầu khung engine, ngày 15/11 thuộc đợt 1 chính thức; khung gieo sớm né mặn 10–30/10 đã qua tại as_of 14/11. `reasons` trả đầy đủ theo thứ tự mặn/nước/stress/thực hành/chỉ đạo, điểm giữ vụ do nhóm đặt ở cuối; FE không nên tự sắp xếp lại.
+
+`source_conflicts` nằm trong plan và context. `ev_heat_conflict` dẫn cả `ev_power_daily` và `ev_era5`; ghi ngưỡng 2 °C, chênh lệch từng tháng, `fit_before`, chính sách `MONTHLY_MEAN_BIAS_CORRECTION_HEAT_ONLY`, `et0_uses=ORIGINAL_POWER_TMAX`. Tmax gốc được giữ cho ET₀/nước; chỉ `heat_tmax` dùng đếm nóng, theo cùng delta nhiệt ở kịch bản. SEAS5 dùng Tmax riêng trong 180 ngày đầu, không áp sai lệch POWER lên SEAS5. Không có bundle ERA5 → POWER thô, ghi UNAVAILABLE. `/context.climate.monthly[].days_tmax_ge_35` dùng quy tắc nhiệt, `days_tmax_ge_35_raw_power` giữ số cũ; `tmax_c` vẫn là POWER gốc, có `tmax_basis` giải thích.

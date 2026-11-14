@@ -25,6 +25,9 @@ def main():
         return data
 
     with httpx.Client(base_url=args.base_url + "/", timeout=180) as client:
+        save("sources.json", client.get("sources"))
+        for site in ("bentre", "chaudoc"):
+            save(f"plan_{site}.json", client.post("plans", json={"field_id": f"fld_{site}", "as_of": args.as_of}))
         inland = save(
             "plan_cantho.json",
             client.post("plans", json={"field_id": "fld_cantho", "as_of": args.as_of}),
