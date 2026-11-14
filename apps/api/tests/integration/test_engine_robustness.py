@@ -210,7 +210,13 @@ def test_nine_seasons_beam_search(client):
     )
     elapsed = time.perf_counter() - started
     print(f"n=9 plan: {elapsed:.2f} s, stats={p['stats']}")
-    assert elapsed < 10
+    # Scale is guarded by work done, which is deterministic; wall-clock on shared CI runners
+    # is not (the same plan took 7.3–10.5 s). Exhaustive search over 9 seasons would generate
+    # millions of chains; the beam keeps it to a few hundred (baseline: 204 / 7772).
+    stats = p["stats"]
+    assert stats["generated"] <= 400
+    assert stats["season_simulations"] <= 12_000
+    assert elapsed < 60  # only catches a pathological regression, not normal runner noise
     assert len(p["windows"]) == 9 and len(p["options"]) >= 2
     base = [s["crop"] for s in p["baseline"]["seasons"]]
     for o in p["options"]:
