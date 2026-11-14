@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-13T15:49:22.028360+00:00",
+  "generated_at": "2026-11-13T23:13:32.707793+00:00",
   "worktree": "/home/viet/projects/nasa/wt-api",
   "branch": "exp/api",
   "scope": "Superset of every named challenge source and extras; SSURGO/STATSGO2 and MODIS/VIIRS grouped. Status FETCHED describes artifact acquisition, not guaranteed usable measurements; inspect notes and counts.",
@@ -351,7 +351,7 @@
         "2026-11-09"
       ],
       "latency_days": 4,
-      "verified_on": "2026-11-13T15:49:21.984969+00:00",
+      "verified_on": "2026-11-13T23:13:32.621516+00:00",
       "notes": "Existing integrated daily AG cache repackaged with fill→null. Mixed coastal meteorology cell; requested point is not verified grid center.",
       "integrated_files": [
         "apps/api/src/fieldshift/resources/demo_cache/power/soctrang.json.gz",
@@ -362,16 +362,16 @@
     },
     {
       "source": "GPM IMERG",
-      "status": "SCRIPT_READY_NEEDS_TIME",
+      "status": "FETCHED",
       "auth": "Earthdata netrc; IPv4 curl; private temporary cookie jar, removed on exit",
       "what_we_fetched": {
         "imerg_late/bentre": {
-          "rows": 450,
+          "rows": 1412,
           "time_range": [
             "2023-01-01",
-            "2024-03-25"
+            "2026-11-12"
           ],
-          "bytes_gz": 2561,
+          "bytes_gz": 7193,
           "variables": {
             "precipitation_mm_day": {
               "unit": "mm/day",
@@ -380,9 +380,9 @@
           },
           "qa_note": {
             "POWER_PRECTOTCORR": {
-              "n": 450,
-              "bias": -0.17523,
-              "correlation": 0.470405,
+              "n": 1409,
+              "bias": -0.12224,
+              "correlation": 0.434864,
               "bias_definition": "source minus POWER"
             },
             "comparison_unit": "mm/day",
@@ -390,12 +390,12 @@
           }
         },
         "imerg_late/cantho": {
-          "rows": 450,
+          "rows": 1412,
           "time_range": [
             "2023-01-01",
-            "2024-03-25"
+            "2026-11-12"
           ],
-          "bytes_gz": 2594,
+          "bytes_gz": 7357,
           "variables": {
             "precipitation_mm_day": {
               "unit": "mm/day",
@@ -404,9 +404,9 @@
           },
           "qa_note": {
             "POWER_PRECTOTCORR": {
-              "n": 450,
-              "bias": 0.04467,
-              "correlation": 0.630397,
+              "n": 1409,
+              "bias": 0.3061,
+              "correlation": 0.55072,
               "bias_definition": "source minus POWER"
             },
             "comparison_unit": "mm/day",
@@ -414,12 +414,12 @@
           }
         },
         "imerg_late/chaudoc": {
-          "rows": 450,
+          "rows": 1412,
           "time_range": [
             "2023-01-01",
-            "2024-03-25"
+            "2026-11-12"
           ],
-          "bytes_gz": 2547,
+          "bytes_gz": 7333,
           "variables": {
             "precipitation_mm_day": {
               "unit": "mm/day",
@@ -428,9 +428,9 @@
           },
           "qa_note": {
             "POWER_PRECTOTCORR": {
-              "n": 450,
-              "bias": 0.33134,
-              "correlation": 0.458682,
+              "n": 1409,
+              "bias": 0.21632,
+              "correlation": 0.371449,
               "bias_definition": "source minus POWER"
             },
             "comparison_unit": "mm/day",
@@ -438,12 +438,12 @@
           }
         },
         "imerg_late/soctrang": {
-          "rows": 450,
+          "rows": 1412,
           "time_range": [
             "2023-01-01",
-            "2024-03-25"
+            "2026-11-12"
           ],
-          "bytes_gz": 2605,
+          "bytes_gz": 7371,
           "variables": {
             "precipitation_mm_day": {
               "unit": "mm/day",
@@ -452,9 +452,9 @@
           },
           "qa_note": {
             "POWER_PRECTOTCORR": {
-              "n": 450,
-              "bias": 0.57176,
-              "correlation": 0.580128,
+              "n": 1409,
+              "bias": 0.29375,
+              "correlation": 0.433918,
               "bias_definition": "source minus POWER"
             },
             "comparison_unit": "mm/day",
@@ -570,13 +570,13 @@
       ],
       "time_range": [
         "2001-01-01",
-        "2025-09-01"
+        "2026-11-12"
       ],
       "latency_days": {
         "monthly_final": 409,
         "daily_late": 1
       },
-      "verified_on": "2026-11-13T15:49:21.987142+00:00",
+      "verified_on": "2026-11-13T23:13:32.627471+00:00",
       "notes": "V07 Final monthly mm/hr × 24 × calendar days → mm/month; Late daily mm/day unchanged. One spatial window for four sites. POWER comparisons are period-matched; progress below distinguishes partial coverage. DAP4 metadata avoids incompatible V07B UInt64 attributes. Old gpm1 host stopped accepting connections tonight; cloud works.",
       "progress": {
         "imerg_monthly": {
@@ -595,16 +595,16 @@
         },
         "imerg_late": {
           "product": "GPM_3IMERGDL",
-          "completed": 450,
+          "completed": 1412,
           "requested": 1412,
-          "seconds": 1119.79,
+          "seconds": 3611.62,
           "time_range": [
             "2023-01-01",
             "2026-11-12"
           ],
-          "updated_at": "2026-11-13T15:49:11.526592+00:00",
-          "effective_seconds_per_request": 2.488,
-          "estimated_remaining_minutes": 39.9,
+          "updated_at": "2026-11-13T16:30:43.353479+00:00",
+          "effective_seconds_per_request": 2.558,
+          "estimated_remaining_minutes": 0.0,
           "rate_note": "Measured wall time/window; estimate, not a service SLA. Cached resume is faster."
         }
       }
@@ -617,7 +617,7 @@
       "files": [],
       "time_range": null,
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:21.987269+00:00",
+      "verified_on": "2026-11-13T23:13:32.627706+00:00",
       "notes": "L4 model soil moisture surface/root zone, not measured canal salinity. Requested 2015-01-01→2026-11-10; SMAP starts 2015-03-31. [UNVERIFIED] Output units, coverage and cloud/valid counts await task completion.",
       "task_id": "cda894d8-b108-48e9-bb21-4197c438c0ee",
       "task_status": "processing",
@@ -635,7 +635,7 @@
       "files": [],
       "time_range": null,
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:21.987306+00:00",
+      "verified_on": "2026-11-13T23:13:32.627778+00:00",
       "notes": "MOD13Q1 NDVI/EVI and MOD16A2GF actual ET. VIIRS not separately fetched. MOD16 gap-filled current year normally absent; per-composite ET is not ET0. [UNVERIFIED] Output units, coverage and cloud/valid counts await task completion.",
       "task_id": "cda894d8-b108-48e9-bb21-4197c438c0ee",
       "task_status": "processing",
@@ -653,10 +653,10 @@
       "files": [],
       "time_range": null,
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:21.987346+00:00",
+      "verified_on": "2026-11-13T23:13:32.627860+00:00",
       "notes": "HLSL30_VI.020/HLSS30_VI.020 NDVI plus corresponding HLSL30.020/HLSS30.020 Fmask. Point CSV already scaled. Join QA and VI by acquisition before use; no cloud interpolation. [UNVERIFIED] Output units, coverage and cloud/valid counts await task completion.",
       "task_id": "29e9d95a-58e2-4e37-a0ac-4309cd0428d4",
-      "task_status": "processing",
+      "task_status": "done",
       "task_state_file": ".fieldshift/cache/appeears/task_thermal_hls.json",
       "requested_time_range": [
         "01-01-2023",
@@ -671,10 +671,10 @@
       "files": [],
       "time_range": null,
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:21.987378+00:00",
+      "verified_on": "2026-11-13T23:13:32.627920+00:00",
       "notes": "Catalog verified ECO_L2T_LSTE.002 LST/LST_err/QC/cloud and ECO_L3T_JET.002 ETdaily/cloud; requested 2023-01-01→2026-11-13. Catalog offers requested v002; do not substitute v003 silently. [UNVERIFIED] Output units, coverage and cloud/valid counts await task completion.",
       "task_id": "29e9d95a-58e2-4e37-a0ac-4309cd0428d4",
-      "task_status": "processing",
+      "task_status": "done",
       "task_state_file": ".fieldshift/cache/appeears/task_thermal_hls.json",
       "requested_time_range": [
         "01-01-2023",
@@ -882,7 +882,7 @@
         "2026-07-01"
       ],
       "latency_days": 105,
-      "verified_on": "2026-11-13T15:49:21.989312+00:00",
+      "verified_on": "2026-11-13T23:13:32.631691+00:00",
       "notes": "Data Rods endpoint returns HTML, not series; NASA explicitly discontinued service. No GLDAS in AppEEARS catalog. Successful alternate fallback: GLDAS_NOAH025_M v2.1 cloud OPeNDAP, 4 variables, monthly means 2001→2026-07. This does NOT provide 3-hourly data. Soil water kg/m2 divided by layer depth and water density; flux integrated over calendar month. No current-state claim.",
       "progress": {
         "completed": 307,
@@ -985,7 +985,7 @@
         "2000-02-11"
       ],
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:21.989567+00:00",
+      "verified_on": "2026-11-13T23:13:32.632170+00:00",
       "notes": "Existing SRTM via OpenTopoData inspected and repackaged; NASADEM not independently fetched. Static mission February 2000; vertical precision inadequate for field-scale inundation thresholds.",
       "integrated_files": [
         "apps/api/src/fieldshift/resources/demo_cache/srtm/soctrang.json",
@@ -1103,7 +1103,7 @@
         "2010-01-01"
       ],
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:21.990161+00:00",
+      "verified_on": "2026-11-13T23:13:32.633367+00:00",
       "notes": "Programmatic FAO ArcGIS res05 and LR ImageServer identify, with locked raster IDs and renderingRule None. Four crops wetland rice/maize/soybean/groundnut; rainfed all-land indices plus irrigated current-cropland indices, high/low input, and soil constraints. 41 layers/site. Mungbean absent; no substitution. Static prior, not current soil measurement.",
       "coverage_evidence": [
         {
@@ -1335,7 +1335,7 @@
         "2024-09"
       ],
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:21.990224+00:00",
+      "verified_on": "2026-11-13T23:13:32.633479+00:00",
       "notes": "Pitch browse images only. EPSG:4326 snapshot BBOX uses latitude,longitude axis order; intended lon/lat bounds [104.4,8.5,106.9,11.2]. NDVI uses MODIS Terra L3 16-day product and aligned composite dates. Transparent dry-season rain image cannot distinguish zero from missing by itself; no quantitative inference. See image README for visual checks."
     },
     {
@@ -1368,7 +1368,7 @@
       ],
       "time_range": null,
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:21.990351+00:00",
+      "verified_on": "2026-11-13T23:13:32.633715+00:00",
       "notes": "CMR bbox intersections are granule-level coverage only, NOT proof that a laser footprint hits a demo field. Latest L4A V3 collection C4212593885-ORNL_CLOUD. ±0.005° site windows. [UNVERIFIED] Exact footprint intersection and biomass QA not inspected. Sparse woody-biomass sampling is unsuitable for rice-rotation state."
     },
     {
@@ -1381,7 +1381,7 @@
       "files": [],
       "time_range": null,
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:21.990376+00:00",
+      "verified_on": "2026-11-13T23:13:32.633765+00:00",
       "notes": "Covered via HLSS30 / HLSS30_VI; no separate Sentinel-2 L2A download."
     },
     {
@@ -1645,7 +1645,7 @@
         "2026-11-08"
       ],
       "latency_days": 5,
-      "verified_on": "2026-11-13T15:49:22.011716+00:00",
+      "verified_on": "2026-11-13T23:13:32.676155+00:00",
       "notes": "Explicit models=era5, UTC, nearest grid, elevation=nan (no downscaling); daily Tmax/Tmin/precipitation/FAO ET0. Four sites, no CDS auth. Recent ERA5T preliminary. POWER comparisons in headers. Completed after transient 429 retry.",
       "license": "CC BY 4.0 Open-Meteo; Copernicus attribution"
     },
@@ -1675,7 +1675,7 @@
       ],
       "time_range": null,
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:22.012229+00:00",
+      "verified_on": "2026-11-13T23:13:32.677087+00:00",
       "notes": "Existing integration/cache only. All 4 site files contain null clay/sand/pH/SOC at both depths: ZERO usable measurements. Runtime fallback is an ASSUMPTION, never observations. GAEZ provides independent static soil constraints. [UNVERIFIED] SoilGrids service recovery not tested tonight."
     },
     {
@@ -1734,7 +1734,7 @@
         "model_updates": "monthly",
         "observational_latency": null
       },
-      "verified_on": "2026-11-13T15:49:22.018292+00:00",
+      "verified_on": "2026-11-13T23:13:32.689257+00:00",
       "notes": "Existing integrated responses inspected locally. ECMWF SEAS5 ensemble, uncalibrated locally; forecast probabilities not independently verified."
     },
     {
@@ -1773,7 +1773,7 @@
         "model_updates": "daily",
         "observational_latency": null
       },
-      "verified_on": "2026-11-13T15:49:22.019283+00:00",
+      "verified_on": "2026-11-13T23:13:32.691309+00:00",
       "notes": "Existing integrated responses inspected locally. Tan Chau modeled regional discharge, not field salinity. Includes 2001–2020 daily reference and recent/7-day forecast."
     },
     {
@@ -1825,7 +1825,7 @@
         "2050-12"
       ],
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:22.028140+00:00",
+      "verified_on": "2026-11-13T23:13:32.707559+00:00",
       "notes": "v2.0 ACCESS-CM2/MPI-ESM1-2-HR × SSP245/585 × tasmax/pr. 2025–2050. CSV units checked K→degC, kg m-2 s-1→mm/day, complete calendar-month aggregation. Completed site files automatically replace bundled projections atomically; 4 scenarios/site. No SSP probabilities."
     },
     {
@@ -1838,7 +1838,7 @@
       "files": [],
       "time_range": null,
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:22.028151+00:00",
+      "verified_on": "2026-11-13T23:13:32.707569+00:00",
       "notes": "NRCS soil surveys cover the US and served territories/island nations, not Vietnam.",
       "alternative": "SoilGrids (currently empty), GAEZ soil constraints; farmer soil data",
       "coverage_evidence": [
@@ -1859,7 +1859,7 @@
       "files": [],
       "time_range": null,
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:22.028154+00:00",
+      "verified_on": "2026-11-13T23:13:32.707573+00:00",
       "notes": "USDA Cropland Data Layer maps US cropland.",
       "alternative": "HLS NDVI and MODIS seasonal vegetation cycles",
       "coverage_evidence": [
@@ -1880,7 +1880,7 @@
       "files": [],
       "time_range": null,
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:22.028155+00:00",
+      "verified_on": "2026-11-13T23:13:32.707576+00:00",
       "notes": "PRISM service us domain is the conterminous 48 states.",
       "alternative": "POWER and ERA5 via Open-Meteo",
       "coverage_evidence": [
@@ -1901,7 +1901,7 @@
       "files": [],
       "time_range": null,
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:22.028157+00:00",
+      "verified_on": "2026-11-13T23:13:32.707579+00:00",
       "notes": "STATSGO2 inventory is continental US, Hawaii, Alaska, Puerto Rico and Virgin Islands; no Vietnam.",
       "alternative": "GAEZ static soil constraints; SoilGrids when available",
       "coverage_evidence": [
@@ -1922,7 +1922,7 @@
       "files": [],
       "time_range": null,
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:22.028158+00:00",
+      "verified_on": "2026-11-13T23:13:32.707581+00:00",
       "notes": "National Map NAIP aerial imagery covers conterminous United States.",
       "alternative": "HLS Landsat/Sentinel-2 and MODIS true color",
       "coverage_evidence": [
@@ -1943,7 +1943,7 @@
       "files": [],
       "time_range": null,
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:22.028160+00:00",
+      "verified_on": "2026-11-13T23:13:32.707584+00:00",
       "notes": "Annual NLCD science products cover conterminous United States.",
       "alternative": "HLS/GAEZ land-cover context; ESA WorldCover not fetched",
       "coverage_evidence": [
@@ -1964,7 +1964,7 @@
       "files": [],
       "time_range": null,
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:22.028161+00:00",
+      "verified_on": "2026-11-13T23:13:32.707586+00:00",
       "notes": "Domain 25–53N and 125–67W excludes Vietnam; parts of Canada/Mexico included.",
       "alternative": "GLDAS Noah 2.1 / SMAP",
       "coverage_evidence": [
@@ -1985,7 +1985,7 @@
       "files": [],
       "time_range": null,
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:22.028162+00:00",
+      "verified_on": "2026-11-13T23:13:32.707589+00:00",
       "notes": "Network countries include US, Canada and Bahamas plus listed territories; no Vietnam network.",
       "alternative": "IMERG, POWER, ERA5; farmer rain gauges",
       "coverage_evidence": [
@@ -2006,7 +2006,7 @@
       "files": [],
       "time_range": null,
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:22.028164+00:00",
+      "verified_on": "2026-11-13T23:13:32.707591+00:00",
       "notes": "USGS monitoring program covers US states/territories and some border sites; no verified Mekong demo gauges.",
       "alternative": "GloFAS modeled Mekong discharge; farmer ECw (no salinity inference)",
       "coverage_evidence": [
@@ -2027,7 +2027,7 @@
       "files": [],
       "time_range": null,
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:22.028165+00:00",
+      "verified_on": "2026-11-13T23:13:32.707594+00:00",
       "notes": "NASS agriculture statistics for US agriculture, not Vietnam local farm statistics.",
       "alternative": "Farmer-entered prices; economic model disabled",
       "coverage_evidence": [
@@ -2048,7 +2048,7 @@
       "files": [],
       "time_range": null,
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:22.028166+00:00",
+      "verified_on": "2026-11-13T23:13:32.707597+00:00",
       "notes": "OpenET asset v2.1+ covers 48 contiguous US states (broader than old western-US description), not Vietnam.",
       "alternative": "MOD16 ET, ECOSTRESS ET, POWER/ERA5 ET0",
       "coverage_evidence": [
@@ -2069,7 +2069,7 @@
       "files": [],
       "time_range": null,
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:22.028168+00:00",
+      "verified_on": "2026-11-13T23:13:32.707599+00:00",
       "notes": "US vegetation/fuels mapping; not Vietnam.",
       "alternative": "HLS NDVI, GAEZ land/soil context",
       "coverage_evidence": [
@@ -2090,7 +2090,7 @@
       "files": [],
       "time_range": null,
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:22.028169+00:00",
+      "verified_on": "2026-11-13T23:13:32.707602+00:00",
       "notes": "Correction to US-only premise: AMS also reports international market information. No verified local Mekong farm-gate price series obtained. Absence of all Vietnam data cannot be established. [UNVERIFIED] Vietnam-specific commodity report coverage.",
       "alternative": "Farmer-entered prices; economic model disabled",
       "coverage_evidence": [
@@ -2110,7 +2110,7 @@
       "files": [],
       "time_range": null,
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:22.028171+00:00",
+      "verified_on": "2026-11-13T23:13:32.707605+00:00",
       "notes": "Correction to US-only premise: this is a USDA-funded research repository, not a US-bounded raster product. It can contain international/global studies. No suitable demo-site observation dataset selected; NOT_AVAILABLE_FOR_VIETNAM would be unsupported.",
       "alternative": "GAEZ suitability, POWER/ERA5 climate; FAO crop parameter catalog",
       "coverage_evidence": [
@@ -2130,7 +2130,7 @@
       ],
       "time_range": null,
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:22.028172+00:00",
+      "verified_on": "2026-11-13T23:13:32.707607+00:00",
       "notes": "Existing fetch_era5_cds.py available, not run tonight because the requested no-auth ERA5 Open-Meteo path is complete. Do not count the CDS script as a downloaded CDS dataset.",
       "alternative": "ERA5 via Open-Meteo"
     },
@@ -2144,7 +2144,7 @@
       "files": [],
       "time_range": null,
       "latency_days": null,
-      "verified_on": "2026-11-13T15:49:22.028174+00:00",
+      "verified_on": "2026-11-13T23:13:32.707610+00:00",
       "notes": "Listed in project context but not required for tonight. Basin-scale storage anomaly (~300 km effective) cannot resolve four nearby rice fields. [UNVERIFIED] No granules/pixels fetched tonight.",
       "alternative": "GLDAS soil water, SMAP; GloFAS regional discharge"
     }
@@ -2152,31 +2152,36 @@
   "jobs": [
     {
       "name": "appeears_primary",
-      "pid": 318752,
+      "pid": 377569,
       "log": ".fieldshift/logs/appeears_primary.log",
       "resume": ". .venv/bin/activate && python scripts/data/fetch_appeears.py --task-id cda894d8-b108-48e9-bb21-4197c438c0ee --poll-seconds 60 --max-wait 86400",
       "launch": "nohup; detached process session (except pre-existing primary)",
       "complete": false,
-      "running": true
+      "running": true,
+      "previous_pid": 318752,
+      "restart_count": 1
     },
     {
       "name": "appeears_thermal_hls",
-      "pid": 336506,
+      "pid": 357823,
       "log": ".fieldshift/logs/appeears_thermal_hls.log",
       "resume": ". .venv/bin/activate && python scripts/data/fetch_appeears.py --profile thermal_hls --task-id 29e9d95a-58e2-4e37-a0ac-4309cd0428d4 --start 2023-01-01 --end 2026-11-13 --poll-seconds 60 --max-wait 86400",
       "launch": "nohup; detached process session (except pre-existing primary)",
       "complete": false,
-      "running": true
+      "running": false,
+      "previous_pid": 357744,
+      "restart_count": 3
     },
     {
       "name": "appeears_process",
-      "pid": 349711,
+      "pid": 357824,
       "log": ".fieldshift/logs/appeears_process.log",
       "resume": ". .venv/bin/activate && python scripts/data/process_appeears.py --watch",
       "launch": "nohup; detached process session (except pre-existing primary)",
-      "previous_pid": 345268,
+      "previous_pid": 357745,
       "complete": false,
-      "running": true
+      "running": false,
+      "restart_count": 3
     },
     {
       "name": "imerg_monthly",
@@ -2193,8 +2198,8 @@
       "log": ".fieldshift/logs/imerg_late.log",
       "resume": ". .venv/bin/activate && python scripts/data/fetch_imerg.py --start 2023-01-01",
       "launch": "nohup; detached process session (except pre-existing primary)",
-      "complete": false,
-      "running": true
+      "complete": true,
+      "running": false
     },
     {
       "name": "gldas",
