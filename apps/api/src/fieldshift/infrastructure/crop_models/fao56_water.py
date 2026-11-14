@@ -210,6 +210,7 @@ def simulate_season(
             heat += 1
         irr = out = 0.0
         ks = 1.0
+        stressed = 0  # same definition as the season's water_stress_days counter
         if regime == "paddy":
             etc = kc * et0
             if i == 0:
@@ -227,6 +228,7 @@ def simulate_season(
                 h += add
             if h < 0:
                 stress += 1
+                stressed = 1
                 h = 0.0
             frac = min(1.0, h / target)
         else:
@@ -235,6 +237,7 @@ def simulate_season(
             if dr > raw:
                 ks = max(0.0, (taw - dr) / ((1 - p) * taw))
                 stress += 1
+                stressed = 1
             etc = ks * kc * et0
             dr = dr - rain + etc
             if dr < 0:
@@ -261,6 +264,7 @@ def simulate_season(
                 "taw_mm": round(taw, 3) if regime != "paddy" else None,
                 "root_depth_m": round(zr(i), 3),
                 "ks": round(ks, 3),
+                "stressed": stressed,
             }
         )
 

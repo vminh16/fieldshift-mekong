@@ -1,10 +1,10 @@
 {
-  "decision_id": "dec_6f4cdb6f10d4",
+  "decision_id": "dec_e51bc11c2116",
   "parent_id": null,
   "kind": "PLAN",
   "field_id": "fld_soctrang",
   "as_of": "2026-11-14",
-  "generated_at": "2026-11-14T09:40:03+00:00",
+  "generated_at": "2026-11-14T10:46:48+00:00",
   "versions": {
     "catalog": "crops-2026.11.1",
     "rules": "rules-1",
@@ -12,7 +12,7 @@
     "planner": "pareto-v3-audit",
     "data": "power-v2.10.3@2026-11-03"
   },
-  "field_state_snapshot_id": "st_2b2abdae6d4d",
+  "field_state_snapshot_id": "st_145fe0e8674b",
   "field_state": {
     "as_of": "2026-11-14",
     "upstream_discharge": {
@@ -22999,15 +22999,15 @@
     "pareto_front": 9,
     "season_simulations": 4317,
     "timings_ms": {
-      "setup": 301.47,
-      "candidate_generation": 1.75,
-      "screening": 606.48,
-      "selection": 0.54,
-      "selected_scenarios": 1198.85,
+      "setup": 288.27,
+      "candidate_generation": 1.7,
+      "screening": 572.65,
+      "selection": 0.52,
+      "selected_scenarios": 1069.83,
       "explanation_setup": 0.02,
-      "trajectories": 1384.18,
-      "packaging": 1.09,
-      "total": 3494.39
+      "trajectories": 1192.49,
+      "packaging": 1.24,
+      "total": 3126.74
     }
   },
   "irrigation_cap_mm_per_season": null,

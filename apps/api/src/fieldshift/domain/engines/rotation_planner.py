@@ -228,7 +228,15 @@ def weekly_water(rows: list[dict]) -> dict:
         "rain_week": round(sum(x["rain"] for x in rows), 1),
         "irrigation_week": sum(x["irrigation"] for x in rows),
         "ks": min(x["ks"] for x in rows),
+        "stress_days": sum(x.get("stressed", 0) for x in rows),
     }
+
+
+def week_stress_risk(crop: str | None, stress_days: int) -> str:
+    """Weekly Twin flag on the engine's water_stress_days definition; bare fallow is never crop stress."""
+    if not crop or CROP_BY_ID[crop]["water_regime"] == "none":
+        return "LOW"
+    return "HIGH" if stress_days >= 4 else "MEDIUM" if stress_days >= 1 else "LOW"
 
 
 class Evaluator:
@@ -1264,7 +1272,11 @@ def trajectory_members(ev: Evaluator, c: dict, scen: dict, end: dt.date) -> dict
             season, water = active[-1] if active else (None, {})
             irrigation = sum(row["irrigation_week"] for _, row in active)
             cum += irrigation
-            ks = min((row["ks"] for _, row in active), default=1)
+            stress_days = sum(
+                row["stress_days"]
+                for sn, row in active
+                if CROP_BY_ID[sn["crop"]]["water_regime"] != "none"
+            )
             series.append(
                 {
                     "date": str(date),
@@ -1277,7 +1289,9 @@ def trajectory_members(ev: Evaluator, c: dict, scen: dict, end: dt.date) -> dict
                     "rain_week": rain_weeks[week],
                     "irrigation_week": round(irrigation, 1),
                     "irrigation_cum": round(cum),
-                    "stress_risk": "HIGH" if ks < 0.6 else "MEDIUM" if ks < 1 else "LOW",
+                    "stress_risk": week_stress_risk(
+                        season["crop"] if season else None, stress_days
+                    ),
                 }
             )
         compare_series_by_member.append(series)
@@ -1286,15 +1300,14 @@ def trajectory_members(ev: Evaluator, c: dict, scen: dict, end: dt.date) -> dict
             cum = 0.0
             for week in result["season_weeks"]:
                 cum += week["irrigation_week"]
-                ks = week["ks"]
                 native.append(
                     {
-                        **{k: v for k, v in week.items() if k != "ks"},
+                        **{k: v for k, v in week.items() if k not in ("ks", "stress_days")},
                         "season_index": season["index"],
                         "crop": season["crop"],
                         "irrigation_week": round(week["irrigation_week"], 1),
                         "irrigation_cum": round(cum),
-                        "stress_risk": "HIGH" if ks < 0.6 else "MEDIUM" if ks < 1 else "LOW",
+                        "stress_risk": week_stress_risk(season["crop"], week["stress_days"]),
                     }
                 )
         series_by_member.append(native)

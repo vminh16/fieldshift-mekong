@@ -1,6 +1,6 @@
 {
   "baseline": {
-    "decision_id": "dec_21b3a5f41116",
+    "decision_id": "dec_d929fa0dbd5a",
     "sequence_id": "seq_rice_rice_rice__standard_standard_standard",
     "scenario_id": "sc_clim",
     "member": 22,
@@ -5115,7 +5115,7 @@
     ]
   },
   "option": {
-    "decision_id": "dec_21b3a5f41116",
+    "decision_id": "dec_d929fa0dbd5a",
     "sequence_id": "seq_rice_peanut_rice__early_standard_standard",
     "scenario_id": "sc_clim",
     "member": 22,
@@ -7200,7 +7200,7 @@
             "ev_crop_catalog"
           ]
         },
-        "stress_risk": "HIGH",
+        "stress_risk": "MEDIUM",
         "salinity": {
           "value": null,
           "unit": "dS/m",

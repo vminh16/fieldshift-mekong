@@ -224,8 +224,8 @@ function Entry({ plan, busy, onSend }: { plan: DecisionPackage; busy: boolean; o
           </select>
         </label>
       </div>
-      {date <= plan.as_of && (
-        <p className="step__hint">Số đo ngày {new Date(plan.as_of).toLocaleDateString('vi-VN')} trở về trước không được so với ngưỡng của kế hoạch này.</p>
+      {date < plan.as_of && (
+        <p className="step__hint">Số đo trước ngày lập kế hoạch ({new Date(plan.as_of).toLocaleDateString('vi-VN')}) không được so với ngưỡng của kế hoạch này.</p>
       )}
 
       <div className="entry__grid">
