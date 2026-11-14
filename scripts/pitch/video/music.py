@@ -70,8 +70,11 @@ while k * step < DUR:
     tone = np.sin(2 * np.pi * f * tt) + 0.35 * np.sin(4 * np.pi * f * tt) * np.exp(-tt * 9)
     arp[m] += tone * np.exp(-tt * 4.2) * (1 - np.exp(-tt * 300))
     k += 1
-arp_gain = np.interp(t, [0, S["outlook"] - 0.5, S["outlook"] + 0.5, S["answer"], S["end"], S["end"] + 0.4, DUR],
-                     [0, 0, 0.5, 0.8, 1.0, 0.25, 0.0])
+arp_gain = np.interp(
+    t,
+    [0, S["outlook"] - 0.5, S["outlook"] + 0.5, S["answer"], S["end"], S["end"] + 0.4, DUR],
+    [0, 0, 0.5, 0.8, 1.0, 0.25, 0.0],
+)
 arp *= 0.06 * arp_gain
 
 # Sub pulse on beats from the engine scene to the end card

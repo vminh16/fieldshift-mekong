@@ -24,7 +24,10 @@ XF = 0.3  # crossfade between scenes
 # Vietnamese subtitles per scene (split proportionally to text length within the line).
 SUBS_VI = {
     "landing": ["Một nửa lúa gạo Việt Nam trồng ở đây.", "Năm nay, mặn đến sớm."],
-    "outlook": ["El Niño mạnh.", "Những năm như vậy, NASA chỉ ghi nhận\n30% lượng mưa mùa khô bình thường."],
+    "outlook": [
+        "El Niño mạnh.",
+        "Những năm như vậy, NASA chỉ ghi nhận\n30% lượng mưa mùa khô bình thường.",
+    ],
     "draw": ["Vẽ thửa ruộng của bạn."],
     "twin": ["FieldShift thử mọi chuỗi luân canh,\ntheo từng ngày, qua 12 kịch bản."],
     "answer": ["Gieo sớm, nghỉ vụ mặn nhất:", "số ngày cây phơi mặn giảm từ 177 xuống 84."],
@@ -105,15 +108,38 @@ def mix_audio(voice, total, scenes, out):
     sf.write(V / "audio/voice_track.wav", vtrack * 0.9, SR)
     tl = {"duration": total, "scenes": scenes}
     json.dump(tl, open(V / "audio/music_tl.json", "w"))
-    run([str(Path(sys.executable)), "-I", str(Path(__file__).parent / "music.py"), str(V / "audio/music_tl.json"), str(V / "audio/music.wav")])
+    run(
+        [
+            str(Path(sys.executable)),
+            "-I",
+            str(Path(__file__).parent / "music.py"),
+            str(V / "audio/music_tl.json"),
+            str(V / "audio/music.wav"),
+        ]
+    )
     # Voice: light high-pass + presence + compression; music ducked under the voice.
-    run(["ffmpeg", "-v", "error", "-y", "-i", str(V / "audio/voice_track.wav"), "-i", str(V / "audio/music.wav"),
-         "-filter_complex",
-         "[0:a]aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=stereo,highpass=f=80,equalizer=f=3000:t=q:w=1.2:g=2.5,"
-         "acompressor=threshold=-20dB:ratio=3:attack=5:release=120:makeup=3,asplit=2[vo][sc];"
-         "[1:a]aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=stereo,volume=0.55[mu];[mu][sc]sidechaincompress=threshold=0.04:ratio=6:attack=20:release=400[duck];"
-         "[vo][duck]amix=inputs=2:duration=longest,volume=2,loudnorm=I=-14:TP=-1.5:LRA=9",
-         "-ar", str(SR), "-c:a", "pcm_s16le", str(out)])
+    run(
+        [
+            "ffmpeg",
+            "-v",
+            "error",
+            "-y",
+            "-i",
+            str(V / "audio/voice_track.wav"),
+            "-i",
+            str(V / "audio/music.wav"),
+            "-filter_complex",
+            "[0:a]aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=stereo,highpass=f=80,equalizer=f=3000:t=q:w=1.2:g=2.5,"
+            "acompressor=threshold=-20dB:ratio=3:attack=5:release=120:makeup=3,asplit=2[vo][sc];"
+            "[1:a]aformat=sample_fmts=fltp:sample_rates=48000:channel_layouts=stereo,volume=0.55[mu];[mu][sc]sidechaincompress=threshold=0.04:ratio=6:attack=20:release=400[duck];"
+            "[vo][duck]amix=inputs=2:duration=longest,volume=2,loudnorm=I=-14:TP=-1.5:LRA=9",
+            "-ar",
+            str(SR),
+            "-c:a",
+            "pcm_s16le",
+            str(out),
+        ]
+    )
 
 
 def edit(scenes, total, overlay_dir, audio, out):
@@ -130,13 +156,17 @@ def edit(scenes, total, overlay_dir, audio, out):
         # retime -> upscale (smooth sub-pixel zoom) -> Ken Burns towards (fx, fy)
         zx = f"(iw-iw/zoom)*{fx}"
         zy = f"(ih-ih/zoom)*{fy}"
-        chain = (f"[{i}:v]setpts=(PTS-STARTPTS)/{speed:.5f},fps=30,trim=end_frame={frames},"
-                 f"scale=3840:2160:flags=lanczos,"
-                 f"zoompan=z='1+({z1}-1)*on/{frames}':x='{zx}':y='{zy}':d=1:s=1920x1080:fps=30,"
-                 f"setsar=1,format=yuv420p[v{i}]")
+        chain = (
+            f"[{i}:v]setpts=(PTS-STARTPTS)/{speed:.5f},fps=30,trim=end_frame={frames},"
+            f"scale=3840:2160:flags=lanczos,"
+            f"zoompan=z='1+({z1}-1)*on/{frames}':x='{zx}':y='{zy}':d=1:s=1920x1080:fps=30,"
+            f"setsar=1,format=yuv420p[v{i}]"
+        )
         if scene == "end":
-            chain = (f"[{i}:v]trim=end_frame=1,loop=loop={frames}:size=1,setpts=N/30/TB,fps=30,"
-                     f"gblur=sigma=30,scale=1920:1080,setsar=1,format=yuv420p[v{i}]")
+            chain = (
+                f"[{i}:v]trim=end_frame=1,loop=loop={frames}:size=1,setpts=N/30/TB,fps=30,"
+                f"gblur=sigma=30,scale=1920:1080,setsar=1,format=yuv420p[v{i}]"
+            )
         chains.append(chain)
     # crossfades
     prev, acc = "v0", durs[0]
@@ -145,13 +175,45 @@ def edit(scenes, total, overlay_dir, audio, out):
         prev, acc = f"x{i}", acc + durs[i]
     n_in = len(order)
     inputs += ["-framerate", "30", "-i", str(overlay_dir / "%04d.png"), "-i", str(audio)]
-    chains.append(f"[{prev}]trim=duration={total},setpts=PTS-STARTPTS[base];"
-                  f"[{n_in}:v]format=rgba[ov];[base][ov]overlay=0:0:format=auto,"
-                  f"fade=t=in:st=0:d=0.35,fade=t=out:st={total - 0.45:.2f}:d=0.45,format=yuv420p[vout]")
-    run(["ffmpeg", "-v", "error", "-y", *inputs, "-filter_complex", ";".join(chains),
-         "-map", "[vout]", "-map", f"{n_in + 1}:a", "-t", f"{total}",
-         "-c:v", "libx264", "-preset", "slow", "-crf", "16", "-profile:v", "high", "-pix_fmt", "yuv420p",
-         "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", str(out)])
+    chains.append(
+        f"[{prev}]trim=duration={total},setpts=PTS-STARTPTS[base];"
+        f"[{n_in}:v]format=rgba[ov];[base][ov]overlay=0:0:format=auto,"
+        f"fade=t=in:st=0:d=0.35,fade=t=out:st={total - 0.45:.2f}:d=0.45,format=yuv420p[vout]"
+    )
+    run(
+        [
+            "ffmpeg",
+            "-v",
+            "error",
+            "-y",
+            *inputs,
+            "-filter_complex",
+            ";".join(chains),
+            "-map",
+            "[vout]",
+            "-map",
+            f"{n_in + 1}:a",
+            "-t",
+            f"{total}",
+            "-c:v",
+            "libx264",
+            "-preset",
+            "slow",
+            "-crf",
+            "16",
+            "-profile:v",
+            "high",
+            "-pix_fmt",
+            "yuv420p",
+            "-c:a",
+            "aac",
+            "-b:a",
+            "192k",
+            "-movflags",
+            "+faststart",
+            str(out),
+        ]
+    )
 
 
 rows, scenes, voice, total = voice_timeline()
@@ -161,7 +223,11 @@ json.dump(tl, open(V / "timeline.json", "w"), ensure_ascii=False, indent=1)
 print("total", round(total, 2), {k: round(v, 2) for k, v in scenes.items()})
 # SRT for the record
 with open(V / "subtitles_vi.srt", "w", encoding="utf-8") as f:
-    ts = lambda s: f"{int(s // 3600):02d}:{int(s % 3600 // 60):02d}:{int(s % 60):02d},{int(round(s % 1 * 1000)) % 1000:03d}"
+
+    def ts(s):
+        ms = int(round(s % 1 * 1000)) % 1000
+        return f"{int(s // 3600):02d}:{int(s % 3600 // 60):02d}:{int(s % 60):02d},{ms:03d}"
+
     for k, (a, b, txt) in enumerate(cues, 1):
         f.write(f"{k}\n{ts(a)} --> {ts(b)}\n{txt}\n\n")
 if "--timeline-only" in FLAGS:
@@ -169,7 +235,15 @@ if "--timeline-only" in FLAGS:
 ov = V / "ovframes"
 if "--no-overlay-render" not in FLAGS:
     run(["rm", "-rf", str(ov)])
-    run(["node", str(V / "rec/render_overlay.mjs"), str(V / "overlay"), str(V / "timeline.json"), str(ov)])
+    run(
+        [
+            "node",
+            str(V / "rec/render_overlay.mjs"),
+            str(V / "overlay"),
+            str(V / "timeline.json"),
+            str(ov),
+        ]
+    )
 mix_audio(voice, total, scenes, V / "audio/final_mix.wav")
 edit(scenes, total, ov, V / "audio/final_mix.wav", V / f"FieldShift_demo_{PREFIX}.mp4")
 print("done", V / f"FieldShift_demo_{PREFIX}.mp4")

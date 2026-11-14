@@ -1,8 +1,30 @@
-import sys, glob, re, os, difflib
+import difflib
+import glob
+import os
+import re
+import sys
+
 from faster_whisper import WhisperModel
-lines = {l.split("|")[0]: l.split("|", 2)[2].strip() for l in open(sys.argv[1], encoding="utf-8") if l.strip() and not l.startswith("#")}
+
+lines = {
+    row.split("|")[0]: row.split("|", 2)[2].strip()
+    for row in open(sys.argv[1], encoding="utf-8")
+    if row.strip() and not row.startswith("#")
+}
 m = WhisperModel("small.en", device="cpu", compute_type="int8")
-norm = lambda s: re.sub(r"[^a-z0-9 ]", "", s.lower().replace("-", " ").replace("177", "one hundred seventy seven").replace("84", "eighty four"))
+
+
+def norm(s):
+    return re.sub(
+        r"[^a-z0-9 ]",
+        "",
+        s.lower()
+        .replace("-", " ")
+        .replace("177", "one hundred seventy seven")
+        .replace("84", "eighty four"),
+    )
+
+
 for f in sorted(glob.glob(sys.argv[2] + "/*_t*.wav")):
     scene = os.path.basename(f).split("_")[2]
     segs, _ = m.transcribe(f, beam_size=5, word_timestamps=True)
