@@ -128,6 +128,12 @@ def main() -> None:
                     )
                     rules = sorted({x["rule_id"] for x in base["rules"]})
                     sc = {s["scenario_id"] for s in plan["scenarios"]}
+                    yo = plan["year_outlook"]
+                    L.append(
+                        f"- Năm ENSO tại as_of: {yo['headline_vi']}"
+                        if yo["status"] == "OK"
+                        else f"- Năm ENSO tại as_of: không có ({yo['reason']})."
+                    )
                     dry = base["metrics"].get("sc_dry", {})
                     L.append(
                         f"- Engine tại as_of: baseline `{base['decision_status']}`; luật kích hoạt: {', '.join(rules) or 'không'}; "
@@ -188,7 +194,8 @@ def main() -> None:
     same = sum(len({v[0] for v in d.values()}) == 1 for d in flags.values())
     L.append(
         f"- Cờ rủi ro của engine tại as_of GIỐNG HỆT nhau giữa năm 2015 (mùa khô thực rất khô) và 2019 ở **{same}/{len(flags)}** cặp (điểm × cấu hình nước). "
-        "Hindcast không có forecast mùa nên engine chỉ có khí hậu nhiều năm: nó không phân biệt được năm cực khô với năm thường tại thời điểm lập kế hoạch."
+        "Cờ luật dựa trên khí hậu nhiều năm và lịch mùa mặn nên không đổi theo năm; tín hiệu theo năm (ENSO/ONI trước khi gieo, "
+        "năm tương tự `sc_enso_analog`, `year_outlook`) được chấm riêng trong `docs/YEAR_OUTLOOK_REPORT.md`."
     )
     L.append(
         f"- Cờ mặn R_SALINITY* trên baseline: {flagged_sal}/{cases} ca (đúng các ca ven biển; luôn bật vì lúa trùng mùa mặn điển hình, không dựa vào năm thực). Không có quan trắc để biết năm đó mặn thật hay không."

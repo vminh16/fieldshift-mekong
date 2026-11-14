@@ -24,7 +24,16 @@ Trang này liệt kê những gì hệ thống **chưa làm được hoặc chư
 
 ## Đánh giá quá khứ
 
-Kết quả chi tiết nằm trong [BACKTEST_REPORT.md](BACKTEST_REPORT.md). Khi chạy ngược tại 15/11/2015, trước mùa khô kỷ lục 2015–16, engine đưa ra **cùng các cảnh báo** như khi chạy tại 15/11/2019. Lý do là khi chạy ngược quá khứ không có dự báo mùa, và các kịch bản chỉ dựa trên phân bố lịch sử, nên engine **không phân biệt được trước** một năm hạn bất thường. Trong thời tiết thật, 58/60 phương án tốt hơn baseline về nước tưới mà không tăng thiếu nước. 2 phương án không tốt hơn đều ở Cần Thơ 2019 khi giới hạn nước kênh (lúa–mè–lúa, lúa–đậu nành–lúa): tưới ít hơn nhưng thiếu nước thêm 1 ngày. Trước đây có 34/42; 6 phương án thua là do vụ `fallow_cover` bị cộng ngày "thiếu nước" của đất trống, lỗi này đã được sửa. Kết quả này phần lớn là do cây cạn vốn dùng ít nước hơn lúa trong cùng mô hình.
+Kết quả chi tiết nằm trong [BACKTEST_REPORT.md](BACKTEST_REPORT.md) và [YEAR_OUTLOOK_REPORT.md](YEAR_OUTLOOK_REPORT.md). Khi chạy ngược tại 15/11/2015, trước mùa khô kỷ lục 2015–16, engine vẫn đưa ra **cùng các cờ luật** như khi chạy tại 15/11/2019, vì luật dựa trên khí hậu nhiều năm và lịch mùa mặn. Tín hiệu theo năm nay đến từ ENSO (xem mục dưới): tại 15/11/2015 engine báo El Niño mạnh và mùa khô các năm tương tự chỉ ~69 % năm thường (Cần Thơ); hướng khô/ướt đúng ở 12/15 ca hindcast, trật cả 3 điểm năm 2018–19 (El Niño yếu nhưng mưa nhiều). Trong thời tiết thật, 58/60 phương án tốt hơn baseline về nước tưới mà không tăng thiếu nước. 2 phương án không tốt hơn đều ở Cần Thơ 2019 khi giới hạn nước kênh: tưới ít hơn nhưng thiếu nước thêm 1 ngày. Trước đây có 34/42; 6 phương án thua là do vụ `fallow_cover` bị cộng ngày "thiếu nước" của đất trống, lỗi này đã được sửa. Kết quả này phần lớn là do cây cạn vốn dùng ít nước hơn lúa trong cùng mô hình.
+
+## Năm ENSO (`year_outlook`, `sc_enso_analog`)
+
+- **Không phải dự báo.** Năm tương tự là các năm lịch sử cùng nhóm pha ENSO (ONI NOAA, không phải NASA) tại cùng tháng giữa; liên hệ với mưa tháng 12–4 chỉ ở mức r ≈ −0,4 đến −0,7 trên ~24 mùa (IMERG). Có năm El Niño vẫn mưa nhiều (2018–19).
+- **Không nhìn trước:** chỉ dùng ONI có cửa sổ 3 tháng đã kết thúc trước tháng của `as_of` (15/11 → ASO). Vì vậy 2019 (ASO +0,31) được coi là trung tính dù sau đó lên El Niño yếu. NOAA hiệu chỉnh lại giá trị cũ; file bundled là bản 2026.
+- "Mạnh/yếu" chỉ là nhãn; năm tương tự lấy theo nhóm pha (El Niño, trung tính, La Niña), tối đa 5 năm gần ONI hiện tại nhất. Dưới 3 năm → `UNAVAILABLE`, engine chạy y như trước (hindcast trước ~2012 thường rơi vào trường hợp này).
+- Khi có, `sc_enso_analog` **thay `sc_dry` làm tiêu chí "năm khô"** khi sàng lọc. Hindcast cho thấy shortlist đổi ở 4/15 ca (chỉ Cần Thơ) và tưới thực của phương án đứng đầu không giảm (bằng 13 ca, nhiều hơn 2 ca): tín hiệu ENSO hiện giúp **cảnh báo** năm khô tốt hơn là giúp **chọn** phương án tốt hơn.
+- **Thời điểm mặn không đổi theo ENSO**: kịch bản năm tương tự giữ khung mặn điển hình; engine không suy ra mặn đến sớm từ El Niño (dùng `sc_salt_early` để thử).
+- Mưa mùa khô theo điểm dùng IMERG monthly (ô ~11 km) chỉ cho 4 điểm demo; thửa khác dùng NASA POWER (~50 km). Mô phỏng nước của năm tương tự vẫn chạy trên ngày POWER.
 
 ## Mô hình
 

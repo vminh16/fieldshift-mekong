@@ -119,6 +119,31 @@ export interface Evidence {
   time_scope?: [string, string] | null; status?: string; limitations?: string[]; quality_flags?: string[]
   [key: string]: unknown
 }
+export type EnsoPhase = 'EL_NINO_STRONG' | 'EL_NINO' | 'NEUTRAL' | 'LA_NINA' | 'LA_NINA_STRONG'
+/** ENSO-conditioned analog years (association, never a rainfall/salinity forecast). */
+export interface YearOutlook {
+  status: 'OK' | 'UNAVAILABLE'            // UNAVAILABLE -> hide banner; engine behaves as before
+  reason?: string | null                  // 'ONI_NOT_AVAILABLE_AT_AS_OF' | 'TOO_FEW_ANALOG_YEARS'
+  enso: {
+    index: 'ONI'
+    centered_month: string                // 'YYYY-MM', latest 3-month window ended before as_of's month
+    value: number
+    phase: EnsoPhase
+    source: string
+  } | null
+  analog_years: number[]                  // dry-season START years (2015 = 2015–16)
+  analog_labels_vi: string[]
+  dry_season_rain: {                      // Dec–Apr totals at this field's site, mm
+    analog_median_mm: number | null
+    all_years_median_mm: number | null
+    ratio: number | null
+    sources: string[]
+  }
+  skill: { correlation_r: number | null; n_years: number; note_vi: string }
+  headline_vi: string
+  scenario_id: string | null              // 'sc_enso_analog' when present in scenarios[]
+  evidence_ids: string[]
+}
 export interface DecisionPackage {
   decision_id: string; parent_id: string | null; kind: 'PLAN' | 'WHAT_IF' | 'REPLAN'
   field_id: string; as_of: string; generated_at: string; versions: Record<string, string>
@@ -126,6 +151,7 @@ export interface DecisionPackage {
   gates: Gate[]
   windows: { id: string; name_vi: string; sow_from: string; sow_to: string }[]
   scenarios: Scenario[]
+  year_outlook: YearOutlook
   baseline: Option
   options: Option[]
   excluded: { sequence_id: string; crops: CropId[]; rule_id: string; severity: 'HARD'; reason: string }[]

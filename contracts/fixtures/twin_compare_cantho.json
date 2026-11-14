@@ -1,10 +1,10 @@
 {
   "baseline": {
-    "decision_id": "dec_14b9ec382e55",
+    "decision_id": "dec_f37230803eea",
     "sequence_id": "seq_rice_rice_rice__standard_standard_standard",
     "scenario_id": "sc_clim",
-    "member": 6,
-    "analog_year": 2007,
+    "member": 22,
+    "analog_year": 2023,
     "members": [
       {
         "member": 0,
@@ -242,7 +242,7 @@
           "reason": "NO_ACTIVE_CROP"
         },
         "rain_week": {
-          "value": 32.7,
+          "value": 55.5,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -321,7 +321,7 @@
           "reason": "NO_ACTIVE_CROP"
         },
         "rain_week": {
-          "value": 0.0,
+          "value": 20.8,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -400,7 +400,7 @@
           "reason": "NO_ACTIVE_CROP"
         },
         "rain_week": {
-          "value": 0.0,
+          "value": 15.9,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -456,7 +456,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.69,
+          "value": 0.76,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -466,7 +466,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 34.7,
+          "value": 38.1,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -476,7 +476,7 @@
           ]
         },
         "rain_week": {
-          "value": 0,
+          "value": 17.5,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -542,7 +542,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 40.9,
+          "value": 40.7,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -552,7 +552,7 @@
           ]
         },
         "rain_week": {
-          "value": 3.8,
+          "value": 3.0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -562,7 +562,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 60.6,
+          "value": 55.6,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -572,7 +572,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 261,
+          "value": 256,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -608,7 +608,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.77,
+          "value": 0.78,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -618,7 +618,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 38.6,
+          "value": 39.0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -628,7 +628,7 @@
           ]
         },
         "rain_week": {
-          "value": 0.7,
+          "value": 2.2,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -638,7 +638,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 26.6,
+          "value": 27.4,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -648,7 +648,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 287,
+          "value": 283,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -694,7 +694,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 39.6,
+          "value": 39.7,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -704,7 +704,7 @@
           ]
         },
         "rain_week": {
-          "value": 0.0,
+          "value": 3.8,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -714,7 +714,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 54.9,
+          "value": 54.4,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -724,7 +724,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 342,
+          "value": 337,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -760,7 +760,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.79,
+          "value": 0.77,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -770,7 +770,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 39.7,
+          "value": 38.5,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -780,7 +780,7 @@
           ]
         },
         "rain_week": {
-          "value": 0.1,
+          "value": 0.6,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -790,7 +790,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 27.6,
+          "value": 30.7,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -800,7 +800,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 370,
+          "value": 368,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -836,7 +836,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.78,
+          "value": 0.81,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -846,7 +846,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 39.2,
+          "value": 40.5,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -856,7 +856,7 @@
           ]
         },
         "rain_week": {
-          "value": 10.8,
+          "value": 0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -866,7 +866,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 26.0,
+          "value": 51.9,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -876,7 +876,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 396,
+          "value": 420,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -912,7 +912,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.75,
+          "value": 0.78,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -922,7 +922,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 37.5,
+          "value": 38.8,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -932,7 +932,7 @@
           ]
         },
         "rain_week": {
-          "value": 14.5,
+          "value": 0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -942,7 +942,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 59.0,
+          "value": 57.8,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -952,7 +952,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 455,
+          "value": 478,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -988,7 +988,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.81,
+          "value": 0.83,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -998,7 +998,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 40.5,
+          "value": 41.5,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1008,7 +1008,7 @@
           ]
         },
         "rain_week": {
-          "value": 0.8,
+          "value": 0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1018,7 +1018,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 56.0,
+          "value": 51.8,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1028,7 +1028,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 511,
+          "value": 530,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1064,7 +1064,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.82,
+          "value": 0.79,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1074,7 +1074,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 41.1,
+          "value": 39.5,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1084,7 +1084,7 @@
           ]
         },
         "rain_week": {
-          "value": 0.2,
+          "value": 0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1094,7 +1094,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 54.0,
+          "value": 58.7,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1104,7 +1104,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 565,
+          "value": 588,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1140,7 +1140,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.8,
+          "value": 0.77,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1150,7 +1150,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 39.9,
+          "value": 38.7,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1160,7 +1160,7 @@
           ]
         },
         "rain_week": {
-          "value": 0.3,
+          "value": 0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1170,7 +1170,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 54.0,
+          "value": 61.7,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1180,7 +1180,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 619,
+          "value": 650,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1216,7 +1216,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.85,
+          "value": 0.76,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1226,7 +1226,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 42.4,
+          "value": 38.2,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1236,7 +1236,7 @@
           ]
         },
         "rain_week": {
-          "value": 0.0,
+          "value": 0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1246,7 +1246,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 80.4,
+          "value": 64.2,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1256,7 +1256,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 699,
+          "value": 714,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1292,7 +1292,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.79,
+          "value": 0.83,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1302,7 +1302,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 39.7,
+          "value": 41.4,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1312,7 +1312,7 @@
           ]
         },
         "rain_week": {
-          "value": 2.2,
+          "value": 0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1322,7 +1322,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 58.4,
+          "value": 90.0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1332,7 +1332,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 758,
+          "value": 804,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1368,7 +1368,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.81,
+          "value": 0.79,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1378,7 +1378,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 40.6,
+          "value": 39.6,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1388,7 +1388,7 @@
           ]
         },
         "rain_week": {
-          "value": 0.9,
+          "value": 0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1398,7 +1398,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 54.9,
+          "value": 63.9,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1408,7 +1408,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 812,
+          "value": 868,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1444,7 +1444,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.85,
+          "value": 0.77,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1454,7 +1454,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 42.5,
+          "value": 38.7,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1464,7 +1464,7 @@
           ]
         },
         "rain_week": {
-          "value": 10.2,
+          "value": 0.0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1474,7 +1474,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 50.3,
+          "value": 64.0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1484,7 +1484,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 863,
+          "value": 932,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1530,7 +1530,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 37.0,
+          "value": 36.9,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1540,7 +1540,7 @@
           ]
         },
         "rain_week": {
-          "value": 3.0,
+          "value": 0.2,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1550,7 +1550,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 25.8,
+          "value": 33.4,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1560,7 +1560,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 889,
+          "value": 965,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1619,7 +1619,7 @@
           "reason": "NO_ACTIVE_CROP"
         },
         "rain_week": {
-          "value": 0.9,
+          "value": 0.5,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1639,7 +1639,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 889,
+          "value": 965,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1675,7 +1675,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.66,
+          "value": 0.74,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1685,7 +1685,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 33.1,
+          "value": 36.8,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1695,7 +1695,7 @@
           ]
         },
         "rain_week": {
-          "value": 2.8,
+          "value": 4.0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1715,7 +1715,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1089,
+          "value": 1165,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1751,7 +1751,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.81,
+          "value": 0.83,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1761,7 +1761,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 40.3,
+          "value": 41.4,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1771,7 +1771,7 @@
           ]
         },
         "rain_week": {
-          "value": 5.6,
+          "value": 0.6,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1781,7 +1781,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 60.4,
+          "value": 90.5,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1791,7 +1791,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1149,
+          "value": 1256,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1827,7 +1827,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.79,
+          "value": 0.78,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1837,7 +1837,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 39.3,
+          "value": 39.2,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1847,7 +1847,7 @@
           ]
         },
         "rain_week": {
-          "value": 4.7,
+          "value": 0.0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1857,7 +1857,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 56.6,
+          "value": 64.6,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1867,7 +1867,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1206,
+          "value": 1321,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1903,7 +1903,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.81,
+          "value": 0.76,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1913,7 +1913,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 40.5,
+          "value": 38.2,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1923,7 +1923,7 @@
           ]
         },
         "rain_week": {
-          "value": 6.3,
+          "value": 0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1933,7 +1933,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 58.9,
+          "value": 62.6,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1943,7 +1943,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1265,
+          "value": 1383,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1979,7 +1979,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.8,
+          "value": 0.81,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1989,7 +1989,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 39.8,
+          "value": 40.5,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -1999,7 +1999,7 @@
           ]
         },
         "rain_week": {
-          "value": 36.4,
+          "value": 0.3,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2009,7 +2009,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 28.6,
+          "value": 96.7,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2019,7 +2019,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1293,
+          "value": 1480,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2055,7 +2055,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.77,
+          "value": 0.82,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2065,7 +2065,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 38.3,
+          "value": 40.8,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2075,7 +2075,7 @@
           ]
         },
         "rain_week": {
-          "value": 28.2,
+          "value": 20.4,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2085,7 +2085,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 25.7,
+          "value": 29.2,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2095,7 +2095,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1319,
+          "value": 1509,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2131,7 +2131,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.91,
+          "value": 0.78,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2141,7 +2141,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 63.4,
+          "value": 38.9,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2151,7 +2151,7 @@
           ]
         },
         "rain_week": {
-          "value": 95.6,
+          "value": 42.1,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2161,7 +2161,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 0.0,
+          "value": 30.2,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2171,7 +2171,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1319,
+          "value": 1539,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2217,7 +2217,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 86.1,
+          "value": 54.3,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2227,7 +2227,7 @@
           ]
         },
         "rain_week": {
-          "value": 20.2,
+          "value": 61.0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2247,7 +2247,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1319,
+          "value": 1539,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2283,7 +2283,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.97,
+          "value": 0.77,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2293,7 +2293,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 54.0,
+          "value": 38.8,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2303,7 +2303,7 @@
           ]
         },
         "rain_week": {
-          "value": 22.5,
+          "value": 27.8,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2323,7 +2323,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1319,
+          "value": 1539,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2359,7 +2359,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.8,
+          "value": 0.83,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2369,7 +2369,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 39.9,
+          "value": 41.7,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2379,7 +2379,7 @@
           ]
         },
         "rain_week": {
-          "value": 18.5,
+          "value": 58.8,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2389,7 +2389,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 31.0,
+          "value": 0.0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2399,7 +2399,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1350,
+          "value": 1539,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2435,7 +2435,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.94,
+          "value": 0.86,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2445,7 +2445,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 55.6,
+          "value": 50.1,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2455,7 +2455,7 @@
           ]
         },
         "rain_week": {
-          "value": 58.1,
+          "value": 47.5,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2465,7 +2465,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 26.9,
+          "value": 30.8,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2475,7 +2475,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1377,
+          "value": 1570,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2511,7 +2511,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 1.0,
+          "value": 0.83,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2521,7 +2521,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 91.5,
+          "value": 42.7,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2531,7 +2531,7 @@
           ]
         },
         "rain_week": {
-          "value": 61.4,
+          "value": 20.4,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2551,7 +2551,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1377,
+          "value": 1570,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2597,7 +2597,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 60.0,
+          "value": 81.7,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2607,7 +2607,7 @@
           ]
         },
         "rain_week": {
-          "value": 28.0,
+          "value": 149.4,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2617,7 +2617,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 0.0,
+          "value": 26.8,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2627,7 +2627,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1377,
+          "value": 1597,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2663,7 +2663,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.93,
+          "value": 1.0,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2673,7 +2673,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 49.9,
+          "value": 86.2,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2683,7 +2683,7 @@
           ]
         },
         "rain_week": {
-          "value": 23.1,
+          "value": 20.0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2703,7 +2703,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1377,
+          "value": 1597,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2739,7 +2739,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.81,
+          "value": 1.0,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2749,7 +2749,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 40.6,
+          "value": 92.7,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2759,7 +2759,7 @@
           ]
         },
         "rain_week": {
-          "value": 39.1,
+          "value": 59.2,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2779,7 +2779,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1377,
+          "value": 1597,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2838,7 +2838,7 @@
           "reason": "NO_ACTIVE_CROP"
         },
         "rain_week": {
-          "value": 3.9,
+          "value": 208.9,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2858,7 +2858,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1377,
+          "value": 1597,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2917,7 +2917,7 @@
           "reason": "NO_ACTIVE_CROP"
         },
         "rain_week": {
-          "value": 58.2,
+          "value": 119.2,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2937,7 +2937,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1377,
+          "value": 1597,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -2996,7 +2996,7 @@
           "reason": "NO_ACTIVE_CROP"
         },
         "rain_week": {
-          "value": 60.2,
+          "value": 84.3,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3016,7 +3016,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1377,
+          "value": 1597,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3052,7 +3052,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 1.0,
+          "value": 0.93,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3062,7 +3062,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 63.4,
+          "value": 58.5,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3072,7 +3072,7 @@
           ]
         },
         "rain_week": {
-          "value": 67.9,
+          "value": 66.7,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3092,7 +3092,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1577,
+          "value": 1797,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3138,7 +3138,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 87.8,
+          "value": 64.6,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3148,7 +3148,7 @@
           ]
         },
         "rain_week": {
-          "value": 50.6,
+          "value": 30.1,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3168,7 +3168,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1577,
+          "value": 1797,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3204,7 +3204,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 1.0,
+          "value": 0.87,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3214,7 +3214,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 79.6,
+          "value": 45.1,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3224,7 +3224,7 @@
           ]
         },
         "rain_week": {
-          "value": 25.3,
+          "value": 22.9,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3244,7 +3244,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1577,
+          "value": 1797,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3280,7 +3280,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 1.0,
+          "value": 0.76,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3290,7 +3290,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 65.5,
+          "value": 46.4,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3300,7 +3300,7 @@
           ]
         },
         "rain_week": {
-          "value": 27.6,
+          "value": 89.9,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3320,7 +3320,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1577,
+          "value": 1797,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3356,7 +3356,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.76,
+          "value": 1.0,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3366,7 +3366,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 38.8,
+          "value": 98.6,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3376,7 +3376,7 @@
           ]
         },
         "rain_week": {
-          "value": 19.6,
+          "value": 116.9,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3396,7 +3396,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1577,
+          "value": 1797,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3432,7 +3432,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.84,
+          "value": 1.0,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3442,7 +3442,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 44.1,
+          "value": 99.6,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3452,7 +3452,7 @@
           ]
         },
         "rain_week": {
-          "value": 71.5,
+          "value": 74.6,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3472,7 +3472,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1577,
+          "value": 1797,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3518,7 +3518,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 72.3,
+          "value": 100,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3528,7 +3528,7 @@
           ]
         },
         "rain_week": {
-          "value": 64.6,
+          "value": 115.6,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3548,7 +3548,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1577,
+          "value": 1797,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3584,7 +3584,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.94,
+          "value": 1.0,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3594,7 +3594,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 55.7,
+          "value": 98.3,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3604,7 +3604,7 @@
           ]
         },
         "rain_week": {
-          "value": 7.5,
+          "value": 119.9,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3624,7 +3624,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1577,
+          "value": 1797,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3660,7 +3660,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.79,
+          "value": 1.0,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3670,7 +3670,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 39.7,
+          "value": 82.3,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3680,7 +3680,7 @@
           ]
         },
         "rain_week": {
-          "value": 49.0,
+          "value": 19.2,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3700,7 +3700,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1577,
+          "value": 1797,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3736,7 +3736,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.76,
+          "value": 1.0,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3746,7 +3746,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 38.2,
+          "value": 80.0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3756,7 +3756,7 @@
           ]
         },
         "rain_week": {
-          "value": 19.0,
+          "value": 75.2,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3766,7 +3766,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 30.4,
+          "value": 0.0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3776,7 +3776,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1607,
+          "value": 1797,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3812,7 +3812,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.81,
+          "value": 1.0,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3822,7 +3822,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 40.5,
+          "value": 98.7,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3832,7 +3832,7 @@
           ]
         },
         "rain_week": {
-          "value": 35.5,
+          "value": 73.5,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3852,7 +3852,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1607,
+          "value": 1797,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3888,7 +3888,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.85,
+          "value": 1.0,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3898,7 +3898,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 42.6,
+          "value": 100,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3908,7 +3908,7 @@
           ]
         },
         "rain_week": {
-          "value": 42.3,
+          "value": 109.3,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3918,7 +3918,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 25.7,
+          "value": 0.0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3928,7 +3928,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1633,
+          "value": 1797,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3974,7 +3974,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 61.9,
+          "value": 95.4,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -3984,7 +3984,7 @@
           ]
         },
         "rain_week": {
-          "value": 42.2,
+          "value": 86.3,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4004,7 +4004,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1633,
+          "value": 1797,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4050,7 +4050,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 65.6,
+          "value": 95.3,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4060,7 +4060,7 @@
           ]
         },
         "rain_week": {
-          "value": 39.3,
+          "value": 77.6,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4080,7 +4080,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1633,
+          "value": 1797,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4126,7 +4126,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 66.4,
+          "value": 99.7,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4136,7 +4136,7 @@
           ]
         },
         "rain_week": {
-          "value": 13.8,
+          "value": 9.4,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4156,7 +4156,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1633,
+          "value": 1797,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4179,46 +4179,46 @@
     ]
   },
   "option": {
-    "decision_id": "dec_14b9ec382e55",
-    "sequence_id": "seq_rice_maize_rice__early_standard_standard",
+    "decision_id": "dec_f37230803eea",
+    "sequence_id": "seq_rice_peanut_rice__early_standard_standard",
     "scenario_id": "sc_clim",
-    "member": 6,
-    "analog_year": 2007,
+    "member": 22,
+    "analog_year": 2023,
     "members": [
       {
         "member": 0,
         "year": 2001,
-        "irrigation_mm": 1408,
+        "irrigation_mm": 1453,
         "label_vi": "Năm tham chiếu"
       },
       {
         "member": 1,
         "year": 2002,
-        "irrigation_mm": 1243,
+        "irrigation_mm": 1226,
         "label_vi": "Năm tham chiếu"
       },
       {
         "member": 2,
         "year": 2003,
-        "irrigation_mm": 1326,
+        "irrigation_mm": 1399,
         "label_vi": "Năm tham chiếu"
       },
       {
         "member": 3,
         "year": 2004,
-        "irrigation_mm": 1525,
+        "irrigation_mm": 1489,
         "label_vi": "Năm hạn như 2004–2005"
       },
       {
         "member": 4,
         "year": 2005,
-        "irrigation_mm": 1001,
+        "irrigation_mm": 1000,
         "label_vi": "Năm tham chiếu"
       },
       {
         "member": 5,
         "year": 2006,
-        "irrigation_mm": 1180,
+        "irrigation_mm": 1233,
         "label_vi": "Năm tham chiếu"
       },
       {
@@ -4230,97 +4230,97 @@
       {
         "member": 7,
         "year": 2008,
-        "irrigation_mm": 1124,
+        "irrigation_mm": 1117,
         "label_vi": "Năm tham chiếu"
       },
       {
         "member": 8,
         "year": 2009,
-        "irrigation_mm": 1372,
+        "irrigation_mm": 1414,
         "label_vi": "Năm tham chiếu"
       },
       {
         "member": 9,
         "year": 2010,
-        "irrigation_mm": 1072,
+        "irrigation_mm": 1060,
         "label_vi": "Năm tham chiếu"
       },
       {
         "member": 10,
         "year": 2011,
-        "irrigation_mm": 1049,
+        "irrigation_mm": 1048,
         "label_vi": "Năm tham chiếu"
       },
       {
         "member": 11,
         "year": 2012,
-        "irrigation_mm": 1333,
+        "irrigation_mm": 1324,
         "label_vi": "Năm tham chiếu"
       },
       {
         "member": 12,
         "year": 2013,
-        "irrigation_mm": 1416,
+        "irrigation_mm": 1463,
         "label_vi": "Năm tham chiếu"
       },
       {
         "member": 13,
         "year": 2014,
-        "irrigation_mm": 1526,
+        "irrigation_mm": 1558,
         "label_vi": "Năm tham chiếu"
       },
       {
         "member": 14,
         "year": 2015,
-        "irrigation_mm": 1385,
+        "irrigation_mm": 1358,
         "label_vi": "Năm tham chiếu"
       },
       {
         "member": 15,
         "year": 2016,
-        "irrigation_mm": 722,
+        "irrigation_mm": 721,
         "label_vi": "Năm tham chiếu"
       },
       {
         "member": 16,
         "year": 2017,
-        "irrigation_mm": 764,
+        "irrigation_mm": 756,
         "label_vi": "Năm tham chiếu"
       },
       {
         "member": 17,
         "year": 2018,
-        "irrigation_mm": 879,
+        "irrigation_mm": 878,
         "label_vi": "Năm tham chiếu"
       },
       {
         "member": 18,
         "year": 2019,
-        "irrigation_mm": 1305,
+        "irrigation_mm": 1296,
         "label_vi": "Năm bình thường"
       },
       {
         "member": 19,
         "year": 2020,
-        "irrigation_mm": 857,
+        "irrigation_mm": 856,
         "label_vi": "Năm tham chiếu"
       },
       {
         "member": 20,
         "year": 2021,
-        "irrigation_mm": 875,
+        "irrigation_mm": 874,
         "label_vi": "Năm ướt như 2021–2022"
       },
       {
         "member": 21,
         "year": 2022,
-        "irrigation_mm": 885,
+        "irrigation_mm": 884,
         "label_vi": "Năm tham chiếu"
       },
       {
         "member": 22,
         "year": 2023,
-        "irrigation_mm": 1104,
+        "irrigation_mm": 1152,
         "label_vi": "Năm tham chiếu"
       },
       {
@@ -4354,7 +4354,7 @@
         "date": "2027-03-31",
         "type": "sow",
         "season_index": 2,
-        "crop": "maize"
+        "crop": "peanut"
       },
       {
         "date": "2027-06-15",
@@ -4363,10 +4363,10 @@
         "crop": null
       },
       {
-        "date": "2027-07-03",
+        "date": "2027-07-08",
         "type": "harvest",
         "season_index": 2,
-        "crop": "maize"
+        "crop": "peanut"
       },
       {
         "date": "2027-07-31",
@@ -4398,7 +4398,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.95,
+          "value": 1.0,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4408,7 +4408,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 51.9,
+          "value": 70.6,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4418,7 +4418,7 @@
           ]
         },
         "rain_week": {
-          "value": 32.7,
+          "value": 55.5,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4474,7 +4474,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.73,
+          "value": 0.98,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4484,7 +4484,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 36.3,
+          "value": 52.2,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4494,7 +4494,7 @@
           ]
         },
         "rain_week": {
-          "value": 0.0,
+          "value": 20.8,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4504,7 +4504,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 26.5,
+          "value": 0.0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4514,7 +4514,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 226,
+          "value": 200,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4550,7 +4550,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.81,
+          "value": 0.68,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4560,7 +4560,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 40.3,
+          "value": 34.2,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4570,7 +4570,7 @@
           ]
         },
         "rain_week": {
-          "value": 0.0,
+          "value": 15.9,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4580,7 +4580,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 61.1,
+          "value": 27.6,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4590,7 +4590,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 288,
+          "value": 228,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4626,7 +4626,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.73,
+          "value": 0.8,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4636,7 +4636,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 36.6,
+          "value": 40.0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4646,7 +4646,7 @@
           ]
         },
         "rain_week": {
-          "value": 0,
+          "value": 17.5,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4656,7 +4656,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 25.3,
+          "value": 0.0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4666,7 +4666,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 313,
+          "value": 228,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4722,7 +4722,7 @@
           ]
         },
         "rain_week": {
-          "value": 3.8,
+          "value": 3.0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4732,7 +4732,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 55.8,
+          "value": 53.5,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4742,7 +4742,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 369,
+          "value": 281,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4778,7 +4778,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.78,
+          "value": 0.73,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4788,7 +4788,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 39.2,
+          "value": 36.4,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4798,7 +4798,7 @@
           ]
         },
         "rain_week": {
-          "value": 0.7,
+          "value": 2.2,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4808,7 +4808,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 53.3,
+          "value": 28.4,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4818,7 +4818,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 422,
+          "value": 309,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4854,7 +4854,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.78,
+          "value": 0.83,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4864,7 +4864,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 39.1,
+          "value": 41.5,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4874,7 +4874,7 @@
           ]
         },
         "rain_week": {
-          "value": 0.0,
+          "value": 3.8,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4884,7 +4884,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 27.7,
+          "value": 58.3,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4894,7 +4894,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 450,
+          "value": 368,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4930,7 +4930,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.77,
+          "value": 0.8,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4940,7 +4940,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 38.7,
+          "value": 39.8,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4950,7 +4950,7 @@
           ]
         },
         "rain_week": {
-          "value": 0.1,
+          "value": 0.6,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4960,7 +4960,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 55.0,
+          "value": 52.5,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -4970,7 +4970,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 505,
+          "value": 420,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5006,7 +5006,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.74,
+          "value": 0.76,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5016,7 +5016,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 36.8,
+          "value": 38.2,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5026,7 +5026,7 @@
           ]
         },
         "rain_week": {
-          "value": 10.8,
+          "value": 0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5036,7 +5036,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 28.9,
+          "value": 27.4,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5046,7 +5046,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 534,
+          "value": 448,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5082,7 +5082,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.8,
+          "value": 0.81,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5092,7 +5092,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 39.9,
+          "value": 40.5,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5102,7 +5102,7 @@
           ]
         },
         "rain_week": {
-          "value": 14.5,
+          "value": 0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5112,7 +5112,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 31.7,
+          "value": 57.8,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5122,7 +5122,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 565,
+          "value": 505,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5158,7 +5158,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.79,
+          "value": 0.78,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5168,7 +5168,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 39.6,
+          "value": 39.0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5178,7 +5178,7 @@
           ]
         },
         "rain_week": {
-          "value": 0.8,
+          "value": 0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5188,7 +5188,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 53.1,
+          "value": 58.6,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5198,7 +5198,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 618,
+          "value": 564,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5234,7 +5234,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.85,
+          "value": 0.79,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5244,7 +5244,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 42.4,
+          "value": 39.5,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5254,7 +5254,7 @@
           ]
         },
         "rain_week": {
-          "value": 0.2,
+          "value": 0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5264,7 +5264,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 80.4,
+          "value": 59.5,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5274,7 +5274,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 699,
+          "value": 623,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5310,7 +5310,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.78,
+          "value": 0.77,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5320,7 +5320,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 39.2,
+          "value": 38.6,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5330,7 +5330,7 @@
           ]
         },
         "rain_week": {
-          "value": 0.3,
+          "value": 0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5340,7 +5340,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 57.3,
+          "value": 65.1,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5350,7 +5350,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 756,
+          "value": 689,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5386,7 +5386,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.75,
+          "value": 0.81,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5396,7 +5396,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 37.4,
+          "value": 40.5,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5406,7 +5406,7 @@
           ]
         },
         "rain_week": {
-          "value": 0.0,
+          "value": 0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5416,7 +5416,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 30.3,
+          "value": 52.9,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5426,7 +5426,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 786,
+          "value": 741,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5462,7 +5462,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.88,
+          "value": 0.81,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5472,7 +5472,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 44.1,
+          "value": 40.4,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5482,7 +5482,7 @@
           ]
         },
         "rain_week": {
-          "value": 2.2,
+          "value": 0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5492,7 +5492,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 27.6,
+          "value": 28.4,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5502,7 +5502,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 814,
+          "value": 770,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5561,7 +5561,7 @@
           "reason": "NO_ACTIVE_CROP"
         },
         "rain_week": {
-          "value": 0.9,
+          "value": 0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5581,7 +5581,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 814,
+          "value": 770,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5640,7 +5640,7 @@
           "reason": "NO_ACTIVE_CROP"
         },
         "rain_week": {
-          "value": 10.2,
+          "value": 0.0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5660,7 +5660,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 814,
+          "value": 770,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5719,7 +5719,7 @@
           "reason": "NO_ACTIVE_CROP"
         },
         "rain_week": {
-          "value": 3.0,
+          "value": 0.2,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5739,7 +5739,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 814,
+          "value": 770,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5798,7 +5798,7 @@
           "reason": "NO_ACTIVE_CROP"
         },
         "rain_week": {
-          "value": 0.9,
+          "value": 0.5,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5818,7 +5818,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 814,
+          "value": 770,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5841,7 +5841,7 @@
       {
         "date": "2027-03-27",
         "season_index": 2,
-        "crop": "maize",
+        "crop": "peanut",
         "stage": "initial",
         "root_depth_m": {
           "value": 0.5,
@@ -5875,7 +5875,7 @@
           "reason": "NOT_PADDY"
         },
         "rain_week": {
-          "value": 2.8,
+          "value": 4.0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5885,7 +5885,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 65.9,
+          "value": 69.7,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5895,7 +5895,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 880,
+          "value": 840,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -5918,549 +5918,10 @@
       {
         "date": "2027-04-03",
         "season_index": 2,
-        "crop": "maize",
+        "crop": "peanut",
         "stage": "initial",
         "root_depth_m": {
           "value": 0.53,
-          "unit": "m",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "root_zone_water": {
-          "value": 0.91,
-          "unit": "fraction",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "ponding_mm": {
-          "value": null,
-          "unit": "mm",
-          "origin": "unknown",
-          "label": "Chưa biết",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ],
-          "reason": "NOT_PADDY"
-        },
-        "rain_week": {
-          "value": 5.6,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "irrigation_week": {
-          "value": 0.0,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "irrigation_cum": {
-          "value": 880,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "stress_risk": "LOW",
-        "salinity": {
-          "value": null,
-          "unit": "dS/m",
-          "origin": "unknown",
-          "label": "Chưa biết",
-          "evidence_ids": [],
-          "reason": "CANAL_ECW_NOT_MEASURED",
-          "in_salinity_season": false
-        }
-      },
-      {
-        "date": "2027-04-10",
-        "season_index": 2,
-        "crop": "maize",
-        "stage": "initial",
-        "root_depth_m": {
-          "value": 0.6,
-          "unit": "m",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "root_zone_water": {
-          "value": 0.81,
-          "unit": "fraction",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "ponding_mm": {
-          "value": null,
-          "unit": "mm",
-          "origin": "unknown",
-          "label": "Chưa biết",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ],
-          "reason": "NOT_PADDY"
-        },
-        "rain_week": {
-          "value": 4.7,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "irrigation_week": {
-          "value": 0.0,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "irrigation_cum": {
-          "value": 880,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "stress_risk": "LOW",
-        "salinity": {
-          "value": null,
-          "unit": "dS/m",
-          "origin": "unknown",
-          "label": "Chưa biết",
-          "evidence_ids": [],
-          "reason": "CANAL_ECW_NOT_MEASURED",
-          "in_salinity_season": false
-        }
-      },
-      {
-        "date": "2027-04-17",
-        "season_index": 2,
-        "crop": "maize",
-        "stage": "initial",
-        "root_depth_m": {
-          "value": 0.67,
-          "unit": "m",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "root_zone_water": {
-          "value": 0.77,
-          "unit": "fraction",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "ponding_mm": {
-          "value": null,
-          "unit": "mm",
-          "origin": "unknown",
-          "label": "Chưa biết",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ],
-          "reason": "NOT_PADDY"
-        },
-        "rain_week": {
-          "value": 6.3,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "irrigation_week": {
-          "value": 0.0,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "irrigation_cum": {
-          "value": 880,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "stress_risk": "LOW",
-        "salinity": {
-          "value": null,
-          "unit": "dS/m",
-          "origin": "unknown",
-          "label": "Chưa biết",
-          "evidence_ids": [],
-          "reason": "CANAL_ECW_NOT_MEASURED",
-          "in_salinity_season": false
-        }
-      },
-      {
-        "date": "2027-04-24",
-        "season_index": 2,
-        "crop": "maize",
-        "stage": "development",
-        "root_depth_m": {
-          "value": 0.74,
-          "unit": "m",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "root_zone_water": {
-          "value": 0.77,
-          "unit": "fraction",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "ponding_mm": {
-          "value": null,
-          "unit": "mm",
-          "origin": "unknown",
-          "label": "Chưa biết",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ],
-          "reason": "NOT_PADDY"
-        },
-        "rain_week": {
-          "value": 36.4,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "irrigation_week": {
-          "value": 0.0,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "irrigation_cum": {
-          "value": 880,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "stress_risk": "LOW",
-        "salinity": {
-          "value": null,
-          "unit": "dS/m",
-          "origin": "unknown",
-          "label": "Chưa biết",
-          "evidence_ids": [],
-          "reason": "CANAL_ECW_NOT_MEASURED",
-          "in_salinity_season": false
-        }
-      },
-      {
-        "date": "2027-05-01",
-        "season_index": 2,
-        "crop": "maize",
-        "stage": "development",
-        "root_depth_m": {
-          "value": 0.81,
-          "unit": "m",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "root_zone_water": {
-          "value": 0.94,
-          "unit": "fraction",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "ponding_mm": {
-          "value": null,
-          "unit": "mm",
-          "origin": "unknown",
-          "label": "Chưa biết",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ],
-          "reason": "NOT_PADDY"
-        },
-        "rain_week": {
-          "value": 28.2,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "irrigation_week": {
-          "value": 0.0,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "irrigation_cum": {
-          "value": 880,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "stress_risk": "LOW",
-        "salinity": {
-          "value": null,
-          "unit": "dS/m",
-          "origin": "unknown",
-          "label": "Chưa biết",
-          "evidence_ids": [],
-          "reason": "CANAL_ECW_NOT_MEASURED",
-          "in_salinity_season": false
-        }
-      },
-      {
-        "date": "2027-05-08",
-        "season_index": 2,
-        "crop": "maize",
-        "stage": "development",
-        "root_depth_m": {
-          "value": 0.88,
-          "unit": "m",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "root_zone_water": {
-          "value": 0.98,
-          "unit": "fraction",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "ponding_mm": {
-          "value": null,
-          "unit": "mm",
-          "origin": "unknown",
-          "label": "Chưa biết",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ],
-          "reason": "NOT_PADDY"
-        },
-        "rain_week": {
-          "value": 95.6,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "irrigation_week": {
-          "value": 0.0,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "irrigation_cum": {
-          "value": 880,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "stress_risk": "LOW",
-        "salinity": {
-          "value": null,
-          "unit": "dS/m",
-          "origin": "unknown",
-          "label": "Chưa biết",
-          "evidence_ids": [],
-          "reason": "CANAL_ECW_NOT_MEASURED",
-          "in_salinity_season": false
-        }
-      },
-      {
-        "date": "2027-05-15",
-        "season_index": 2,
-        "crop": "maize",
-        "stage": "development",
-        "root_depth_m": {
-          "value": 0.95,
-          "unit": "m",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "root_zone_water": {
-          "value": 0.95,
-          "unit": "fraction",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "ponding_mm": {
-          "value": null,
-          "unit": "mm",
-          "origin": "unknown",
-          "label": "Chưa biết",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ],
-          "reason": "NOT_PADDY"
-        },
-        "rain_week": {
-          "value": 20.2,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "irrigation_week": {
-          "value": 0.0,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "irrigation_cum": {
-          "value": 880,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "stress_risk": "LOW",
-        "salinity": {
-          "value": null,
-          "unit": "dS/m",
-          "origin": "unknown",
-          "label": "Chưa biết",
-          "evidence_ids": [],
-          "reason": "CANAL_ECW_NOT_MEASURED",
-          "in_salinity_season": false
-        }
-      },
-      {
-        "date": "2027-05-22",
-        "season_index": 2,
-        "crop": "maize",
-        "stage": "mid",
-        "root_depth_m": {
-          "value": 1.0,
           "unit": "m",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -6491,7 +5952,7 @@
           "reason": "NOT_PADDY"
         },
         "rain_week": {
-          "value": 22.5,
+          "value": 0.6,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -6511,7 +5972,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 880,
+          "value": 840,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -6532,12 +5993,12 @@
         }
       },
       {
-        "date": "2027-05-29",
+        "date": "2027-04-10",
         "season_index": 2,
-        "crop": "maize",
-        "stage": "mid",
+        "crop": "peanut",
+        "stage": "initial",
         "root_depth_m": {
-          "value": 1.0,
+          "value": 0.6,
           "unit": "m",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -6547,7 +6008,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.68,
+          "value": 0.6,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -6568,7 +6029,7 @@
           "reason": "NOT_PADDY"
         },
         "rain_week": {
-          "value": 18.5,
+          "value": 0.0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -6588,7 +6049,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 880,
+          "value": 840,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -6609,12 +6070,89 @@
         }
       },
       {
-        "date": "2027-06-05",
+        "date": "2027-04-17",
         "season_index": 2,
-        "crop": "maize",
-        "stage": "mid",
+        "crop": "peanut",
+        "stage": "initial",
         "root_depth_m": {
-          "value": 1.0,
+          "value": 0.67,
+          "unit": "m",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "root_zone_water": {
+          "value": 0.91,
+          "unit": "fraction",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "ponding_mm": {
+          "value": null,
+          "unit": "mm",
+          "origin": "unknown",
+          "label": "Chưa biết",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ],
+          "reason": "NOT_PADDY"
+        },
+        "rain_week": {
+          "value": 0,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "irrigation_week": {
+          "value": 50.6,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "irrigation_cum": {
+          "value": 890,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "stress_risk": "LOW",
+        "salinity": {
+          "value": null,
+          "unit": "dS/m",
+          "origin": "unknown",
+          "label": "Chưa biết",
+          "evidence_ids": [],
+          "reason": "CANAL_ECW_NOT_MEASURED",
+          "in_salinity_season": false
+        }
+      },
+      {
+        "date": "2027-04-24",
+        "season_index": 2,
+        "crop": "peanut",
+        "stage": "development",
+        "root_depth_m": {
+          "value": 0.74,
           "unit": "m",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -6645,7 +6183,7 @@
           "reason": "NOT_PADDY"
         },
         "rain_week": {
-          "value": 58.1,
+          "value": 0.3,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -6665,7 +6203,469 @@
           ]
         },
         "irrigation_cum": {
-          "value": 880,
+          "value": 890,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "stress_risk": "LOW",
+        "salinity": {
+          "value": null,
+          "unit": "dS/m",
+          "origin": "unknown",
+          "label": "Chưa biết",
+          "evidence_ids": [],
+          "reason": "CANAL_ECW_NOT_MEASURED",
+          "in_salinity_season": false
+        }
+      },
+      {
+        "date": "2027-05-01",
+        "season_index": 2,
+        "crop": "peanut",
+        "stage": "development",
+        "root_depth_m": {
+          "value": 0.81,
+          "unit": "m",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "root_zone_water": {
+          "value": 0.91,
+          "unit": "fraction",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "ponding_mm": {
+          "value": null,
+          "unit": "mm",
+          "origin": "unknown",
+          "label": "Chưa biết",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ],
+          "reason": "NOT_PADDY"
+        },
+        "rain_week": {
+          "value": 20.4,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "irrigation_week": {
+          "value": 62.9,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "irrigation_cum": {
+          "value": 953,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "stress_risk": "LOW",
+        "salinity": {
+          "value": null,
+          "unit": "dS/m",
+          "origin": "unknown",
+          "label": "Chưa biết",
+          "evidence_ids": [],
+          "reason": "CANAL_ECW_NOT_MEASURED",
+          "in_salinity_season": false
+        }
+      },
+      {
+        "date": "2027-05-08",
+        "season_index": 2,
+        "crop": "peanut",
+        "stage": "development",
+        "root_depth_m": {
+          "value": 0.88,
+          "unit": "m",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "root_zone_water": {
+          "value": 0.96,
+          "unit": "fraction",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "ponding_mm": {
+          "value": null,
+          "unit": "mm",
+          "origin": "unknown",
+          "label": "Chưa biết",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ],
+          "reason": "NOT_PADDY"
+        },
+        "rain_week": {
+          "value": 42.1,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "irrigation_week": {
+          "value": 0.0,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "irrigation_cum": {
+          "value": 953,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "stress_risk": "LOW",
+        "salinity": {
+          "value": null,
+          "unit": "dS/m",
+          "origin": "unknown",
+          "label": "Chưa biết",
+          "evidence_ids": [],
+          "reason": "CANAL_ECW_NOT_MEASURED",
+          "in_salinity_season": false
+        }
+      },
+      {
+        "date": "2027-05-15",
+        "season_index": 2,
+        "crop": "peanut",
+        "stage": "development",
+        "root_depth_m": {
+          "value": 0.95,
+          "unit": "m",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "root_zone_water": {
+          "value": 1.0,
+          "unit": "fraction",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "ponding_mm": {
+          "value": null,
+          "unit": "mm",
+          "origin": "unknown",
+          "label": "Chưa biết",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ],
+          "reason": "NOT_PADDY"
+        },
+        "rain_week": {
+          "value": 61.0,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "irrigation_week": {
+          "value": 0.0,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "irrigation_cum": {
+          "value": 953,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "stress_risk": "LOW",
+        "salinity": {
+          "value": null,
+          "unit": "dS/m",
+          "origin": "unknown",
+          "label": "Chưa biết",
+          "evidence_ids": [],
+          "reason": "CANAL_ECW_NOT_MEASURED",
+          "in_salinity_season": false
+        }
+      },
+      {
+        "date": "2027-05-22",
+        "season_index": 2,
+        "crop": "peanut",
+        "stage": "mid",
+        "root_depth_m": {
+          "value": 1.0,
+          "unit": "m",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "root_zone_water": {
+          "value": 0.94,
+          "unit": "fraction",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "ponding_mm": {
+          "value": null,
+          "unit": "mm",
+          "origin": "unknown",
+          "label": "Chưa biết",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ],
+          "reason": "NOT_PADDY"
+        },
+        "rain_week": {
+          "value": 27.8,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "irrigation_week": {
+          "value": 0.0,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "irrigation_cum": {
+          "value": 953,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "stress_risk": "LOW",
+        "salinity": {
+          "value": null,
+          "unit": "dS/m",
+          "origin": "unknown",
+          "label": "Chưa biết",
+          "evidence_ids": [],
+          "reason": "CANAL_ECW_NOT_MEASURED",
+          "in_salinity_season": false
+        }
+      },
+      {
+        "date": "2027-05-29",
+        "season_index": 2,
+        "crop": "peanut",
+        "stage": "mid",
+        "root_depth_m": {
+          "value": 1.0,
+          "unit": "m",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "root_zone_water": {
+          "value": 0.98,
+          "unit": "fraction",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "ponding_mm": {
+          "value": null,
+          "unit": "mm",
+          "origin": "unknown",
+          "label": "Chưa biết",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ],
+          "reason": "NOT_PADDY"
+        },
+        "rain_week": {
+          "value": 58.8,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "irrigation_week": {
+          "value": 0.0,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "irrigation_cum": {
+          "value": 953,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "stress_risk": "LOW",
+        "salinity": {
+          "value": null,
+          "unit": "dS/m",
+          "origin": "unknown",
+          "label": "Chưa biết",
+          "evidence_ids": [],
+          "reason": "CANAL_ECW_NOT_MEASURED",
+          "in_salinity_season": false
+        }
+      },
+      {
+        "date": "2027-06-05",
+        "season_index": 2,
+        "crop": "peanut",
+        "stage": "mid",
+        "root_depth_m": {
+          "value": 1.0,
+          "unit": "m",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "root_zone_water": {
+          "value": 0.94,
+          "unit": "fraction",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "ponding_mm": {
+          "value": null,
+          "unit": "mm",
+          "origin": "unknown",
+          "label": "Chưa biết",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ],
+          "reason": "NOT_PADDY"
+        },
+        "rain_week": {
+          "value": 47.5,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "irrigation_week": {
+          "value": 0.0,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "irrigation_cum": {
+          "value": 953,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -6688,162 +6688,8 @@
       {
         "date": "2027-06-12",
         "season_index": 2,
-        "crop": "maize",
+        "crop": "peanut",
         "stage": "mid",
-        "root_depth_m": {
-          "value": 1.0,
-          "unit": "m",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "root_zone_water": {
-          "value": 0.97,
-          "unit": "fraction",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "ponding_mm": {
-          "value": null,
-          "unit": "mm",
-          "origin": "unknown",
-          "label": "Chưa biết",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ],
-          "reason": "NOT_PADDY"
-        },
-        "rain_week": {
-          "value": 61.4,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "irrigation_week": {
-          "value": 0.0,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "irrigation_cum": {
-          "value": 880,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "stress_risk": "LOW",
-        "salinity": {
-          "value": null,
-          "unit": "dS/m",
-          "origin": "unknown",
-          "label": "Chưa biết",
-          "evidence_ids": [],
-          "reason": "CANAL_ECW_NOT_MEASURED",
-          "in_salinity_season": false
-        }
-      },
-      {
-        "date": "2027-06-19",
-        "season_index": 2,
-        "crop": "maize",
-        "stage": "late",
-        "root_depth_m": {
-          "value": 1.0,
-          "unit": "m",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "root_zone_water": {
-          "value": 0.86,
-          "unit": "fraction",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "ponding_mm": {
-          "value": null,
-          "unit": "mm",
-          "origin": "unknown",
-          "label": "Chưa biết",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ],
-          "reason": "NOT_PADDY"
-        },
-        "rain_week": {
-          "value": 28.0,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "irrigation_week": {
-          "value": 0.0,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "irrigation_cum": {
-          "value": 880,
-          "unit": "mm",
-          "origin": "inferred_by_model",
-          "label": "Dự kiến",
-          "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
-          ]
-        },
-        "stress_risk": "LOW",
-        "salinity": {
-          "value": null,
-          "unit": "dS/m",
-          "origin": "unknown",
-          "label": "Chưa biết",
-          "evidence_ids": [],
-          "reason": "CANAL_ECW_NOT_MEASURED",
-          "in_salinity_season": false
-        }
-      },
-      {
-        "date": "2027-06-26",
-        "season_index": 2,
-        "crop": "maize",
-        "stage": "late",
         "root_depth_m": {
           "value": 1.0,
           "unit": "m",
@@ -6876,7 +6722,7 @@
           "reason": "NOT_PADDY"
         },
         "rain_week": {
-          "value": 23.1,
+          "value": 20.4,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -6896,7 +6742,161 @@
           ]
         },
         "irrigation_cum": {
-          "value": 880,
+          "value": 953,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "stress_risk": "LOW",
+        "salinity": {
+          "value": null,
+          "unit": "dS/m",
+          "origin": "unknown",
+          "label": "Chưa biết",
+          "evidence_ids": [],
+          "reason": "CANAL_ECW_NOT_MEASURED",
+          "in_salinity_season": false
+        }
+      },
+      {
+        "date": "2027-06-19",
+        "season_index": 2,
+        "crop": "peanut",
+        "stage": "mid",
+        "root_depth_m": {
+          "value": 1.0,
+          "unit": "m",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "root_zone_water": {
+          "value": 0.95,
+          "unit": "fraction",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "ponding_mm": {
+          "value": null,
+          "unit": "mm",
+          "origin": "unknown",
+          "label": "Chưa biết",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ],
+          "reason": "NOT_PADDY"
+        },
+        "rain_week": {
+          "value": 149.4,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "irrigation_week": {
+          "value": 0.0,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "irrigation_cum": {
+          "value": 953,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "stress_risk": "LOW",
+        "salinity": {
+          "value": null,
+          "unit": "dS/m",
+          "origin": "unknown",
+          "label": "Chưa biết",
+          "evidence_ids": [],
+          "reason": "CANAL_ECW_NOT_MEASURED",
+          "in_salinity_season": false
+        }
+      },
+      {
+        "date": "2027-06-26",
+        "season_index": 2,
+        "crop": "peanut",
+        "stage": "late",
+        "root_depth_m": {
+          "value": 1.0,
+          "unit": "m",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "root_zone_water": {
+          "value": 0.96,
+          "unit": "fraction",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "ponding_mm": {
+          "value": null,
+          "unit": "mm",
+          "origin": "unknown",
+          "label": "Chưa biết",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ],
+          "reason": "NOT_PADDY"
+        },
+        "rain_week": {
+          "value": 20.0,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "irrigation_week": {
+          "value": 0.0,
+          "unit": "mm",
+          "origin": "inferred_by_model",
+          "label": "Dự kiến",
+          "evidence_ids": [
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        "irrigation_cum": {
+          "value": 953,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -6919,7 +6919,7 @@
       {
         "date": "2027-07-03",
         "season_index": 2,
-        "crop": "maize",
+        "crop": "peanut",
         "stage": "late",
         "root_depth_m": {
           "value": 1.0,
@@ -6932,7 +6932,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.89,
+          "value": 0.98,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -6953,7 +6953,7 @@
           "reason": "NOT_PADDY"
         },
         "rain_week": {
-          "value": 39.1,
+          "value": 59.2,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -6973,7 +6973,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 880,
+          "value": 953,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7032,7 +7032,7 @@
           "reason": "NO_ACTIVE_CROP"
         },
         "rain_week": {
-          "value": 3.9,
+          "value": 208.9,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7052,7 +7052,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 880,
+          "value": 953,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7111,7 +7111,7 @@
           "reason": "NO_ACTIVE_CROP"
         },
         "rain_week": {
-          "value": 58.2,
+          "value": 119.2,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7131,7 +7131,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 880,
+          "value": 953,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7190,7 +7190,7 @@
           "reason": "NO_ACTIVE_CROP"
         },
         "rain_week": {
-          "value": 60.2,
+          "value": 84.3,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7210,7 +7210,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 880,
+          "value": 953,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7246,7 +7246,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 1.0,
+          "value": 0.93,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7256,7 +7256,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 63.4,
+          "value": 58.5,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7266,7 +7266,7 @@
           ]
         },
         "rain_week": {
-          "value": 67.9,
+          "value": 66.7,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7286,7 +7286,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1080,
+          "value": 1153,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7332,7 +7332,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 87.8,
+          "value": 64.6,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7342,7 +7342,7 @@
           ]
         },
         "rain_week": {
-          "value": 50.6,
+          "value": 30.1,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7362,7 +7362,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1080,
+          "value": 1153,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7398,7 +7398,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 1.0,
+          "value": 0.87,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7408,7 +7408,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 79.6,
+          "value": 45.1,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7418,7 +7418,7 @@
           ]
         },
         "rain_week": {
-          "value": 25.3,
+          "value": 22.9,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7438,7 +7438,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1080,
+          "value": 1153,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7474,7 +7474,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 1.0,
+          "value": 0.76,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7484,7 +7484,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 65.5,
+          "value": 46.4,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7494,7 +7494,7 @@
           ]
         },
         "rain_week": {
-          "value": 27.6,
+          "value": 89.9,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7514,7 +7514,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1080,
+          "value": 1153,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7550,7 +7550,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.76,
+          "value": 1.0,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7560,7 +7560,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 38.8,
+          "value": 98.6,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7570,7 +7570,7 @@
           ]
         },
         "rain_week": {
-          "value": 19.6,
+          "value": 116.9,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7590,7 +7590,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1080,
+          "value": 1153,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7626,7 +7626,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.84,
+          "value": 1.0,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7636,7 +7636,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 44.1,
+          "value": 99.6,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7646,7 +7646,7 @@
           ]
         },
         "rain_week": {
-          "value": 71.5,
+          "value": 74.6,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7666,7 +7666,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1080,
+          "value": 1153,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7712,7 +7712,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 72.3,
+          "value": 100,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7722,7 +7722,7 @@
           ]
         },
         "rain_week": {
-          "value": 64.6,
+          "value": 115.6,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7742,7 +7742,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1080,
+          "value": 1153,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7778,7 +7778,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.94,
+          "value": 1.0,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7788,7 +7788,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 55.7,
+          "value": 98.3,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7798,7 +7798,7 @@
           ]
         },
         "rain_week": {
-          "value": 7.5,
+          "value": 119.9,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7818,7 +7818,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1080,
+          "value": 1153,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7854,7 +7854,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.79,
+          "value": 1.0,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7864,7 +7864,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 39.7,
+          "value": 82.3,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7874,7 +7874,7 @@
           ]
         },
         "rain_week": {
-          "value": 49.0,
+          "value": 19.2,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7894,7 +7894,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1080,
+          "value": 1153,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7930,7 +7930,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.76,
+          "value": 1.0,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7940,7 +7940,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 38.2,
+          "value": 80.0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7950,7 +7950,7 @@
           ]
         },
         "rain_week": {
-          "value": 19.0,
+          "value": 75.2,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7960,7 +7960,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 30.4,
+          "value": 0.0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -7970,7 +7970,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1110,
+          "value": 1153,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -8006,7 +8006,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.81,
+          "value": 1.0,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -8016,7 +8016,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 40.5,
+          "value": 98.7,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -8026,7 +8026,7 @@
           ]
         },
         "rain_week": {
-          "value": 35.5,
+          "value": 73.5,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -8046,7 +8046,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1110,
+          "value": 1153,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -8082,7 +8082,7 @@
           ]
         },
         "root_zone_water": {
-          "value": 0.85,
+          "value": 1.0,
           "unit": "fraction",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -8092,7 +8092,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 42.6,
+          "value": 100,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -8102,7 +8102,7 @@
           ]
         },
         "rain_week": {
-          "value": 42.3,
+          "value": 109.3,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -8112,7 +8112,7 @@
           ]
         },
         "irrigation_week": {
-          "value": 25.7,
+          "value": 0.0,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -8122,7 +8122,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1136,
+          "value": 1153,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -8168,7 +8168,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 61.9,
+          "value": 95.4,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -8178,7 +8178,7 @@
           ]
         },
         "rain_week": {
-          "value": 42.2,
+          "value": 86.3,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -8198,7 +8198,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1136,
+          "value": 1153,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -8244,7 +8244,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 65.6,
+          "value": 95.3,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -8254,7 +8254,7 @@
           ]
         },
         "rain_week": {
-          "value": 39.3,
+          "value": 77.6,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -8274,7 +8274,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1136,
+          "value": 1153,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -8320,7 +8320,7 @@
           ]
         },
         "ponding_mm": {
-          "value": 66.4,
+          "value": 99.7,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -8330,7 +8330,7 @@
           ]
         },
         "rain_week": {
-          "value": 13.8,
+          "value": 9.4,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",
@@ -8350,7 +8350,7 @@
           ]
         },
         "irrigation_cum": {
-          "value": 1136,
+          "value": 1153,
           "unit": "mm",
           "origin": "inferred_by_model",
           "label": "Dự kiến",

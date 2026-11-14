@@ -25,7 +25,7 @@ dev = [
 where = ["src"]
 
 [tool.setuptools.package-data]
-fieldshift = ["resources/*.json", "resources/projections/*.json", "resources/demo_cache/*/*", "resources/observations/*/*.json.gz"]
+fieldshift = ["resources/*.json", "resources/projections/*.json", "resources/demo_cache/*/*", "resources/observations/*/*.json.gz", "resources/enso/oni.data"]
 
 [tool.ruff]
 line-length = 100
