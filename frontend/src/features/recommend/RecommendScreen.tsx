@@ -115,7 +115,16 @@ export function RecommendScreen({ fieldId }: { fieldId: string | null }) {
       <div className="rec">
         <ParcelBar field={field} fields={fields} result={result} />
         {error && <p className="rec-error">{error}</p>}
-        {!result && !error && <div className="rec-skeleton" aria-busy="true" aria-label="Đang tải đề xuất" />}
+        {result?.notice && (
+          <p className="rec-notice" role="status">
+            {result.notice}
+          </p>
+        )}
+        {!result && !error && (
+          <div className="rec-skeleton" aria-busy="true">
+            <span>Engine đang tính đề xuất cho thửa này… lần đầu có thể mất khoảng nửa phút.</span>
+          </div>
+        )}
         {result && <Recommendation key={field.id} field={field} decision={result.decision} />}
       </div>
     </AppShell>

@@ -1,18 +1,20 @@
 /**
- * Where the rotation recommendation comes from.
- * MOCK for now: real engine output captured in contracts/fixtures (Cần Thơ inland, Sóc Trăng coastal),
- * picked by the parcel's location. Swap `loadDecision` for `POST /v1/plans` (or a background job's
- * latest decision) without touching the screen — it only consumes `DecisionPackage`.
+ * Where the rotation recommendation comes from: the parcel's latest engine PLAN (shared with the
+ * simulation). The captured engine runs in contracts/fixtures are only a fallback when the engine
+ * cannot answer, and are labelled as sample data on screen.
  */
 import type { DecisionPackage, Option } from '../../../../contracts/types'
 import type { LocalField } from '../fields/store'
+import { ApiError } from '../api/client'
+import { latestPlan } from './plans'
 
 export type { DecisionPackage, Option }
 
 export interface DecisionResult {
   decision: DecisionPackage
-  /** 'mock' until the screen is wired to the engine. */
   source: 'mock' | 'engine'
+  /** Why the mock is shown, when it is. */
+  notice?: string
 }
 
 const FIXTURES = {
@@ -20,12 +22,23 @@ const FIXTURES = {
   soctrang: { lat: 9.55, lng: 106.2, load: () => import('../../../../contracts/fixtures/plan_soctrang.json') },
 }
 
-export async function loadDecision(field: LocalField): Promise<DecisionResult> {
+async function mock(field: LocalField, notice: string): Promise<DecisionResult> {
   // Coastal parcels (salinity season matters) get the Sóc Trăng run, inland ones the Cần Thơ run.
   const coastal = Boolean(field.profile?.coastal_salinity_risk) || field.centroid.lng > 105.9
   const pick = field.id === 'fld_cantho' ? FIXTURES.cantho : field.id === 'fld_soctrang' || coastal ? FIXTURES.soctrang : FIXTURES.cantho
   const mod = await pick.load()
-  return { decision: (mod.default ?? mod) as unknown as DecisionPackage, source: 'mock' }
+  return { decision: (mod.default ?? mod) as unknown as DecisionPackage, source: 'mock', notice }
+}
+
+/** The engine's latest plan for the parcel; the captured fixtures only when the engine cannot answer. */
+export async function loadDecision(field: LocalField): Promise<DecisionResult> {
+  if (field.pending) return mock(field, 'Thửa chưa đồng bộ lên máy chủ — đang hiện dữ liệu mẫu.')
+  try {
+    return { decision: await latestPlan(field.id), source: 'engine' }
+  } catch (e) {
+    const offline = e instanceof ApiError && e.unreachable
+    return mock(field, offline ? 'Chưa kết nối được engine — đang hiện dữ liệu mẫu.' : `Engine báo lỗi (${e instanceof Error ? e.message : 'không rõ'}) — đang hiện dữ liệu mẫu.`)
+  }
 }
 
 /** Short crop names for tight labels; the API's crop_name_vi can be long ("Bỏ hóa / cây phủ đất"). */

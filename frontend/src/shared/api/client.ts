@@ -68,7 +68,8 @@ export const api = {
   evaluateChain: (decisionId: string, crops: CropId[], opts: { sow_timing?: string[]; override?: ScenarioOverride } = {}) =>
     request<DecisionPackage>(`/plans/${encodeURIComponent(decisionId)}/evaluate`, { method: 'POST', body: JSON.stringify({ crops, ...opts }) }),
   twin: (decisionId: string, sequenceId: string, scenarioId: string, member: number | null) => {
-    const q = new URLSearchParams({ sequence_id: sequenceId, scenario_id: scenarioId })
+    // aligned: one shared weekly calendar, so two chains (even from different decisions) line up week by week.
+    const q = new URLSearchParams({ sequence_id: sequenceId, scenario_id: scenarioId, aligned: 'true' })
     if (member !== null) q.set('member', String(member))
     return request<Twin>(`/plans/${encodeURIComponent(decisionId)}/twin?${q}`)
   },

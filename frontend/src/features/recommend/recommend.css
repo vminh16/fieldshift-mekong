@@ -22,7 +22,8 @@
 .rec-empty { max-width: 460px; margin: 10vh auto 0; text-align: center; }
 .rec-empty h1 { margin: 0 0 8px; font-size: 1.5rem; }
 .rec-empty p { margin: 0 0 18px; color: var(--color-text-muted); }
-.rec-skeleton { height: 360px; border-radius: var(--radius-md); background: var(--color-surface); }
+.rec-skeleton { display: grid; place-items: center; height: 360px; border-radius: var(--radius-md); background: var(--color-surface); color: var(--color-text-muted); font-size: 0.9375rem; text-align: center; padding: 16px; }
+.rec-notice { margin: 0; padding: 8px 12px; border-left: 2px solid var(--color-warn); border-radius: 0; background: var(--color-surface); font-size: 0.875rem; color: var(--color-text-muted); }
 
 /* ---------- parcel bar ---------- */
 .rec-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; }

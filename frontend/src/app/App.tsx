@@ -1,11 +1,22 @@
-import { LandingPage } from '../features/landing/LandingPage'
-import { FieldsWorkspace } from '../features/fields/FieldsWorkspace'
-import { PlannedScreen } from '../features/shell/PlannedScreen'
-import { RecommendScreen } from '../features/recommend/RecommendScreen'
-import { TwinScreen } from '../features/twin/TwinScreen'
+import { lazy, Suspense } from 'react'
 import { useRoute } from '../shared/router'
 
+// One chunk per screen: the globe (three.js) and the maps (MapLibre) load only where they are used.
+const LandingPage = lazy(() => import('../features/landing/LandingPage').then((m) => ({ default: m.LandingPage })))
+const FieldsWorkspace = lazy(() => import('../features/fields/FieldsWorkspace').then((m) => ({ default: m.FieldsWorkspace })))
+const PlannedScreen = lazy(() => import('../features/shell/PlannedScreen').then((m) => ({ default: m.PlannedScreen })))
+const RecommendScreen = lazy(() => import('../features/recommend/RecommendScreen').then((m) => ({ default: m.RecommendScreen })))
+const TwinScreen = lazy(() => import('../features/twin/TwinScreen').then((m) => ({ default: m.TwinScreen })))
+
 export function App() {
+  return (
+    <Suspense fallback={<div className="route-loading" aria-busy="true" aria-label="Đang tải" />}>
+      <Routes />
+    </Suspense>
+  )
+}
+
+function Routes() {
   const route = useRoute()
   const { path } = route
 

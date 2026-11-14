@@ -9,6 +9,7 @@
  */
 import { api, ApiError, type CropId, type DecisionPackage, type ScenarioOverride, type Twin } from '../api/client'
 import type { LocalField } from '../fields/store'
+import { latestPlan } from '../decision/plans'
 
 export type ChainSpec =
   | { kind: 'engine'; sequenceId: string }
@@ -30,22 +31,6 @@ export interface TwinSource {
 }
 
 const childCache = new Map<string, Promise<DecisionPackage>>()
-
-const planCache = new Map<string, Promise<DecisionPackage>>()
-
-/** Latest PLAN for the field, creating one if none exists. One request per field even if asked twice. */
-function latestPlan(fieldId: string): Promise<DecisionPackage> {
-  if (!planCache.has(fieldId)) {
-    const p = (async () => {
-      const plans = await api.listFieldPlans(fieldId)
-      const last = [...plans].reverse().find((x) => x.kind === 'PLAN')
-      return last ? api.getPlan(last.decision_id) : api.createPlan(fieldId)
-    })()
-    p.catch(() => planCache.delete(fieldId))
-    planCache.set(fieldId, p)
-  }
-  return planCache.get(fieldId)!
-}
 
 function engineSource(decision: DecisionPackage): TwinSource {
   const chains = [decision.baseline, ...decision.options]
