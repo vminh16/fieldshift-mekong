@@ -16,17 +16,32 @@ FIXTURES = Path(__file__).resolve().parents[4] / "contracts" / "fixtures"
 # One deliberate physics change since: the harvest-to-sowing fallow gap is now simulated (P1-3).
 # In Can Tho the ~5-week dry-season gap after the Dong Xuan rice dries the bed before Xuan He
 # peanut (sc_clim irrigation 1077 -> 1144 mm, stress p90 12 -> 13 d), so rice-peanut-rice
-# becomes dominated by soybean-rice-rice and leaves the Pareto front; only 3 options remain.
+# became dominated by soybean-rice-rice and left the Pareto front (then 3 options).
+# Deliberate agronomic change since (feat/agronomic-realism, planner pareto-v2):
+# - production_value_index (season value weight × crop value, team heuristic [B]) is a Pareto
+#   key, and low_risk / soil_support / balanced rank on it. Previously every pick replaced the
+#   Dong Xuan rice (the driest, so most water-saving, season) — the opposite of Mekong
+#   practice, where Dong Xuan is the most reliable rice crop. They now change Xuan He instead;
+#   save_water still shows the pure water extreme (mungbean in Dong Xuan, lower value index).
+# - Fallow seasons add 0 stress days (bare-soil drying is not crop damage).
+# - Named zone practice: inland Can Tho gets "Nghỉ vụ ba / xả lũ" (rest Thu Dong); coastal Soc
+#   Trang gets "Né mặn: xuống giống sớm" (baseline rice, Dong Xuan sown early), and its
+#   "Giảm rủi ro" now rests Xuan He (peak-salinity season) rather than Dong Xuan.
+# Before: cantho soybean/mungbean/fallow in Dong Xuan; soctrang fallow/mungbean/soybean in DX.
 EXPECTED_IDS = {
     "cantho": [
-        "seq_soybean_rice_rice__early_standard_standard",
+        "seq_rice_maize_rice__early_standard_standard",
         "seq_mungbean_rice_rice__early_standard_standard",
-        "seq_fallow_cover_rice_rice__early_standard_standard",
+        "seq_rice_peanut_rice__early_standard_standard",
+        "seq_rice_sesame_rice__early_standard_standard",
+        "seq_rice_rice_fallow_cover__standard_standard_standard",
     ],
     "soctrang": [
-        "seq_fallow_cover_rice_rice__early_standard_standard",
+        "seq_rice_fallow_cover_rice__early_standard_standard",
         "seq_mungbean_rice_rice__early_standard_standard",
-        "seq_soybean_rice_rice__early_standard_standard",
+        "seq_rice_peanut_rice__early_standard_standard",
+        "seq_rice_maize_rice__early_standard_standard",
+        "seq_rice_rice_rice__early_standard_standard",
     ],
 }
 
@@ -96,5 +111,6 @@ def test_fixture_picks_metrics_and_selected_only_details(field, monkeypatch, tmp
                 for option in [actual["baseline"], *actual["options"]]
                 for t in option["triggers"]
             ]
-            assert any("3,33 dS/m" in condition for condition in conditions)
+            # soybean (3,33 dS/m) left the shortlist; peanut/maize keep a two-decimal threshold
+            assert any("2,13 dS/m" in condition for condition in conditions)
             assert any("1,3 ‰" in condition for condition in conditions)
