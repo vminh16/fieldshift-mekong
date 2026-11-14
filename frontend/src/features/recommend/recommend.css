@@ -337,3 +337,41 @@ button.alt:hover .alt__go { color: var(--color-accent-strong); }
   .soil { grid-template-columns: minmax(0, 1fr); }
   .tabs { overflow-x: auto; }
 }
+
+/* ---------- engine verdict, confidence, checklist, triggers ---------- */
+.status-badge { display: inline-block; margin: 10px 0 0; padding: 2px 10px; border-radius: var(--radius-pill); background: var(--color-accent-soft); color: var(--color-accent-strong); font-size: 0.8125rem; font-weight: 600; }
+.status-badge[data-tone='warn'] { background: rgba(227, 184, 102, 0.14); color: var(--color-warn); }
+.status-badge[data-tone='bad'] { background: rgba(229, 139, 123, 0.14); color: var(--color-danger); }
+.soil-line, .conf-line { margin: 12px 0 0; font-size: 0.9375rem; }
+.soil-line span, .conf-line { color: var(--color-text-muted); }
+.conf-line strong { color: var(--color-text); }
+.todo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 32px; margin-top: 18px; }
+.todo .conditions { margin: 0; }
+.todo .conditions ol { display: grid; gap: 6px; }
+.triggers p { margin: 0 0 6px; font-size: 0.8125rem; font-weight: 600; color: var(--color-text-muted); }
+.triggers ul { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; font-size: 0.9375rem; }
+.triggers strong { font-weight: 600; }
+.answer__summary { margin: 16px 0 0; font-size: 0.8125rem; line-height: 1.5; color: var(--color-text-subtle); }
+@media (max-width: 699px) { .todo { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- step: confirm field profile ---------- */
+.step { padding: 14px 16px; border: 1px solid var(--color-border); border-radius: var(--radius-md); }
+.step__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; }
+.step__title { margin: 0; font-size: 1rem; font-weight: 600; }
+.step__sum { margin: 4px 0 0; font-size: 0.875rem; color: var(--color-text-muted); }
+.step__assumed { display: inline-block; padding: 0 6px; border: 1px dashed var(--color-warn); border-radius: 4px; color: var(--color-warn); font-size: 0.75rem; font-weight: 500; }
+.step__form { display: grid; gap: 16px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--color-border); }
+.step__form fieldset { margin: 0; padding: 0; border: 0; }
+.step__form legend { margin-bottom: 8px; padding: 0; font-size: 0.875rem; font-weight: 600; }
+.step__seasons { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.step__seasons label { display: grid; gap: 4px; font-size: 0.8125rem; color: var(--color-text-muted); }
+.step__seasons select { min-height: 44px; padding: 0 8px; border: 1px solid var(--color-border-strong); border-radius: 6px; background: var(--color-bg-deep); color: var(--color-text); font: 400 0.9375rem var(--font-sans); }
+.step__row { display: flex; flex-wrap: wrap; gap: 8px; }
+.step__radio, .step__check { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 12px; border: 1px solid var(--color-border-strong); border-radius: var(--radius-sm); font-size: 0.9375rem; cursor: pointer; }
+.step__radio:has(input:checked), .step__check:has(input:checked) { border-color: var(--color-accent); background: var(--color-accent-soft); }
+.step__radio input, .step__check input { accent-color: var(--color-accent); width: 18px; height: 18px; }
+.step__clear { padding: 0 6px; border: 0; background: none; color: var(--color-text-subtle); font: 400 0.8125rem var(--font-sans); text-decoration: underline; cursor: pointer; }
+.step__hint { margin: 6px 0 0; font-size: 0.8125rem; color: var(--color-text-subtle); }
+.step__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
+.step__foot .step__hint { margin: 0; }
+@media (max-width: 599px) { .step__seasons { grid-template-columns: minmax(0, 1fr); } }

@@ -70,3 +70,21 @@ export const SOIL_INDICATOR: Record<string, string> = {
   root_diversity: 'Rễ cây khác nhau, đất tơi hơn',
   ground_cover: 'Che phủ đất mùa khô',
 }
+
+/** Engine decision status → plain words + tone for the badge. */
+export const STATUS_VI: Record<string, { text: string; tone: 'ok' | 'warn' | 'bad' }> = {
+  RECOMMEND_FOR_CONSIDERATION: { text: 'Có thể cân nhắc', tone: 'ok' },
+  CONDITIONAL_PENDING_CHECK: { text: 'Cần kiểm tra trước', tone: 'warn' },
+  NOT_FEASIBLE: { text: 'Không làm được', tone: 'bad' },
+  INSUFFICIENT_EVIDENCE: { text: 'Chưa đủ dữ liệu', tone: 'warn' },
+}
+export const CONFIDENCE_VI: Record<string, string> = { HIGH: 'Cao', MEDIUM: 'Vừa', LOW: 'Thấp' }
+/** Inputs the engine had to do without (confidence.unknowns). */
+export const UNKNOWN_VI: Record<string, string> = {
+  canal_ecw: 'độ mặn nước kênh (chưa đo)',
+  drainage: 'thoát nước của ruộng',
+  irrigation: 'nguồn nước tưới',
+  baseline: 'cây đang trồng',
+}
+export interface Confidence { level: string; robust_scenarios: string; unknowns: string[] }
+export const confidenceOf = (o: Option) => (o as Option & { confidence?: Confidence }).confidence ?? null

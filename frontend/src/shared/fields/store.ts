@@ -219,6 +219,13 @@ export async function saveField(input: FieldInput): Promise<{ field: LocalField;
   }
 }
 
+/** Save the farmer's answers about the parcel (PATCH merges into the stored profile). */
+export async function saveProfile(id: string, profile: Partial<FieldProfile>): Promise<LocalField> {
+  const field = fromApi(await api.patchField(id, { profile }), getField(id))
+  commit(fields.map((f) => (f.id === id ? field : f)))
+  return field
+}
+
 /** Only the place label changes (filled in by the geocoder after saving). */
 export async function renamePlace(id: string, place_name: string) {
   const f = getField(id)

@@ -2,9 +2,22 @@
  * Thin fetch wrapper for the FieldShift API (contracts/API_CONTRACT.md).
  * Types come straight from contracts/types.ts so the frontend cannot drift from the backend contract.
  */
-import type { CropId, DecisionPackage, Field, FieldProfile, ScenarioOverride, Twin } from '../../../../contracts/types'
+import type { CropId, DecisionPackage, Field, FieldProfile, Observation, ScenarioOverride, Trigger, Twin } from '../../../../contracts/types'
 
-export type { CropId, DecisionPackage, Field, FieldProfile, ScenarioOverride, Twin }
+export type { CropId, DecisionPackage, Field, FieldProfile, Observation, ScenarioOverride, Twin }
+
+export interface ObservationWrite {
+  variable: 'canal_ecw' | 'drainage' | 'season_closed'
+  value?: number
+  value_text?: string
+  unit?: string
+  observed_at: string
+  evidence_kind: 'OBSERVED_FIELD' | 'REPORTED_BY_FARMER'
+  note?: string
+}
+export type FiredTrigger = Trigger & { sequence_id: string; observation_id: string; observed_at: string; value: number | string }
+export interface PlanStatus { decision_id: string; status: 'OK' | 'REPLAN_REQUIRED'; fired: FiredTrigger[] }
+export interface CatalogCrop { id: CropId; name_vi: string; allowed_windows: string[] }
 
 export const API_BASE: string = (import.meta.env.VITE_API_BASE_URL as string | undefined) ?? 'http://localhost:8000'
 
@@ -57,6 +70,12 @@ export const api = {
   patchField: (id: string, body: Partial<FieldWrite> & { profile?: Partial<FieldProfile> }) =>
     request<Field>(`/fields/${encodeURIComponent(id)}`, { method: 'PATCH', body: JSON.stringify(body) }),
   deleteField: (id: string) => request<void>(`/fields/${encodeURIComponent(id)}`, { method: 'DELETE' }),
+  getField: (id: string) => request<Field>(`/fields/${encodeURIComponent(id)}`),
+  addObservation: (fieldId: string, body: ObservationWrite) =>
+    request<Observation>(`/fields/${encodeURIComponent(fieldId)}/observations`, { method: 'POST', body: JSON.stringify(body) }),
+  crops: () => request<{ crops: CatalogCrop[] }>('/crops'),
+  planStatus: (id: string) => request<PlanStatus>(`/plans/${encodeURIComponent(id)}/status`),
+  exportUrl: (id: string) => `${API_BASE}/v1/plans/${encodeURIComponent(id)}/export`,
 
   listFieldPlans: (fieldId: string) =>
     request<{ decision_id: string; kind: 'PLAN' | 'WHAT_IF' | 'REPLAN'; parent_id: string | null; created_at: string }[]>(

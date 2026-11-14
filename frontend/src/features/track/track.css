@@ -1,0 +1,28 @@
+.track { max-width: 900px; }
+.track-status { padding: 18px; border-left: 3px solid var(--color-border-strong); background: var(--color-surface); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+.track-status[data-state='OK'] { border-left-color: var(--color-accent); }
+.track-status[data-state='REPLAN_REQUIRED'] { border-left-color: var(--color-danger); }
+.track-status__head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 20px; }
+.track-status__title { margin: 0; font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; }
+.track-status[data-state='REPLAN_REQUIRED'] .track-status__title { color: var(--color-danger); }
+.track-status__sub { margin: 6px 0 0; font-size: 0.875rem; color: var(--color-text-muted); }
+.track-status__actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.fired { display: grid; gap: 10px; margin: 16px 0 0; padding: 0; list-style: none; }
+.fired li { display: grid; gap: 2px; padding-top: 10px; border-top: 1px solid var(--color-border); font-size: 0.9375rem; }
+.fired__chain { font-size: 0.75rem; color: var(--color-text-subtle); }
+.fired__action { font-weight: 600; }
+
+.entry__common { display: flex; flex-wrap: wrap; gap: 12px 20px; }
+.entry label { display: grid; gap: 4px; font-size: 0.8125rem; color: var(--color-text-muted); }
+.entry input, .entry select { min-height: 44px; padding: 0 10px; border: 1px solid var(--color-border-strong); border-radius: 6px; background: var(--color-bg-deep); color: var(--color-text); font: 400 1rem var(--font-sans); color-scheme: dark; }
+.entry__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+.entry__card { display: grid; align-content: start; gap: 10px; padding: 14px; border: 1px solid var(--color-border); border-radius: var(--radius-md); }
+.entry__card .btn { justify-self: start; }
+.entry__card input, .entry__card select { width: 100%; min-width: 0; }
+.entry__card .step__hint, .entry__card .rec-error { margin: 0; font-size: 0.8125rem; }
+@media (max-width: 799px) { .entry__grid { grid-template-columns: minmax(0, 1fr); } }
+
+.obs-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--color-border); }
+.obs-list li { display: grid; grid-template-columns: 100px 1fr auto auto; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--color-border); font-size: 0.875rem; font-variant-numeric: tabular-nums; }
+.obs-list__kind { color: var(--color-text-subtle); }
+@media (max-width: 599px) { .obs-list li { grid-template-columns: 1fr auto; } }

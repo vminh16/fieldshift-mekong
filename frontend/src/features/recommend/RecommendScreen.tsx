@@ -4,7 +4,14 @@ import { href, navigate } from '../../shared/router'
 import { formatHa } from '../../shared/geo/area'
 import { nearestProvince } from '../../shared/geo/mekongProvinces'
 import { getField, useActiveFieldId, useFields, type LocalField } from '../../shared/fields/store'
-import { CROP_SHORT, SOIL_INDICATOR, cropTone, loadDecision, type DecisionPackage, type DecisionResult, type Option } from '../../shared/decision/source'
+import {
+  CONFIDENCE_VI, CROP_SHORT, SOIL_INDICATOR, STATUS_VI, UNKNOWN_VI, confidenceOf, cropTone, loadDecision,
+  type DecisionPackage, type DecisionResult, type Option,
+} from '../../shared/decision/source'
+import { readChoice, refreshPlan, writeChoice } from '../../shared/decision/plans'
+import { yearOutlookOf } from '../../shared/decision/yearOutlook'
+import { YearOutlookBanner } from './YearOutlookBanner'
+import { FieldProfileStep } from './FieldProfileStep'
 import { CompareBars, PairedBars, RotationRibbon } from './charts'
 import { ParcelMiniMap } from './ParcelMiniMap'
 import { SeasonTimeline } from './SeasonTimeline'
@@ -22,12 +29,6 @@ const PRIORITY: Record<string, string> = {
   supplemental_income: 'thêm thu nhập',
   minimal_change: 'ít thay đổi',
 }
-/** Engine rules that need a check before sowing → what the farmer actually looks at. */
-const CONDITION: Record<string, string> = {
-  R_DRAINAGE_UNKNOWN: 'Ruộng rút hết nước trong 1 ngày sau mưa lớn',
-  R_SALINITY_UNKNOWN: 'Nước kênh chưa mặn khi gieo',
-}
-
 function headline(pick: Option, base: Option) {
   const changed = pick.seasons.filter((s, i) => s.crop !== base.seasons[i]?.crop)
   if (changed.length === 0) return { main: `Giữ ${crop(base.seasons[0].crop).toLowerCase()} cả 3 vụ`, sub: '' }
@@ -42,37 +43,11 @@ function headline(pick: Option, base: Option) {
   return { main, sub }
 }
 
-const conditionsOf = (o: Option) => {
-  const seen = new Set<string>()
-  return o.rules
-    .filter((r) => r.severity === 'UNKNOWN_REQUIRES_CHECK' && !seen.has(r.rule_id) && seen.add(r.rule_id))
-    .map((r) => CONDITION[r.rule_id] ?? r.how_to_resolve ?? r.reason)
-}
 const harvests = (o: Option) => o.seasons.filter((s) => s.crop !== 'fallow_cover').length
 const waterPct = (o: Option, base: Option) => {
   const d = o.delta_vs_baseline.sc_clim?.irrigation_need?.value
   const b = base.metrics.sc_clim?.irrigation_need.value
   return d != null && b ? Math.round((d / b) * 100) : null
-}
-
-/* ---------- local choice (the API has no "accept plan" endpoint yet) ---------- */
-const CHOICE_KEY = 'fieldshift.choice.v1'
-function readChoice(fieldId: string): string | null {
-  try {
-    return (JSON.parse(localStorage.getItem(CHOICE_KEY) ?? '{}') as Record<string, string>)[fieldId] ?? null
-  } catch {
-    return null
-  }
-}
-function writeChoice(fieldId: string, seq: string | null) {
-  try {
-    const all = JSON.parse(localStorage.getItem(CHOICE_KEY) ?? '{}') as Record<string, string>
-    if (seq) all[fieldId] = seq
-    else delete all[fieldId]
-    localStorage.setItem(CHOICE_KEY, JSON.stringify(all))
-  } catch {
-    /* storage blocked */
-  }
 }
 
 export function RecommendScreen({ fieldId }: { fieldId: string | null }) {
@@ -81,6 +56,18 @@ export function RecommendScreen({ fieldId }: { fieldId: string | null }) {
   const field = getField(fieldId) ?? fields.find((f) => f.id === activeId) ?? null
   const [result, setResult] = useState<DecisionResult | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [replanning, setReplanning] = useState(false)
+
+  // Profile saved → run a fresh plan so the answer reflects what the farmer just confirmed.
+  const replan = () => {
+    if (!field) return
+    setReplanning(true)
+    setError(null)
+    refreshPlan(field.id)
+      .then((decision) => setResult({ decision, source: 'engine' }))
+      .catch(() => setError('Đã lưu, nhưng engine chưa tính lại được. Thử tải lại trang.'))
+      .finally(() => setReplanning(false))
+  }
 
   useEffect(() => {
     if (!field) return
@@ -120,12 +107,18 @@ export function RecommendScreen({ fieldId }: { fieldId: string | null }) {
             {result.notice}
           </p>
         )}
+        {result && result.source === 'engine' && <FieldProfileStep field={field} decision={result.decision} busy={replanning} onSaved={replan} />}
+        {replanning && (
+          <p className="rec-notice" role="status">
+            Đã lưu. Engine đang tính lại đề xuất…
+          </p>
+        )}
         {!result && !error && (
           <div className="rec-skeleton" aria-busy="true">
             <span>Engine đang tính đề xuất cho thửa này… lần đầu có thể mất khoảng nửa phút.</span>
           </div>
         )}
-        {result && <Recommendation key={field.id} field={field} decision={result.decision} />}
+        {result && <Recommendation key={result.decision.decision_id} field={field} decision={result.decision} />}
       </div>
     </AppShell>
   )
@@ -165,7 +158,10 @@ function Recommendation({ field, decision: d }: { field: LocalField; decision: D
   const h = headline(pick, base)
   const pct = waterPct(pick, base)
   const dry = pick.delta_vs_baseline.sc_dry?.irrigation_need?.value ?? null
-  const conditions = conditionsOf(pick)
+  const status = STATUS_VI[pick.decision_status]
+  const conf = confidenceOf(pick)
+  const saltDays = pick.salinity_overlap_avoided_days?.typical
+  const yo = yearOutlookOf(d)
   const priorities = ((d.request as { priorities?: string[] } | undefined)?.priorities ?? []).map((p) => PRIORITY[p] ?? p)
   const tried = (d.stats as { generated?: number }).generated
   const isChosen = chosen === pick.sequence_id
@@ -179,6 +175,17 @@ function Recommendation({ field, decision: d }: { field: LocalField; decision: D
 
   return (
     <>
+      {yo && (
+        <YearOutlookBanner
+          yo={yo}
+          action={
+            <a className="btn btn--ghost btn--sm" href={href('/mo-phong', { thua: field.id, chuoi: d.options[0].sequence_id })}>
+              Xem ruộng của bạn trong năm như vậy
+            </a>
+          }
+        />
+      )}
+
       {/* ---------- the answer ---------- */}
       <section className="answer" aria-labelledby="answer-title">
         <ParcelMiniMap field={field} />
@@ -187,6 +194,11 @@ function Recommendation({ field, decision: d }: { field: LocalField; decision: D
             {isTop ? 'Engine đề xuất' : 'Lựa chọn khác'} · 3 vụ tới
             {isChosen && <span className="answer__chosen">Bạn đã chọn</span>}
           </p>
+          {status && (
+            <p className="status-badge" data-tone={status.tone}>
+              {status.text}
+            </p>
+          )}
           <h1 id="answer-title" className="answer__title">
             {h.main}
           </h1>
@@ -212,25 +224,61 @@ function Recommendation({ field, decision: d }: { field: LocalField; decision: D
                 </dd>
               </div>
             )}
-            <div>
-              <dt>Lợi ích cho đất</dt>
-              <dd>
-                {pick.soil_benefit.indicators.length}
-                <small> so với {base.soil_benefit.indicators.length}</small>
-              </dd>
-            </div>
+            {saltDays ? (
+              <div>
+                <dt>Né mùa mặn</dt>
+                <dd>
+                  {saltDays}
+                  <small> ngày ít trùng hơn</small>
+                </dd>
+              </div>
+            ) : null}
           </dl>
 
-          {conditions.length > 0 && (
-            <div className="conditions">
-              <p>Trước khi gieo, cần chắc</p>
-              <ol>
-                {conditions.map((c) => (
-                  <li key={c}>{c}</li>
-                ))}
-              </ol>
+          {pick.soil_benefit.indicators.length > 0 && (
+            <p className="soil-line">
+              <span>Lợi ích cho đất (định tính):</span> {pick.soil_benefit.indicators.map((i) => SOIL_INDICATOR[i] ?? i).join(' · ')}
+            </p>
+          )}
+
+          {conf && (
+            <p className="conf-line">
+              Độ tin cậy: <strong>{CONFIDENCE_VI[conf.level] ?? conf.level}</strong>
+              {/^\d+\/\d+$/.test(conf.robust_scenarios) && <> · Tốt hơn cách đang làm ở {conf.robust_scenarios} kịch bản thời tiết</>}
+              {conf.unknowns.length > 0 && <> · Còn thiếu: {conf.unknowns.map((u) => UNKNOWN_VI[u] ?? u).join(', ')}</>}
+            </p>
+          )}
+
+          {(pick.checklist.length > 0 || pick.triggers.length > 0) && (
+            <div className="todo">
+              {pick.checklist.length > 0 && (
+                <div className="conditions">
+                  <p>Trước khi gieo, cần làm</p>
+                  <ol>
+                    {pick.checklist.map((c) => (
+                      <li key={c}>{c}</li>
+                    ))}
+                  </ol>
+                </div>
+              )}
+              {pick.triggers.length > 0 && (
+                <div className="triggers">
+                  <p>Khi nào phải đổi kế hoạch</p>
+                  <ul>
+                    {pick.triggers.map((t) => (
+                      <li key={`${t.season_index}-${t.condition}`}>
+                        <span>Nếu {t.condition}</span>
+                        <span aria-hidden="true"> → </span>
+                        <strong>{t.action}</strong>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           )}
+
+          {pick.summary_vi && <p className="answer__summary">{pick.summary_vi}</p>}
 
           <div className="answer__actions">
             <button type="button" className={isChosen ? 'btn btn--ghost' : 'btn btn--primary'} onClick={choose}>
@@ -283,7 +331,8 @@ function Recommendation({ field, decision: d }: { field: LocalField; decision: D
                     <span className="alt__facts">
                       {p !== null && <span>{`${p < 0 ? '−' : '+'}${Math.abs(p)}% nước`}</span>}
                       <span>{harvests(o)} vụ thu</span>
-                      <span>{conditionsOf(o).length} cần kiểm tra</span>
+                      <span>{STATUS_VI[o.decision_status]?.text ?? o.decision_status}</span>
+                      {confidenceOf(o) && <span>Tin cậy {(CONFIDENCE_VI[confidenceOf(o)!.level] ?? '').toLowerCase()}</span>}
                     </span>
                     <span className="alt__go">Xem</span>
                   </button>

@@ -6,6 +6,7 @@ const LandingPage = lazy(() => import('../features/landing/LandingPage').then((m
 const FieldsWorkspace = lazy(() => import('../features/fields/FieldsWorkspace').then((m) => ({ default: m.FieldsWorkspace })))
 const PlannedScreen = lazy(() => import('../features/shell/PlannedScreen').then((m) => ({ default: m.PlannedScreen })))
 const RecommendScreen = lazy(() => import('../features/recommend/RecommendScreen').then((m) => ({ default: m.RecommendScreen })))
+const TrackScreen = lazy(() => import('../features/track/TrackScreen').then((m) => ({ default: m.TrackScreen })))
 const TwinScreen = lazy(() => import('../features/twin/TwinScreen').then((m) => ({ default: m.TwinScreen })))
 
 export function App() {
@@ -26,15 +27,7 @@ function Routes() {
 
   if (path === '/de-xuat') return <RecommendScreen fieldId={route.params.get('thua')} />
   if (path === '/mo-phong') return <TwinScreen fieldId={route.params.get('thua')} sequenceId={route.params.get('chuoi')} />
-  if (path === '/theo-doi')
-    return (
-      <PlannedScreen
-        title="Theo dõi vụ"
-        icon="calendar"
-        lead="Sau khi chọn phương án: việc cần làm, các ngưỡng cảnh báo, và tính lại kế hoạch sau mỗi vụ."
-        items={['Checklist đo đạc trước khi xuống giống', 'Ngưỡng “Nếu EC vượt … thì …” theo từng vụ', 'Đóng vụ và tính lại các vụ còn lại', 'Chia sẻ bản tóm tắt một trang qua Zalo hoặc in']}
-      />
-    )
+  if (path === '/theo-doi') return <TrackScreen fieldId={route.params.get('thua')} />
   if (path === '/nguon')
     return (
       <PlannedScreen

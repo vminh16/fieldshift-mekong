@@ -1,14 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import type { Measure, Option, Twin, TwinWeek } from '../../../../contracts/types'
+import type { DecisionPackage, Option, Twin } from '../../../../contracts/types'
 import { AppShell } from '../shell/AppShell'
 import { href, navigate } from '../../shared/router'
 import { getField, useActiveFieldId, useFields } from '../../shared/fields/store'
-import { CROP_SHORT } from '../../shared/decision/source'
+import { CROP_SHORT, STATUS_VI } from '../../shared/decision/source'
+import { yearOutlookOf } from '../../shared/decision/yearOutlook'
 import { openTwin, type ChainSpec, type TwinSource } from '../../shared/twin/source'
 import { ApiError } from '../../shared/api/client'
+import { YearOutlookBanner } from '../recommend/YearOutlookBanner'
 import { ChainPicker } from './ChainPicker'
 import { FieldScene3D } from './scene/FieldScene3D'
-import { TwinTimeline } from './TwinTimeline'
+import { TwinTimeline, saltRisk, stressRisk } from './TwinTimeline'
 import { WhatIfPanel, describe, toOverride, type Assumptions } from './WhatIfPanel'
 import './twin.css'
 
@@ -26,9 +28,38 @@ const KIND_VI: Record<string, string> = {
   FORECAST: 'Dự báo (chưa kiểm định)',
   CLIMATE_PROJECTION: 'Kịch bản khí hậu',
 }
-const STRESS_VI: Record<string, string> = { LOW: 'Thấp', MEDIUM: 'Vừa', HIGH: 'Cao' }
-const nf = (n: number, d = 0) => n.toLocaleString('vi-VN', { maximumFractionDigits: d })
+const nf = (n: number) => n.toLocaleString('vi-VN', { maximumFractionDigits: 0 })
+const dmy = (s: string) => new Date(s).toLocaleDateString('vi-VN')
 const chainLabel = (o: Option | null) => (o ? o.seasons.map((s) => CROP_SHORT[s.crop] ?? s.crop).join(' – ') : '…')
+const yearLabel = (y: number) => `${y}–${String((y + 1) % 100).padStart(2, '0')}`
+
+interface Preset {
+  id: 'analog' | 'normal' | 'wet'
+  label: string
+  hint: string
+  scenario: string
+  year: number | null
+}
+
+/** The three weather years a farmer asks about. Analog = ENSO analog when the engine sends it, else the dry stress test. */
+function presetsOf(d: DecisionPackage): Preset[] {
+  const yo = yearOutlookOf(d)
+  const sc = (id: string) => d.scenarios.find((s) => s.scenario_id === id)
+  const out: Preset[] = []
+  const analogId = yo?.scenario_id && sc(yo.scenario_id) ? yo.scenario_id : sc('sc_dry') ? 'sc_dry' : null
+  if (analogId) {
+    out.push({
+      id: 'analog',
+      label: yo?.analog_labels_vi[0] ? `Năm tương tự (${yo.analog_labels_vi[0]})` : 'Năm khô hạn',
+      hint: yo ? 'Theo tín hiệu ENSO, không phải dự báo' : (sc(analogId)?.name ?? ''),
+      scenario: analogId,
+      year: yo?.analog_years[0] ?? null,
+    })
+  }
+  if (sc('sc_clim')) out.push({ id: 'normal', label: 'Năm bình thường', hint: 'Năm giữa của 2001–2025', scenario: 'sc_clim', year: null })
+  if (sc('sc_wet_ref')) out.push({ id: 'wet', label: 'Năm mưa nhiều', hint: sc('sc_wet_ref')!.name, scenario: 'sc_wet_ref', year: null })
+  return out
+}
 
 export function TwinScreen({ fieldId, sequenceId }: { fieldId: string | null; sequenceId: string | null }) {
   const fields = useFields()
@@ -39,22 +70,30 @@ export function TwinScreen({ fieldId, sequenceId }: { fieldId: string | null; se
   const [notice, setNotice] = useState<string | null>(null)
   const [specA, setSpecA] = useState<ChainSpec | null>(null)
   const [specB, setSpecB] = useState<ChainSpec | null>(null)
+  const [preset, setPreset] = useState<Preset['id'] | 'custom'>('normal')
   const [scenario, setScenario] = useState('sc_clim')
   const [member, setMember] = useState<number | null>(null)
+  // Weather year the preset wants; resolved to a member once the scenario's members are known.
+  const [wantYear, setWantYear] = useState<number | null>(null)
   const [a, setA] = useState<Side>(EMPTY)
   const [b, setB] = useState<Side>(EMPTY)
-  // Fractional week position: playback glides, the scene eases between weeks.
   const [pos, setPos] = useState(0)
   const index = Math.floor(pos)
-  const setIndex = (i: number) => setPos(i)
   const [playing, setPlaying] = useState(false)
+  const [show3d, setShow3d] = useState(false)
   const [assume, setAssume] = useState<Assumptions | null>(null)
   const [history, setHistory] = useState<Assumptions[]>([])
-  const [whatIfOpen, setWhatIfOpen] = useState(false)
   const override = useMemo(() => (assume ? toOverride(assume) : null), [assume])
   const overrideKey = override ? JSON.stringify(override) : ''
 
-  // Open the field's latest decision (or the captured mock).
+  const applyPreset = (p: Preset) => {
+    setPreset(p.id)
+    setScenario(p.scenario)
+    setWantYear(p.year)
+    setMember(null)
+    setPlaying(false)
+  }
+
   useEffect(() => {
     if (!field) return
     let live = true
@@ -64,12 +103,13 @@ export function TwinScreen({ fieldId, sequenceId }: { fieldId: string | null; se
       if (!live) return
       setSource(source)
       setNotice(notice)
-      setScenario('sc_clim')
-      setMember(null)
-      setIndex(0)
       setAssume(null)
       setHistory([])
+      setPos(0)
       const d = source.decision
+      const ps = presetsOf(d)
+      const first = ps.find((p) => p.id === 'analog') ?? ps.find((p) => p.id === 'normal')
+      if (first) applyPreset(first)
       setSpecA({ kind: 'engine', sequenceId: d.baseline.sequence_id })
       const wanted = d.options.find((o) => o.sequence_id === sequenceId) ?? d.options[0]
       setSpecB({ kind: 'engine', sequenceId: (wanted ?? d.baseline).sequence_id })
@@ -80,7 +120,7 @@ export function TwinScreen({ fieldId, sequenceId }: { fieldId: string | null; se
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [field?.id])
 
-  // Side A fixes the weather year when none is chosen, so both sides always share one member.
+  // Side A fixes the weather year, so both sides always share one member.
   useEffect(() => {
     if (!source || !specA) return
     let live = true
@@ -89,8 +129,12 @@ export function TwinScreen({ fieldId, sequenceId }: { fieldId: string | null; se
       .load(specA, scenario, member, override)
       .then(({ twin, chain }) => {
         if (!live) return
+        if (member === null) {
+          const m = wantYear !== null ? twin.members.find((x) => x.year === wantYear)?.member : undefined
+          if (m !== undefined && m !== twin.member) return setMember(m)
+          setMember(twin.member)
+        }
         setA({ twin, chain, busy: false, error: null })
-        if (member === null) setMember(twin.member)
       })
       .catch((e) => live && setA({ twin: null, chain: null, busy: false, error: errorText(e) }))
     return () => {
@@ -155,25 +199,27 @@ export function TwinScreen({ fieldId, sequenceId }: { fieldId: string | null; se
 
   const d = source?.decision
   const locked = source?.mode === 'mock'
+  const yo = yearOutlookOf(d)
+  const presets = d ? presetsOf(d) : []
   const members = a.twin?.members ?? []
-  const scenarios = d?.scenarios ?? []
   const seasonNames = (d?.windows ?? []).map((w) => w.name_vi.split(' /')[0])
+  const labelA = sideName(specA, a.chain, d)
+  const labelB = sideName(specB, b.chain, d)
+  const year = a.twin ? (a.twin.analog_year ?? members.find((m) => m.member === a.twin!.member)?.year ?? null) : null
+  const ready = a.twin && b.twin && !a.busy && !b.busy
   const runAssumptions = (x: Assumptions | null) => {
     setAssume(x)
     setMember(null)
-    setIndex(0)
+    setPos(0)
     setPlaying(false)
     if (x && toOverride(x)) setHistory((h) => [x, ...h.filter((y) => JSON.stringify(y) !== JSON.stringify(x))].slice(0, 5))
   }
-  const labelA = sideName(specA, a.chain, d)
-  const labelB = sideName(specB, b.chain, d)
 
   return (
     <AppShell>
       <div className="tw">
         <header className="tw-head">
           <div>
-            <p className="tw-head__kicker">Mô phỏng trên ruộng · 3 vụ tới</p>
             <label className="tw-head__field">
               <span className="visually-hidden">Thửa ruộng</span>
               <select value={field.id} onChange={(e) => navigate('/mo-phong', { thua: e.target.value })}>
@@ -184,74 +230,41 @@ export function TwinScreen({ fieldId, sequenceId }: { fieldId: string | null; se
                 ))}
               </select>
             </label>
+            <h1 className="tw-q">
+              Nếu mùa khô tới giống <span className="tw-q__year">{override ? 'giả định của bạn' : year ? `năm ${yearLabel(year)}` : '…'}</span>, phương án của bạn ra sao?
+            </h1>
           </div>
-          <div className="tw-head__controls">
-            <label className="tw-ctl">
-              <span>Thời tiết giả định</span>
-              <select
-                value={override ? 'sc_whatif' : scenario}
-                disabled={!d || locked || Boolean(override)}
-                onChange={(e) => {
-                  setScenario(e.target.value)
-                  setMember(null)
-                  setIndex(0)
-                }}
+          <div className="tw-presets" role="group" aria-label="Chọn năm thời tiết">
+            {presets.map((p) => (
+              <button
+                key={p.id}
+                type="button"
+                className="tw-preset"
+                aria-pressed={preset === p.id && !override}
+                disabled={locked || Boolean(override) || a.busy}
+                onClick={() => applyPreset(p)}
               >
-                {override && <option value="sc_whatif">Giả định của bạn</option>}
-                {scenarios.map((s) => (
-                  <option key={s.scenario_id} value={s.scenario_id}>
-                    {KIND_VI[s.kind] ?? s.kind}: {s.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="tw-ctl">
-              <span>Năm thời tiết</span>
-              <select value={member ?? ''} disabled={!members.length || locked} onChange={(e) => setMember(Number(e.target.value))}>
-                {members.map((m) => (
-                  <option key={m.member} value={m.member}>
-                    {m.label_vi === 'Năm tham chiếu' ? `Năm ${m.year ?? m.member + 1}` : `${m.label_vi}${m.year ? ` (${m.year})` : ''}`}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <button type="button" className="btn btn--ghost btn--sm tw-head__whatif" aria-expanded={whatIfOpen} aria-controls="whatif" onClick={() => setWhatIfOpen(!whatIfOpen)}>
-              Thử nếu…
-            </button>
+                <strong>{p.label}</strong>
+                <span>{p.hint}</span>
+              </button>
+            ))}
           </div>
         </header>
 
-        {assume && override && (
-          <div className="tw-assume" role="status">
-            <span className="tw-assume__tag">Giả định do bạn đặt</span>
-            <span>{describe(assume, seasonNames).join(' · ')}</span>
-            <button type="button" className="tw-assume__edit" onClick={() => setWhatIfOpen(true)}>
-              Sửa
-            </button>
-            <button type="button" className="tw-assume__edit" disabled={a.busy || b.busy} onClick={() => runAssumptions(null)}>
-              Bỏ
-            </button>
-          </div>
-        )}
-
-        {whatIfOpen && d && (
-          <div id="whatif">
-            <WhatIfPanel
-              seasonNames={seasonNames}
-              applied={assume}
-              history={history}
-              busy={a.busy || b.busy}
-              locked={locked}
-              onRun={(x) => runAssumptions(x)}
-              onClear={() => runAssumptions(null)}
-            />
-          </div>
-        )}
-
+        {yo && <YearOutlookBanner yo={yo} compact />}
         {notice && (
           <p className="tw-notice" role="status">
             {notice}
           </p>
+        )}
+        {assume && override && (
+          <div className="tw-assume" role="status">
+            <span className="tw-assume__tag">Giả định do bạn đặt</span>
+            <span>{describe(assume, seasonNames).join(' · ')}</span>
+            <button type="button" className="tw-assume__edit" disabled={a.busy || b.busy} onClick={() => runAssumptions(null)}>
+              Bỏ
+            </button>
+          </div>
         )}
 
         {!d || !specA || !specB ? (
@@ -260,46 +273,136 @@ export function TwinScreen({ fieldId, sequenceId }: { fieldId: string | null; se
           </div>
         ) : (
           <>
-            <div className="tw-sides">
-              <SideView
-                tag="A"
-                side={a}
-                pos={pos}
-                picker={<ChainPicker decision={d} value={specA} onChange={setSpecA} locked={locked} busy={a.busy} />}
-              />
-              <SideView
-                tag="B"
-                side={b}
-                pos={pos}
-                picker={<ChainPicker decision={d} value={specB} onChange={setSpecB} locked={locked} busy={b.busy} />}
-              />
-            </div>
+            <section className="tw-answer" aria-live="polite" data-busy={!ready || undefined}>
+              {a.error || b.error ? (
+                <p className="rec-error">{a.error ?? b.error}</p>
+              ) : ready ? (
+                <Conclusion a={a} b={b} labelA={labelA} labelB={labelB} seasonNames={seasonNames} />
+              ) : (
+                <p className="tw-answer__main">Engine đang mô phỏng…</p>
+              )}
+            </section>
 
             {a.twin && b.twin && (
               <TwinTimeline
-                a={a.twin.series}
-                b={b.twin.series}
-                labelA={labelA}
-                labelB={labelB}
-                totalA={a.twin.members.find((m) => m.member === a.twin!.member)?.irrigation_mm ?? null}
-                totalB={b.twin.members.find((m) => m.member === b.twin!.member)?.irrigation_mm ?? null}
-                infeasible={a.chain?.decision_status === 'NOT_FEASIBLE' || b.chain?.decision_status === 'NOT_FEASIBLE'}
+                a={{ key: 'a', label: labelA, series: a.twin.series, events: a.twin.events }}
+                b={{ key: 'b', label: labelB, series: b.twin.series, events: b.twin.events }}
                 index={Math.min(index, weeks - 1)}
                 onIndex={(i) => {
                   setPlaying(false)
-                  setIndex(i)
+                  setPos(i)
                 }}
                 playing={playing}
                 onTogglePlay={() => {
-                  if (!playing && index >= weeks - 1) setIndex(0)
+                  if (!playing && index >= weeks - 1) setPos(0)
                   setPlaying(!playing)
                 }}
               />
             )}
 
+            <div className="tw-tools">
+              <button type="button" className="btn btn--ghost btn--sm" aria-expanded={show3d} onClick={() => setShow3d(!show3d)}>
+                {show3d ? 'Ẩn ruộng 3D' : 'Xem ruộng 3D'}
+              </button>
+              <a className="btn btn--ghost btn--sm" href={href('/de-xuat', { thua: field.id })}>
+                Xem đề xuất
+              </a>
+            </div>
+
+            {show3d && (
+              <div className="tw-3d">
+                {[
+                  ['A', a, labelA],
+                  ['B', b, labelB],
+                ].map(([tag, side, label]) => {
+                  const s = (side as Side).twin?.series ?? []
+                  return (
+                    <figure key={tag as string}>
+                      <figcaption>
+                        <span className="tw-side__tag" data-series={(tag as string).toLowerCase()}>
+                          {tag as string}
+                        </span>{' '}
+                        {label as string}
+                      </figcaption>
+                      {s.length ? <FieldScene3D series={s} pos={Math.min(pos, s.length - 1)} /> : <div className="scene3d scene3d--empty" />}
+                    </figure>
+                  )
+                })}
+              </div>
+            )}
+
+            <details className="tw-adv">
+              <summary>Nâng cao: chọn kịch bản, năm, chuỗi khác hoặc tự đặt giả định</summary>
+              <div className="tw-adv__body">
+                <div className="tw-head__controls">
+                  <label className="tw-ctl">
+                    <span>Kịch bản thời tiết</span>
+                    <select
+                      value={override ? 'sc_whatif' : scenario}
+                      disabled={locked || Boolean(override)}
+                      onChange={(e) => {
+                        setPreset('custom')
+                        setScenario(e.target.value)
+                        setWantYear(null)
+                        setMember(null)
+                      }}
+                    >
+                      {override && <option value="sc_whatif">Giả định của bạn</option>}
+                      {d.scenarios.map((s) => (
+                        <option key={s.scenario_id} value={s.scenario_id}>
+                          {KIND_VI[s.kind] ?? s.kind}: {s.name}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <label className="tw-ctl">
+                    <span>Năm thời tiết</span>
+                    <select
+                      value={member ?? ''}
+                      disabled={!members.length || locked}
+                      onChange={(e) => {
+                        setPreset('custom')
+                        setMember(Number(e.target.value))
+                      }}
+                    >
+                      {members.map((m) => (
+                        <option key={m.member} value={m.member}>
+                          {m.year ? yearLabel(m.year) : `Năm ${m.member + 1}`}
+                          {m.label_vi && m.label_vi !== 'Năm tham chiếu' ? ` · ${m.label_vi}` : ''} · {nf(m.irrigation_mm)} mm
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                </div>
+                <div className="tw-adv__chains">
+                  {(
+                    [
+                      ['A', specA, setSpecA, a.busy],
+                      ['B', specB, setSpecB, b.busy],
+                    ] as const
+                  ).map(([tag, spec, set, busy]) => (
+                    <div key={tag} className="tw-adv__chain">
+                      <span className="tw-side__tag" data-series={tag.toLowerCase()}>
+                        {tag}
+                      </span>
+                      <ChainPicker decision={d} value={spec} onChange={set} locked={locked} busy={busy} />
+                    </div>
+                  ))}
+                </div>
+                <WhatIfPanel
+                  seasonNames={seasonNames}
+                  applied={assume}
+                  history={history}
+                  busy={a.busy || b.busy}
+                  locked={locked}
+                  onRun={(x) => runAssumptions(x)}
+                  onClear={() => runAssumptions(null)}
+                />
+              </div>
+            </details>
+
             <p className="tw-foot">
-              Mọi số do engine tính cho cùng kịch bản và cùng năm thời tiết ở hai bên · {locked ? 'Dữ liệu mẫu' : `Lần chạy ${new Date(d.generated_at).toLocaleDateString('vi-VN')}`} ·{' '}
-              <a href={href('/de-xuat', { thua: field.id })}>Xem đề xuất</a>
+              Mọi số do engine tính cho cùng kịch bản và cùng năm thời tiết ở hai bên · {locked ? 'Dữ liệu mẫu' : `Lần chạy ${dmy(d.generated_at)}`}
             </p>
           </>
         )}
@@ -308,10 +411,85 @@ export function TwinScreen({ fieldId, sequenceId }: { fieldId: string | null; se
   )
 }
 
+/** One answer, derived only from the two twin responses (totals, weekly flags, events). */
+function Conclusion({ a, b, labelA, labelB, seasonNames }: { a: Side; b: Side; labelA: string; labelB: string; seasonNames: string[] }) {
+  const ta = a.twin!
+  const tb = b.twin!
+  const total = (t: Twin) => t.members.find((m) => m.member === t.member)?.irrigation_mm ?? t.series[t.series.length - 1]?.irrigation_cum.value ?? null
+  const totA = total(ta)
+  const totB = total(tb)
+  const salt = (t: Twin) => t.series.filter(saltRisk).length
+  const stress = (t: Twin) => t.series.filter(stressRisk).length
+  const harvest1 = (t: Twin) => t.events.find((e) => e.type === 'harvest' && e.season_index === 1)
+  const saltStart = (tb.events.length ? tb : ta).events.find((e) => e.type === 'salinity_season_start')
+  const infeasible = b.chain?.decision_status === 'NOT_FEASIBLE'
+  const hard = b.chain?.rules.find((r) => r.severity === 'HARD')
+  const status = b.chain ? STATUS_VI[b.chain.decision_status] : null
+
+  let main = ''
+  if (totA !== null && totB !== null) {
+    const diff = totB - totA
+    main =
+      Math.abs(diff) < 1
+        ? `${labelB} cần nước tưới như ${labelA.toLowerCase()}: ${nf(totB)} mm cả 3 vụ.`
+        : `${labelB} cần ${nf(totB)} mm nước tưới cả 3 vụ, ${diff < 0 ? 'ít' : 'nhiều'} hơn ${labelA.toLowerCase()} ${nf(Math.abs(diff))} mm (≈ ${nf(Math.abs(diff) * 10)} m³/ha).`
+  }
+  const facts: string[] = []
+  const sa = salt(ta)
+  const sb = salt(tb)
+  if (sa || sb) facts.push(sa === sb ? `Cả hai có ${sb} tuần cây trong ruộng giữa mùa mặn.` : `Cây trong ruộng giữa mùa mặn: B ${sb} tuần, A ${sa} tuần.`)
+  const hb = harvest1(tb)
+  const ha = harvest1(ta)
+  const saltSeason = [...ta.series, ...tb.series].some((w) => w.salinity?.in_salinity_season)
+  if (hb && saltStart && saltSeason) {
+    const days = Math.round((new Date(saltStart.date).getTime() - new Date(hb.date).getTime()) / 86400000)
+    const rel = days > 0 ? `${days} ngày trước khi mùa mặn bắt đầu` : days < 0 ? `${-days} ngày sau khi mùa mặn bắt đầu` : 'đúng ngày mùa mặn bắt đầu'
+    facts.push(
+      `B thu hoạch vụ ${seasonNames[0] ?? '1'} ngày ${dmy(hb.date)}, ${rel} (${dmy(saltStart.date)})${ha && ha.date !== hb.date ? `; A thu ngày ${dmy(ha.date)}` : ''}.`,
+    )
+  }
+  const xa = stress(ta)
+  const xb = stress(tb)
+  if (xa || xb) facts.push(`Tuần có rủi ro stress (thiếu nước, nóng): B ${xb}, A ${xa}.`)
+
+  return (
+    <>
+      {infeasible && <p className="tw-answer__bad">B không làm được: {hard?.reason ?? 'vi phạm ràng buộc cứng'}. Số nước tưới dưới đây không phải là tiết kiệm.</p>}
+      <p className="tw-answer__main">{main}</p>
+      {facts.length > 0 && (
+        <ul className="tw-answer__facts">
+          {facts.map((f) => (
+            <li key={f}>{f}</li>
+          ))}
+        </ul>
+      )}
+      <p className="tw-answer__chains">
+        <span>
+          <span className="tw-side__tag" data-series="a">
+            A
+          </span>{' '}
+          {labelA} · {chainLabel(a.chain)}
+        </span>
+        <span>
+          <span className="tw-side__tag" data-series="b">
+            B
+          </span>{' '}
+          {labelB} · {chainLabel(b.chain)}
+          {status && (
+            <span className="tw-answer__status" data-tone={status.tone}>
+              {status.text}
+            </span>
+          )}
+        </span>
+      </p>
+    </>
+  )
+}
+
 function sideName(spec: ChainSpec | null, chain: Option | null, d: { baseline: Option } | undefined) {
   if (!spec) return '…'
   if (spec.kind === 'custom') return `Tự chọn: ${spec.crops.map((c) => CROP_SHORT[c] ?? c).join(' – ')}`
-  if (d && spec.sequenceId === d.baseline.sequence_id) return 'Đang làm'
+  if (d && spec.sequenceId === d.baseline.sequence_id) return 'Cách đang làm'
   return chain?.strategy_name_vi ?? chainLabel(chain)
 }
 
@@ -319,63 +497,4 @@ function errorText(e: unknown) {
   if (e instanceof ApiError && e.code === 'PLAN_INPUT_INVALID') return `Engine không chạy được chuỗi này: ${e.message}`
   if (e instanceof ApiError && e.unreachable) return 'Mất kết nối engine.'
   return e instanceof Error ? e.message : 'Không mô phỏng được.'
-}
-
-function SideView({ tag, side, pos, picker }: { tag: 'A' | 'B'; side: Side; pos: number; picker: React.ReactNode }) {
-  const series = side.twin?.series ?? []
-  const week: TwinWeek | undefined = series[Math.max(0, Math.min(series.length - 1, Math.floor(pos)))]
-  const c = side.chain
-  const hard = c?.rules.find((r) => r.severity === 'HARD')
-  const checks = c?.rules.filter((r) => r.severity === 'UNKNOWN_REQUIRES_CHECK').length ?? 0
-  return (
-    <section className="tw-side" data-side={tag} aria-label={`Bên ${tag}`}>
-      <div className="tw-side__top">
-        <span className="tw-side__tag" data-series={tag === 'A' ? 'a' : 'b'}>
-          {tag}
-        </span>
-        {picker}
-      </div>
-      <p className="tw-side__status" data-tone={c?.decision_status === 'NOT_FEASIBLE' ? 'bad' : checks ? 'warn' : 'ok'}>
-        {side.error
-          ? side.error
-          : !c
-            ? 'Đang mô phỏng…'
-            : c.decision_status === 'NOT_FEASIBLE'
-              ? `Không khả thi: ${hard?.reason ?? 'vi phạm ràng buộc cứng'}`
-              : checks
-                ? `Có điều kiện · cần kiểm tra ${checks} điều`
-                : 'Khả thi với dữ liệu hiện có'}
-      </p>
-      <div className="tw-side__canvas" data-busy={side.busy || undefined}>
-        {series.length ? <FieldScene3D series={series} pos={Math.min(pos, series.length - 1)} /> : <div className="scene3d scene3d--empty" />}
-      </div>
-      <dl className="tw-ind">
-        <Ind label="Ẩm vùng rễ" m={week?.root_zone_water} fmt={(v) => `${Math.round(v * 100)}%`} empty="Đất trống" />
-        <Ind
-          label="Mặn nước kênh"
-          m={week?.salinity}
-          fmt={(v) => `${nf(v, 1)} dS/m`}
-          empty="Chưa đo"
-          extra={week?.salinity?.in_salinity_season ? 'Đang mùa mặn' : undefined}
-        />
-        <div>
-          <dt>Rủi ro stress</dt>
-          <dd>{week?.stress_risk ? (STRESS_VI[week.stress_risk as string] ?? String(week.stress_risk)) : '—'}</dd>
-          <dd className="tw-ind__tag">Dự kiến</dd>
-        </div>
-        <Ind label="Tưới tuần này" m={week?.irrigation_week} fmt={(v) => `${nf(v)} mm`} empty="0 mm" extra={week?.rain_week?.value ? `Mưa ${nf(week.rain_week.value)} mm` : undefined} />
-      </dl>
-    </section>
-  )
-}
-
-function Ind({ label, m, fmt, empty, extra }: { label: string; m: Measure | undefined; fmt: (v: number) => string; empty: string; extra?: string }) {
-  const v = m?.value
-  return (
-    <div>
-      <dt>{label}</dt>
-      <dd>{v === null || v === undefined ? empty : fmt(v)}</dd>
-      <dd className="tw-ind__tag">{extra ?? m?.label ?? '—'}</dd>
-    </div>
-  )
 }
