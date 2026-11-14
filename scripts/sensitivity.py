@@ -20,7 +20,6 @@ os.environ["FIELDSHIFT_DATA_DIR"] = tempfile.mkdtemp(prefix="sens-")
 
 import httpx  # noqa: E402
 from fastapi.testclient import TestClient  # noqa: E402
-
 from fieldshift.domain.catalog import CROP_BY_ID, REGIONS  # noqa: E402
 from fieldshift.domain.engines import rotation_planner as planner  # noqa: E402
 from fieldshift.infrastructure.data_sources import glofas  # noqa: E402
@@ -28,7 +27,12 @@ from fieldshift.infrastructure.data_sources.forecasts import open_meteo_seasonal
 from fieldshift.main import app  # noqa: E402
 
 AS_OF = "2026-11-14"
-FIELDS = {"fld_cantho": "Cần Thơ", "fld_chaudoc": "Châu Đốc", "fld_bentre": "Bến Tre", "fld_soctrang": "Sóc Trăng"}
+FIELDS = {
+    "fld_cantho": "Cần Thơ",
+    "fld_chaudoc": "Châu Đốc",
+    "fld_bentre": "Bến Tre",
+    "fld_soctrang": "Sóc Trăng",
+}
 OUT = ROOT / "docs/SENSITIVITY_REPORT.md"
 FLAG = 0.20
 
@@ -96,9 +100,21 @@ def constant(name, value):
 def perturbations():
     out = []
     for v in (1, 2, 5):
-        out.append(("Thấm paddy (mm/ngày)", f"{v}", lambda v=v: region_value(("paddy", "percolation_mm_day"), float(v))))
+        out.append(
+            (
+                "Thấm paddy (mm/ngày)",
+                f"{v}",
+                lambda v=v: region_value(("paddy", "percolation_mm_day"), float(v)),
+            )
+        )
     for v in (120, 150, 200):
-        out.append(("TAW đất (mm/m)", f"{v}", lambda v=v: region_value(("soil_prior", "taw_mm_per_m"), float(v))))
+        out.append(
+            (
+                "TAW đất (mm/m)",
+                f"{v}",
+                lambda v=v: region_value(("soil_prior", "taw_mm_per_m"), float(v)),
+            )
+        )
     for f in (0.9, 1.0, 1.1):
         out.append(("Kc mọi cây", f"×{f}", lambda f=f: kc_scale(f)))
     for name, label, vals in (
@@ -107,7 +123,13 @@ def perturbations():
         ("WATERLOG_RAIN_MM", "Ngưỡng mưa úng (mm/vụ)", (400, 600, 800)),
     ):
         for v in vals:
-            out.append((label, f"{v}", (lambda n=name, v=v: constant(n, v)) if hasattr(planner, name) else None))
+            out.append(
+                (
+                    label,
+                    f"{v}",
+                    (lambda n=name, v=v: constant(n, v)) if hasattr(planner, name) else None,
+                )
+            )
     return out
 
 
@@ -126,7 +148,11 @@ def run(client, fid):
 def compare(ref, new):
     union = set(ref["ids"]) | set(new["ids"])
     jac = len(set(ref["ids"]) & set(new["ids"])) / len(union) if union else 1.0
-    changed = [k for k in ref["status"].keys() & new["status"].keys() if ref["status"][k] != new["status"][k]]
+    changed = [
+        k
+        for k in ref["status"].keys() & new["status"].keys()
+        if ref["status"][k] != new["status"][k]
+    ]
     d_irr = None
     if ref["base_irr"]:
         d_irr = (new["base_irr"] - ref["base_irr"]) / ref["base_irr"] * 100
@@ -168,9 +194,13 @@ def main() -> None:
         f"- **Cờ `cần nguồn`**: tham số mà tỷ lệ (ruộng × giá trị) đổi top-1 **hoặc** shortlist (Jaccard<1) > {FLAG:.0%}, "
         f"hoặc làm đổi nhu cầu tưới baseline > {FLAG:.0%}.\n"
     )
-    L.append(f"Kiểm tra xác định: chạy tham chiếu 2 lần cho kết quả {'GIỐNG HỆT' if deterministic else 'KHÁC NHAU (đáng ngờ)'}.\n")
+    L.append(
+        f"Kiểm tra xác định: chạy tham chiếu 2 lần cho kết quả {'GIỐNG HỆT' if deterministic else 'KHÁC NHAU (đáng ngờ)'}.\n"
+    )
     L.append("## Kết quả chi tiết\n")
-    L.append("| Tham số | Giá trị | Ruộng | Top-1 giữ nguyên | Jaccard | Đổi status | ΔIrr baseline |")
+    L.append(
+        "| Tham số | Giá trị | Ruộng | Top-1 giữ nguyên | Jaccard | Đổi status | ΔIrr baseline |"
+    )
     L.append("|---|---|---|---|---|---|---|")
     for param, label, r in rows:
         if r is None:
@@ -178,9 +208,13 @@ def main() -> None:
         else:
             fid, x = r
             d = "-" if x["d_irr"] is None else f"{x['d_irr']:+.1f}%"
-            L.append(f"| {param} | {label} | {FIELDS[fid]} | {'có' if x['top1_same'] else 'KHÔNG'} | {x['jaccard']:.2f} | {x['status_changes']} | {d} |")
+            L.append(
+                f"| {param} | {label} | {FIELDS[fid]} | {'có' if x['top1_same'] else 'KHÔNG'} | {x['jaccard']:.2f} | {x['status_changes']} | {d} |"
+            )
     L.append("\n## Tóm tắt theo tham số\n")
-    L.append("| Tham số | Số ca | Đổi top-1 | Đổi shortlist | Đổi status | Max abs ΔIrr baseline | Kết luận |")
+    L.append(
+        "| Tham số | Số ca | Đổi top-1 | Đổi shortlist | Đổi status | Max abs ΔIrr baseline | Kết luận |"
+    )
     L.append("|---|---|---|---|---|---|---|")
     flagged, magnitude = [], []
     for param, rs in byparam.items():
@@ -200,15 +234,31 @@ def main() -> None:
         L.append(f"| {param} | {n} | {t:.0%} | {s:.0%} | {st:.0%} | {mx:.1f}% | {verdict} |")
     missing = sorted({p for p, _, r in rows if r is None})
     for p in missing:
-        L.append(f"| {p} | 0 | - | - | - | - | chưa exposed — chạy lại sau khi merge nhánh engine |")
+        L.append(
+            f"| {p} | 0 | - | - | - | - | chưa exposed — chạy lại sau khi merge nhánh engine |"
+        )
     L.append("\n## Kết luận\n")
-    L.append("- Tham số làm đổi kết quả > 20%: " + (", ".join(flagged) if flagged else "không có") + ".")
-    L.append("- Tham số làm đổi độ lớn nhu cầu tưới baseline > 20% (số tuyệt đối không nên trích như đo đạc): " + (", ".join(magnitude) if magnitude else "không có") + ".")
+    L.append(
+        "- Tham số làm đổi kết quả > 20%: " + (", ".join(flagged) if flagged else "không có") + "."
+    )
+    L.append(
+        "- Tham số làm đổi độ lớn nhu cầu tưới baseline > 20% (số tuyệt đối không nên trích như đo đạc): "
+        + (", ".join(magnitude) if magnitude else "không có")
+        + "."
+    )
     if missing:
-        L.append("- Chưa kiểm được (hằng số còn là literal trong `field_rules`, chưa exposed): " + "; ".join(missing) + ". Chạy lại script sau khi merge nhánh engine.")
-    L.append("- Mẫu nhỏ: 4 ruộng demo, 1 ngày as_of, 1 yêu cầu mặc định; đây là kiểm tra độ nhạy, không phải xác nhận mô hình.")
+        L.append(
+            "- Chưa kiểm được (hằng số còn là literal trong `field_rules`, chưa exposed): "
+            + "; ".join(missing)
+            + ". Chạy lại script sau khi merge nhánh engine."
+        )
+    L.append(
+        "- Mẫu nhỏ: 4 ruộng demo, 1 ngày as_of, 1 yêu cầu mặc định; đây là kiểm tra độ nhạy, không phải xác nhận mô hình."
+    )
     OUT.write_text("\n".join(L) + "\n", encoding="utf-8")
-    print(f"Wrote {OUT.relative_to(ROOT)}; flagged={flagged}; magnitude={magnitude}; not_exposed={missing}; deterministic={deterministic}")
+    print(
+        f"Wrote {OUT.relative_to(ROOT)}; flagged={flagged}; magnitude={magnitude}; not_exposed={missing}; deterministic={deterministic}"
+    )
 
 
 if __name__ == "__main__":
