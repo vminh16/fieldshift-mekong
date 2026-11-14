@@ -54,10 +54,8 @@ def test_scenario_labels_robustness_and_confidence(client):
             params={"sequence_id": option["sequence_id"], "scenario_id": sid},
         ).json()
         week = twin["series"][0]
-        assert (
-            week["irrigation_week"]["origin"],
-            week["irrigation_week"]["label"],
-        ) == PRESENTATION[kinds[sid]], sid
+        for key in ("irrigation_week", "root_zone_water", "rain_week"):
+            assert (week[key]["origin"], week[key]["label"]) == PRESENTATION[kinds[sid]], (sid, key)
 
     base = p["baseline"]
     assert base["robustness"] is None and base["confidence"]["robust_scenarios"] == "n/a"

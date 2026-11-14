@@ -1098,21 +1098,12 @@ def trajectory(stored: dict, member: int | None = None, *, aligned: bool = False
         series.append(
             {
                 **row,
-                "root_zone_water": measure(
-                    row["root_zone_water"],
-                    "fraction",
-                    "inferred_by_model",
-                    "Dự kiến",
-                    stored["evidence_ids"],
-                    reason="NO_ACTIVE_CROP",
-                ),
+                "root_zone_water": m(row["root_zone_water"], "fraction", "NO_ACTIVE_CROP"),
                 "ponding_mm": m(
                     row["ponding_mm"], "mm", "NOT_PADDY" if row["crop"] else "NO_ACTIVE_CROP"
                 ),
                 "root_depth_m": m(row["root_depth_m"], "m", "NO_ACTIVE_CROP"),
-                "rain_week": measure(
-                    row["rain_week"], "mm", "assumed_scenario", "Kịch bản", stored["evidence_ids"]
-                ),
+                "rain_week": m(row["rain_week"], "mm"),
                 "irrigation_week": m(row["irrigation_week"], "mm"),
                 "irrigation_cum": m(row["irrigation_cum"], "mm"),
                 "salinity": sal,

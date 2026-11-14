@@ -1,5 +1,5 @@
 {
-  "decision_id": "dec_4413b686a9b2",
+  "decision_id": "dec_6893e728b1f1",
   "sequence_id": "seq_soybean_rice_rice__early_standard_standard",
   "scenario_id": "sc_clim",
   "member": 22,
@@ -239,8 +239,8 @@
       "rain_week": {
         "value": 45.4,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -316,8 +316,8 @@
       "rain_week": {
         "value": 20.8,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -393,8 +393,8 @@
       "rain_week": {
         "value": 16.3,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -470,8 +470,8 @@
       "rain_week": {
         "value": 17.5,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -547,8 +547,8 @@
       "rain_week": {
         "value": 2.9,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -624,8 +624,8 @@
       "rain_week": {
         "value": 1.9,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -701,8 +701,8 @@
       "rain_week": {
         "value": 3.8,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -778,8 +778,8 @@
       "rain_week": {
         "value": 0.6,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -855,8 +855,8 @@
       "rain_week": {
         "value": 0.0,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -932,8 +932,8 @@
       "rain_week": {
         "value": 0.0,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -1009,8 +1009,8 @@
       "rain_week": {
         "value": 0.0,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -1086,8 +1086,8 @@
       "rain_week": {
         "value": 0.0,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -1163,8 +1163,8 @@
       "rain_week": {
         "value": 0.0,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -1239,8 +1239,8 @@
       "rain_week": {
         "value": 4.3,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -1315,8 +1315,8 @@
       "rain_week": {
         "value": 0.0,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -1391,8 +1391,8 @@
       "rain_week": {
         "value": 0.0,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -1467,8 +1467,8 @@
       "rain_week": {
         "value": 0.0,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -1543,8 +1543,8 @@
       "rain_week": {
         "value": 9.2,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -1619,8 +1619,8 @@
       "rain_week": {
         "value": 38.0,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -1695,8 +1695,8 @@
       "rain_week": {
         "value": 50.6,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -1771,8 +1771,8 @@
       "rain_week": {
         "value": 39.5,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -1847,8 +1847,8 @@
       "rain_week": {
         "value": 61.9,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -1923,8 +1923,8 @@
       "rain_week": {
         "value": 18.6,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -1999,8 +1999,8 @@
       "rain_week": {
         "value": 52.5,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -2075,8 +2075,8 @@
       "rain_week": {
         "value": 82.3,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -2151,8 +2151,8 @@
       "rain_week": {
         "value": 84.3,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -2227,8 +2227,8 @@
       "rain_week": {
         "value": 55.5,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -2303,8 +2303,8 @@
       "rain_week": {
         "value": 5.7,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -2379,8 +2379,8 @@
       "rain_week": {
         "value": 66.7,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -2455,8 +2455,8 @@
       "rain_week": {
         "value": 30.1,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -2531,8 +2531,8 @@
       "rain_week": {
         "value": 22.9,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -2607,8 +2607,8 @@
       "rain_week": {
         "value": 89.9,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -2683,8 +2683,8 @@
       "rain_week": {
         "value": 116.9,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -2759,8 +2759,8 @@
       "rain_week": {
         "value": 74.6,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -2835,8 +2835,8 @@
       "rain_week": {
         "value": 115.6,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -2911,8 +2911,8 @@
       "rain_week": {
         "value": 119.9,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -2987,8 +2987,8 @@
       "rain_week": {
         "value": 19.2,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -3063,8 +3063,8 @@
       "rain_week": {
         "value": 75.2,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -3139,8 +3139,8 @@
       "rain_week": {
         "value": 73.5,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -3215,8 +3215,8 @@
       "rain_week": {
         "value": 109.3,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -3291,8 +3291,8 @@
       "rain_week": {
         "value": 86.3,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -3367,8 +3367,8 @@
       "rain_week": {
         "value": 77.6,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
@@ -3443,8 +3443,8 @@
       "rain_week": {
         "value": 9.4,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
           "ev_crop_catalog"
