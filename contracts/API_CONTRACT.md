@@ -68,6 +68,7 @@ field_state            trạng thái ruộng: Measure cho canal_ecw, root_zone_w
 gates[]                {gate G1..G8, passed, message}  -> passed=false hiển thị trong "Giới hạn"
 windows[]              cửa sổ vụ {id, name_vi, sow_from, sow_to}
 scenarios[]            {scenario_id, kind, name, probability: null, probability_semantics, assumptions[], quality_flags?, issue_time? (FORECAST)}
+year_outlook           YearOutlook (types.ts) — luôn có; status OK|UNAVAILABLE (UNAVAILABLE: ẩn banner, engine như cũ)
 baseline               Option (is_baseline=true) — luôn có
 options[]              2–4 Option (hoặc ít hơn + notes giải thích)
 excluded[]             chuỗi bị loại {crops, rule_id, severity HARD, reason}
@@ -91,7 +92,9 @@ triggers[]             {condition, variable, op, threshold, unit, season_index, 
 checklist[]            string
 ```
 
-Scenario kinds → nhãn UI: `CLIMATOLOGY` "Lịch sử", `STRESS_TEST` "Thử thách", `FORECAST` "Dự báo (chưa kiểm định)", `CLIMATE_PROJECTION` "Kịch bản khí hậu". Scenario ids hiện có: `sc_clim`, `sc_dry`, `sc_hot`, `sc_rain_minus30`, `sc_salt_early`, `sc_wet_ref`, `sc_forecast`, `sc_proj_<model>_<ssp>` (chỉ Cần Thơ), `sc_whatif` (trong what-if).
+Scenario kinds → nhãn UI: `CLIMATOLOGY` "Lịch sử", `STRESS_TEST` "Thử thách", `FORECAST` "Dự báo (chưa kiểm định)", `CLIMATE_PROJECTION` "Kịch bản khí hậu". Scenario ids hiện có: `sc_clim`, `sc_dry`, `sc_hot`, `sc_rain_minus30`, `sc_salt_early`, `sc_wet_ref`, `sc_forecast`, `sc_proj_<model>_<ssp>` (chỉ Cần Thơ), `sc_whatif` (trong what-if), `sc_enso_analog` (khi `year_outlook.status = OK`).
+
+**year_outlook / `sc_enso_analog`**: ONI (NOAA) mới nhất có cửa sổ 3 tháng đã KẾT THÚC trước tháng của `as_of` (as_of 2026-11-14 → `centered_month` 2026-09 = ASO). Năm tương tự = các năm lịch sử cùng nhóm pha (El Niño / trung tính / La Niña; "mạnh" chỉ là nhãn) tại cùng tháng giữa, gần ONI hiện tại nhất, tối đa 5; < 3 năm → `UNAVAILABLE`. Kịch bản `sc_enso_analog` (kind `CLIMATOLOGY`, `probability_semantics: ANALOG_YEARS_CONDITIONED_ON_ENSO_NOT_FORECAST`, `members: [{year}]`) có metrics/delta/distribution/twin như các kịch bản khác và thay `sc_dry` làm tiêu chí "năm khô" khi sàng lọc; phương án được chọn khác so với khi coi mọi năm như nhau có thêm câu giải thích trong `reasons`/`summary_vi`. Mưa mùa khô (tháng 12–4) lấy từ NASA GPM IMERG monthly (POWER khi điểm không có IMERG), chỉ các mùa đã kết thúc trước `as_of`. Thời điểm mặn KHÔNG đổi theo ENSO. Không phải dự báo.
 
 ## 5. Digital Twin
 

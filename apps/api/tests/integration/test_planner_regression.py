@@ -28,12 +28,18 @@ FIXTURES = Path(__file__).resolve().parents[4] / "contracts" / "fixtures"
 #   Trang gets "Né mặn: xuống giống sớm" (baseline rice, Dong Xuan sown early), and its
 #   "Giảm rủi ro" now rests Xuan He (peak-salinity season) rather than Dong Xuan.
 # Before: cantho soybean/mungbean/fallow in Dong Xuan; soctrang fallow/mungbean/soybean in DX.
+# Deliberate change (feat/year-outlook): at as_of 2026-11-14 (strong El Niño, ONI ASO +2.46) the
+# dry-year criterion uses the ENSO analog years (2015, 2023, 2002, 2009, 2004) instead of the
+# three driest years overall. Can Tho: low_risk maize -> peanut (Xuan He), soil_support
+# Xuan He peanut -> Dong Xuan peanut, balanced sesame -> maize (equal-weight shortlist:
+# maize, mungbean, peanut, sesame, fallow; see the UNAVAILABLE-path test for that engine).
+# Soc Trang is unchanged.
 EXPECTED_IDS = {
     "cantho": [
-        "seq_rice_maize_rice__early_standard_standard",
-        "seq_mungbean_rice_rice__early_standard_standard",
         "seq_rice_peanut_rice__early_standard_standard",
-        "seq_rice_sesame_rice__early_standard_standard",
+        "seq_mungbean_rice_rice__early_standard_standard",
+        "seq_peanut_rice_rice__early_standard_standard",
+        "seq_rice_maize_rice__early_standard_standard",
         "seq_rice_rice_fallow_cover__standard_standard_standard",
     ],
     "soctrang": [
@@ -102,7 +108,9 @@ def test_fixture_picks_metrics_and_selected_only_details(field, monkeypatch, tmp
         assert [sid for sid, scenarios in evaluations if scenarios is None] == chosen
         screened = [scenarios for _, scenarios in evaluations if scenarios is not None]
         assert len(screened) == actual["stats"]["calendar_feasible"] + 1
-        assert all(scenarios == {"sc_clim", "sc_dry"} for scenarios in screened)
+        # as_of 2026-11-14 is a strong El Niño (ONI ASO +2.46): the ENSO analog scenario is
+        # screened too and is the dry-year criterion; these fixture shortlists did not change.
+        assert all(scenarios == {"sc_clim", "sc_dry", "sc_enso_analog"} for scenarios in screened)
         assert len(distributions) == len(chosen)
         assert set(trajectories) == {
             (sid, scenario["scenario_id"]) for sid in chosen for scenario in actual["scenarios"]
@@ -113,7 +121,11 @@ def test_fixture_picks_metrics_and_selected_only_details(field, monkeypatch, tmp
             sum(value for key, value in timings.items() if key != "total"), abs=0.1
         )
         if field == "cantho":
-            assert "~7.990 m³/ha" in actual["options"][1]["summary_vi"]
+            # El Niño as_of: the analog-year water saving now leads the summary; the
+            # all-years saving is still the next reason.
+            save_water = actual["options"][1]
+            assert "năm tương tự ENSO" in save_water["summary_vi"]
+            assert any("~7.990 m³/ha" in r["text"] for r in save_water["reasons"])
         else:
             conditions = [
                 t["condition"]

@@ -207,6 +207,8 @@
     "NASA_POWER": "CACHED",
     "SRTM": "CACHED",
     "SOILGRIDS": "CACHED",
+    "NOAA_ONI": "BUNDLED",
+    "IMERG_MONTHLY": "BUNDLED",
     "OPEN_METEO_SEASONAL": "CACHED",
     "GLOFAS": "CACHED",
     "NEX_GDDP_CMIP6": "CACHED"
@@ -289,6 +291,42 @@
       "limitations": [
         "Dates are multi-year typical; actual onset and peak shift with El Nino years and upstream discharge.",
         "Applies to coastal zones only; inland sites have negligible risk."
+      ]
+    },
+    "ev_enso_oni": {
+      "kind": "OBSERVED_INDEX",
+      "source": "NOAA PSL ONI (CPC, ERSSTv6) (non-NASA)",
+      "url": "https://psl.noaa.gov/data/correlation/oni.data",
+      "retrieved": "2026-11-14",
+      "license": "NOAA data, U.S. public domain",
+      "spatial_scale": "ocean basin (Niño-3.4)",
+      "status": "BUNDLED",
+      "time_scope": [
+        null,
+        "2026-09"
+      ],
+      "limitations": [
+        "ONI là chỉ số của NOAA (không phải NASA), đo nhiệt độ mặt biển Thái Bình Dương, không phải mưa tại ruộng.",
+        "Chỉ dùng tháng có cửa sổ 3 tháng đã kết thúc trước tháng của as_of (không nhìn trước, AC-04); NOAA có thể hiệu chỉnh lại giá trị cũ.",
+        "Năm tương tự là liên hệ thống kê với ~24 năm dữ liệu, KHÔNG phải dự báo mưa hay mặn; có năm El Niño vẫn mưa nhiều.",
+        "Thời điểm mặn trong kịch bản năm tương tự giữ cửa sổ mùa mặn điển hình; không suy ra mặn đến sớm từ ENSO."
+      ]
+    },
+    "ev_imerg_monthly": {
+      "kind": "OBSERVED_REMOTE_ESTIMATE",
+      "source": "NASA GPM IMERG V07 Final monthly (GPM_3IMERGM)",
+      "url": "https://disc.gsfc.nasa.gov/datasets/GPM_3IMERGM_07/summary",
+      "spatial_scale": "regional",
+      "resolution": "0.1 deg (~11 km)",
+      "status": "BUNDLED",
+      "time_scope": [
+        "2001-01",
+        "2025-09"
+      ],
+      "limitations": [
+        "Ước tính vệ tinh ô lưới ~11 km, chưa hiệu chỉnh với trạm đo tại chỗ.",
+        "Chỉ dùng mùa khô (tháng 12–4) đã kết thúc trước as_of; không có cho thửa ngoài 4 điểm demo (khi đó dùng NASA POWER).",
+        "Mô phỏng nước của năm tương tự vẫn chạy trên ngày NASA POWER cùng năm; IMERG chỉ dùng cho thống kê mưa mùa khô."
       ]
     },
     "ev_seasonal_forecast": {

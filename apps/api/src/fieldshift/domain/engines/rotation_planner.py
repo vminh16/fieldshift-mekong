@@ -12,9 +12,13 @@ from time import perf_counter
 
 from fieldshift.domain.catalog import CROP_BY_ID, CROPS
 from fieldshift.domain.engines.future_outlook import (
+    ENSO_SCENARIO_ID,
+    PHASE_VI,
+    analog_years,
     build_scenarios,
     build_weather,
     dry_season_rain,
+    year_outlook,
 )
 from fieldshift.domain.formatting import number_vi
 from fieldshift.domain.value_objects.measure import measure
@@ -53,6 +57,8 @@ EARLY_SOW_WINDOW = "dong_xuan"
 VALUE_REASON_EVIDENCE = ["ev_value_heuristic", "ev_region_calendar"]
 # criteria() reads climate/dry summaries; field_rules() reads climate only.
 # Keep this set aligned with those dependencies so optional outlooks cannot change selection.
+# When the ENSO analog scenario exists it is screened too and replaces sc_dry as the
+# dry-year criterion (dry_scenario), so the shortlist can follow the year's ENSO state.
 SCREENING_SCENARIOS = frozenset({"sc_clim", "sc_dry"})
 HEAT_STRESS_DAYS_SOFT = 5
 WATER_STRESS_DAYS_SOFT = 7
@@ -238,7 +244,8 @@ class Evaluator:
             ctx["elevation_m"] if ctx["elevation_m"] is not None else ctx["grid_elevation_m"],
         )
         self.cap = irrigation_cap
-        self.scenarios = build_scenarios(ctx, as_of, span_days, override)
+        self.year_outlook = year_outlook(ctx, as_of, analog_years(ctx, as_of, span_days))
+        self.scenarios = build_scenarios(ctx, as_of, span_days, override, self.year_outlook)
         years = sorted(
             [
                 m["year"]
@@ -641,12 +648,17 @@ def salinity_exposure_days(seq: dict, region: dict, as_of: dt.date, shift_weeks:
     )
 
 
+def dry_scenario(summary: dict) -> str:
+    """Scenario id behind the dry-year criterion: ENSO analog years when available."""
+    return ENSO_SCENARIO_ID if ENSO_SCENARIO_ID in summary else "sc_dry"
+
+
 def criteria(c, baseline):
     s = c["summary"]
     return {
         "value": -c["production_value_index"],  # maximised; negated for the min-Pareto
         "irr": s["sc_clim"]["irrigation_mm"]["p50"],
-        "irr_dry": s["sc_dry"]["irrigation_mm"]["p50"],
+        "irr_dry": s[dry_scenario(s)]["irrigation_mm"]["p50"],
         "stress_p90": s["sc_clim"]["water_stress_days"]["p90"]
         + s["sc_clim"]["heat_stress_days_sensitive"]["p90"],
         "salt": sum(1 for r in c["rules"] if r["rule_id"].startswith("R_SALINITY")),
@@ -880,7 +892,20 @@ def explain(c, base, ev, strategy=None) -> dict:
             }
         )
     dd = sd["irrigation_mm"]["p50"] - bd["irrigation_mm"]["p50"]
-    if dd <= -50:
+    outlook = ev.year_outlook
+    de = 0
+    if outlook["status"] == "OK":
+        se, be = c["summary"][ENSO_SCENARIO_ID], base["summary"][ENSO_SCENARIO_ID]
+        de = se["irrigation_mm"]["p50"] - be["irrigation_mm"]["p50"]
+        if de <= -50:  # the analog scenario is the dry-year criterion this year: say so first
+            reasons.insert(
+                0,
+                {
+                    "text": f"Trong các năm tương tự ENSO hiện tại ({PHASE_VI[outlook['enso']['phase']]}: {', '.join(outlook['analog_labels_vi'])}), giảm ~{number_vi(-de)} mm nước tưới so với hiện tại (năm tương tự, không phải dự báo).",
+                    "evidence_ids": list(outlook["evidence_ids"]),
+                },
+            )
+    if dd <= -50 and de > -50:
         reasons.append(
             {
                 "text": f"Trong các năm khô nhất, giảm ~{number_vi(-dd)} mm nước tưới so với hiện tại.",
@@ -1304,6 +1329,7 @@ def run_plan(
     if not ev.scenarios:
         return {
             "insufficient": True,
+            "year_outlook": ev.year_outlook,
             "gates": gates
             + [
                 {
@@ -1353,8 +1379,10 @@ def run_plan(
             and crops.count("fallow_cover") <= max_fallow
         )
 
+    screening = SCREENING_SCENARIOS | ({ENSO_SCENARIO_ID} & scen.keys())
+
     def evaluate(seq):
-        res = ev.evaluate(seq, SCREENING_SCENARIOS)
+        res = ev.evaluate(seq, screening)
         summary = {sid: summarize(runs) for sid, runs in res.items()}
         rules = calendar_rules(seq, windows, turnaround) + field_rules(
             seq, ev, summary, constraints
@@ -1408,7 +1436,7 @@ def run_plan(
                         sm = p["summary"]
                         score = (
                             sm["sc_clim"]["irrigation_mm"]["p50"]
-                            + sm["sc_dry"]["irrigation_mm"]["p50"],
+                            + sm[dry_scenario(sm)]["irrigation_mm"]["p50"],
                             sm["sc_clim"]["water_stress_days"]["p90"]
                             + sm["sc_clim"]["heat_stress_days_sensitive"]["p90"],
                         )
@@ -1437,6 +1465,31 @@ def run_plan(
     picked = pick_strategies(
         front, base, priorities, evaluated, bool(state["coastal_salinity_risk"]["value"])
     )
+    enso_driven = set()
+    if ENSO_SCENARIO_ID in screening:
+        # Same selection with the equal-weight dry criterion (sc_dry): strategies whose pick
+        # differs were chosen because of the ENSO analog years, and the summary says so.
+        def equal_weight(c):
+            return {
+                **c,
+                "crit": {**c["crit"], "irr_dry": c["summary"]["sc_dry"]["irrigation_mm"]["p50"]},
+            }
+
+        eq_eval = [equal_weight(c) for c in evaluated]
+        eq = dict(
+            pick_strategies(
+                pareto(eq_eval),
+                base,
+                priorities,
+                eq_eval,
+                bool(state["coastal_salinity_risk"]["value"]),
+            )
+        )
+        enso_driven = {
+            s
+            for s, c in picked
+            if s not in eq or eq[s]["seq"]["sequence_id"] != c["seq"]["sequence_id"]
+        }
     timed("selection")
 
     # The shortlist is fixed using exactly the same criteria and candidate order as before.
@@ -1560,6 +1613,14 @@ def run_plan(
                 )
         if shift_text:
             out["reasons"].append({"text": shift_text, "evidence_ids": ["ev_region_calendar"]})
+        enso_text = ""
+        if strategy in enso_driven:
+            yo = ev.year_outlook
+            enso_text = (
+                f"Phương án này được chọn khác so với khi coi mọi năm như nhau, vì tiêu chí năm khô"
+                f" dùng các năm tương tự ENSO ({', '.join(yo['analog_labels_vi'])}; không phải dự báo)."
+            )
+            out["reasons"].append({"text": enso_text, "evidence_ids": list(yo["evidence_ids"])})
         if c is not base:
             pairs = list(zip(seq["seasons"], base["seq"]["seasons"]))
             changes = [
@@ -1574,6 +1635,8 @@ def run_plan(
                 summary = summary.rstrip(".") + "; cần xác nhận thoát nước."
             if shift_text:
                 summary = summary.rstrip(".") + ". " + shift_text
+            if enso_text:
+                summary = summary.rstrip(".") + ". " + enso_text
             out["summary_vi"] = summary
         return out
 
@@ -1613,7 +1676,8 @@ def run_plan(
             {**w, "sow_from": str(w["sow_from"]), "sow_to": str(w["sow_to"])} for w in windows
         ],
         "scenarios": [
-            {k: v for k, v in s.items() if k != "members"}
+            # Contract: the ENSO analog scenario also lists its members ([{year}]).
+            {k: v for k, v in s.items() if k != "members" or s["scenario_id"] == ENSO_SCENARIO_ID}
             | {"analog_years": sorted({m["year"] for m in s["members"]})}
             for s in ev.scenarios
         ],
@@ -1629,6 +1693,7 @@ def run_plan(
             "timings_ms": timings,
         },
         "irrigation_cap_mm_per_season": cap,
+        "year_outlook": ev.year_outlook,
         "trajectories": trajectories,
         "member_trajectories": member_trajectories,
         "notes": notes,
