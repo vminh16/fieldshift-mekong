@@ -23,7 +23,7 @@ Trang này liệt kê những gì hệ thống **chưa làm được hoặc chư
 
 ## Đánh giá quá khứ
 
-Kết quả chi tiết nằm trong [BACKTEST_REPORT.md](BACKTEST_REPORT.md). Khi chạy ngược tại 15/11/2015, trước mùa khô kỷ lục 2015–16, engine đưa ra **cùng các cảnh báo** như khi chạy tại 15/11/2019. Lý do là khi chạy ngược quá khứ không có dự báo mùa, và các kịch bản chỉ dựa trên phân bố lịch sử, nên engine **không phân biệt được trước** một năm hạn bất thường. Trong thời tiết thật, 34/42 phương án tốt hơn baseline về nước tưới mà không tăng thiếu nước; 8 phương án không tốt hơn đều có vụ `fallow_cover`. Kết quả này phần lớn là do cây cạn vốn dùng ít nước hơn lúa trong cùng mô hình.
+Kết quả chi tiết nằm trong [BACKTEST_REPORT.md](BACKTEST_REPORT.md). Khi chạy ngược tại 15/11/2015, trước mùa khô kỷ lục 2015–16, engine đưa ra **cùng các cảnh báo** như khi chạy tại 15/11/2019. Lý do là khi chạy ngược quá khứ không có dự báo mùa, và các kịch bản chỉ dựa trên phân bố lịch sử, nên engine **không phân biệt được trước** một năm hạn bất thường. Trong thời tiết thật, 34/42 phương án tốt hơn baseline về nước tưới mà không tăng thiếu nước; trong 8 phương án không tốt hơn, 6 có vụ `fallow_cover` (không tưới nên thiếu nước nhiều hơn) và 2 phương án ở Cần Thơ 2019 khi giới hạn nước kênh (lúa–mè–lúa, lúa–đậu nành–lúa) tưới ít hơn nhưng thiếu nước thêm 1 ngày. Kết quả này phần lớn là do cây cạn vốn dùng ít nước hơn lúa trong cùng mô hình.
 
 ## Mô hình
 
