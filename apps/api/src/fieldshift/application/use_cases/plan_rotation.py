@@ -212,6 +212,36 @@ def what_if(c, decision_id: str, priorities, override):
     )
 
 
+def evaluate_chain(c, decision_id: str, crops: list[str]):
+    """Simulate a user-chosen chain under the parent decision's inputs and scenarios.
+
+    The engine always evaluates its baseline in full — metrics, rules (including HARD
+    calendar violations), member trajectories — so the chosen chain is run as the
+    baseline of a WHAT_IF child. The parent decision is never modified, and the child's
+    request carries ``evaluate_chain`` so clients can tell it apart from a priorities/
+    override what-if.
+    """
+    parent = must(c, "decisions", decision_id, "DECISION_NOT_FOUND")
+    req = dict(parent["request"])
+    horizon = req.get("horizon_seasons", 3)
+    if len(crops) != horizon:
+        raise InvalidInput(
+            "CHAIN_LENGTH_MISMATCH", f"Cần đúng {horizon} vụ, nhận được {len(crops)}."
+        )
+    req["baseline"] = list(crops)
+    req["evaluate_chain"] = list(crops)
+    f = must(c, "fields", parent["field_id"], "FIELD_NOT_FOUND")
+    return make_plan(
+        c,
+        f,
+        req,
+        "WHAT_IF",
+        parent_id=decision_id,
+        override=parent["package"].get("override"),
+        history=parent["package"].get("history"),
+    )
+
+
 def replan(c, decision_id: str, as_of: dt.date, completed: list):
     parent = must(c, "decisions", decision_id, "DECISION_NOT_FOUND")
     f = must(c, "fields", parent["field_id"], "FIELD_NOT_FOUND")

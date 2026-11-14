@@ -6,7 +6,7 @@ import html
 from fastapi import APIRouter, Query
 from fastapi.responses import HTMLResponse
 
-from fieldshift.api.schemas.requests import PlanRequest, ReplanIn, WhatIfIn
+from fieldshift.api.schemas.requests import EvaluateChainIn, PlanRequest, ReplanIn, WhatIfIn
 from fieldshift.application.use_cases import plan_rotation as uc
 from fieldshift.application.use_cases.plan_rotation import must
 from fieldshift.domain.formatting import number_vi
@@ -38,6 +38,12 @@ def plan_status(decision_id: str):
 def what_if(decision_id: str, body: WhatIfIn):
     override = body.override.model_dump(mode="json") if body.override else None
     return uc.what_if(db.connect(), decision_id, body.priorities, override)
+
+
+@router.post("/{decision_id}/evaluate", status_code=201)
+def evaluate_chain(decision_id: str, body: EvaluateChainIn):
+    """Simulate any chain the user picks; result's ``baseline`` is that chain (twin via /twin)."""
+    return uc.evaluate_chain(db.connect(), decision_id, list(body.crops))
 
 
 @router.post("/{decision_id}/replan", status_code=201)

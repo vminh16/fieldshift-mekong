@@ -30,6 +30,7 @@
 | POST | `/plans` | **lập kế hoạch** → DecisionPackage | 2–4 s, 201 |
 | GET | `/plans/{id}` | đọc lại decision (bất biến) | |
 | POST | `/plans/{id}/what-if` | `{priorities?, override?}` → decision **mới** (`parent_id`) | chỉ đổi priorities → nhanh |
+| POST | `/plans/{id}/evaluate` | `{crops: CropId[]}` (đúng số vụ của decision) → decision **mới** WHAT_IF, `baseline` = chuỗi người dùng chọn, `request.evaluate_chain` | mô phỏng chuỗi tự chọn; 422 `CHAIN_LENGTH_MISMATCH`; twin qua `/twin?sequence_id=<baseline.sequence_id>` |
 | POST | `/plans/{id}/replan` | `{as_of, completed:[{crop, sow, harvest, note?}]}` → decision mới cho các vụ còn lại | `history`, `changed_since_parent` |
 | GET | `/plans/{id}/status` | `{status:"OK"|"REPLAN_REQUIRED", fired:[…]}` so trigger với quan trắc mới | |
 | GET | `/plans/{id}/twin?sequence_id=&scenario_id=&member=` | quỹ đạo tuần của 1 phương án | `member` mặc định = năm trung vị |

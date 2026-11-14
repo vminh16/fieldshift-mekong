@@ -118,6 +118,35 @@
         "title": "Constraints",
         "type": "object"
       },
+      "EvaluateChainIn": {
+        "description": "A rotation chosen by the user, one crop per season of the parent decision's horizon.",
+        "properties": {
+          "crops": {
+            "items": {
+              "enum": [
+                "rice",
+                "maize",
+                "soybean",
+                "mungbean",
+                "sesame",
+                "peanut",
+                "watermelon",
+                "fallow_cover"
+              ],
+              "type": "string"
+            },
+            "maxItems": 3,
+            "minItems": 1,
+            "title": "Crops",
+            "type": "array"
+          }
+        },
+        "required": [
+          "crops"
+        ],
+        "title": "EvaluateChainIn",
+        "type": "object"
+      },
       "FieldIn": {
         "properties": {
           "area_ha": {
@@ -1164,6 +1193,57 @@
           }
         },
         "summary": "Get Plan",
+        "tags": [
+          "plans"
+        ]
+      }
+    },
+    "/v1/plans/{decision_id}/evaluate": {
+      "post": {
+        "description": "Simulate any chain the user picks; result's ``baseline`` is that chain (twin via /twin).",
+        "operationId": "evaluate_chain_v1_plans__decision_id__evaluate_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "decision_id",
+            "required": true,
+            "schema": {
+              "title": "Decision Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EvaluateChainIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Evaluate Chain",
         "tags": [
           "plans"
         ]

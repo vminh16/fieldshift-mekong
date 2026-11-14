@@ -89,6 +89,12 @@ class ScenarioOverride(BaseModel):
     irrigation_cap_mm: float | None = Field(default=None, ge=0, le=3000)
 
 
+class EvaluateChainIn(BaseModel):
+    """A rotation chosen by the user, one crop per season of the parent decision's horizon."""
+
+    crops: list[CropId] = Field(min_length=1, max_length=3)
+
+
 class WhatIfIn(BaseModel):
     override: ScenarioOverride | None = None
     priorities: list[Priority] | None = None
