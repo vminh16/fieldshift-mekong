@@ -116,3 +116,25 @@ def test_sow_timing_must_match_the_chain():
             json={"crops": ["rice", "rice", "rice"], "sow_timing": ["early"]},
         )
         assert r.status_code == 422
+
+
+def test_aligned_twins_share_one_weekly_calendar_across_chains_and_decisions():
+    with TestClient(app) as client:
+        parent = plan(client)
+        child = client.post(
+            f"/v1/plans/{parent['decision_id']}/evaluate",
+            json={"crops": ["maize", "maize", "maize"]},
+        ).json()
+        pairs = [
+            (parent["decision_id"], o["sequence_id"])
+            for o in [parent["baseline"], *parent["options"]]
+        ]
+        pairs.append((child["decision_id"], child["baseline"]["sequence_id"]))
+        calendars = set()
+        for dec, seq in pairs:
+            t = client.get(
+                f"/v1/plans/{dec}/twin",
+                params={"sequence_id": seq, "scenario_id": "sc_clim", "member": 0, "aligned": True},
+            ).json()
+            calendars.add(tuple(w["date"] for w in t["series"]))
+        assert len(calendars) == 1

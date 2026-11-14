@@ -58,9 +58,14 @@ def twin(
     sequence_id: str,
     scenario_id: str = "sc_clim",
     member: int | None = Query(default=None, ge=0),
+    aligned: bool = Query(
+        default=False,
+        description="Weekly rows on the shared calendar (as in /twin-compare), so twins of different "
+        "chains or decisions line up week by week.",
+    ),
 ):
     pkg = must(db.connect(), "decisions", decision_id, "DECISION_NOT_FOUND")["package"]
-    return uc.twin_slice(pkg, sequence_id, scenario_id, member)
+    return uc.twin_slice(pkg, sequence_id, scenario_id, member, aligned=aligned)
 
 
 @router.get("/{decision_id}/twin-compare")

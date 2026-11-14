@@ -33,7 +33,7 @@
 | POST | `/plans/{id}/evaluate` | `{crops: CropId[], sow_timing?: ("early"\|"standard")[], override?: ScenarioOverride}` (đúng số vụ của decision; `override` có thì thêm kịch bản `sc_whatif`) → decision **mới** WHAT_IF, `baseline` = chuỗi người dùng chọn, `request.evaluate_chain` | mô phỏng chuỗi tự chọn; 422 `CHAIN_LENGTH_MISMATCH`; twin qua `/twin?sequence_id=<baseline.sequence_id>` |
 | POST | `/plans/{id}/replan` | `{as_of, completed:[{crop, sow, harvest, note?}]}` → decision mới cho các vụ còn lại | `history`, `changed_since_parent` |
 | GET | `/plans/{id}/status` | `{status:"OK"|"REPLAN_REQUIRED", fired:[…]}` so trigger với quan trắc mới | |
-| GET | `/plans/{id}/twin?sequence_id=&scenario_id=&member=` | quỹ đạo tuần của 1 phương án | `member` mặc định = năm trung vị |
+| GET | `/plans/{id}/twin?sequence_id=&scenario_id=&member=&aligned=` | quỹ đạo tuần của 1 phương án | `member` mặc định = năm trung vị; `aligned=true` = lịch tuần chung (52 tuần) để ghép hai chuỗi, kể cả khác decision |
 | GET | `/plans/{id}/twin-compare?sequence_id=&scenario_id=&member=` | `{baseline, option}` **cùng năm thời tiết** | dùng cho Twin so sánh |
 | GET | `/plans/{id}/export` | trang HTML 1 trang để in/chia sẻ | mở tab mới |
 

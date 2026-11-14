@@ -1457,6 +1457,18 @@
               ],
               "title": "Member"
             }
+          },
+          {
+            "description": "Weekly rows on the shared calendar (as in /twin-compare), so twins of different chains or decisions line up week by week.",
+            "in": "query",
+            "name": "aligned",
+            "required": false,
+            "schema": {
+              "default": false,
+              "description": "Weekly rows on the shared calendar (as in /twin-compare), so twins of different chains or decisions line up week by week.",
+              "title": "Aligned",
+              "type": "boolean"
+            }
           }
         ],
         "responses": {
