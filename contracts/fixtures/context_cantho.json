@@ -258,7 +258,7 @@
     },
     "ev_crop_catalog": {
       "kind": "LITERATURE_RULE",
-      "source": "crops.json (crops-2026.11.0): FAO-56, FAO-29, Maas-Hoffman",
+      "source": "crops.json (crops-2026.11.1): FAO-56, FAO-29, Maas-Hoffman",
       "limitations": [
         "Tham số tham khảo, chưa hiệu chỉnh giống địa phương"
       ]
@@ -269,6 +269,18 @@
       "limitations": [
         "Windows are widened to guarantee a 3-crop rice sequence: latest sowing + 110 d + 10 d turnaround fits the next window's end; actual local calendars vary by province and flood/salinity status.",
         "Upland crops in Hè Thu face rain onset in May; their duration must be checked per sowing date."
+      ]
+    },
+    "ev_value_heuristic": {
+      "kind": "ASSUMPTION",
+      "source": "[B] heuristic nhóm: regions.json season_value_weight × crops.json value_index",
+      "limitations": [
+        "Team heuristic weights (1.3 / 1.0 / 0.85); no statistical yearbook table or institute publication is cited for these exact values.",
+        "Not a yield, price or profit model: only orders seasons by relative production value for the planner's Pareto criterion production_value_index.",
+        "Province- and year-specific yields differ; replace with GSO/provincial season yields × prices when available.",
+        "Team heuristic values; no price statistic, statistical yearbook table or institute publication is cited.",
+        "Ignores price volatility, input cost and local market access; it is an ordering aid, not a profit estimate (profit stays unknown, G7).",
+        "Used only in production_value_index = Σ_seasons season_value_weight(window) × value_index(crop)."
       ]
     },
     "ev_salinity_season": {
