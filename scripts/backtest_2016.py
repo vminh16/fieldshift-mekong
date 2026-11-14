@@ -37,8 +37,22 @@ CONFIGS = {
 
 def actual_sim(weather, field, ctx, plan, option):
     """Chạy lại các vụ của `option` trên thời tiết thực; trả tổng tưới / ngày thiếu nước / ngày nóng."""
-    months = next((r.get("months", {}) for r in ctx.get("source_conflicts", []) if r.get("status") == "APPLIED"), {})
-    weather = [{**w, "heat_tmax": w["tmax"] - months.get(str(w["date"].month), {}).get("heat_correction_c", 0)} for w in weather]
+    months = next(
+        (
+            r.get("months", {})
+            for r in ctx.get("source_conflicts", [])
+            if r.get("status") == "APPLIED"
+        ),
+        {},
+    )
+    weather = [
+        {
+            **w,
+            "heat_tmax": w["tmax"]
+            - months.get(str(w["date"].month), {}).get("heat_correction_c", 0),
+        }
+        for w in weather
+    ]
     dep = plan["field_state"]["initial_depletion_frac"]["value"]
     cap = plan["irrigation_cap_mm_per_season"]
     region = REGIONS[field["region_id"]]

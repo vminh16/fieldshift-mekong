@@ -38,7 +38,8 @@ def climate_summary(weather: list[dict]) -> dict:
             for m in range(1, 13)
         ],
         "tmax_basis": "ORIGINAL_POWER; days_tmax_ge_35 uses heat conflict policy where available",
-        "evidence_ids": ["ev_power_daily"] + (["ev_era5", "ev_heat_conflict"] if any("heat_tmax" in w for w in weather) else []),
+        "evidence_ids": ["ev_power_daily"]
+        + (["ev_era5", "ev_heat_conflict"] if any("heat_tmax" in w for w in weather) else []),
     }
 
 
