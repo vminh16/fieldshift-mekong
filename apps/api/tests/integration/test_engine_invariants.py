@@ -42,11 +42,7 @@ def test_core_invariants():
                 assert set(option["delta_vs_baseline"]) == {
                     s["scenario_id"] for s in p["scenarios"]
                 }
-            if p is inland:
-                assert len([s for s in p["scenarios"] if s["kind"] == "CLIMATE_PROJECTION"]) == 4
-            else:
-                assert not any(s["kind"] == "CLIMATE_PROJECTION" for s in p["scenarios"])
-                assert any("skipped" in note for note in p["notes"])
+            assert len([s for s in p["scenarios"] if s["kind"] == "CLIMATE_PROJECTION"]) == 4
             for o in p["options"]:
                 assert o["decision_status"] != "NOT_FEASIBLE"
                 assert o["metrics"]["sc_clim"]["yield"]["value"] is None  # G7: no invented yield

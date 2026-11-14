@@ -53,11 +53,12 @@ def test_live_cache_aside(monkeypatch):
     assert writes[0][0] == "seasonal"
 
 
-def test_projection_delta_and_splice():
-    projections, notes = load_projections("cantho", AS_OF)
+@pytest.mark.parametrize("site", ["cantho", "chaudoc", "bentre", "soctrang"])
+def test_projection_delta_and_splice(site):
+    projections, notes = load_projections(site, AS_OF)
     assert len(projections) == 4 and not notes
-    assert load_projections("soctrang", AS_OF)[0] == []
-    assert load_projections("soctrang", AS_OF)[1]
+    assert load_projections("unknown-site", AS_OF)[0] == []
+    assert load_projections("unknown-site", AS_OF)[1]
     day = {
         "date": dt.date(2024, 1, 1),
         "tmax": 30,
