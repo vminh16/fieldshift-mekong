@@ -37,6 +37,8 @@ CONFIGS = {
 
 def actual_sim(weather, field, ctx, plan, option):
     """Chạy lại các vụ của `option` trên thời tiết thực; trả tổng tưới / ngày thiếu nước / ngày nóng."""
+    months = next((r.get("months", {}) for r in ctx.get("source_conflicts", []) if r.get("status") == "APPLIED"), {})
+    weather = [{**w, "heat_tmax": w["tmax"] - months.get(str(w["date"].month), {}).get("heat_correction_c", 0)} for w in weather]
     dep = plan["field_state"]["initial_depletion_frac"]["value"]
     cap = plan["irrigation_cap_mm_per_season"]
     region = REGIONS[field["region_id"]]
@@ -93,7 +95,7 @@ def main() -> None:
         "Sinh tự động bởi `scripts/backtest_2016.py`. Kế hoạch lập tại `as_of` chỉ dùng dữ liệu < as_of "
         "(engine ép AC-04; forecast mùa và CMIP6 tắt ở hindcast), horizon 3 vụ, ràng buộc mặc định. "
         "Sau đó baseline và từng phương án được mô phỏng lại bằng CÙNG mô hình nước FAO-56 trên thời tiết NASA POWER **thực** "
-        "của các vụ đó. Hai cấu hình nước: `full` (tưới đủ) và `canal_limited` (trần 500 mm/vụ, để ngày thiếu nước có ý nghĩa).\n"
+        "của các vụ đó. Ngày nóng dùng quy tắc POWER–ERA5, chỉ khớp chênh lệch từ ngày trước as_of; ET₀/tưới giữ POWER gốc và là ước tính mô hình. Hai cấu hình nước: `full` (tưới đủ) và `canal_limited` (trần 500 mm/vụ, để ngày thiếu nước có ý nghĩa).\n"
     )
     verdict_rows, better, total = [], 0, 0
     flagged_sal = cases = 0

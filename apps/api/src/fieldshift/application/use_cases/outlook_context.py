@@ -65,7 +65,7 @@ def add_outlook(ctx, field, as_of):
                     "ONI là chỉ số của NOAA (không phải NASA), đo nhiệt độ mặt biển Thái Bình Dương, không phải mưa tại ruộng.",
                     "Chỉ dùng tháng có cửa sổ 3 tháng đã kết thúc trước tháng của as_of (không nhìn trước, AC-04); NOAA có thể hiệu chỉnh lại giá trị cũ.",
                     "Năm tương tự là liên hệ thống kê với ~24 năm dữ liệu, KHÔNG phải dự báo mưa hay mặn; có năm El Niño vẫn mưa nhiều.",
-                    "Thời điểm mặn trong kịch bản năm tương tự giữ cửa sổ mùa mặn điển hình; không suy ra mặn đến sớm từ ENSO.",
+                    "ENSO riêng lẻ không dời khung mặn; kế hoạch 2026–27 có thể dùng giả định sớm hơn nếu có dẫn bản tin SIWRR.",
                 ],
             },
             "ev_imerg_monthly": {

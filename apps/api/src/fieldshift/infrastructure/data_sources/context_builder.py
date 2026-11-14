@@ -3,7 +3,9 @@
 import datetime as dt
 
 from fieldshift.domain.catalog import CROPS, REGIONS
+from fieldshift.domain.engines.official_guidance import evidence as guidance_evidence
 from fieldshift.infrastructure.crop_models.fao56_water import weather_from_power
+from fieldshift.infrastructure.data_sources.heat_conflict import apply_heat_policy
 from fieldshift.infrastructure.data_sources.local.soilgrids import load_soil
 from fieldshift.infrastructure.data_sources.nasa.nasadem import load_elevation
 from fieldshift.infrastructure.data_sources.nasa.power import load_power
@@ -28,6 +30,7 @@ def build_context(field: dict, as_of: dt.date) -> dict:
         if None not in (w["tmax"], w["tmin"], w["tdew"], w["rs_mj"], w["u2"], w["rain_mm"])
     ]
     last = max(w["date"] for w in valid) if valid else None
+    heat_conflict = apply_heat_policy(valid, ck, as_of)
 
     evidence = {
         "ev_power_daily": {
@@ -84,6 +87,24 @@ def build_context(field: dict, as_of: dt.date) -> dict:
             "limitations": region["salinity_season"]["limitations"],
         },
     }
+    evidence.update(guidance_evidence(as_of))
+    if heat_conflict["status"] == "APPLIED":
+        evidence["ev_era5"] = {
+            "kind": "MODEL_ESTIMATE",
+            "source": "Copernicus ERA5 via Open-Meteo (non-NASA)",
+            "url": "https://open-meteo.com/en/docs/historical-weather-api",
+            "status": "BUNDLED",
+            "resolution": "0.25 deg",
+            "limitations": [
+                "Tái phân tích vùng; không phải đo tại ruộng",
+                "Chỉ đối chiếu Tmax, không thay vector thời tiết POWER trong ET₀",
+            ],
+        }
+        evidence["ev_heat_conflict"] = {
+            "kind": "ASSUMPTION",
+            "source": "POWER–ERA5 conflict policy (§7.3)",
+            **heat_conflict,
+        }
     if field["profile"].get(
         "coastal_salinity_risk"
     ):  # MERRA-2 0.5° cell partly over sea -> damped Tmax (seen at Soc Trang)
@@ -94,6 +115,7 @@ def build_context(field: dict, as_of: dt.date) -> dict:
         )
     return {
         "region": region,
+        "source_conflicts": [heat_conflict],
         "weather": valid,
         "gwet": gwet,
         "last_data_date": last,

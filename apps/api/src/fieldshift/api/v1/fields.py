@@ -107,6 +107,7 @@ def field_context(field_id: str, as_of: dt.date | None = None):
         "state": state,
         "climate": climate_summary(ctx["weather"]),
         "sources_status": ctx["sources_status"],
+        "source_conflicts": ctx.get("source_conflicts", []),
         "evidence": ctx["evidence"],
     }
 

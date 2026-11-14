@@ -226,7 +226,7 @@ def main() -> None:
         "nên giá trị quá khứ có thể khác chút so với bản công bố tại thời điểm đó.\n"
         "- Liên hệ thống kê với ~24 mùa khô; năm tương tự không phải dự báo, không có xác suất hiệu chỉnh.\n"
         "- Mưa IMERG/POWER là ô lưới (11 km / 50 km), không phải đo tại ruộng; không có quan trắc mặn nên không chấm được rủi ro mặn thật.\n"
-        "- Thời điểm mặn của kịch bản năm tương tự giữ cửa sổ điển hình; ENSO không được dùng để dời mùa mặn.\n"
+        "- Hindcast trước 2026 giữ khung mặn nhiều năm. Kế hoạch 2026–27 chỉ dời khung khi có thêm bản tin SIWRR (qua báo); ENSO riêng lẻ không dời mùa mặn.\n"
         "- Hindcast trước ~2012 có ít năm lịch sử (dữ liệu từ 2001), nên thường UNAVAILABLE.\n"
     )
     OUT.write_text("\n".join(L) + "\n", encoding="utf-8")

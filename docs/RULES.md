@@ -13,7 +13,7 @@
 | R_DRAINAGE_UNKNOWN | UNKNOWN_REQUIRES_CHECK | Cây cạn cần thoát nước tốt, chưa xác nhận | [B] heuristic nhóm tự đặt | - |
 | R_SALINITY_UNKNOWN | UNKNOWN_REQUIRES_CHECK | Vụ trùng mùa mặn >= SALINITY_OVERLAP_DAYS ngày (tính cả mặn đến sớm SALINITY_EARLY_WEEKS tuần), chưa đo ECw | [B] heuristic nhóm tự đặt | ngưỡng ngày và 4 tuần do nhóm đặt; mùa mặn từ MARD/SIWRP |
 | R_SALINITY | SOFT | ECw đo được > ngưỡng ECw của cây (ECe≈1,5·ECw) | [A] tài liệu khoa học | FAO-29 / Maas-Hoffman 1977 |
-| R_HEAT | SOFT | Số ngày Tmax >= ngưỡng ở giai đoạn nhạy cảm (trung vị) >= HEAT_STRESS_DAYS_SOFT | [B] heuristic nhóm tự đặt | ngưỡng Tmax theo cây: xem bảng cây; ngưỡng ngày do nhóm đặt |
+| R_HEAT | SOFT | Số ngày Tmax >= ngưỡng ở giai đoạn nhạy cảm (trung vị) >= HEAT_STRESS_DAYS_SOFT | [B] heuristic nhóm tự đặt | ngưỡng Tmax/ngày theo cây; đếm nóng qua quy tắc POWER–ERA5 khi chênh lệch tháng > 2 °C (giả định nhóm); ET₀ giữ POWER gốc |
 | R_WATER_STRESS | SOFT | Số ngày thiếu nước (trung vị) >= WATER_STRESS_DAYS_SOFT | [B] heuristic nhóm tự đặt | ngưỡng ngày do nhóm đặt |
 | R_WATERLOG | SOFT | Cây cạn chịu úng kém và mưa trung vị trong vụ >= WATERLOG_RAIN_MM | [B] heuristic nhóm tự đặt | ngưỡng mm do nhóm đặt |
 | R_MACHINERY | HARD | Cây cần máy (crops.machinery_required) khi no_new_machinery=True | [C] trống/không hoạt động | KHÔNG HOẠT ĐỘNG: machinery_required rỗng ở mọi cây -> luật HARD không bao giờ bắn (AC-07 chỉ test trên catalog giả lập) |
@@ -72,5 +72,11 @@ Giá trị tương đối (`value_index`): [B] TEAM HEURISTIC, not a cited stati
 | mekong | Đất: TAW / pH / kết cấu | 150.0 mm/m / [4.5, 6.5] / clay | [A] tài liệu khoa học | FAO-56 Table 19 (clay TAW 120-200 mm/m); Vietnamese Mekong soil surveys (SIWRP / Can Tho Univ.) | Regional prior only; replace with field soil data when available. / TAW 150 mm/m is a mid value; acid sulfate soils have pH down to ~3.5-4.5. |
 | mekong | Mùa mặn: đầu / đỉnh / cuối | 01-15 / 04-15 / 06-15 | [A] tài liệu khoa học | MARD/SIWRP salinity intrusion reports 2016, 2020, 2024; MRC Mekong salinity intrusion studies | Dates are multi-year typical; actual onset and peak shift with El Nino years and upstream discharge. / Applies to coastal zones only; inland sites have negligible risk. |
 
+## 5. Chính sách audit A2/A7
+
+- Nhiệt: |chênh lệch trung bình tháng POWER−ERA5| > 2.0 °C, ít nhất 60 cặp ngày trước as_of → trừ chênh lệch chỉ khi đếm nóng. [B] giả định nhóm; giữ Tmax gốc cho ET₀. Xem HEAT_BIAS_REPORT.md.
+- Mùa 2026–27: El Niño + dẫn SIWRR qua báo → đầu khung mặn sớm 45 ngày (01/12 thay 15/01). [B] ASSUMPTION, chưa đọc bản tin gốc. [Bài báo](https://tienphong.vn/khuyen-cao-mien-tay-ung-pho-han-man-gay-gat-mua-kho-sap-toi-post1882122.tpo).
+- [Công văn 2504/TTTV-TTBVTV, 19/6/2026](https://storage-vnportal.vnpt.vn/cmu-khdn/5342/Vanban/2026.6.19-cv-chi-dao-sx-trong-trot-ung-pho-elnino-2026_-_nqmanh_19062026180253__19062026180725_signed.pdf): đã đọc PDF gốc; lịch gieo sớm 10–30/10, đợt 1 trong tháng 11, đợt 2 tháng 12. Ngày đầu khung engine 15/11 là đợt 1.
+
 ---
-Hash nội dung (sha256, 16 ký tự đầu, không gồm dòng này): `adb660f6e0ad8305`
+Hash nội dung (sha256, 16 ký tự đầu, không gồm dòng này): `7734a50a1fa8f702`

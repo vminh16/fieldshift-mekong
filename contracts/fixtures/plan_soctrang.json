@@ -1,18 +1,18 @@
 {
-  "decision_id": "dec_5dd70282e596",
+  "decision_id": "dec_6f4cdb6f10d4",
   "parent_id": null,
   "kind": "PLAN",
   "field_id": "fld_soctrang",
   "as_of": "2026-11-14",
-  "generated_at": "2026-11-14T08:57:45+00:00",
+  "generated_at": "2026-11-14T09:40:03+00:00",
   "versions": {
     "catalog": "crops-2026.11.1",
     "rules": "rules-1",
     "water_model": "fao56-v1",
-    "planner": "pareto-v2",
+    "planner": "pareto-v3-audit",
     "data": "power-v2.10.3@2026-11-03"
   },
-  "field_state_snapshot_id": "st_9ba4ff37343b",
+  "field_state_snapshot_id": "st_2b2abdae6d4d",
   "field_state": {
     "as_of": "2026-11-14",
     "upstream_discharge": {
@@ -157,6 +157,119 @@
   },
   "override": null,
   "history": [],
+  "source_conflicts": [
+    {
+      "status": "APPLIED",
+      "policy": "MONTHLY_MEAN_BIAS_CORRECTION_HEAT_ONLY",
+      "threshold_c": 2.0,
+      "months": {
+        "1": {
+          "paired_days": 806,
+          "power_mean_c": 28.062,
+          "era5_mean_c": 27.24,
+          "power_minus_era5_c": 0.822,
+          "heat_correction_c": 0.0
+        },
+        "2": {
+          "paired_days": 734,
+          "power_mean_c": 29.163,
+          "era5_mean_c": 27.705,
+          "power_minus_era5_c": 1.459,
+          "heat_correction_c": 0.0
+        },
+        "3": {
+          "paired_days": 806,
+          "power_mean_c": 30.544,
+          "era5_mean_c": 28.863,
+          "power_minus_era5_c": 1.681,
+          "heat_correction_c": 0.0
+        },
+        "4": {
+          "paired_days": 780,
+          "power_mean_c": 31.809,
+          "era5_mean_c": 30.374,
+          "power_minus_era5_c": 1.436,
+          "heat_correction_c": 0.0
+        },
+        "5": {
+          "paired_days": 806,
+          "power_mean_c": 31.247,
+          "era5_mean_c": 30.758,
+          "power_minus_era5_c": 0.489,
+          "heat_correction_c": 0.0
+        },
+        "6": {
+          "paired_days": 780,
+          "power_mean_c": 30.038,
+          "era5_mean_c": 30.249,
+          "power_minus_era5_c": -0.211,
+          "heat_correction_c": 0.0
+        },
+        "7": {
+          "paired_days": 806,
+          "power_mean_c": 29.343,
+          "era5_mean_c": 29.607,
+          "power_minus_era5_c": -0.264,
+          "heat_correction_c": 0.0
+        },
+        "8": {
+          "paired_days": 806,
+          "power_mean_c": 29.301,
+          "era5_mean_c": 29.687,
+          "power_minus_era5_c": -0.386,
+          "heat_correction_c": 0.0
+        },
+        "9": {
+          "paired_days": 780,
+          "power_mean_c": 29.065,
+          "era5_mean_c": 29.444,
+          "power_minus_era5_c": -0.379,
+          "heat_correction_c": 0.0
+        },
+        "10": {
+          "paired_days": 806,
+          "power_mean_c": 28.893,
+          "era5_mean_c": 29.113,
+          "power_minus_era5_c": -0.22,
+          "heat_correction_c": 0.0
+        },
+        "11": {
+          "paired_days": 753,
+          "power_mean_c": 28.634,
+          "era5_mean_c": 28.729,
+          "power_minus_era5_c": -0.095,
+          "heat_correction_c": 0.0
+        },
+        "12": {
+          "paired_days": 775,
+          "power_mean_c": 28.097,
+          "era5_mean_c": 27.884,
+          "power_minus_era5_c": 0.213,
+          "heat_correction_c": 0.0
+        }
+      },
+      "fit_before": "2026-11-14",
+      "et0_uses": "ORIGINAL_POWER_TMAX",
+      "note_vi": "Đếm ngày nóng bằng Tmax POWER đã chỉnh chênh lệch trung bình tháng với ERA5 khi |chênh lệch| > 2 °C. Giữ cả hai nguồn; chưa kiểm định cực trị ngày. ET₀ và tưới giữ nguyên đầu vào POWER; sai lệch nhu cầu tưới tuyệt đối vẫn còn.",
+      "evidence_ids": [
+        "ev_power_daily",
+        "ev_era5",
+        "ev_heat_conflict"
+      ]
+    }
+  ],
+  "salinity_window": {
+    "start": "2026-12-01",
+    "end": "2027-06-15",
+    "typical_start": "2027-01-15",
+    "typical_end": "2027-06-15",
+    "adjusted": true,
+    "kind": "ASSUMPTION",
+    "evidence_ids": [
+      "ev_salinity_season",
+      "ev_siwrr_2026_press"
+    ]
+  },
   "gates": [
     {
       "gate": "G1",
@@ -224,7 +337,10 @@
     {
       "probability": null,
       "evidence_ids": [
-        "ev_power_daily"
+        "ev_power_daily",
+        "ev_siwrr_2026_press",
+        "ev_era5",
+        "ev_heat_conflict"
       ],
       "salinity_shift_weeks": 0,
       "scenario_id": "sc_clim",
@@ -232,7 +348,8 @@
       "probability_semantics": "HISTORICAL_DISTRIBUTION_NOT_FORECAST",
       "name": "Lịch sử 2001–2025 (24 năm)",
       "assumptions": [
-        "future_resembles_past_distribution"
+        "future_resembles_past_distribution",
+        "ASSUMPTION: SIWRR qua báo; khung mặn bắt đầu 01/12/2026 thay 15/01/2027"
       ],
       "as_of": "2026-11-14",
       "representative_year": 2013,
@@ -266,7 +383,10 @@
     {
       "probability": null,
       "evidence_ids": [
-        "ev_power_daily"
+        "ev_power_daily",
+        "ev_siwrr_2026_press",
+        "ev_era5",
+        "ev_heat_conflict"
       ],
       "salinity_shift_weeks": 0,
       "scenario_id": "sc_dry",
@@ -276,7 +396,8 @@
       "assumptions": [
         "analog_dry_season_2023_2024",
         "analog_dry_season_2015_2016",
-        "analog_dry_season_2004_2005"
+        "analog_dry_season_2004_2005",
+        "ASSUMPTION: SIWRR qua báo; khung mặn bắt đầu 01/12/2026 thay 15/01/2027"
       ],
       "as_of": "2026-11-14",
       "representative_year": 2015,
@@ -289,7 +410,10 @@
     {
       "probability": null,
       "evidence_ids": [
-        "ev_power_daily"
+        "ev_power_daily",
+        "ev_siwrr_2026_press",
+        "ev_era5",
+        "ev_heat_conflict"
       ],
       "salinity_shift_weeks": 0,
       "scenario_id": "sc_hot",
@@ -297,7 +421,8 @@
       "probability_semantics": "NONE_ASSUMPTION",
       "name": "Nóng hơn +1,5 °C",
       "assumptions": [
-        "tmax_tmin_tdew_plus_1.5C"
+        "tmax_tmin_tdew_plus_1.5C",
+        "ASSUMPTION: SIWRR qua báo; khung mặn bắt đầu 01/12/2026 thay 15/01/2027"
       ],
       "as_of": "2026-11-14",
       "representative_year": 2013,
@@ -331,7 +456,10 @@
     {
       "probability": null,
       "evidence_ids": [
-        "ev_power_daily"
+        "ev_power_daily",
+        "ev_siwrr_2026_press",
+        "ev_era5",
+        "ev_heat_conflict"
       ],
       "salinity_shift_weeks": 0,
       "scenario_id": "sc_rain_minus30",
@@ -339,7 +467,8 @@
       "probability_semantics": "NONE_ASSUMPTION",
       "name": "Mưa giảm 30 %",
       "assumptions": [
-        "rain_x0.7"
+        "rain_x0.7",
+        "ASSUMPTION: SIWRR qua báo; khung mặn bắt đầu 01/12/2026 thay 15/01/2027"
       ],
       "as_of": "2026-11-14",
       "representative_year": 2013,
@@ -373,7 +502,10 @@
     {
       "probability": null,
       "evidence_ids": [
-        "ev_salinity_season"
+        "ev_salinity_season",
+        "ev_siwrr_2026_press",
+        "ev_era5",
+        "ev_heat_conflict"
       ],
       "salinity_shift_weeks": -4,
       "scenario_id": "sc_salt_early",
@@ -381,7 +513,8 @@
       "probability_semantics": "NONE_ASSUMPTION",
       "name": "Mặn đến sớm 4 tuần",
       "assumptions": [
-        "salinity_onset_minus_4_weeks_user_defined"
+        "salinity_onset_minus_4_weeks_user_defined",
+        "ASSUMPTION: SIWRR qua báo; khung mặn bắt đầu 01/12/2026 thay 15/01/2027"
       ],
       "as_of": "2026-11-14",
       "representative_year": 2013,
@@ -415,7 +548,10 @@
     {
       "probability": null,
       "evidence_ids": [
-        "ev_power_daily"
+        "ev_power_daily",
+        "ev_siwrr_2026_press",
+        "ev_era5",
+        "ev_heat_conflict"
       ],
       "salinity_shift_weeks": 0,
       "scenario_id": "sc_wet_ref",
@@ -423,7 +559,8 @@
       "probability_semantics": "HISTORICAL_DISTRIBUTION_NOT_FORECAST",
       "name": "Năm mùa khô ướt nhất (2021–2022)",
       "assumptions": [
-        "analog_year_2021"
+        "analog_year_2021",
+        "ASSUMPTION: SIWRR qua báo; khung mặn bắt đầu 01/12/2026 thay 15/01/2027"
       ],
       "as_of": "2026-11-14",
       "representative_year": 2021,
@@ -436,7 +573,10 @@
       "evidence_ids": [
         "ev_enso_oni",
         "ev_imerg_monthly",
-        "ev_power_daily"
+        "ev_power_daily",
+        "ev_siwrr_2026_press",
+        "ev_era5",
+        "ev_heat_conflict"
       ],
       "salinity_shift_weeks": 0,
       "scenario_id": "sc_enso_analog",
@@ -445,7 +585,8 @@
       "name": "Năm tương tự (ENSO El Niño mạnh: 2015–16, 2023–24, 2002–03, 2009–10, 2004–05)",
       "assumptions": [
         "analog_years_same_enso_phase_oni_2026-09",
-        "salinity_timing_unchanged_typical_window"
+        "salinity_timing_from_plan_window_not_inferred_from_enso_alone",
+        "ASSUMPTION: SIWRR qua báo; khung mặn bắt đầu 01/12/2026 thay 15/01/2027"
       ],
       "members": [
         {
@@ -478,7 +619,10 @@
       "probability": null,
       "evidence_ids": [
         "ev_seasonal_forecast",
-        "ev_power_daily"
+        "ev_power_daily",
+        "ev_siwrr_2026_press",
+        "ev_era5",
+        "ev_heat_conflict"
       ],
       "salinity_shift_weeks": 0,
       "scenario_id": "sc_forecast",
@@ -557,7 +701,8 @@
       "assumptions": [
         "First up to 180 days use SEAS5 Tmax/Tmin/rain ensemble members; remaining horizon spliced onto POWER climatology analog years.",
         "Dew point, radiation and wind needed by FAO-56 come from the same analog-year day throughout; cross-variable coherence is approximate.",
-        "Members paired deterministically with cycling analog years; no evaluated skill or calibrated probabilities."
+        "Members paired deterministically with cycling analog years; no evaluated skill or calibrated probabilities.",
+        "ASSUMPTION: SIWRR qua báo; khung mặn bắt đầu 01/12/2026 thay 15/01/2027"
       ],
       "as_of": "2026-11-14",
       "representative_year": 2021,
@@ -592,7 +737,10 @@
       "probability": null,
       "evidence_ids": [
         "ev_nex_cmip6",
-        "ev_power_daily"
+        "ev_power_daily",
+        "ev_siwrr_2026_press",
+        "ev_era5",
+        "ev_heat_conflict"
       ],
       "salinity_shift_weeks": 0,
       "scenario_id": "sc_proj_ACCESS-CM2_ssp245",
@@ -610,7 +758,8 @@
       "assumptions": [
         "Monthly Tmax delta: mean 2041–2050 minus mean 2025–2034; precipitation multiplied by monthly future/base ratio.",
         "Applied to POWER analog-year days as a long-term sensitivity scenario; not predictions for the planning dates.",
-        "Tmin, dew point, radiation and wind remain from the analog-year day (tasmax/pr only)."
+        "Tmin, dew point, radiation and wind remain from the analog-year day (tasmax/pr only).",
+        "ASSUMPTION: SIWRR qua báo; khung mặn bắt đầu 01/12/2026 thay 15/01/2027"
       ],
       "monthly_tmax_delta": {
         "1": 0.7105411935483872,
@@ -673,7 +822,10 @@
       "probability": null,
       "evidence_ids": [
         "ev_nex_cmip6",
-        "ev_power_daily"
+        "ev_power_daily",
+        "ev_siwrr_2026_press",
+        "ev_era5",
+        "ev_heat_conflict"
       ],
       "salinity_shift_weeks": 0,
       "scenario_id": "sc_proj_ACCESS-CM2_ssp585",
@@ -691,7 +843,8 @@
       "assumptions": [
         "Monthly Tmax delta: mean 2041–2050 minus mean 2025–2034; precipitation multiplied by monthly future/base ratio.",
         "Applied to POWER analog-year days as a long-term sensitivity scenario; not predictions for the planning dates.",
-        "Tmin, dew point, radiation and wind remain from the analog-year day (tasmax/pr only)."
+        "Tmin, dew point, radiation and wind remain from the analog-year day (tasmax/pr only).",
+        "ASSUMPTION: SIWRR qua báo; khung mặn bắt đầu 01/12/2026 thay 15/01/2027"
       ],
       "monthly_tmax_delta": {
         "1": 0.9095108387096857,
@@ -754,7 +907,10 @@
       "probability": null,
       "evidence_ids": [
         "ev_nex_cmip6",
-        "ev_power_daily"
+        "ev_power_daily",
+        "ev_siwrr_2026_press",
+        "ev_era5",
+        "ev_heat_conflict"
       ],
       "salinity_shift_weeks": 0,
       "scenario_id": "sc_proj_MPI-ESM1-2-HR_ssp245",
@@ -772,7 +928,8 @@
       "assumptions": [
         "Monthly Tmax delta: mean 2041–2050 minus mean 2025–2034; precipitation multiplied by monthly future/base ratio.",
         "Applied to POWER analog-year days as a long-term sensitivity scenario; not predictions for the planning dates.",
-        "Tmin, dew point, radiation and wind remain from the analog-year day (tasmax/pr only)."
+        "Tmin, dew point, radiation and wind remain from the analog-year day (tasmax/pr only).",
+        "ASSUMPTION: SIWRR qua báo; khung mặn bắt đầu 01/12/2026 thay 15/01/2027"
       ],
       "monthly_tmax_delta": {
         "1": -0.3886492580645182,
@@ -835,7 +992,10 @@
       "probability": null,
       "evidence_ids": [
         "ev_nex_cmip6",
-        "ev_power_daily"
+        "ev_power_daily",
+        "ev_siwrr_2026_press",
+        "ev_era5",
+        "ev_heat_conflict"
       ],
       "salinity_shift_weeks": 0,
       "scenario_id": "sc_proj_MPI-ESM1-2-HR_ssp585",
@@ -853,7 +1013,8 @@
       "assumptions": [
         "Monthly Tmax delta: mean 2041–2050 minus mean 2025–2034; precipitation multiplied by monthly future/base ratio.",
         "Applied to POWER analog-year days as a long-term sensitivity scenario; not predictions for the planning dates.",
-        "Tmin, dew point, radiation and wind remain from the analog-year day (tasmax/pr only)."
+        "Tmin, dew point, radiation and wind remain from the analog-year day (tasmax/pr only).",
+        "ASSUMPTION: SIWRR qua báo; khung mặn bắt đầu 01/12/2026 thay 15/01/2027"
       ],
       "monthly_tmax_delta": {
         "1": 0.33759767741935676,
@@ -960,6 +1121,9 @@
           "label": "Dự kiến",
           "evidence_ids": [
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -970,6 +1134,9 @@
           "label": "Dự kiến",
           "evidence_ids": [
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -980,6 +1147,9 @@
           "label": "Dự kiến",
           "evidence_ids": [
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -990,6 +1160,9 @@
           "label": "Dự kiến",
           "evidence_ids": [
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1042,6 +1215,9 @@
           "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1052,6 +1228,9 @@
           "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1062,6 +1241,9 @@
           "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1072,6 +1254,9 @@
           "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1124,6 +1309,9 @@
           "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1134,6 +1322,9 @@
           "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1144,6 +1335,9 @@
           "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1154,6 +1348,9 @@
           "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1206,6 +1403,9 @@
           "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1216,6 +1416,9 @@
           "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1226,6 +1429,9 @@
           "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1236,6 +1442,9 @@
           "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1288,6 +1497,9 @@
           "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_salinity_season",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_power_daily",
             "ev_crop_catalog"
           ]
@@ -1299,6 +1511,9 @@
           "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_salinity_season",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_power_daily",
             "ev_crop_catalog"
           ]
@@ -1310,6 +1525,9 @@
           "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_salinity_season",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_power_daily",
             "ev_crop_catalog"
           ]
@@ -1321,6 +1539,9 @@
           "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_salinity_season",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_power_daily",
             "ev_crop_catalog"
           ]
@@ -1374,6 +1595,9 @@
           "label": "Dự kiến",
           "evidence_ids": [
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1384,6 +1608,9 @@
           "label": "Dự kiến",
           "evidence_ids": [
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1394,6 +1621,9 @@
           "label": "Dự kiến",
           "evidence_ids": [
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1404,6 +1634,9 @@
           "label": "Dự kiến",
           "evidence_ids": [
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1458,6 +1691,9 @@
             "ev_enso_oni",
             "ev_imerg_monthly",
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1470,6 +1706,9 @@
             "ev_enso_oni",
             "ev_imerg_monthly",
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1482,6 +1721,9 @@
             "ev_enso_oni",
             "ev_imerg_monthly",
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1494,6 +1736,9 @@
             "ev_enso_oni",
             "ev_imerg_monthly",
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1547,6 +1792,9 @@
           "evidence_ids": [
             "ev_seasonal_forecast",
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1558,6 +1806,9 @@
           "evidence_ids": [
             "ev_seasonal_forecast",
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1569,6 +1820,9 @@
           "evidence_ids": [
             "ev_seasonal_forecast",
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1580,6 +1834,9 @@
           "evidence_ids": [
             "ev_seasonal_forecast",
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1633,6 +1890,9 @@
           "evidence_ids": [
             "ev_nex_cmip6",
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1644,6 +1904,9 @@
           "evidence_ids": [
             "ev_nex_cmip6",
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1655,6 +1918,9 @@
           "evidence_ids": [
             "ev_nex_cmip6",
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1666,6 +1932,9 @@
           "evidence_ids": [
             "ev_nex_cmip6",
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1719,6 +1988,9 @@
           "evidence_ids": [
             "ev_nex_cmip6",
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1730,6 +2002,9 @@
           "evidence_ids": [
             "ev_nex_cmip6",
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1741,6 +2016,9 @@
           "evidence_ids": [
             "ev_nex_cmip6",
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1752,6 +2030,9 @@
           "evidence_ids": [
             "ev_nex_cmip6",
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1805,6 +2086,9 @@
           "evidence_ids": [
             "ev_nex_cmip6",
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1816,6 +2100,9 @@
           "evidence_ids": [
             "ev_nex_cmip6",
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1827,6 +2114,9 @@
           "evidence_ids": [
             "ev_nex_cmip6",
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1838,6 +2128,9 @@
           "evidence_ids": [
             "ev_nex_cmip6",
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1891,6 +2184,9 @@
           "evidence_ids": [
             "ev_nex_cmip6",
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1902,6 +2198,9 @@
           "evidence_ids": [
             "ev_nex_cmip6",
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1913,6 +2212,9 @@
           "evidence_ids": [
             "ev_nex_cmip6",
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -1924,6 +2226,9 @@
           "evidence_ids": [
             "ev_nex_cmip6",
             "ev_power_daily",
+            "ev_siwrr_2026_press",
+            "ev_era5",
+            "ev_heat_conflict",
             "ev_crop_catalog"
           ]
         },
@@ -3724,6 +4029,10 @@
     },
     "delta_vs_baseline": {},
     "production_value_index": 3.15,
+    "salinity_exposure_days": {
+      "option": 177,
+      "baseline": 177
+    },
     "soil_benefit": {
       "claim_type": "POTENTIAL_QUALITATIVE",
       "value": null,
@@ -3749,7 +4058,7 @@
         "rule_id": "R_SALINITY_UNKNOWN",
         "severity": "UNKNOWN_REQUIRES_CHECK",
         "season_index": 1,
-        "reason": "Vụ 1 (Lúa) trùng mùa mặn 62 ngày (90 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh",
+        "reason": "Vụ 1 (Lúa) trùng mùa mặn 100 ngày (100 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh",
         "inputs_used": [
           "state.canal_ecw",
           "regions.salinity_season",
@@ -3803,7 +4112,7 @@
         "code": "R_SALINITY_UNKNOWN",
         "severity": "UNKNOWN_REQUIRES_CHECK",
         "season_index": 1,
-        "text": "Vụ 1 (Lúa) trùng mùa mặn 62 ngày (90 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh"
+        "text": "Vụ 1 (Lúa) trùng mùa mặn 100 ngày (100 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh"
       },
       {
         "code": "R_SALINITY_UNKNOWN",
@@ -3858,7 +4167,7 @@
       "unknowns": [
         "canal_ecw"
       ],
-      "basis": "HIGH: thắng ≥ 90 % kịch bản, không thiếu dữ liệu đầu vào của luật, trạng thái RECOMMEND_FOR_CONSIDERATION, không thua kịch bản dự báo mùa/CMIP6; MEDIUM: thắng ≥ 60 %; còn lại LOW. Chuỗi hiện tại là mốc so sánh nên chỉ xét dữ liệu thiếu và trạng thái."
+      "basis": "Nhãn so sánh nội bộ, không phải xác suất thành công. HIGH: đạt ≥ 90 % kịch bản, không thiếu dữ liệu đầu vào của luật, trạng thái RECOMMEND_FOR_CONSIDERATION, không thua kịch bản dự báo mùa/CMIP6; MEDIUM: đạt ≥ 60 %; còn lại LOW. Chuỗi hiện tại là mốc so sánh nên chỉ xét dữ liệu thiếu và trạng thái."
     }
   },
   "options": [
@@ -3909,6 +4218,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -3919,6 +4231,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -3929,6 +4244,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -3939,6 +4257,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -3991,6 +4312,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4001,6 +4325,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4011,6 +4338,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4021,6 +4351,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4073,6 +4406,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4083,6 +4419,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4093,6 +4432,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4103,6 +4445,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4155,6 +4500,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4165,6 +4513,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4175,6 +4526,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4185,6 +4539,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4237,6 +4594,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ]
@@ -4248,6 +4608,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ]
@@ -4259,6 +4622,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ]
@@ -4270,6 +4636,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ]
@@ -4323,6 +4692,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4333,6 +4705,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4343,6 +4718,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4353,6 +4731,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4407,6 +4788,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4419,6 +4803,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4431,6 +4818,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4443,6 +4833,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4496,6 +4889,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4507,6 +4903,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4518,6 +4917,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4529,6 +4931,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4582,6 +4987,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4593,6 +5001,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4604,6 +5015,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4615,6 +5029,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4668,6 +5085,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4679,6 +5099,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4690,6 +5113,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4701,6 +5127,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4754,6 +5183,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4765,6 +5197,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4776,6 +5211,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4787,6 +5225,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4840,6 +5281,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4851,6 +5295,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4862,6 +5309,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -4873,6 +5323,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -6678,6 +7131,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -6688,6 +7144,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -6698,6 +7157,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -6710,6 +7172,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -6720,6 +7185,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -6730,6 +7198,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -6742,6 +7213,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -6752,6 +7226,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -6762,6 +7239,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -6774,6 +7254,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -6784,6 +7267,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -6794,6 +7280,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -6806,6 +7295,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ],
@@ -6817,6 +7309,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ],
@@ -6828,6 +7323,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ],
@@ -6841,6 +7339,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -6851,6 +7352,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -6861,6 +7365,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -6875,6 +7382,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -6887,6 +7397,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -6899,6 +7412,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -6912,6 +7428,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "forecast",
@@ -6923,6 +7442,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "forecast",
@@ -6934,6 +7456,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "forecast",
@@ -6947,6 +7472,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -6958,6 +7486,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -6969,6 +7500,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -6982,6 +7516,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -6993,6 +7530,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -7004,6 +7544,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -7017,6 +7560,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -7028,6 +7574,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -7039,6 +7588,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -7052,6 +7604,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -7063,6 +7618,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -7074,6 +7632,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -7082,6 +7643,10 @@
         }
       },
       "production_value_index": 2.15,
+      "salinity_exposure_days": {
+        "option": 84,
+        "baseline": 177
+      },
       "soil_benefit": {
         "claim_type": "POTENTIAL_QUALITATIVE",
         "value": null,
@@ -7110,7 +7675,7 @@
           "rule_id": "R_SALINITY_UNKNOWN",
           "severity": "UNKNOWN_REQUIRES_CHECK",
           "season_index": 1,
-          "reason": "Vụ 1 (Lúa) trùng mùa mặn 39 ngày (67 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh",
+          "reason": "Vụ 1 (Lúa) trùng mùa mặn 84 ngày (100 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh",
           "inputs_used": [
             "state.canal_ecw",
             "regions.salinity_season",
@@ -7125,14 +7690,14 @@
       ],
       "reasons": [
         {
-          "text": "Chỉ số giá trị sản xuất tương đối 2,15 so với 3,15 của chuỗi hiện tại: giữ lúa vụ Đông Xuân (trọng số giá trị cao nhất), chỉ đổi vụ Xuân Hè / Hè Thu (heuristic nhóm [B], không phải năng suất hay lợi nhuận).",
+          "text": "Cây đứng trong khung mặn 84 ngày thay vì 177 ngày của hiện tại (2026-12-01–2027-06-15); đây là số ngày phơi nhiễm theo lịch, chưa đo mặn tại thửa. Vẫn phải đo ECw và xác nhận nguồn nước ngọt.",
           "evidence_ids": [
-            "ev_value_heuristic",
-            "ev_region_calendar"
+            "ev_salinity_season",
+            "ev_siwrr_2026_press"
           ]
         },
         {
-          "text": "Trong các năm tương tự ENSO hiện tại (El Niño mạnh: 2015–16, 2023–24, 2002–03, 2009–10, 2004–05), giảm ~816 mm nước tưới so với hiện tại (năm tương tự, không phải dự báo).",
+          "text": "Trong các năm tương tự ENSO hiện tại (El Niño mạnh: 2015–16, 2023–24, 2002–03, 2009–10, 2004–05), mô hình ước tính giảm ~816 mm nước tưới so với hiện tại (năm tương tự, không phải dự báo).",
           "evidence_ids": [
             "ev_enso_oni",
             "ev_imerg_monthly",
@@ -7140,10 +7705,48 @@
           ]
         },
         {
-          "text": "Nhu cầu tưới trung vị giảm ~586 mm (~5.860 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER.",
+          "text": "Ước tính mô hình: nhu cầu tưới trung vị giảm ~586 mm (~5.860 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER.",
           "evidence_ids": [
             "ev_power_daily",
             "ev_crop_catalog"
+          ]
+        },
+        {
+          "text": "Luân phiên cây hoặc nghỉ vụ có thể cắt vòng sâu bệnh của lúa liên tục; lợi ích định tính, chưa mô phỏng sâu bệnh.",
+          "evidence_ids": [
+            "ev_crop_catalog"
+          ]
+        },
+        {
+          "text": "Ít vụ trùng mùa mặn hơn chuỗi hiện tại.",
+          "evidence_ids": [
+            "ev_salinity_season"
+          ]
+        },
+        {
+          "text": "Lợi ích tiềm năng cho đất (định tính): breaks_rice_pest_cycle, ground_cover, crop_diversity_2",
+          "evidence_ids": [
+            "ev_crop_catalog"
+          ]
+        },
+        {
+          "text": "Cùng hướng Công văn 2504/TTTV-TTBVTV (19/6/2026): giảm từ 3 vụ lúa xuống 2 vụ ở nơi thiếu nước hoặc 3 vụ kém hiệu quả. Cần xác nhận điều kiện cấp nước và thoát nước tại thửa.",
+          "evidence_ids": [
+            "ev_official_2504"
+          ]
+        },
+        {
+          "text": "Ngày gieo 2026-11-15 thuộc đợt 1 (01–30/11/2026). Khung gieo sớm né mặn chính thức 10–30/10/2026 đã qua; gieo đầu khung của engine không đồng nghĩa gieo sớm né mặn.",
+          "evidence_ids": [
+            "ev_official_2504",
+            "ev_region_calendar"
+          ]
+        },
+        {
+          "text": "Điểm tham khảo do nhóm tự đặt là 2,15 so với 3,15 hiện tại: giữ lúa vụ Đông Xuân (vụ được nhóm ưu tiên giữ), chỉ đổi vụ Xuân Hè / Hè Thu; chỉ giúp so sánh cách giữ vụ, không phải năng suất hay lợi nhuận.",
+          "evidence_ids": [
+            "ev_value_heuristic",
+            "ev_region_calendar"
           ]
         }
       ],
@@ -7158,7 +7761,7 @@
           "code": "R_SALINITY_UNKNOWN",
           "severity": "UNKNOWN_REQUIRES_CHECK",
           "season_index": 1,
-          "text": "Vụ 1 (Lúa) trùng mùa mặn 39 ngày (67 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh"
+          "text": "Vụ 1 (Lúa) trùng mùa mặn 84 ngày (100 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh"
         }
       ],
       "triggers": [
@@ -7191,7 +7794,7 @@
         "wins": 12,
         "total": 12,
         "lost_scenarios": [],
-        "rule": "Thắng một kịch bản khi trung vị nước tưới thấp hơn hiện tại VÀ trung vị (ngày thiếu nước + ngày nắng nóng) không cao hơn hiện tại, trên cùng kịch bản."
+        "rule": "Đạt tiêu chí nội bộ khi trung vị nước tưới mô hình thấp hơn hiện tại VÀ trung vị (ngày thiếu nước + ngày nắng nóng) không cao hơn hiện tại, trên cùng kịch bản; không phải kiểm định thực địa hay xác suất thành công."
       },
       "confidence": {
         "level": "MEDIUM",
@@ -7199,9 +7802,9 @@
         "unknowns": [
           "canal_ecw"
         ],
-        "basis": "HIGH: thắng ≥ 90 % kịch bản, không thiếu dữ liệu đầu vào của luật, trạng thái RECOMMEND_FOR_CONSIDERATION, không thua kịch bản dự báo mùa/CMIP6; MEDIUM: thắng ≥ 60 %; còn lại LOW. Chuỗi hiện tại là mốc so sánh nên chỉ xét dữ liệu thiếu và trạng thái."
+        "basis": "Nhãn so sánh nội bộ, không phải xác suất thành công. HIGH: đạt ≥ 90 % kịch bản, không thiếu dữ liệu đầu vào của luật, trạng thái RECOMMEND_FOR_CONSIDERATION, không thua kịch bản dự báo mùa/CMIP6; MEDIUM: đạt ≥ 60 %; còn lại LOW. Chuỗi hiện tại là mốc so sánh nên chỉ xét dữ liệu thiếu và trạng thái."
       },
-      "summary_vi": "Đổi vụ Xuân Hè / Hè Thu sang Bỏ hóa / cây phủ đất: Chỉ số giá trị sản xuất tương đối 2,15 so với 3,15 của chuỗi hiện tại: giữ lúa vụ Đông Xuân (trọng số giá trị cao nhất), chỉ đổi vụ Xuân Hè / Hè Thu (heuristic nhóm [B], không phải năng suất hay lợi nhuận)."
+      "summary_vi": "Đổi vụ Xuân Hè / Hè Thu sang Bỏ hóa / cây phủ đất: Cây đứng trong khung mặn 84 ngày thay vì 177 ngày của hiện tại (2026-12-01–2027-06-15); đây là số ngày phơi nhiễm theo lịch, chưa đo mặn tại thửa. Vẫn phải đo ECw và xác nhận nguồn nước ngọt."
     },
     {
       "sequence_id": "seq_mungbean_rice_rice__early_standard_standard",
@@ -7250,6 +7853,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7260,6 +7866,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7270,6 +7879,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7280,6 +7892,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7332,6 +7947,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7342,6 +7960,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7352,6 +7973,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7362,6 +7986,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7414,6 +8041,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7424,6 +8054,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7434,6 +8067,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7444,6 +8080,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7496,6 +8135,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7506,6 +8148,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7516,6 +8161,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7526,6 +8174,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7578,6 +8229,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ]
@@ -7589,6 +8243,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ]
@@ -7600,6 +8257,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ]
@@ -7611,6 +8271,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ]
@@ -7664,6 +8327,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7674,6 +8340,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7684,6 +8353,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7694,6 +8366,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7748,6 +8423,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7760,6 +8438,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7772,6 +8453,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7784,6 +8468,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7837,6 +8524,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7848,6 +8538,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7859,6 +8552,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7870,6 +8566,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7923,6 +8622,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7934,6 +8636,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7945,6 +8650,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -7956,6 +8664,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -8009,6 +8720,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -8020,6 +8734,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -8031,6 +8748,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -8042,6 +8762,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -8095,6 +8818,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -8106,6 +8832,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -8117,6 +8846,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -8128,6 +8860,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -8181,6 +8916,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -8192,6 +8930,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -8203,6 +8944,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -8214,6 +8958,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -10019,6 +10766,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -10029,6 +10779,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -10039,6 +10792,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -10051,6 +10807,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -10061,6 +10820,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -10071,6 +10833,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -10083,6 +10848,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -10093,6 +10861,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -10103,6 +10874,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -10115,6 +10889,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -10125,6 +10902,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -10135,6 +10915,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -10147,6 +10930,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ],
@@ -10158,6 +10944,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ],
@@ -10169,6 +10958,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ],
@@ -10182,6 +10974,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -10192,6 +10987,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -10202,6 +11000,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -10216,6 +11017,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -10228,6 +11032,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -10240,6 +11047,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -10253,6 +11063,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "forecast",
@@ -10264,6 +11077,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "forecast",
@@ -10275,6 +11091,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "forecast",
@@ -10288,6 +11107,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -10299,6 +11121,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -10310,6 +11135,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -10323,6 +11151,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -10334,6 +11165,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -10345,6 +11179,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -10358,6 +11195,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -10369,6 +11209,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -10380,6 +11223,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -10393,6 +11239,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -10404,6 +11253,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -10415,6 +11267,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -10423,6 +11278,10 @@
         }
       },
       "production_value_index": 2.89,
+      "salinity_exposure_days": {
+        "option": 131,
+        "baseline": 177
+      },
       "soil_benefit": {
         "claim_type": "POTENTIAL_QUALITATIVE",
         "value": null,
@@ -10464,7 +11323,7 @@
           "rule_id": "R_SALINITY_UNKNOWN",
           "severity": "UNKNOWN_REQUIRES_CHECK",
           "season_index": 1,
-          "reason": "Vụ 1 (Đậu xanh) trùng mùa mặn 9 ngày (37 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh",
+          "reason": "Vụ 1 (Đậu xanh) trùng mùa mặn 54 ngày (70 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh",
           "inputs_used": [
             "state.canal_ecw",
             "regions.salinity_season",
@@ -10495,7 +11354,14 @@
       ],
       "reasons": [
         {
-          "text": "Trong các năm tương tự ENSO hiện tại (El Niño mạnh: 2015–16, 2023–24, 2002–03, 2009–10, 2004–05), giảm ~765 mm nước tưới so với hiện tại (năm tương tự, không phải dự báo).",
+          "text": "Cây đứng trong khung mặn 131 ngày thay vì 177 ngày của hiện tại (2026-12-01–2027-06-15); đây là số ngày phơi nhiễm theo lịch, chưa đo mặn tại thửa. Vẫn phải đo ECw và xác nhận nguồn nước ngọt.",
+          "evidence_ids": [
+            "ev_salinity_season",
+            "ev_siwrr_2026_press"
+          ]
+        },
+        {
+          "text": "Trong các năm tương tự ENSO hiện tại (El Niño mạnh: 2015–16, 2023–24, 2002–03, 2009–10, 2004–05), mô hình ước tính giảm ~765 mm nước tưới so với hiện tại (năm tương tự, không phải dự báo).",
           "evidence_ids": [
             "ev_enso_oni",
             "ev_imerg_monthly",
@@ -10503,17 +11369,42 @@
           ]
         },
         {
-          "text": "Chỉ số giá trị sản xuất tương đối 2,89 so với 3,15 của chuỗi hiện tại: đổi vụ Đông Xuân (heuristic nhóm [B], không phải năng suất hay lợi nhuận).",
+          "text": "Ước tính mô hình: nhu cầu tưới trung vị giảm ~744 mm (~7.440 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER.",
           "evidence_ids": [
-            "ev_value_heuristic",
+            "ev_power_daily",
+            "ev_crop_catalog"
+          ]
+        },
+        {
+          "text": "Luân phiên cây hoặc nghỉ vụ có thể cắt vòng sâu bệnh của lúa liên tục; lợi ích định tính, chưa mô phỏng sâu bệnh.",
+          "evidence_ids": [
+            "ev_crop_catalog"
+          ]
+        },
+        {
+          "text": "Lợi ích tiềm năng cho đất (định tính): breaks_rice_pest_cycle, legume_n_fixation_potential, crop_diversity_2",
+          "evidence_ids": [
+            "ev_crop_catalog"
+          ]
+        },
+        {
+          "text": "Cùng hướng Công văn 2504/TTTV-TTBVTV (19/6/2026): chuyển một phần đất lúa sang cây cạn dùng ít nước ở nơi thiếu nước hoặc 3 vụ kém hiệu quả. Cần xác nhận điều kiện cấp nước và thoát nước tại thửa.",
+          "evidence_ids": [
+            "ev_official_2504"
+          ]
+        },
+        {
+          "text": "Ngày gieo 2026-11-15 thuộc đợt 1 (01–30/11/2026). Khung gieo sớm né mặn chính thức 10–30/10/2026 đã qua; gieo đầu khung của engine không đồng nghĩa gieo sớm né mặn.",
+          "evidence_ids": [
+            "ev_official_2504",
             "ev_region_calendar"
           ]
         },
         {
-          "text": "Nhu cầu tưới trung vị giảm ~744 mm (~7.440 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER.",
+          "text": "Điểm tham khảo do nhóm tự đặt là 2,89 so với 3,15 hiện tại: đổi vụ Đông Xuân; chỉ giúp so sánh cách giữ vụ, không phải năng suất hay lợi nhuận.",
           "evidence_ids": [
-            "ev_power_daily",
-            "ev_crop_catalog"
+            "ev_value_heuristic",
+            "ev_region_calendar"
           ]
         }
       ],
@@ -10534,7 +11425,7 @@
           "code": "R_SALINITY_UNKNOWN",
           "severity": "UNKNOWN_REQUIRES_CHECK",
           "season_index": 1,
-          "text": "Vụ 1 (Đậu xanh) trùng mùa mặn 9 ngày (37 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh"
+          "text": "Vụ 1 (Đậu xanh) trùng mùa mặn 54 ngày (70 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh"
         },
         {
           "code": "R_SALINITY_UNKNOWN",
@@ -10596,7 +11487,7 @@
         "wins": 12,
         "total": 12,
         "lost_scenarios": [],
-        "rule": "Thắng một kịch bản khi trung vị nước tưới thấp hơn hiện tại VÀ trung vị (ngày thiếu nước + ngày nắng nóng) không cao hơn hiện tại, trên cùng kịch bản."
+        "rule": "Đạt tiêu chí nội bộ khi trung vị nước tưới mô hình thấp hơn hiện tại VÀ trung vị (ngày thiếu nước + ngày nắng nóng) không cao hơn hiện tại, trên cùng kịch bản; không phải kiểm định thực địa hay xác suất thành công."
       },
       "confidence": {
         "level": "MEDIUM",
@@ -10605,9 +11496,9 @@
           "canal_ecw",
           "drainage"
         ],
-        "basis": "HIGH: thắng ≥ 90 % kịch bản, không thiếu dữ liệu đầu vào của luật, trạng thái RECOMMEND_FOR_CONSIDERATION, không thua kịch bản dự báo mùa/CMIP6; MEDIUM: thắng ≥ 60 %; còn lại LOW. Chuỗi hiện tại là mốc so sánh nên chỉ xét dữ liệu thiếu và trạng thái."
+        "basis": "Nhãn so sánh nội bộ, không phải xác suất thành công. HIGH: đạt ≥ 90 % kịch bản, không thiếu dữ liệu đầu vào của luật, trạng thái RECOMMEND_FOR_CONSIDERATION, không thua kịch bản dự báo mùa/CMIP6; MEDIUM: đạt ≥ 60 %; còn lại LOW. Chuỗi hiện tại là mốc so sánh nên chỉ xét dữ liệu thiếu và trạng thái."
       },
-      "summary_vi": "Đổi vụ Đông Xuân sang Đậu xanh: Trong các năm tương tự ENSO hiện tại (El Niño mạnh: 2015–16, 2023–24, 2002–03, 2009–10, 2004–05), giảm ~765 mm nước tưới so với hiện tại (năm tương tự, không phải dự báo); cần xác nhận thoát nước."
+      "summary_vi": "Đổi vụ Đông Xuân sang Đậu xanh: Cây đứng trong khung mặn 131 ngày thay vì 177 ngày của hiện tại (2026-12-01–2027-06-15); đây là số ngày phơi nhiễm theo lịch, chưa đo mặn tại thửa. Vẫn phải đo ECw và xác nhận nguồn nước ngọt; cần xác nhận thoát nước."
     },
     {
       "sequence_id": "seq_rice_peanut_rice__early_standard_standard",
@@ -10656,6 +11547,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -10666,6 +11560,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -10676,6 +11573,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -10686,6 +11586,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -10738,6 +11641,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -10748,6 +11654,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -10758,6 +11667,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -10768,6 +11680,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -10820,6 +11735,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -10830,6 +11748,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -10840,6 +11761,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -10850,6 +11774,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -10902,6 +11829,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -10912,6 +11842,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -10922,6 +11855,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -10932,6 +11868,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -10984,6 +11923,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ]
@@ -10995,6 +11937,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ]
@@ -11006,6 +11951,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ]
@@ -11017,6 +11965,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ]
@@ -11070,6 +12021,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11080,6 +12034,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11090,6 +12047,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11100,6 +12060,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11154,6 +12117,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11166,6 +12132,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11178,6 +12147,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11190,6 +12162,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11243,6 +12218,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11254,6 +12232,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11265,6 +12246,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11276,6 +12260,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11329,6 +12316,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11340,6 +12330,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11351,6 +12344,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11362,6 +12358,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11415,6 +12414,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11426,6 +12428,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11437,6 +12442,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11448,6 +12456,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11501,6 +12512,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11512,6 +12526,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11523,6 +12540,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11534,6 +12554,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11587,6 +12610,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11598,6 +12624,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11609,6 +12638,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -11620,6 +12652,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -13425,6 +14460,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -13435,6 +14473,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -13445,6 +14486,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -13457,6 +14501,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -13467,6 +14514,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -13477,6 +14527,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -13489,6 +14542,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -13499,6 +14555,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -13509,6 +14568,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -13521,6 +14583,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -13531,6 +14596,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -13541,6 +14609,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -13553,6 +14624,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ],
@@ -13564,6 +14638,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ],
@@ -13575,6 +14652,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ],
@@ -13588,6 +14668,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -13598,6 +14681,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -13608,6 +14694,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -13622,6 +14711,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -13634,6 +14726,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -13646,6 +14741,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -13659,6 +14757,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "forecast",
@@ -13670,6 +14771,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "forecast",
@@ -13681,6 +14785,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "forecast",
@@ -13694,6 +14801,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -13705,6 +14815,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -13716,6 +14829,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -13729,6 +14845,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -13740,6 +14859,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -13751,6 +14873,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -13764,6 +14889,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -13775,6 +14903,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -13786,6 +14917,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -13799,6 +14933,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -13810,6 +14947,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -13821,6 +14961,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -13829,6 +14972,10 @@
         }
       },
       "production_value_index": 2.95,
+      "salinity_exposure_days": {
+        "option": 161,
+        "baseline": 177
+      },
       "soil_benefit": {
         "claim_type": "POTENTIAL_QUALITATIVE",
         "value": null,
@@ -13858,7 +15005,7 @@
           "rule_id": "R_SALINITY_UNKNOWN",
           "severity": "UNKNOWN_REQUIRES_CHECK",
           "season_index": 1,
-          "reason": "Vụ 1 (Lúa) trùng mùa mặn 39 ngày (67 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh",
+          "reason": "Vụ 1 (Lúa) trùng mùa mặn 84 ngày (100 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh",
           "inputs_used": [
             "state.canal_ecw",
             "regions.salinity_season",
@@ -13902,14 +15049,14 @@
       ],
       "reasons": [
         {
-          "text": "Chỉ số giá trị sản xuất tương đối 2,95 so với 3,15 của chuỗi hiện tại: giữ lúa vụ Đông Xuân (trọng số giá trị cao nhất), chỉ đổi vụ Xuân Hè / Hè Thu (heuristic nhóm [B], không phải năng suất hay lợi nhuận).",
+          "text": "Cây đứng trong khung mặn 161 ngày thay vì 177 ngày của hiện tại (2026-12-01–2027-06-15); đây là số ngày phơi nhiễm theo lịch, chưa đo mặn tại thửa. Vẫn phải đo ECw và xác nhận nguồn nước ngọt.",
           "evidence_ids": [
-            "ev_value_heuristic",
-            "ev_region_calendar"
+            "ev_salinity_season",
+            "ev_siwrr_2026_press"
           ]
         },
         {
-          "text": "Trong các năm tương tự ENSO hiện tại (El Niño mạnh: 2015–16, 2023–24, 2002–03, 2009–10, 2004–05), giảm ~551 mm nước tưới so với hiện tại (năm tương tự, không phải dự báo).",
+          "text": "Trong các năm tương tự ENSO hiện tại (El Niño mạnh: 2015–16, 2023–24, 2002–03, 2009–10, 2004–05), mô hình ước tính giảm ~551 mm nước tưới so với hiện tại (năm tương tự, không phải dự báo).",
           "evidence_ids": [
             "ev_enso_oni",
             "ev_imerg_monthly",
@@ -13917,10 +15064,42 @@
           ]
         },
         {
-          "text": "Nhu cầu tưới trung vị giảm ~472 mm (~4.720 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER.",
+          "text": "Ước tính mô hình: nhu cầu tưới trung vị giảm ~472 mm (~4.720 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER.",
           "evidence_ids": [
             "ev_power_daily",
             "ev_crop_catalog"
+          ]
+        },
+        {
+          "text": "Luân phiên cây hoặc nghỉ vụ có thể cắt vòng sâu bệnh của lúa liên tục; lợi ích định tính, chưa mô phỏng sâu bệnh.",
+          "evidence_ids": [
+            "ev_crop_catalog"
+          ]
+        },
+        {
+          "text": "Lợi ích tiềm năng cho đất (định tính): breaks_rice_pest_cycle, legume_n_fixation_potential, root_diversity, crop_diversity_2",
+          "evidence_ids": [
+            "ev_crop_catalog"
+          ]
+        },
+        {
+          "text": "Cùng hướng Công văn 2504/TTTV-TTBVTV (19/6/2026): chuyển một phần đất lúa sang cây cạn dùng ít nước ở nơi thiếu nước hoặc 3 vụ kém hiệu quả. Cần xác nhận điều kiện cấp nước và thoát nước tại thửa.",
+          "evidence_ids": [
+            "ev_official_2504"
+          ]
+        },
+        {
+          "text": "Ngày gieo 2026-11-15 thuộc đợt 1 (01–30/11/2026). Khung gieo sớm né mặn chính thức 10–30/10/2026 đã qua; gieo đầu khung của engine không đồng nghĩa gieo sớm né mặn.",
+          "evidence_ids": [
+            "ev_official_2504",
+            "ev_region_calendar"
+          ]
+        },
+        {
+          "text": "Điểm tham khảo do nhóm tự đặt là 2,95 so với 3,15 hiện tại: giữ lúa vụ Đông Xuân (vụ được nhóm ưu tiên giữ), chỉ đổi vụ Xuân Hè / Hè Thu; chỉ giúp so sánh cách giữ vụ, không phải năng suất hay lợi nhuận.",
+          "evidence_ids": [
+            "ev_value_heuristic",
+            "ev_region_calendar"
           ]
         }
       ],
@@ -13935,7 +15114,7 @@
           "code": "R_SALINITY_UNKNOWN",
           "severity": "UNKNOWN_REQUIRES_CHECK",
           "season_index": 1,
-          "text": "Vụ 1 (Lúa) trùng mùa mặn 39 ngày (67 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh"
+          "text": "Vụ 1 (Lúa) trùng mùa mặn 84 ngày (100 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh"
         },
         {
           "code": "R_DRAINAGE_UNKNOWN",
@@ -14045,7 +15224,7 @@
           "sc_proj_MPI-ESM1-2-HR_ssp245",
           "sc_proj_MPI-ESM1-2-HR_ssp585"
         ],
-        "rule": "Thắng một kịch bản khi trung vị nước tưới thấp hơn hiện tại VÀ trung vị (ngày thiếu nước + ngày nắng nóng) không cao hơn hiện tại, trên cùng kịch bản."
+        "rule": "Đạt tiêu chí nội bộ khi trung vị nước tưới mô hình thấp hơn hiện tại VÀ trung vị (ngày thiếu nước + ngày nắng nóng) không cao hơn hiện tại, trên cùng kịch bản; không phải kiểm định thực địa hay xác suất thành công."
       },
       "confidence": {
         "level": "LOW",
@@ -14054,9 +15233,9 @@
           "canal_ecw",
           "drainage"
         ],
-        "basis": "HIGH: thắng ≥ 90 % kịch bản, không thiếu dữ liệu đầu vào của luật, trạng thái RECOMMEND_FOR_CONSIDERATION, không thua kịch bản dự báo mùa/CMIP6; MEDIUM: thắng ≥ 60 %; còn lại LOW. Chuỗi hiện tại là mốc so sánh nên chỉ xét dữ liệu thiếu và trạng thái."
+        "basis": "Nhãn so sánh nội bộ, không phải xác suất thành công. HIGH: đạt ≥ 90 % kịch bản, không thiếu dữ liệu đầu vào của luật, trạng thái RECOMMEND_FOR_CONSIDERATION, không thua kịch bản dự báo mùa/CMIP6; MEDIUM: đạt ≥ 60 %; còn lại LOW. Chuỗi hiện tại là mốc so sánh nên chỉ xét dữ liệu thiếu và trạng thái."
       },
-      "summary_vi": "Đổi vụ Xuân Hè / Hè Thu sang Đậu phộng (lạc): Chỉ số giá trị sản xuất tương đối 2,95 so với 3,15 của chuỗi hiện tại: giữ lúa vụ Đông Xuân (trọng số giá trị cao nhất), chỉ đổi vụ Xuân Hè / Hè Thu (heuristic nhóm [B], không phải năng suất hay lợi nhuận); cần xác nhận thoát nước."
+      "summary_vi": "Đổi vụ Xuân Hè / Hè Thu sang Đậu phộng (lạc): Cây đứng trong khung mặn 161 ngày thay vì 177 ngày của hiện tại (2026-12-01–2027-06-15); đây là số ngày phơi nhiễm theo lịch, chưa đo mặn tại thửa. Vẫn phải đo ECw và xác nhận nguồn nước ngọt; cần xác nhận thoát nước."
     },
     {
       "sequence_id": "seq_rice_maize_rice__early_standard_standard",
@@ -14105,6 +15284,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14115,6 +15297,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14125,6 +15310,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14135,6 +15323,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14187,6 +15378,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14197,6 +15391,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14207,6 +15404,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14217,6 +15417,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14269,6 +15472,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14279,6 +15485,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14289,6 +15498,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14299,6 +15511,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14351,6 +15566,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14361,6 +15579,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14371,6 +15592,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14381,6 +15605,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14433,6 +15660,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ]
@@ -14444,6 +15674,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ]
@@ -14455,6 +15688,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ]
@@ -14466,6 +15702,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ]
@@ -14519,6 +15758,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14529,6 +15771,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14539,6 +15784,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14549,6 +15797,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14603,6 +15854,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14615,6 +15869,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14627,6 +15884,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14639,6 +15899,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14692,6 +15955,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14703,6 +15969,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14714,6 +15983,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14725,6 +15997,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14778,6 +16053,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14789,6 +16067,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14800,6 +16081,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14811,6 +16095,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14864,6 +16151,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14875,6 +16165,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14886,6 +16179,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14897,6 +16193,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14950,6 +16249,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14961,6 +16263,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14972,6 +16277,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -14983,6 +16291,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -15036,6 +16347,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -15047,6 +16361,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -15058,6 +16375,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -15069,6 +16389,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -16874,6 +18197,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -16884,6 +18210,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -16894,6 +18223,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -16906,6 +18238,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -16916,6 +18251,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -16926,6 +18264,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -16938,6 +18279,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -16948,6 +18292,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -16958,6 +18305,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -16970,6 +18320,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -16980,6 +18333,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -16990,6 +18346,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -17002,6 +18361,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ],
@@ -17013,6 +18375,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ],
@@ -17024,6 +18389,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ],
@@ -17037,6 +18405,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -17047,6 +18418,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -17057,6 +18431,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -17071,6 +18448,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -17083,6 +18463,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -17095,6 +18478,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -17108,6 +18494,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "forecast",
@@ -17119,6 +18508,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "forecast",
@@ -17130,6 +18522,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "forecast",
@@ -17143,6 +18538,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -17154,6 +18552,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -17165,6 +18566,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -17178,6 +18582,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -17189,6 +18596,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -17200,6 +18610,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -17213,6 +18626,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -17224,6 +18640,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -17235,6 +18654,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -17248,6 +18670,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -17259,6 +18684,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -17270,6 +18698,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -17278,6 +18709,10 @@
         }
       },
       "production_value_index": 2.95,
+      "salinity_exposure_days": {
+        "option": 161,
+        "baseline": 177
+      },
       "soil_benefit": {
         "claim_type": "POTENTIAL_QUALITATIVE",
         "value": null,
@@ -17306,7 +18741,7 @@
           "rule_id": "R_SALINITY_UNKNOWN",
           "severity": "UNKNOWN_REQUIRES_CHECK",
           "season_index": 1,
-          "reason": "Vụ 1 (Lúa) trùng mùa mặn 39 ngày (67 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh",
+          "reason": "Vụ 1 (Lúa) trùng mùa mặn 84 ngày (100 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh",
           "inputs_used": [
             "state.canal_ecw",
             "regions.salinity_season",
@@ -17350,14 +18785,14 @@
       ],
       "reasons": [
         {
-          "text": "Chỉ số giá trị sản xuất tương đối 2,95 so với 3,15 của chuỗi hiện tại: giữ lúa vụ Đông Xuân (trọng số giá trị cao nhất), chỉ đổi vụ Xuân Hè / Hè Thu (heuristic nhóm [B], không phải năng suất hay lợi nhuận).",
+          "text": "Cây đứng trong khung mặn 161 ngày thay vì 177 ngày của hiện tại (2026-12-01–2027-06-15); đây là số ngày phơi nhiễm theo lịch, chưa đo mặn tại thửa. Vẫn phải đo ECw và xác nhận nguồn nước ngọt.",
           "evidence_ids": [
-            "ev_value_heuristic",
-            "ev_region_calendar"
+            "ev_salinity_season",
+            "ev_siwrr_2026_press"
           ]
         },
         {
-          "text": "Trong các năm tương tự ENSO hiện tại (El Niño mạnh: 2015–16, 2023–24, 2002–03, 2009–10, 2004–05), giảm ~593 mm nước tưới so với hiện tại (năm tương tự, không phải dự báo).",
+          "text": "Trong các năm tương tự ENSO hiện tại (El Niño mạnh: 2015–16, 2023–24, 2002–03, 2009–10, 2004–05), mô hình ước tính giảm ~593 mm nước tưới so với hiện tại (năm tương tự, không phải dự báo).",
           "evidence_ids": [
             "ev_enso_oni",
             "ev_imerg_monthly",
@@ -17365,10 +18800,42 @@
           ]
         },
         {
-          "text": "Nhu cầu tưới trung vị giảm ~498 mm (~4.980 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER.",
+          "text": "Ước tính mô hình: nhu cầu tưới trung vị giảm ~498 mm (~4.980 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER.",
           "evidence_ids": [
             "ev_power_daily",
             "ev_crop_catalog"
+          ]
+        },
+        {
+          "text": "Luân phiên cây hoặc nghỉ vụ có thể cắt vòng sâu bệnh của lúa liên tục; lợi ích định tính, chưa mô phỏng sâu bệnh.",
+          "evidence_ids": [
+            "ev_crop_catalog"
+          ]
+        },
+        {
+          "text": "Lợi ích tiềm năng cho đất (định tính): breaks_rice_pest_cycle, root_diversity, crop_diversity_2",
+          "evidence_ids": [
+            "ev_crop_catalog"
+          ]
+        },
+        {
+          "text": "Cùng hướng Công văn 2504/TTTV-TTBVTV (19/6/2026): chuyển một phần đất lúa sang cây cạn dùng ít nước ở nơi thiếu nước hoặc 3 vụ kém hiệu quả. Cần xác nhận điều kiện cấp nước và thoát nước tại thửa.",
+          "evidence_ids": [
+            "ev_official_2504"
+          ]
+        },
+        {
+          "text": "Ngày gieo 2026-11-15 thuộc đợt 1 (01–30/11/2026). Khung gieo sớm né mặn chính thức 10–30/10/2026 đã qua; gieo đầu khung của engine không đồng nghĩa gieo sớm né mặn.",
+          "evidence_ids": [
+            "ev_official_2504",
+            "ev_region_calendar"
+          ]
+        },
+        {
+          "text": "Điểm tham khảo do nhóm tự đặt là 2,95 so với 3,15 hiện tại: giữ lúa vụ Đông Xuân (vụ được nhóm ưu tiên giữ), chỉ đổi vụ Xuân Hè / Hè Thu; chỉ giúp so sánh cách giữ vụ, không phải năng suất hay lợi nhuận.",
+          "evidence_ids": [
+            "ev_value_heuristic",
+            "ev_region_calendar"
           ]
         }
       ],
@@ -17383,7 +18850,7 @@
           "code": "R_SALINITY_UNKNOWN",
           "severity": "UNKNOWN_REQUIRES_CHECK",
           "season_index": 1,
-          "text": "Vụ 1 (Lúa) trùng mùa mặn 39 ngày (67 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh"
+          "text": "Vụ 1 (Lúa) trùng mùa mặn 84 ngày (100 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh"
         },
         {
           "code": "R_DRAINAGE_UNKNOWN",
@@ -17493,7 +18960,7 @@
           "sc_proj_MPI-ESM1-2-HR_ssp245",
           "sc_proj_MPI-ESM1-2-HR_ssp585"
         ],
-        "rule": "Thắng một kịch bản khi trung vị nước tưới thấp hơn hiện tại VÀ trung vị (ngày thiếu nước + ngày nắng nóng) không cao hơn hiện tại, trên cùng kịch bản."
+        "rule": "Đạt tiêu chí nội bộ khi trung vị nước tưới mô hình thấp hơn hiện tại VÀ trung vị (ngày thiếu nước + ngày nắng nóng) không cao hơn hiện tại, trên cùng kịch bản; không phải kiểm định thực địa hay xác suất thành công."
       },
       "confidence": {
         "level": "LOW",
@@ -17502,15 +18969,15 @@
           "canal_ecw",
           "drainage"
         ],
-        "basis": "HIGH: thắng ≥ 90 % kịch bản, không thiếu dữ liệu đầu vào của luật, trạng thái RECOMMEND_FOR_CONSIDERATION, không thua kịch bản dự báo mùa/CMIP6; MEDIUM: thắng ≥ 60 %; còn lại LOW. Chuỗi hiện tại là mốc so sánh nên chỉ xét dữ liệu thiếu và trạng thái."
+        "basis": "Nhãn so sánh nội bộ, không phải xác suất thành công. HIGH: đạt ≥ 90 % kịch bản, không thiếu dữ liệu đầu vào của luật, trạng thái RECOMMEND_FOR_CONSIDERATION, không thua kịch bản dự báo mùa/CMIP6; MEDIUM: đạt ≥ 60 %; còn lại LOW. Chuỗi hiện tại là mốc so sánh nên chỉ xét dữ liệu thiếu và trạng thái."
       },
-      "summary_vi": "Đổi vụ Xuân Hè / Hè Thu sang Ngô: Chỉ số giá trị sản xuất tương đối 2,95 so với 3,15 của chuỗi hiện tại: giữ lúa vụ Đông Xuân (trọng số giá trị cao nhất), chỉ đổi vụ Xuân Hè / Hè Thu (heuristic nhóm [B], không phải năng suất hay lợi nhuận); cần xác nhận thoát nước."
+      "summary_vi": "Đổi vụ Xuân Hè / Hè Thu sang Ngô: Cây đứng trong khung mặn 161 ngày thay vì 177 ngày của hiện tại (2026-12-01–2027-06-15); đây là số ngày phơi nhiễm theo lịch, chưa đo mặn tại thửa. Vẫn phải đo ECw và xác nhận nguồn nước ngọt; cần xác nhận thoát nước."
     },
     {
       "sequence_id": "seq_rice_rice_rice__early_standard_standard",
       "is_baseline": false,
       "strategy_tag": "salinity_avoidance",
-      "strategy_name_vi": "Né mặn: xuống giống sớm",
+      "strategy_name_vi": "Gieo đầu khung vụ",
       "decision_status": "CONDITIONAL_PENDING_CHECK",
       "seasons": [
         {
@@ -17553,6 +19020,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -17563,6 +19033,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -17573,6 +19046,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -17583,6 +19059,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -17635,6 +19114,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -17645,6 +19127,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -17655,6 +19140,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -17665,6 +19153,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -17717,6 +19208,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -17727,6 +19221,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -17737,6 +19234,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -17747,6 +19247,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -17799,6 +19302,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -17809,6 +19315,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -17819,6 +19328,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -17829,6 +19341,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -17881,6 +19396,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ]
@@ -17892,6 +19410,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ]
@@ -17903,6 +19424,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ]
@@ -17914,6 +19438,9 @@
             "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ]
@@ -17967,6 +19494,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -17977,6 +19507,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -17987,6 +19520,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -17997,6 +19533,9 @@
             "label": "Dự kiến",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -18051,6 +19590,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -18063,6 +19605,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -18075,6 +19620,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -18087,6 +19635,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -18140,6 +19691,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -18151,6 +19705,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -18162,6 +19719,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -18173,6 +19733,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -18226,6 +19789,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -18237,6 +19803,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -18248,6 +19817,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -18259,6 +19831,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -18312,6 +19887,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -18323,6 +19901,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -18334,6 +19915,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -18345,6 +19929,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -18398,6 +19985,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -18409,6 +19999,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -18420,6 +20013,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -18431,6 +20027,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -18484,6 +20083,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -18495,6 +20097,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -18506,6 +20111,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -18517,6 +20125,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ]
           },
@@ -20322,6 +21933,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -20332,6 +21946,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -20342,6 +21959,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -20354,6 +21974,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -20364,6 +21987,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -20374,6 +22000,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -20386,6 +22015,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -20396,6 +22028,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -20406,6 +22041,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -20418,6 +22056,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -20428,6 +22069,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -20438,6 +22082,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
@@ -20450,6 +22097,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ],
@@ -20461,6 +22111,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ],
@@ -20472,6 +22125,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_salinity_season",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_power_daily",
               "ev_crop_catalog"
             ],
@@ -20485,6 +22141,9 @@
             "unit": "mm",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -20495,6 +22154,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -20505,6 +22167,9 @@
             "unit": "day",
             "evidence_ids": [
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -20519,6 +22184,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -20531,6 +22199,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -20543,6 +22214,9 @@
               "ev_enso_oni",
               "ev_imerg_monthly",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "inferred_by_model",
@@ -20556,6 +22230,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "forecast",
@@ -20567,6 +22244,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "forecast",
@@ -20578,6 +22258,9 @@
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "forecast",
@@ -20591,6 +22274,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -20602,6 +22288,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -20613,6 +22302,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -20626,6 +22318,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -20637,6 +22332,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -20648,6 +22346,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -20661,6 +22362,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -20672,6 +22376,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -20683,6 +22390,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -20696,6 +22406,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -20707,6 +22420,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -20718,6 +22434,9 @@
             "evidence_ids": [
               "ev_nex_cmip6",
               "ev_power_daily",
+              "ev_siwrr_2026_press",
+              "ev_era5",
+              "ev_heat_conflict",
               "ev_crop_catalog"
             ],
             "origin": "climate_projection",
@@ -20726,6 +22445,10 @@
         }
       },
       "production_value_index": 3.15,
+      "salinity_exposure_days": {
+        "option": 161,
+        "baseline": 177
+      },
       "soil_benefit": {
         "claim_type": "POTENTIAL_QUALITATIVE",
         "value": null,
@@ -20751,7 +22474,7 @@
           "rule_id": "R_SALINITY_UNKNOWN",
           "severity": "UNKNOWN_REQUIRES_CHECK",
           "season_index": 1,
-          "reason": "Vụ 1 (Lúa) trùng mùa mặn 39 ngày (67 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh",
+          "reason": "Vụ 1 (Lúa) trùng mùa mặn 84 ngày (100 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh",
           "inputs_used": [
             "state.canal_ecw",
             "regions.salinity_season",
@@ -20794,19 +22517,19 @@
         }
       ],
       "salinity_overlap_avoided_days": {
-        "typical": 23,
-        "early_onset": 23
+        "typical": 16,
+        "early_onset": 0
       },
       "reasons": [
         {
-          "text": "Giữ chuỗi cây hiện tại, xuống giống vụ Đông Xuân sớm (2026-11-15, thu hoạch 2027-02-22): bớt 23 ngày trùng mùa mặn điển hình (2027-01-15–2027-06-15) và 23 ngày nếu mặn đến sớm 4 tuần, so với gieo chuẩn. Không loại bỏ rủi ro mặn: vẫn phải đo ECw nước kênh trước khi gieo.",
+          "text": "Cây đứng trong khung mặn 161 ngày thay vì 177 ngày của hiện tại (2026-12-01–2027-06-15); đây là số ngày phơi nhiễm theo lịch, chưa đo mặn tại thửa. Vẫn phải đo ECw và xác nhận nguồn nước ngọt.",
           "evidence_ids": [
             "ev_salinity_season",
-            "ev_region_calendar"
+            "ev_siwrr_2026_press"
           ]
         },
         {
-          "text": "Trong các năm tương tự ENSO hiện tại (El Niño mạnh: 2015–16, 2023–24, 2002–03, 2009–10, 2004–05), giảm ~105 mm nước tưới so với hiện tại (năm tương tự, không phải dự báo).",
+          "text": "Trong các năm tương tự ENSO hiện tại (El Niño mạnh: 2015–16, 2023–24, 2002–03, 2009–10, 2004–05), mô hình ước tính giảm ~105 mm nước tưới so với hiện tại (năm tương tự, không phải dự báo).",
           "evidence_ids": [
             "ev_enso_oni",
             "ev_imerg_monthly",
@@ -20814,10 +22537,25 @@
           ]
         },
         {
-          "text": "Nhu cầu tưới trung vị giảm ~97 mm (~970 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER.",
+          "text": "Ước tính mô hình: nhu cầu tưới trung vị giảm ~97 mm (~970 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER.",
           "evidence_ids": [
             "ev_power_daily",
             "ev_crop_catalog"
+          ]
+        },
+        {
+          "text": "Giữ chuỗi cây hiện tại, gieo đầu khung vụ Đông Xuân (2026-11-15, thu hoạch 2027-02-22): bớt 16 ngày trùng khung mặn đang dùng (2026-12-01–2027-06-15) và 0 ngày nếu mặn đến sớm 4 tuần, so với gieo chuẩn. Không loại bỏ rủi ro mặn: vẫn phải đo ECw nước kênh trước khi gieo.",
+          "evidence_ids": [
+            "ev_salinity_season",
+            "ev_region_calendar",
+            "ev_official_2504"
+          ]
+        },
+        {
+          "text": "Ngày gieo 2026-11-15 thuộc đợt 1 (01–30/11/2026). Khung gieo sớm né mặn chính thức 10–30/10/2026 đã qua; gieo đầu khung của engine không đồng nghĩa gieo sớm né mặn.",
+          "evidence_ids": [
+            "ev_official_2504",
+            "ev_region_calendar"
           ]
         }
       ],
@@ -20832,7 +22570,7 @@
           "code": "R_SALINITY_UNKNOWN",
           "severity": "UNKNOWN_REQUIRES_CHECK",
           "season_index": 1,
-          "text": "Vụ 1 (Lúa) trùng mùa mặn 39 ngày (67 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh"
+          "text": "Vụ 1 (Lúa) trùng mùa mặn 84 ngày (100 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh"
         },
         {
           "code": "R_SALINITY_UNKNOWN",
@@ -20887,7 +22625,7 @@
         "wins": 12,
         "total": 12,
         "lost_scenarios": [],
-        "rule": "Thắng một kịch bản khi trung vị nước tưới thấp hơn hiện tại VÀ trung vị (ngày thiếu nước + ngày nắng nóng) không cao hơn hiện tại, trên cùng kịch bản."
+        "rule": "Đạt tiêu chí nội bộ khi trung vị nước tưới mô hình thấp hơn hiện tại VÀ trung vị (ngày thiếu nước + ngày nắng nóng) không cao hơn hiện tại, trên cùng kịch bản; không phải kiểm định thực địa hay xác suất thành công."
       },
       "confidence": {
         "level": "MEDIUM",
@@ -20895,9 +22633,9 @@
         "unknowns": [
           "canal_ecw"
         ],
-        "basis": "HIGH: thắng ≥ 90 % kịch bản, không thiếu dữ liệu đầu vào của luật, trạng thái RECOMMEND_FOR_CONSIDERATION, không thua kịch bản dự báo mùa/CMIP6; MEDIUM: thắng ≥ 60 %; còn lại LOW. Chuỗi hiện tại là mốc so sánh nên chỉ xét dữ liệu thiếu và trạng thái."
+        "basis": "Nhãn so sánh nội bộ, không phải xác suất thành công. HIGH: đạt ≥ 90 % kịch bản, không thiếu dữ liệu đầu vào của luật, trạng thái RECOMMEND_FOR_CONSIDERATION, không thua kịch bản dự báo mùa/CMIP6; MEDIUM: đạt ≥ 60 %; còn lại LOW. Chuỗi hiện tại là mốc so sánh nên chỉ xét dữ liệu thiếu và trạng thái."
       },
-      "summary_vi": "Xuống giống vụ Đông Xuân sớm: Giữ chuỗi cây hiện tại, xuống giống vụ Đông Xuân sớm (2026-11-15, thu hoạch 2027-02-22): bớt 23 ngày trùng mùa mặn điển hình (2027-01-15–2027-06-15) và 23 ngày nếu mặn đến sớm 4 tuần, so với gieo chuẩn. Không loại bỏ rủi ro mặn: vẫn phải đo ECw nước kênh trước khi gieo."
+      "summary_vi": "Gieo đầu khung vụ Đông Xuân: Cây đứng trong khung mặn 161 ngày thay vì 177 ngày của hiện tại (2026-12-01–2027-06-15); đây là số ngày phơi nhiễm theo lịch, chưa đo mặn tại thửa. Vẫn phải đo ECw và xác nhận nguồn nước ngọt."
     }
   ],
   "excluded": [
@@ -21261,15 +22999,15 @@
     "pareto_front": 9,
     "season_simulations": 4317,
     "timings_ms": {
-      "setup": 215.52,
-      "candidate_generation": 1.58,
-      "screening": 509.86,
-      "selection": 0.5,
-      "selected_scenarios": 969.32,
+      "setup": 301.47,
+      "candidate_generation": 1.75,
+      "screening": 606.48,
+      "selection": 0.54,
+      "selected_scenarios": 1198.85,
       "explanation_setup": 0.02,
-      "trajectories": 1117.44,
-      "packaging": 0.86,
-      "total": 2815.09
+      "trajectories": 1384.18,
+      "packaging": 1.09,
+      "total": 3494.39
     }
   },
   "irrigation_cap_mm_per_season": null,
@@ -21309,9 +23047,9 @@
     "skill": {
       "correlation_r": -0.41,
       "n_years": 24,
-      "note_vi": "Tín hiệu thống kê, không phải dự báo: tương quan ONI (tháng giữa 09) với mưa tháng 12–4 sau đó r = -0,41 trên 24 năm. Năm 2018–19 cũng El Niño nhưng mưa mùa khô 228 mm."
+      "note_vi": "Tín hiệu thống kê, không phải dự báo: tương quan ONI (tháng giữa 09) với mưa tháng 12–4 sau đó r = -0,41 trên 24 năm. Năm 2018–19 cũng El Niño nhưng mưa mùa khô 228 mm. Hindcast: hướng mưa đúng 12/15 ca; chưa cho thấy lợi thế tưới của top-1 (0/15 ca giảm)."
     },
-    "headline_vi": "Mùa khô 2026–27: El Niño mạnh (ONI +2,5). Các năm tương tự 2015–16, 2023–24… mưa mùa khô chỉ khoảng 30 % năm thường — nguy cơ hạn, mặn có thể cao hơn bình thường.",
+    "headline_vi": "Mùa khô 2026–27: El Niño mạnh (ONI +2,5). Các năm tương tự 2015–16, 2023–24… mưa mùa khô chỉ khoảng 30 % năm thường — nguy cơ hạn, mặn có thể cao hơn bình thường. Tín hiệu thống kê, không phải dự báo.",
     "scenario_id": "sc_enso_analog",
     "evidence_ids": [
       "ev_enso_oni",
@@ -21403,6 +23141,154 @@
         "Applies to coastal zones only; inland sites have negligible risk."
       ]
     },
+    "ev_official_2504": {
+      "kind": "OFFICIAL_GUIDANCE",
+      "source": "Cục Trồng trọt và BVTV, Công văn 2504/TTTV-TTBVTV, 19/6/2026",
+      "url": "https://storage-vnportal.vnpt.vn/cmu-khdn/5342/Vanban/2026.6.19-cv-chi-dao-sx-trong-trot-ung-pho-elnino-2026_-_nqmanh_19062026180253__19062026180725_signed.pdf",
+      "status": "VERIFIED_PRIMARY_PDF",
+      "verified_at": "2026-11-14",
+      "summary_vi": "Vùng thiếu nước hoặc 3 vụ kém hiệu quả: cân nhắc 2 vụ hay chuyển một phần sang ngô, vừng, rau đậu; không vượt khả năng cấp nước.",
+      "calendar_2026": {
+        "early": [
+          "2026-10-10",
+          "2026-10-30"
+        ],
+        "dot_1": [
+          "2026-11-01",
+          "2026-11-30"
+        ],
+        "dot_2": [
+          "2026-12-01",
+          "2026-12-31"
+        ]
+      },
+      "limitations": [
+        "Chỉ đạo vùng, không xác nhận an toàn hay tính phù hợp của từng thửa."
+      ]
+    },
+    "ev_siwrr_2026_press": {
+      "kind": "ASSUMPTION",
+      "source": "Viện KHTL miền Nam (SIWRR), qua Tiền Phong 05/10/2026",
+      "url": "https://tienphong.vn/khuyen-cao-mien-tay-ung-pho-han-man-gay-gat-mua-kho-sap-toi-post1882122.tpo",
+      "status": "PRESS_REPORT_ONLY",
+      "verified_at": "2026-11-14",
+      "summary_vi": "Báo dẫn SIWRR: mặn có thể xuất hiện từ tháng 12/2026; mạnh trong tháng 1 đến đầu tháng 3/2027.",
+      "limitations": [
+        "Chỉ đọc báo dẫn SIWRR, chưa đọc bản tin gốc; chọn 01/12 là giả định của nhóm, không phải ngày mặn tại thửa."
+      ]
+    },
+    "ev_era5": {
+      "kind": "MODEL_ESTIMATE",
+      "source": "Copernicus ERA5 via Open-Meteo (non-NASA)",
+      "url": "https://open-meteo.com/en/docs/historical-weather-api",
+      "status": "BUNDLED",
+      "resolution": "0.25 deg",
+      "limitations": [
+        "Tái phân tích vùng; không phải đo tại ruộng",
+        "Chỉ đối chiếu Tmax, không thay vector thời tiết POWER trong ET₀"
+      ]
+    },
+    "ev_heat_conflict": {
+      "kind": "ASSUMPTION",
+      "source": "POWER–ERA5 conflict policy (§7.3)",
+      "status": "APPLIED",
+      "policy": "MONTHLY_MEAN_BIAS_CORRECTION_HEAT_ONLY",
+      "threshold_c": 2.0,
+      "months": {
+        "1": {
+          "paired_days": 806,
+          "power_mean_c": 28.062,
+          "era5_mean_c": 27.24,
+          "power_minus_era5_c": 0.822,
+          "heat_correction_c": 0.0
+        },
+        "2": {
+          "paired_days": 734,
+          "power_mean_c": 29.163,
+          "era5_mean_c": 27.705,
+          "power_minus_era5_c": 1.459,
+          "heat_correction_c": 0.0
+        },
+        "3": {
+          "paired_days": 806,
+          "power_mean_c": 30.544,
+          "era5_mean_c": 28.863,
+          "power_minus_era5_c": 1.681,
+          "heat_correction_c": 0.0
+        },
+        "4": {
+          "paired_days": 780,
+          "power_mean_c": 31.809,
+          "era5_mean_c": 30.374,
+          "power_minus_era5_c": 1.436,
+          "heat_correction_c": 0.0
+        },
+        "5": {
+          "paired_days": 806,
+          "power_mean_c": 31.247,
+          "era5_mean_c": 30.758,
+          "power_minus_era5_c": 0.489,
+          "heat_correction_c": 0.0
+        },
+        "6": {
+          "paired_days": 780,
+          "power_mean_c": 30.038,
+          "era5_mean_c": 30.249,
+          "power_minus_era5_c": -0.211,
+          "heat_correction_c": 0.0
+        },
+        "7": {
+          "paired_days": 806,
+          "power_mean_c": 29.343,
+          "era5_mean_c": 29.607,
+          "power_minus_era5_c": -0.264,
+          "heat_correction_c": 0.0
+        },
+        "8": {
+          "paired_days": 806,
+          "power_mean_c": 29.301,
+          "era5_mean_c": 29.687,
+          "power_minus_era5_c": -0.386,
+          "heat_correction_c": 0.0
+        },
+        "9": {
+          "paired_days": 780,
+          "power_mean_c": 29.065,
+          "era5_mean_c": 29.444,
+          "power_minus_era5_c": -0.379,
+          "heat_correction_c": 0.0
+        },
+        "10": {
+          "paired_days": 806,
+          "power_mean_c": 28.893,
+          "era5_mean_c": 29.113,
+          "power_minus_era5_c": -0.22,
+          "heat_correction_c": 0.0
+        },
+        "11": {
+          "paired_days": 753,
+          "power_mean_c": 28.634,
+          "era5_mean_c": 28.729,
+          "power_minus_era5_c": -0.095,
+          "heat_correction_c": 0.0
+        },
+        "12": {
+          "paired_days": 775,
+          "power_mean_c": 28.097,
+          "era5_mean_c": 27.884,
+          "power_minus_era5_c": 0.213,
+          "heat_correction_c": 0.0
+        }
+      },
+      "fit_before": "2026-11-14",
+      "et0_uses": "ORIGINAL_POWER_TMAX",
+      "note_vi": "Đếm ngày nóng bằng Tmax POWER đã chỉnh chênh lệch trung bình tháng với ERA5 khi |chênh lệch| > 2 °C. Giữ cả hai nguồn; chưa kiểm định cực trị ngày. ET₀ và tưới giữ nguyên đầu vào POWER; sai lệch nhu cầu tưới tuyệt đối vẫn còn.",
+      "evidence_ids": [
+        "ev_power_daily",
+        "ev_era5",
+        "ev_heat_conflict"
+      ]
+    },
     "ev_enso_oni": {
       "kind": "OBSERVED_INDEX",
       "source": "NOAA PSL ONI (CPC, ERSSTv6) (non-NASA)",
@@ -21419,7 +23305,7 @@
         "ONI là chỉ số của NOAA (không phải NASA), đo nhiệt độ mặt biển Thái Bình Dương, không phải mưa tại ruộng.",
         "Chỉ dùng tháng có cửa sổ 3 tháng đã kết thúc trước tháng của as_of (không nhìn trước, AC-04); NOAA có thể hiệu chỉnh lại giá trị cũ.",
         "Năm tương tự là liên hệ thống kê với ~24 năm dữ liệu, KHÔNG phải dự báo mưa hay mặn; có năm El Niño vẫn mưa nhiều.",
-        "Thời điểm mặn trong kịch bản năm tương tự giữ cửa sổ mùa mặn điển hình; không suy ra mặn đến sớm từ ENSO."
+        "ENSO riêng lẻ không dời khung mặn; kế hoạch 2026–27 có thể dùng giả định sớm hơn nếu có dẫn bản tin SIWRR."
       ]
     },
     "ev_imerg_monthly": {
