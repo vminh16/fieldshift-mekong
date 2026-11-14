@@ -12,9 +12,11 @@ Sinh tự động bởi `scripts/backtest_2016.py`. Kế hoạch lập tại `as
 | Phương án | Chuỗi cây | Status | Dự kiến Δtưới (mm) | Thực Δtưới (mm) | Thực tưới (mm) | Thực Δthiếu nước (ngày) | Ngày trùng mùa mặn | Tốt hơn baseline? |
 |---|---|---|---|---|---|---|---|---|
 | baseline | rice/rice/rice | RECOMMEND_FOR_CONSIDERATION | 0 | 0 | 1969 | 0 | 139 | - |
-| low_risk | soybean/rice/rice | CONDITIONAL_PENDING_CHECK | -694 | -722 | 1247 | +0.0 | 101 | có |
+| low_risk | rice/maize/rice | CONDITIONAL_PENDING_CHECK | -592 | -659 | 1310 | +0.0 | 116 | có |
 | save_water | mungbean/rice/rice | CONDITIONAL_PENDING_CHECK | -832 | -864 | 1105 | +0.0 | 86 | có |
-| soil_support | fallow_cover/rice/rice | RECOMMEND_FOR_CONSIDERATION | -946 | -1034 | 935 | +14.0 | 77 | KHÔNG |
+| soil_support | rice/peanut/rice | CONDITIONAL_PENDING_CHECK | -601 | -679 | 1290 | +0.0 | 116 | có |
+| balanced | rice/sesame/rice | CONDITIONAL_PENDING_CHECK | -654 | -640 | 1329 | +0.0 | 116 | có |
+| third_season_rest | rice/rice/fallow_cover | RECOMMEND_FOR_CONSIDERATION | -276 | -254 | 1715 | +0.0 | 139 | có |
 
 ## Cần Thơ (nội đồng) — as_of 2015-11-15 — nước `canal_limited`
 
@@ -25,10 +27,11 @@ Sinh tự động bởi `scripts/backtest_2016.py`. Kế hoạch lập tại `as
 | Phương án | Chuỗi cây | Status | Dự kiến Δtưới (mm) | Thực Δtưới (mm) | Thực tưới (mm) | Thực Δthiếu nước (ngày) | Ngày trùng mùa mặn | Tốt hơn baseline? |
 |---|---|---|---|---|---|---|---|---|
 | baseline | rice/rice/rice | RECOMMEND_FOR_CONSIDERATION | 0 | 0 | 1254 | 0 | 139 | - |
-| low_risk | mungbean/rice/rice | CONDITIONAL_PENDING_CHECK | -385 | -330 | 924 | -50.0 | 86 | có |
+| low_risk | rice/peanut/rice | CONDITIONAL_PENDING_CHECK | -344 | -310 | 944 | -20.0 | 116 | có |
 | save_water | rice/sesame/rice | CONDITIONAL_PENDING_CHECK | -422 | -262 | 992 | -12.0 | 139 | có |
 | soil_support | rice/soybean/rice | CONDITIONAL_PENDING_CHECK | -363 | -224 | 1030 | -12.0 | 139 | có |
-| balanced | soybean/rice/rice | CONDITIONAL_PENDING_CHECK | -308 | -188 | 1067 | -50.0 | 101 | có |
+| balanced | rice/maize/rice | CONDITIONAL_PENDING_CHECK | -348 | -284 | 970 | -20.0 | 116 | có |
+| third_season_rest | rice/rice/fallow_cover | RECOMMEND_FOR_CONSIDERATION | -294 | -254 | 1000 | +0.0 | 139 | có |
 
 ## Cần Thơ (nội đồng) — as_of 2019-11-15 — nước `full`
 
@@ -39,9 +42,11 @@ Sinh tự động bởi `scripts/backtest_2016.py`. Kế hoạch lập tại `as
 | Phương án | Chuỗi cây | Status | Dự kiến Δtưới (mm) | Thực Δtưới (mm) | Thực tưới (mm) | Thực Δthiếu nước (ngày) | Ngày trùng mùa mặn | Tốt hơn baseline? |
 |---|---|---|---|---|---|---|---|---|
 | baseline | rice/rice/rice | RECOMMEND_FOR_CONSIDERATION | 0 | 0 | 1810 | 0 | 139 | - |
-| low_risk | soybean/rice/rice | CONDITIONAL_PENDING_CHECK | -694 | -696 | 1114 | +0.0 | 101 | có |
+| low_risk | rice/maize/rice | CONDITIONAL_PENDING_CHECK | -592 | -572 | 1238 | +0.0 | 116 | có |
 | save_water | mungbean/rice/rice | CONDITIONAL_PENDING_CHECK | -832 | -833 | 977 | +0.0 | 86 | có |
-| soil_support | fallow_cover/rice/rice | RECOMMEND_FOR_CONSIDERATION | -946 | -1005 | 805 | +32.0 | 77 | KHÔNG |
+| soil_support | rice/peanut/rice | CONDITIONAL_PENDING_CHECK | -601 | -581 | 1230 | +0.0 | 116 | có |
+| balanced | rice/sesame/rice | CONDITIONAL_PENDING_CHECK | -654 | -557 | 1253 | +0.0 | 116 | có |
+| third_season_rest | rice/rice/fallow_cover | RECOMMEND_FOR_CONSIDERATION | -276 | -256 | 1554 | +0.0 | 139 | có |
 
 ## Cần Thơ (nội đồng) — as_of 2019-11-15 — nước `canal_limited`
 
@@ -52,10 +57,11 @@ Sinh tự động bởi `scripts/backtest_2016.py`. Kế hoạch lập tại `as
 | Phương án | Chuỗi cây | Status | Dự kiến Δtưới (mm) | Thực Δtưới (mm) | Thực tưới (mm) | Thực Δthiếu nước (ngày) | Ngày trùng mùa mặn | Tốt hơn baseline? |
 |---|---|---|---|---|---|---|---|---|
 | baseline | rice/rice/rice | RECOMMEND_FOR_CONSIDERATION | 0 | 0 | 1256 | 0 | 139 | - |
-| low_risk | mungbean/rice/rice | CONDITIONAL_PENDING_CHECK | -371 | -328 | 928 | -49.0 | 86 | có |
+| low_risk | rice/peanut/rice | CONDITIONAL_PENDING_CHECK | -338 | -352 | 904 | -4.0 | 116 | có |
 | save_water | rice/sesame/rice | CONDITIONAL_PENDING_CHECK | -408 | -328 | 928 | +1.0 | 139 | KHÔNG |
 | soil_support | rice/soybean/rice | CONDITIONAL_PENDING_CHECK | -349 | -316 | 940 | +1.0 | 139 | KHÔNG |
-| balanced | soybean/rice/rice | CONDITIONAL_PENDING_CHECK | -294 | -191 | 1065 | -49.0 | 101 | có |
+| balanced | rice/mungbean/rice | CONDITIONAL_PENDING_CHECK | -346 | -324 | 932 | -4.0 | 109 | có |
+| third_season_rest | rice/rice/fallow_cover | RECOMMEND_FOR_CONSIDERATION | -280 | -256 | 1000 | +0.0 | 139 | có |
 
 ## Sóc Trăng (ven biển) — as_of 2015-11-15 — nước `full`
 
@@ -66,9 +72,11 @@ Sinh tự động bởi `scripts/backtest_2016.py`. Kế hoạch lập tại `as
 | Phương án | Chuỗi cây | Status | Dự kiến Δtưới (mm) | Thực Δtưới (mm) | Thực tưới (mm) | Thực Δthiếu nước (ngày) | Ngày trùng mùa mặn | Tốt hơn baseline? |
 |---|---|---|---|---|---|---|---|---|
 | baseline | rice/rice/rice | CONDITIONAL_PENDING_CHECK | 0 | 0 | 1825 | 0 | 139 | - |
-| low_risk | fallow_cover/rice/rice | CONDITIONAL_PENDING_CHECK | -877 | -934 | 892 | +11.0 | 77 | KHÔNG |
+| low_risk | rice/fallow_cover/rice | CONDITIONAL_PENDING_CHECK | -596 | -718 | 1108 | +0.0 | 39 | có |
 | save_water | mungbean/rice/rice | CONDITIONAL_PENDING_CHECK | -767 | -766 | 1059 | +0.0 | 86 | có |
-| soil_support | soybean/rice/rice | CONDITIONAL_PENDING_CHECK | -680 | -682 | 1143 | +0.0 | 101 | có |
+| soil_support | rice/peanut/rice | CONDITIONAL_PENDING_CHECK | -485 | -598 | 1227 | +0.0 | 116 | có |
+| balanced | rice/maize/rice | CONDITIONAL_PENDING_CHECK | -509 | -572 | 1253 | +0.0 | 116 | có |
+| salinity_avoidance | rice/rice/rice | CONDITIONAL_PENDING_CHECK | -97 | -80 | 1745 | +0.0 | 116 | có |
 
 ## Sóc Trăng (ven biển) — as_of 2015-11-15 — nước `canal_limited`
 
@@ -79,10 +87,11 @@ Sinh tự động bởi `scripts/backtest_2016.py`. Kế hoạch lập tại `as
 | Phương án | Chuỗi cây | Status | Dự kiến Δtưới (mm) | Thực Δtưới (mm) | Thực tưới (mm) | Thực Δthiếu nước (ngày) | Ngày trùng mùa mặn | Tốt hơn baseline? |
 |---|---|---|---|---|---|---|---|---|
 | baseline | rice/rice/rice | CONDITIONAL_PENDING_CHECK | 0 | 0 | 1254 | 0 | 139 | - |
-| low_risk | fallow_cover/rice/rice | CONDITIONAL_PENDING_CHECK | -500 | -500 | 754 | -37.0 | 77 | có |
+| low_risk | rice/fallow_cover/rice | CONDITIONAL_PENDING_CHECK | -448 | -497 | 757 | -17.0 | 39 | có |
 | save_water | rice/soybean/rice | CONDITIONAL_PENDING_CHECK | -376 | -278 | 976 | -8.0 | 139 | có |
 | soil_support | rice/peanut/rice | CONDITIONAL_PENDING_CHECK | -344 | -303 | 951 | -8.0 | 139 | có |
-| balanced | mungbean/rice/rice | CONDITIONAL_PENDING_CHECK | -368 | -332 | 922 | -48.0 | 86 | có |
+| balanced | rice/maize/rice | CONDITIONAL_PENDING_CHECK | -357 | -358 | 896 | -16.0 | 116 | có |
+| salinity_avoidance | rice/rice/rice | CONDITIONAL_PENDING_CHECK | +0 | +0 | 1254 | -8.0 | 116 | có |
 
 ## Sóc Trăng (ven biển) — as_of 2019-11-15 — nước `full`
 
@@ -93,9 +102,11 @@ Sinh tự động bởi `scripts/backtest_2016.py`. Kế hoạch lập tại `as
 | Phương án | Chuỗi cây | Status | Dự kiến Δtưới (mm) | Thực Δtưới (mm) | Thực tưới (mm) | Thực Δthiếu nước (ngày) | Ngày trùng mùa mặn | Tốt hơn baseline? |
 |---|---|---|---|---|---|---|---|---|
 | baseline | rice/rice/rice | CONDITIONAL_PENDING_CHECK | 0 | 0 | 1782 | 0 | 139 | - |
-| low_risk | fallow_cover/rice/rice | CONDITIONAL_PENDING_CHECK | -877 | -943 | 840 | +35.0 | 77 | KHÔNG |
+| low_risk | rice/fallow_cover/rice | CONDITIONAL_PENDING_CHECK | -596 | -602 | 1180 | +0.0 | 39 | có |
 | save_water | mungbean/rice/rice | CONDITIONAL_PENDING_CHECK | -767 | -720 | 1063 | +0.0 | 86 | có |
-| soil_support | soybean/rice/rice | CONDITIONAL_PENDING_CHECK | -680 | -641 | 1142 | +0.0 | 101 | có |
+| soil_support | rice/peanut/rice | CONDITIONAL_PENDING_CHECK | -485 | -534 | 1249 | +0.0 | 116 | có |
+| balanced | rice/maize/rice | CONDITIONAL_PENDING_CHECK | -509 | -524 | 1258 | +0.0 | 116 | có |
+| salinity_avoidance | rice/rice/rice | CONDITIONAL_PENDING_CHECK | -97 | -20 | 1763 | +0.0 | 116 | có |
 
 ## Sóc Trăng (ven biển) — as_of 2019-11-15 — nước `canal_limited`
 
@@ -106,10 +117,11 @@ Sinh tự động bởi `scripts/backtest_2016.py`. Kế hoạch lập tại `as
 | Phương án | Chuỗi cây | Status | Dự kiến Δtưới (mm) | Thực Δtưới (mm) | Thực tưới (mm) | Thực Δthiếu nước (ngày) | Ngày trùng mùa mặn | Tốt hơn baseline? |
 |---|---|---|---|---|---|---|---|---|
 | baseline | rice/rice/rice | CONDITIONAL_PENDING_CHECK | 0 | 0 | 1257 | 0 | 139 | - |
-| low_risk | fallow_cover/rice/rice | CONDITIONAL_PENDING_CHECK | -500 | -500 | 757 | -14.0 | 77 | có |
+| low_risk | rice/fallow_cover/rice | CONDITIONAL_PENDING_CHECK | -451 | -446 | 811 | -10.0 | 39 | có |
 | save_water | rice/soybean/rice | CONDITIONAL_PENDING_CHECK | -376 | -322 | 936 | -7.0 | 139 | có |
 | soil_support | rice/peanut/rice | CONDITIONAL_PENDING_CHECK | -344 | -354 | 904 | -7.0 | 139 | có |
-| balanced | mungbean/rice/rice | CONDITIONAL_PENDING_CHECK | -368 | -277 | 981 | -49.0 | 86 | có |
+| balanced | rice/maize/rice | CONDITIONAL_PENDING_CHECK | -357 | -343 | 914 | -9.0 | 116 | có |
+| salinity_avoidance | rice/rice/rice | CONDITIONAL_PENDING_CHECK | +0 | +0 | 1257 | -2.0 | 116 | có |
 
 ## Bến Tre (ven biển) — as_of 2015-11-15 — nước `full`
 
@@ -120,9 +132,11 @@ Sinh tự động bởi `scripts/backtest_2016.py`. Kế hoạch lập tại `as
 | Phương án | Chuỗi cây | Status | Dự kiến Δtưới (mm) | Thực Δtưới (mm) | Thực tưới (mm) | Thực Δthiếu nước (ngày) | Ngày trùng mùa mặn | Tốt hơn baseline? |
 |---|---|---|---|---|---|---|---|---|
 | baseline | rice/rice/rice | CONDITIONAL_PENDING_CHECK | 0 | 0 | 1943 | 0 | 139 | - |
-| low_risk | fallow_cover/rice/rice | CONDITIONAL_PENDING_CHECK | -895 | -994 | 950 | +9.0 | 77 | KHÔNG |
+| low_risk | rice/fallow_cover/rice | CONDITIONAL_PENDING_CHECK | -643 | -792 | 1151 | +0.0 | 39 | có |
 | save_water | mungbean/rice/rice | CONDITIONAL_PENDING_CHECK | -783 | -821 | 1123 | +0.0 | 86 | có |
-| soil_support | soybean/rice/rice | CONDITIONAL_PENDING_CHECK | -680 | -687 | 1256 | +0.0 | 101 | có |
+| soil_support | rice/peanut/rice | CONDITIONAL_PENDING_CHECK | -528 | -678 | 1265 | +0.0 | 116 | có |
+| balanced | rice/maize/rice | CONDITIONAL_PENDING_CHECK | -548 | -647 | 1296 | +0.0 | 116 | có |
+| salinity_avoidance | rice/rice/rice | CONDITIONAL_PENDING_CHECK | -120 | -125 | 1818 | +0.0 | 116 | có |
 
 ## Bến Tre (ven biển) — as_of 2015-11-15 — nước `canal_limited`
 
@@ -133,10 +147,11 @@ Sinh tự động bởi `scripts/backtest_2016.py`. Kế hoạch lập tại `as
 | Phương án | Chuỗi cây | Status | Dự kiến Δtưới (mm) | Thực Δtưới (mm) | Thực tưới (mm) | Thực Δthiếu nước (ngày) | Ngày trùng mùa mặn | Tốt hơn baseline? |
 |---|---|---|---|---|---|---|---|---|
 | baseline | rice/rice/rice | CONDITIONAL_PENDING_CHECK | 0 | 0 | 1283 | 0 | 139 | - |
-| low_risk | fallow_cover/rice/rice | CONDITIONAL_PENDING_CHECK | -500 | -500 | 783 | -39.0 | 77 | có |
+| low_risk | rice/fallow_cover/rice | CONDITIONAL_PENDING_CHECK | -443 | -504 | 779 | -19.0 | 39 | có |
 | save_water | rice/maize/rice | CONDITIONAL_PENDING_CHECK | -390 | -283 | 1000 | -10.0 | 139 | có |
 | soil_support | rice/peanut/rice | CONDITIONAL_PENDING_CHECK | -368 | -304 | 979 | -10.0 | 139 | có |
 | balanced | mungbean/rice/rice | CONDITIONAL_PENDING_CHECK | -353 | -327 | 956 | -48.0 | 86 | có |
+| salinity_avoidance | rice/rice/rice | CONDITIONAL_PENDING_CHECK | +0 | +0 | 1283 | -8.0 | 116 | có |
 
 ## Bến Tre (ven biển) — as_of 2019-11-15 — nước `full`
 
@@ -147,9 +162,11 @@ Sinh tự động bởi `scripts/backtest_2016.py`. Kế hoạch lập tại `as
 | Phương án | Chuỗi cây | Status | Dự kiến Δtưới (mm) | Thực Δtưới (mm) | Thực tưới (mm) | Thực Δthiếu nước (ngày) | Ngày trùng mùa mặn | Tốt hơn baseline? |
 |---|---|---|---|---|---|---|---|---|
 | baseline | rice/rice/rice | CONDITIONAL_PENDING_CHECK | 0 | 0 | 1811 | 0 | 139 | - |
-| low_risk | fallow_cover/rice/rice | CONDITIONAL_PENDING_CHECK | -895 | -991 | 820 | +34.0 | 77 | KHÔNG |
+| low_risk | rice/fallow_cover/rice | CONDITIONAL_PENDING_CHECK | -643 | -616 | 1196 | +0.0 | 39 | có |
 | save_water | mungbean/rice/rice | CONDITIONAL_PENDING_CHECK | -783 | -766 | 1045 | +0.0 | 86 | có |
-| soil_support | soybean/rice/rice | CONDITIONAL_PENDING_CHECK | -680 | -693 | 1118 | +0.0 | 101 | có |
+| soil_support | rice/peanut/rice | CONDITIONAL_PENDING_CHECK | -528 | -548 | 1263 | +0.0 | 116 | có |
+| balanced | rice/maize/rice | CONDITIONAL_PENDING_CHECK | -548 | -537 | 1274 | +0.0 | 116 | có |
+| salinity_avoidance | rice/rice/rice | CONDITIONAL_PENDING_CHECK | -120 | -50 | 1761 | +0.0 | 116 | có |
 
 ## Bến Tre (ven biển) — as_of 2019-11-15 — nước `canal_limited`
 
@@ -160,16 +177,17 @@ Sinh tự động bởi `scripts/backtest_2016.py`. Kế hoạch lập tại `as
 | Phương án | Chuỗi cây | Status | Dự kiến Δtưới (mm) | Thực Δtưới (mm) | Thực tưới (mm) | Thực Δthiếu nước (ngày) | Ngày trùng mùa mặn | Tốt hơn baseline? |
 |---|---|---|---|---|---|---|---|---|
 | baseline | rice/rice/rice | CONDITIONAL_PENDING_CHECK | 0 | 0 | 1255 | 0 | 139 | - |
-| low_risk | fallow_cover/rice/rice | CONDITIONAL_PENDING_CHECK | -500 | -500 | 755 | -16.0 | 77 | có |
+| low_risk | rice/fallow_cover/rice | CONDITIONAL_PENDING_CHECK | -446 | -496 | 759 | -9.0 | 39 | có |
 | save_water | rice/maize/rice | CONDITIONAL_PENDING_CHECK | -390 | -346 | 908 | -4.0 | 139 | có |
 | soil_support | rice/peanut/rice | CONDITIONAL_PENDING_CHECK | -368 | -354 | 901 | -4.0 | 139 | có |
 | balanced | mungbean/rice/rice | CONDITIONAL_PENDING_CHECK | -353 | -275 | 980 | -50.0 | 86 | có |
+| salinity_avoidance | rice/rice/rice | CONDITIONAL_PENDING_CHECK | +0 | +0 | 1255 | -4.0 | 116 | có |
 
 ## Kết luận (số liệu, không tô vẽ)
 
-- Phương án tốt hơn baseline TRONG năm thực (tưới ít hơn và thiếu nước không nhiều hơn, ít nhất một chiều nghiêm ngặt): **34/42**.
-- Dấu của Δtưới dự kiến trùng với Δtưới thực: **42/42** phương án (trung vị nhiều năm so với một năm thực; chủ yếu do màu cạn dùng ít nước hơn lúa trong mô hình).
-- Phương án KHÔNG tốt hơn baseline (8): Cần Thơ (nội đồng) 2015 full soil_support; Cần Thơ (nội đồng) 2019 full soil_support; Cần Thơ (nội đồng) 2019 canal_limited save_water; Cần Thơ (nội đồng) 2019 canal_limited soil_support; Sóc Trăng (ven biển) 2015 full low_risk; Sóc Trăng (ven biển) 2019 full low_risk; Bến Tre (ven biển) 2015 full low_risk; Bến Tre (ven biển) 2019 full low_risk. Trong mô hình, `fallow_cover` không được tưới nên tăng số ngày thiếu nước khi tưới đủ.
+- Phương án tốt hơn baseline TRONG năm thực (tưới ít hơn và thiếu nước không nhiều hơn, ít nhất một chiều nghiêm ngặt): **58/60**.
+- Dấu của Δtưới dự kiến trùng với Δtưới thực: **56/56** phương án (trung vị nhiều năm so với một năm thực; chủ yếu do màu cạn dùng ít nước hơn lúa trong mô hình).
+- Phương án KHÔNG tốt hơn baseline (2): Cần Thơ (nội đồng) 2019 canal_limited save_water; Cần Thơ (nội đồng) 2019 canal_limited soil_support. Vụ `fallow_cover` không cộng ngày thiếu nước (đất trống khô không phải thiệt hại cây trồng).
 - Cờ rủi ro của engine tại as_of GIỐNG HỆT nhau giữa năm 2015 (mùa khô thực rất khô) và 2019 ở **6/6** cặp (điểm × cấu hình nước). Hindcast không có forecast mùa nên engine chỉ có khí hậu nhiều năm: nó không phân biệt được năm cực khô với năm thường tại thời điểm lập kế hoạch.
 - Cờ mặn R_SALINITY* trên baseline: 8/12 ca (đúng các ca ven biển; luôn bật vì lúa trùng mùa mặn điển hình, không dựa vào năm thực). Không có quan trắc để biết năm đó mặn thật hay không.
 - Điều backtest KHÔNG chứng minh: lợi ích về năng suất/thu nhập (mô hình chưa hiệu chỉnh, gate G7) hay giảm thiệt hại do mặn. 'Tốt hơn' ở đây chỉ nghĩa là tiết kiệm nước tưới theo mô hình FAO-56 của chính engine.

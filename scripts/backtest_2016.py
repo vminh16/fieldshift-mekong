@@ -56,8 +56,9 @@ def actual_sim(weather, field, ctx, plan, option):
         )
         dep = r["end_state"]["depletion_frac"]
         tot["irr"] += r["irrigation_mm"]
-        tot["stress"] += r["water_stress_days"]
-        tot["heat"] += r["heat_stress_days_sensitive"]
+        if CROP_BY_ID[s["crop"]]["water_regime"] != "none":  # bare-soil drying is not crop stress
+            tot["stress"] += r["water_stress_days"]
+            tot["heat"] += r["heat_stress_days_sensitive"]
         tot["rain"] += r["rain_mm"]
     return tot
 
@@ -182,7 +183,7 @@ def main() -> None:
     L.append(
         f"- Phương án KHÔNG tốt hơn baseline ({len(worse)}): "
         + ("; ".join(worse) or "không có")
-        + ". Trong mô hình, `fallow_cover` không được tưới nên tăng số ngày thiếu nước khi tưới đủ."
+        + ". Vụ `fallow_cover` không cộng ngày thiếu nước (đất trống khô không phải thiệt hại cây trồng)."
     )
     same = sum(len({v[0] for v in d.values()}) == 1 for d in flags.values())
     L.append(
