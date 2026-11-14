@@ -45,6 +45,33 @@ STRATEGY_VI = {
 # criteria() reads climate/dry summaries; field_rules() reads climate only.
 # Keep this set aligned with those dependencies so optional outlooks cannot change selection.
 SCREENING_SCENARIOS = frozenset({"sc_clim", "sc_dry"})
+HEAT_STRESS_DAYS_SOFT = 5
+WATER_STRESS_DAYS_SOFT = 7
+WATERLOG_RAIN_MM = 600
+SALINITY_OVERLAP_DAYS = 7
+SALINITY_EARLY_WEEKS = -4
+# Horizons up to this many seasons are enumerated exhaustively; longer ones use a beam search
+# keeping BEAM_WIDTH crop prefixes per season (design v2 §6.5.5: no global-optimum claim).
+EXHAUSTIVE_MAX_SEASONS = 3
+BEAM_WIDTH = 24
+CONFIDENCE_HIGH_WIN_RATIO = 0.9
+CONFIDENCE_MEDIUM_WIN_RATIO = 0.6
+OUTLOOK_KINDS = ("FORECAST", "CLIMATE_PROJECTION")
+ROBUSTNESS_RULE = (
+    "Thắng một kịch bản khi trung vị nước tưới thấp hơn hiện tại VÀ trung vị (ngày thiếu nước"
+    " + ngày nắng nóng) không cao hơn hiện tại, trên cùng kịch bản."
+)
+CONFIDENCE_BASIS = (
+    "HIGH: thắng ≥ 90 % kịch bản, không thiếu dữ liệu đầu vào của luật, trạng thái"
+    " RECOMMEND_FOR_CONSIDERATION, không thua kịch bản dự báo mùa/CMIP6; MEDIUM: thắng ≥ 60 %;"
+    " còn lại LOW. Chuỗi hiện tại là mốc so sánh nên chỉ xét dữ liệu thiếu và trạng thái."
+)
+SCENARIO_PRESENTATION = {
+    "CLIMATOLOGY": ("inferred_by_model", "Dự kiến"),
+    "FORECAST": ("forecast", "Dự báo mùa"),
+    "CLIMATE_PROJECTION": ("climate_projection", "Khí hậu tương lai CMIP6"),
+    "STRESS_TEST": ("assumed_scenario", "Kịch bản thử thách"),
+}
 
 
 # ---------- season windows & generator ----------
@@ -57,7 +84,8 @@ def _md(year: int, mmdd: str) -> dt.date:
 
 def window_instances(region: dict, as_of: dt.date, n: int) -> list[dict]:
     out = []
-    for y in range(as_of.year - 1, as_of.year + 3):
+    years_needed = (n + len(region["season_windows"]) - 1) // len(region["season_windows"])
+    for y in range(as_of.year - 1, as_of.year + years_needed + 2):
         for w in region["season_windows"]:
             lo, hi = _md(y, w["sow_from"]), _md(y, w["sow_to"])
             if hi >= as_of:
@@ -252,9 +280,30 @@ class Evaluator:
                     self.weather[key] = self.weather[canonical]
         self.soil = {"taw_mm_per_m": self.region["soil_prior"]["taw_mm_per_m"]}
         self.memo = {}
+        self.rain_memo = {}
+
+    def weekly_rain(self, key, end):
+        """Twin weekly rain per weather member; shared by every chain and alias scenario."""
+        k = (self.simulation_keys[key], end)
+        if k not in self.rain_memo:
+            weather = {w["date"]: w for w in self.weather[key]}
+            weeks = []
+            for week in range((end - self.as_of).days // 7 + 1):
+                date = self.as_of + dt.timedelta(days=week * 7)
+                rain = sum(
+                    weather.get(date + dt.timedelta(days=d), {}).get("rain_mm", 0) or 0
+                    for d in range(min(7, (end - date).days + 1))
+                )
+                weeks.append(round(rain, 1))
+            self.rain_memo[k] = weeks
+        return self.rain_memo[k]
 
     def season(self, crop_id, sow, key, dep):
-        k = (crop_id, sow, self.simulation_keys[key], round(dep, 1))
+        if CROP_BY_ID[crop_id]["water_regime"] == "paddy":
+            # Land preparation floods the paddy on day 0, so the incoming root-zone state does
+            # not enter a paddy season; normalising it keeps one cached run per sow/member.
+            dep = 0.0
+        k = (crop_id, sow, self.simulation_keys[key], dep)
         if k not in self.memo:
             r = self.simulate(
                 self.weather[key],
@@ -264,10 +313,35 @@ class Evaluator:
                 self.elev,
                 self.region["paddy"],
                 self.soil,
-                round(dep, 1),
+                dep,
                 self.cap,
             )
             self.memo[k] = r
+        return self.memo[k]
+
+    def fallow_gap(self, start, next_sow, key, dep):
+        """Advance [harvest + 1, next sow - 1] with the catalog's unirrigated cover bucket.
+
+        This reuses the same fractional root-zone transfer as crop-to-crop carryover;
+        it does not claim to track salt, nutrients or a common fixed soil depth.
+        """
+        days = (next_sow - start).days
+        if days <= 0:
+            return None
+        k = ("gap", start, next_sow, self.simulation_keys[key], dep)
+        if k not in self.memo:
+            crop = {**CROP_BY_ID["fallow_cover"], "duration_days": {"typical": days}}
+            self.memo[k] = self.simulate(
+                self.weather[key],
+                crop,
+                start,
+                self.lat,
+                self.elev,
+                self.region["paddy"],
+                self.soil,
+                dep,
+                0.0,
+            )
         return self.memo[k]
 
     def weekly(self, result):
@@ -286,10 +360,18 @@ class Evaluator:
     def run(self, seq, key):
         dep = self.state["initial_depletion_frac"]["value"]
         out = []
+        previous = None
         for s in seq["seasons"]:
+            if previous is not None:
+                gap = self.fallow_gap(
+                    previous["harvest"] + dt.timedelta(days=1), s["sow"], key, dep
+                )
+                if gap is not None:
+                    dep = gap["end_state"]["depletion_frac"]
             r = self.season(s["crop"], s["sow"], key, dep)
             out.append(r)
             dep = r["end_state"]["depletion_frac"]  # inter-season water carry-over (AC-05)
+            previous = s
         return out
 
     def evaluate(self, seq, scenario_ids=None) -> dict:
@@ -359,7 +441,7 @@ def field_rules(seq, ev: "Evaluator", summ: dict, constraints: dict) -> list[dic
     ecw = state["canal_ecw"]["value"]
     drainage = state["drainage"]["value"]
     sal_lo, sal_hi = salinity_window(region, ev.as_of, 0)
-    early_lo, _ = salinity_window(region, ev.as_of, -4)
+    early_lo, _ = salinity_window(region, ev.as_of, SALINITY_EARLY_WEEKS)
     for s, ps in zip(seq["seasons"], summ["sc_clim"]["per_season"]):
         c = CROP_BY_ID[s["crop"]]
         i = s["index"]
@@ -391,7 +473,7 @@ def field_rules(seq, ev: "Evaluator", summ: dict, constraints: dict) -> list[dic
         if c["water_regime"] != "none" and coastal:
             ov = overlap_days(s["sow"], s["harvest"], sal_lo, sal_hi)
             ov_early = overlap_days(s["sow"], s["harvest"], early_lo, sal_hi)
-            if ov_early >= 7:
+            if ov_early >= SALINITY_OVERLAP_DAYS:
                 thr = c["salinity"]["ecw_threshold_ds_m"]
                 if ecw is None:
                     rules.append(
@@ -399,7 +481,7 @@ def field_rules(seq, ev: "Evaluator", summ: dict, constraints: dict) -> list[dic
                             "R_SALINITY_UNKNOWN",
                             "UNKNOWN_REQUIRES_CHECK",
                             i,
-                            f"Vụ {number_vi(i)} ({c['name_vi']}) trùng mùa mặn {number_vi(ov)} ngày ({number_vi(ov_early)} ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh",
+                            f"Vụ {number_vi(i)} ({c['name_vi']}) trùng mùa mặn {number_vi(ov)} ngày ({number_vi(ov_early)} ngày nếu mặn đến sớm {number_vi(-SALINITY_EARLY_WEEKS)} tuần); chưa đo ECw nước kênh",
                             ["state.canal_ecw", "regions.salinity_season", "crops.salinity"],
                             f"Đo ECw nước kênh trước ngày gieo; ngưỡng tham khảo của {c['name_vi']} ≈ {number_vi(thr)} dS/m",
                             ["ev_salinity_season", "ev_crop_catalog"],
@@ -425,7 +507,7 @@ def field_rules(seq, ev: "Evaluator", summ: dict, constraints: dict) -> list[dic
                     )
         if c["water_regime"] == "none":
             continue
-        if ps["heat_stress_days_sensitive"] >= 5:
+        if ps["heat_stress_days_sensitive"] >= HEAT_STRESS_DAYS_SOFT:
             rules.append(
                 rule(
                     "R_HEAT",
@@ -437,7 +519,7 @@ def field_rules(seq, ev: "Evaluator", summ: dict, constraints: dict) -> list[dic
                     ["ev_power_daily", "ev_crop_catalog"],
                 )
             )
-        if ps["water_stress_days"] >= 7:
+        if ps["water_stress_days"] >= WATER_STRESS_DAYS_SOFT:
             rules.append(
                 rule(
                     "R_WATER_STRESS",
@@ -452,7 +534,7 @@ def field_rules(seq, ev: "Evaluator", summ: dict, constraints: dict) -> list[dic
         if (
             c["water_regime"] == "upland"
             and c["waterlogging_tolerance"] == "low"
-            and ps["rain_mm"] >= 600
+            and ps["rain_mm"] >= WATERLOG_RAIN_MM
         ):
             rules.append(
                 rule(
@@ -538,17 +620,78 @@ def criteria(c, baseline):
 
 
 def pareto(cands):
+    """Non-dominated candidates, in input order.
+
+    A dominator is lexicographically smaller, so after sorting each candidate only needs
+    checking against the front found so far (dominance is transitive): O(n·|front|).
+    """
     keys = ["irr", "irr_dry", "stress_p90", "salt", "soil", "changes", "idle"]
+    vecs = {id(c): tuple(c["crit"][k] for k in keys) for c in cands}
     front = []
-    for a in cands:
-        if not any(
-            all(b["crit"][k] <= a["crit"][k] for k in keys)
-            and any(b["crit"][k] < a["crit"][k] for k in keys)
-            for b in cands
-            if b is not a
-        ):
-            front.append(a)
-    return front
+    for a in sorted(cands, key=lambda c: vecs[id(c)]):
+        va = vecs[id(a)]
+        if not any(f != va and all(x <= y for x, y in zip(f, va)) for f in front):
+            front.append(va)
+    front = set(front)
+    return [c for c in cands if vecs[id(c)] in front]
+
+
+def stress_p50(s):
+    return round(s["water_stress_days"]["p50"] + s["heat_stress_days_sensitive"]["p50"], 1)
+
+
+def robustness(c, base) -> dict:
+    """Wins vs the baseline on the same scenario ids; the rule is ROBUSTNESS_RULE."""
+    lost = [
+        sid
+        for sid, s in c["summary"].items()
+        if not (
+            s["irrigation_mm"]["p50"] < base["summary"][sid]["irrigation_mm"]["p50"]
+            and stress_p50(s) <= stress_p50(base["summary"][sid])
+        )
+    ]
+    total = len(c["summary"])
+    return {
+        "wins": total - len(lost),
+        "total": total,
+        "lost_scenarios": lost,
+        "rule": ROBUSTNESS_RULE,
+    }
+
+
+def confidence(c, robust, state, scen) -> dict:
+    """Transparent level; robust is None for the baseline (the reference itself)."""
+    unknowns = sorted(
+        {
+            var
+            for r in c["rules"]
+            for inp in r["inputs_used"]
+            if inp.startswith("state.")
+            and (var := inp.removeprefix("state.")) in state
+            and state[var]["value"] in (None, "unknown")
+        }
+    )
+    ratio = 1.0 if robust is None else robust["wins"] / robust["total"]
+    lost_outlook = robust is not None and any(
+        scen[sid]["kind"] in OUTLOOK_KINDS for sid in robust["lost_scenarios"]
+    )
+    if (
+        ratio >= CONFIDENCE_HIGH_WIN_RATIO
+        and not unknowns
+        and c["status"] == "RECOMMEND_FOR_CONSIDERATION"
+        and not lost_outlook
+    ):
+        level = "HIGH"
+    elif ratio >= CONFIDENCE_MEDIUM_WIN_RATIO:
+        level = "MEDIUM"
+    else:
+        level = "LOW"
+    return {
+        "level": level,
+        "robust_scenarios": "n/a" if robust is None else f"{robust['wins']}/{robust['total']}",
+        "unknowns": unknowns,
+        "basis": CONFIDENCE_BASIS,
+    }
 
 
 def strategy_order(priorities):
@@ -731,8 +874,7 @@ def explain(c, base, ev) -> dict:
 def metrics_view(summary: dict, base_summary: dict | None, scen: dict) -> tuple[dict, dict]:
     metrics, delta = {}, {}
     for sid, s in summary.items():
-        label = "Dự kiến" if scen[sid]["kind"] == "CLIMATOLOGY" else "Kịch bản"
-        origin = "inferred_by_model" if label == "Dự kiến" else "assumed_scenario"
+        origin, label = SCENARIO_PRESENTATION[scen[sid]["kind"]]
 
         evidence_ids = list(
             dict.fromkeys([*scen[sid]["evidence_ids"], "ev_power_daily", "ev_crop_catalog"])
@@ -858,7 +1000,7 @@ def trajectory_members(ev: Evaluator, c: dict, scen: dict, end: dt.date) -> dict
         seasons = ev.run(c["seq"], (sid, i))
         for result in seasons:
             ev.weekly(result)
-        weather = {w["date"]: w for w in ev.weather[(sid, i)]}
+        rain_weeks = ev.weekly_rain((sid, i), end)
         series, cum = [], 0.0
         for week in range((end - ev.as_of).days // 7 + 1):
             date = ev.as_of + dt.timedelta(days=week * 7)
@@ -872,10 +1014,6 @@ def trajectory_members(ev: Evaluator, c: dict, scen: dict, end: dt.date) -> dict
             season, water = active[-1] if active else (None, {})
             irrigation = sum(row["irrigation_week"] for _, row in active)
             cum += irrigation
-            rain = sum(
-                weather.get(date + dt.timedelta(days=d), {}).get("rain_mm", 0) or 0
-                for d in range(min(7, (end - date).days + 1))
-            )
             ks = min((row["ks"] for _, row in active), default=1)
             series.append(
                 {
@@ -886,7 +1024,7 @@ def trajectory_members(ev: Evaluator, c: dict, scen: dict, end: dt.date) -> dict
                     "root_depth_m": water.get("root_depth_m"),
                     "root_zone_water": water.get("root_zone_water"),
                     "ponding_mm": water.get("ponding_mm"),
-                    "rain_week": round(rain, 1),
+                    "rain_week": rain_weeks[week],
                     "irrigation_week": round(irrigation, 1),
                     "irrigation_cum": round(cum),
                     "stress_risk": "HIGH" if ks < 0.6 else "MEDIUM" if ks < 1 else "LOW",
@@ -939,8 +1077,7 @@ def trajectory(stored: dict, member: int | None = None, *, aligned: bool = False
     member = stored["default_member"] if member is None else member
     identity = stored["members"][member]
     coastal = stored["canal_ecw"]
-    origin = "inferred_by_model" if stored["kind"] == "CLIMATOLOGY" else "assumed_scenario"
-    label = "Dự kiến" if stored["kind"] == "CLIMATOLOGY" else "Kịch bản"
+    origin, label = SCENARIO_PRESENTATION[stored["kind"]]
 
     def m(value, unit, reason=None):
         return measure(value, unit, origin, label, stored["evidence_ids"], reason=reason)
@@ -977,13 +1114,7 @@ def trajectory(stored: dict, member: int | None = None, *, aligned: bool = False
                     row["rain_week"], "mm", "assumed_scenario", "Kịch bản", stored["evidence_ids"]
                 ),
                 "irrigation_week": m(row["irrigation_week"], "mm"),
-                "irrigation_cum": measure(
-                    row["irrigation_cum"],
-                    "mm",
-                    "inferred_by_model",
-                    "Dự kiến",
-                    stored["evidence_ids"],
-                ),
+                "irrigation_cum": m(row["irrigation_cum"], "mm"),
                 "salinity": sal,
             }
         )
@@ -1090,22 +1221,12 @@ def run_plan(
         "max_changed_seasons", 1
     )  # UC-01: change at most one season by default
     max_fallow = constraints.get("max_fallow_seasons", 1)
-    for crops in itertools.product(crop_ids, repeat=n):
-        if (
-            sum(a != b for a, b in zip(crops, baseline_crops)) > max_changes
-            or crops.count("fallow_cover") > max_fallow
-        ):
-            continue
-        for sows in itertools.product(*[sow_options(w) for w in windows]):
-            seq = make_sequence(windows, crops, shifted(list(sows)))
-            hard = calendar_rules(seq, windows, turnaround)
-            if hard:
-                if len(excluded) < 400:
-                    excluded.append((seq, hard))
-                continue
-            candidates.append(seq)
 
-    timed("candidate_generation")
+    def allowed(crops):  # also valid for a prefix: zip stops at the shorter sequence
+        return (
+            sum(a != b for a, b in zip(crops, baseline_crops)) <= max_changes
+            and crops.count("fallow_cover") <= max_fallow
+        )
 
     def evaluate(seq):
         res = ev.evaluate(seq, SCREENING_SCENARIOS)
@@ -1121,6 +1242,54 @@ def run_plan(
             "soil_indicators": soil_indicators(seq),
         }
         return c
+
+    if n <= EXHAUSTIVE_MAX_SEASONS:
+        for crops in itertools.product(crop_ids, repeat=n):
+            if not allowed(crops):
+                continue
+            for sows in itertools.product(*[sow_options(w) for w in windows]):
+                seq = make_sequence(windows, crops, shifted(list(sows)))
+                hard = calendar_rules(seq, windows, turnaround)
+                if hard:
+                    if len(excluded) < 400:
+                        excluded.append((seq, hard))
+                    continue
+                candidates.append(seq)
+    else:
+        # Beam search: extend each kept prefix by one season, screen it on SCREENING_SCENARIOS
+        # (carry-over included), keep the best sow timing per crop prefix, then the BEAM_WIDTH
+        # prefixes with the least (irrigation clim + dry, then water + heat stress p90).
+        # ponytail: one sow timing per crop prefix; widen if sow diversity matters for long horizons.
+        beam = [((), ())]
+        for w in windows:
+            best = {}
+            for crops, sows in beam:
+                for crop in crop_ids:
+                    if not allowed(crops + (crop,)):
+                        continue
+                    for sow in sow_options(w):
+                        seq = make_sequence(windows, crops + (crop,), shifted([*sows, sow]))
+                        p = evaluate(seq)
+                        hard = [r for r in p["rules"] if r["severity"] == "HARD"]
+                        if hard:
+                            if len(excluded) < 400:
+                                excluded.append((seq, hard))
+                            continue
+                        sm = p["summary"]
+                        score = (
+                            sm["sc_clim"]["irrigation_mm"]["p50"]
+                            + sm["sc_dry"]["irrigation_mm"]["p50"],
+                            sm["sc_clim"]["water_stress_days"]["p90"]
+                            + sm["sc_clim"]["heat_stress_days_sensitive"]["p90"],
+                        )
+                        key = crops + (crop,)
+                        if key not in best or score < best[key][0]:
+                            best[key] = (score, (*sows, sow))
+            ranked = sorted(best.items(), key=lambda kv: kv[1][0])[:BEAM_WIDTH]
+            beam = [(crops, sows) for crops, (_, sows) in ranked]
+        candidates = [make_sequence(windows, crops, shifted(list(sows))) for crops, sows in beam]
+
+    timed("candidate_generation")
 
     base = evaluate(base_seq)
     base["crit"] = criteria(base, base)
@@ -1191,7 +1360,17 @@ def run_plan(
         }
     )
 
+    # AC-06: a what-if sow shift recomputes every chain; say so where the change is explained.
+    def shift_note(seq):
+        text = "; ".join(
+            f"Vụ {number_vi(s['index'])} gieo {'sớm' if days < 0 else 'muộn'} {number_vi(abs(days))} ngày theo giả định (ngày gieo {s['sow']})"
+            for s in seq["seasons"]
+            if (days := int(sow_shift.get(str(s["index"]), 0)))
+        )
+        return text + "." if text else ""
+
     def view(c, strategy=None):
+        shift_text = shift_note(c["seq"])
         metrics, delta = metrics_view(c["summary"], None if c is base else base["summary"], scen)
         seq = c["seq"]
         out = {
@@ -1231,6 +1410,21 @@ def run_plan(
                 "checklist": [],
             }
         )
+        robust = None if c is base else robustness(c, base)
+        out["robustness"] = robust
+        out["confidence"] = confidence(c, robust, state, scen)
+        for sid in (robust or {}).get("lost_scenarios", []):
+            if scen[sid]["kind"] in OUTLOOK_KINDS:
+                out["risks"].append(
+                    {
+                        "code": "R_OUTLOOK_REVERSAL",
+                        "severity": "SOFT",
+                        "season_index": None,
+                        "text": f"Kịch bản {SCENARIO_PRESENTATION[scen[sid]['kind']][1]} ({scen[sid]['name']}): phương án không đồng thời giảm nước tưới và không tăng ngày stress so với hiện tại",
+                    }
+                )
+        if shift_text:
+            out["reasons"].append({"text": shift_text, "evidence_ids": ["ev_region_calendar"]})
         if c is not base:
             changes = [
                 f"Đổi vụ {s['window_name_vi']} sang {s['crop_name_vi']}"
@@ -1240,6 +1434,8 @@ def run_plan(
             summary = "; ".join(changes) + ": " + out["reasons"][0]["text"]
             if any(r["rule_id"] == "R_DRAINAGE_UNKNOWN" for r in c["rules"]):
                 summary = summary.rstrip(".") + "; cần xác nhận thoát nước."
+            if shift_text:
+                summary = summary.rstrip(".") + ". " + shift_text
             out["summary_vi"] = summary
         return out
 

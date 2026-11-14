@@ -169,7 +169,13 @@ def simulate_season(
     """
     n = crop["duration_days"]["typical"]
     dates = [sow + datetime.timedelta(days=i) for i in range(n)]
-    by_date = {w["date"]: w for w in weather}
+    # Weather lists are daily and sorted; slice the season instead of indexing the whole span.
+    i0 = (sow - weather[0]["date"]).days if weather else -1
+    days = weather[i0 : i0 + n] if i0 >= 0 else []
+    if len(days) == n and days[0]["date"] == sow and days[-1]["date"] == dates[-1]:
+        by_date = {w["date"]: w for w in days}
+    else:  # gaps or unsorted input
+        by_date = {w["date"]: w for w in weather}
     if any(d not in by_date for d in dates):
         raise ValueError("weather does not cover the season")
     et0s, missing = _daily_et0(by_date, dates, lat_deg, elev_m)

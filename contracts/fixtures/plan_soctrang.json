@@ -1,10 +1,10 @@
 {
-  "decision_id": "dec_62ef8ec2c123",
+  "decision_id": "dec_b26f947c2ebb",
   "parent_id": null,
   "kind": "PLAN",
   "field_id": "fld_soctrang",
   "as_of": "2026-11-14",
-  "generated_at": "2026-11-13T14:41:23+00:00",
+  "generated_at": "2026-11-14T06:44:18+00:00",
   "versions": {
     "catalog": "crops-2026.11.0",
     "rules": "rules-1",
@@ -12,7 +12,7 @@
     "planner": "pareto-v1",
     "data": "power-v2.10.3@2026-11-03"
   },
-  "field_state_snapshot_id": "st_30a04893b854",
+  "field_state_snapshot_id": "st_aa1db48d4532",
   "field_state": {
     "as_of": "2026-11-14",
     "upstream_discharge": {
@@ -672,7 +672,7 @@
           "value": 1824,
           "unit": "mm",
           "origin": "assumed_scenario",
-          "label": "Kịch bản",
+          "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_power_daily",
             "ev_crop_catalog"
@@ -682,7 +682,7 @@
           "value": 1868,
           "unit": "mm",
           "origin": "assumed_scenario",
-          "label": "Kịch bản",
+          "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_power_daily",
             "ev_crop_catalog"
@@ -692,7 +692,7 @@
           "value": 0,
           "unit": "day",
           "origin": "assumed_scenario",
-          "label": "Kịch bản",
+          "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_power_daily",
             "ev_crop_catalog"
@@ -702,7 +702,7 @@
           "value": 0,
           "unit": "day",
           "origin": "assumed_scenario",
-          "label": "Kịch bản",
+          "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_power_daily",
             "ev_crop_catalog"
@@ -754,7 +754,7 @@
           "value": 1642,
           "unit": "mm",
           "origin": "assumed_scenario",
-          "label": "Kịch bản",
+          "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_power_daily",
             "ev_crop_catalog"
@@ -764,7 +764,7 @@
           "value": 1900,
           "unit": "mm",
           "origin": "assumed_scenario",
-          "label": "Kịch bản",
+          "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_power_daily",
             "ev_crop_catalog"
@@ -774,7 +774,7 @@
           "value": 0.0,
           "unit": "day",
           "origin": "assumed_scenario",
-          "label": "Kịch bản",
+          "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_power_daily",
             "ev_crop_catalog"
@@ -784,7 +784,7 @@
           "value": 0.0,
           "unit": "day",
           "origin": "assumed_scenario",
-          "label": "Kịch bản",
+          "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_power_daily",
             "ev_crop_catalog"
@@ -836,7 +836,7 @@
           "value": 1778,
           "unit": "mm",
           "origin": "assumed_scenario",
-          "label": "Kịch bản",
+          "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_power_daily",
             "ev_crop_catalog"
@@ -846,7 +846,7 @@
           "value": 2057,
           "unit": "mm",
           "origin": "assumed_scenario",
-          "label": "Kịch bản",
+          "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_power_daily",
             "ev_crop_catalog"
@@ -856,7 +856,7 @@
           "value": 0.0,
           "unit": "day",
           "origin": "assumed_scenario",
-          "label": "Kịch bản",
+          "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_power_daily",
             "ev_crop_catalog"
@@ -866,7 +866,7 @@
           "value": 0.0,
           "unit": "day",
           "origin": "assumed_scenario",
-          "label": "Kịch bản",
+          "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_power_daily",
             "ev_crop_catalog"
@@ -918,7 +918,7 @@
           "value": 1587,
           "unit": "mm",
           "origin": "assumed_scenario",
-          "label": "Kịch bản",
+          "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_salinity_season",
             "ev_power_daily",
@@ -929,7 +929,7 @@
           "value": 1856,
           "unit": "mm",
           "origin": "assumed_scenario",
-          "label": "Kịch bản",
+          "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_salinity_season",
             "ev_power_daily",
@@ -940,7 +940,7 @@
           "value": 0.0,
           "unit": "day",
           "origin": "assumed_scenario",
-          "label": "Kịch bản",
+          "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_salinity_season",
             "ev_power_daily",
@@ -951,7 +951,7 @@
           "value": 0.0,
           "unit": "day",
           "origin": "assumed_scenario",
-          "label": "Kịch bản",
+          "label": "Kịch bản thử thách",
           "evidence_ids": [
             "ev_salinity_season",
             "ev_power_daily",
@@ -1085,8 +1085,8 @@
         "irrigation_need": {
           "value": 1807,
           "unit": "mm",
-          "origin": "assumed_scenario",
-          "label": "Kịch bản",
+          "origin": "forecast",
+          "label": "Dự báo mùa",
           "evidence_ids": [
             "ev_seasonal_forecast",
             "ev_power_daily",
@@ -1096,8 +1096,8 @@
         "irrigation_need_bad_year": {
           "value": 2021,
           "unit": "mm",
-          "origin": "assumed_scenario",
-          "label": "Kịch bản",
+          "origin": "forecast",
+          "label": "Dự báo mùa",
           "evidence_ids": [
             "ev_seasonal_forecast",
             "ev_power_daily",
@@ -1107,8 +1107,8 @@
         "water_stress_days": {
           "value": 0.0,
           "unit": "day",
-          "origin": "assumed_scenario",
-          "label": "Kịch bản",
+          "origin": "forecast",
+          "label": "Dự báo mùa",
           "evidence_ids": [
             "ev_seasonal_forecast",
             "ev_power_daily",
@@ -1118,8 +1118,8 @@
         "heat_stress_days_sensitive_stage": {
           "value": 0.0,
           "unit": "day",
-          "origin": "assumed_scenario",
-          "label": "Kịch bản",
+          "origin": "forecast",
+          "label": "Dự báo mùa",
           "evidence_ids": [
             "ev_seasonal_forecast",
             "ev_power_daily",
@@ -2331,7 +2331,16 @@
         "action": "Đo ECw, xác minh nguồn nước và tái lập kế hoạch"
       }
     ],
-    "checklist": []
+    "checklist": [],
+    "robustness": null,
+    "confidence": {
+      "level": "MEDIUM",
+      "robust_scenarios": "n/a",
+      "unknowns": [
+        "canal_ecw"
+      ],
+      "basis": "HIGH: thắng ≥ 90 % kịch bản, không thiếu dữ liệu đầu vào của luật, trạng thái RECOMMEND_FOR_CONSIDERATION, không thua kịch bản dự báo mùa/CMIP6; MEDIUM: thắng ≥ 60 %; còn lại LOW. Chuỗi hiện tại là mốc so sánh nên chỉ xét dữ liệu thiếu và trạng thái."
+    }
   },
   "options": [
     {
@@ -2460,7 +2469,7 @@
             "value": 892,
             "unit": "mm",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -2470,7 +2479,7 @@
             "value": 898,
             "unit": "mm",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -2480,7 +2489,7 @@
             "value": 19,
             "unit": "day",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -2490,7 +2499,7 @@
             "value": 0,
             "unit": "day",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -2542,7 +2551,7 @@
             "value": 742,
             "unit": "mm",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -2552,7 +2561,7 @@
             "value": 945,
             "unit": "mm",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -2562,7 +2571,7 @@
             "value": 13.5,
             "unit": "day",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -2572,7 +2581,7 @@
             "value": 0.0,
             "unit": "day",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -2624,7 +2633,7 @@
             "value": 904,
             "unit": "mm",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -2634,7 +2643,7 @@
             "value": 1095,
             "unit": "mm",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -2644,7 +2653,7 @@
             "value": 20.0,
             "unit": "day",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -2654,7 +2663,7 @@
             "value": 0.0,
             "unit": "day",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -2706,7 +2715,7 @@
             "value": 731,
             "unit": "mm",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
               "ev_power_daily",
@@ -2717,7 +2726,7 @@
             "value": 907,
             "unit": "mm",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
               "ev_power_daily",
@@ -2728,7 +2737,7 @@
             "value": 12.5,
             "unit": "day",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
               "ev_power_daily",
@@ -2739,7 +2748,7 @@
             "value": 0.0,
             "unit": "day",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
               "ev_power_daily",
@@ -2873,8 +2882,8 @@
           "irrigation_need": {
             "value": 814,
             "unit": "mm",
-            "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "origin": "forecast",
+            "label": "Dự báo mùa",
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
@@ -2884,8 +2893,8 @@
           "irrigation_need_bad_year": {
             "value": 988,
             "unit": "mm",
-            "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "origin": "forecast",
+            "label": "Dự báo mùa",
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
@@ -2895,8 +2904,8 @@
           "water_stress_days": {
             "value": 12.5,
             "unit": "day",
-            "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "origin": "forecast",
+            "label": "Dự báo mùa",
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
@@ -2906,8 +2915,8 @@
           "heat_stress_days_sensitive_stage": {
             "value": 0.0,
             "unit": "day",
-            "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "origin": "forecast",
+            "label": "Dự báo mùa",
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
@@ -3281,7 +3290,7 @@
             "member": 18,
             "year": 2019,
             "irrigation_mm": 868,
-            "water_stress_days": 37,
+            "water_stress_days": 36,
             "heat_stress_days": 0
           },
           {
@@ -4034,7 +4043,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           },
           "water_stress_days": {
             "value": 19,
@@ -4044,7 +4053,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           },
           "heat_stress_days_sensitive_stage": {
             "value": 0,
@@ -4054,7 +4063,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           }
         },
         "sc_hot": {
@@ -4066,7 +4075,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           },
           "water_stress_days": {
             "value": 13.5,
@@ -4076,7 +4085,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           },
           "heat_stress_days_sensitive_stage": {
             "value": 0.0,
@@ -4086,7 +4095,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           }
         },
         "sc_rain_minus30": {
@@ -4098,7 +4107,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           },
           "water_stress_days": {
             "value": 20.0,
@@ -4108,7 +4117,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           },
           "heat_stress_days_sensitive_stage": {
             "value": 0.0,
@@ -4118,7 +4127,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           }
         },
         "sc_salt_early": {
@@ -4131,7 +4140,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           },
           "water_stress_days": {
             "value": 12.5,
@@ -4142,7 +4151,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           },
           "heat_stress_days_sensitive_stage": {
             "value": 0.0,
@@ -4153,7 +4162,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           }
         },
         "sc_wet_ref": {
@@ -4197,8 +4206,8 @@
               "ev_power_daily",
               "ev_crop_catalog"
             ],
-            "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "origin": "forecast",
+            "label": "Dự báo mùa"
           },
           "water_stress_days": {
             "value": 12.5,
@@ -4208,8 +4217,8 @@
               "ev_power_daily",
               "ev_crop_catalog"
             ],
-            "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "origin": "forecast",
+            "label": "Dự báo mùa"
           },
           "heat_stress_days_sensitive_stage": {
             "value": 0.0,
@@ -4219,8 +4228,8 @@
               "ev_power_daily",
               "ev_crop_catalog"
             ],
-            "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "origin": "forecast",
+            "label": "Dự báo mùa"
           }
         }
       },
@@ -4297,6 +4306,12 @@
           "severity": "UNKNOWN_REQUIRES_CHECK",
           "season_index": 2,
           "text": "Vụ 2 (Lúa) trùng mùa mặn 77 ngày (77 ngày nếu mặn đến sớm 4 tuần); chưa đo ECw nước kênh"
+        },
+        {
+          "code": "R_OUTLOOK_REVERSAL",
+          "severity": "SOFT",
+          "season_index": null,
+          "text": "Kịch bản Dự báo mùa (ECMWF SEAS5 seasonal ensemble): phương án không đồng thời giảm nước tưới và không tăng ngày stress so với hiện tại"
         }
       ],
       "triggers": [
@@ -4325,6 +4340,28 @@
         "Đo ECw nước kênh trước ngày gieo; ngưỡng tham khảo của Lúa ≈ 2 dS/m",
         "Trao đổi với cán bộ khuyến nông địa phương trước khi xuống giống"
       ],
+      "robustness": {
+        "wins": 0,
+        "total": 7,
+        "lost_scenarios": [
+          "sc_clim",
+          "sc_dry",
+          "sc_hot",
+          "sc_rain_minus30",
+          "sc_salt_early",
+          "sc_wet_ref",
+          "sc_forecast"
+        ],
+        "rule": "Thắng một kịch bản khi trung vị nước tưới thấp hơn hiện tại VÀ trung vị (ngày thiếu nước + ngày nắng nóng) không cao hơn hiện tại, trên cùng kịch bản."
+      },
+      "confidence": {
+        "level": "LOW",
+        "robust_scenarios": "0/7",
+        "unknowns": [
+          "canal_ecw"
+        ],
+        "basis": "HIGH: thắng ≥ 90 % kịch bản, không thiếu dữ liệu đầu vào của luật, trạng thái RECOMMEND_FOR_CONSIDERATION, không thua kịch bản dự báo mùa/CMIP6; MEDIUM: thắng ≥ 60 %; còn lại LOW. Chuỗi hiện tại là mốc so sánh nên chỉ xét dữ liệu thiếu và trạng thái."
+      },
       "summary_vi": "Đổi vụ Đông Xuân sang Bỏ hóa / cây phủ đất: Nhu cầu tưới trung vị giảm ~856 mm (~8.560 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER."
     },
     {
@@ -4368,7 +4405,7 @@
       "metrics": {
         "sc_clim": {
           "irrigation_need": {
-            "value": 844,
+            "value": 843,
             "unit": "mm",
             "origin": "inferred_by_model",
             "label": "Dự kiến",
@@ -4453,7 +4490,7 @@
             "value": 1059,
             "unit": "mm",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -4463,7 +4500,7 @@
             "value": 1111,
             "unit": "mm",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -4473,7 +4510,7 @@
             "value": 0,
             "unit": "day",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -4483,7 +4520,7 @@
             "value": 0,
             "unit": "day",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -4535,7 +4572,7 @@
             "value": 886,
             "unit": "mm",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -4545,7 +4582,7 @@
             "value": 1140,
             "unit": "mm",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -4555,7 +4592,7 @@
             "value": 0.0,
             "unit": "day",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -4565,7 +4602,7 @@
             "value": 0.0,
             "unit": "day",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -4617,7 +4654,7 @@
             "value": 1057,
             "unit": "mm",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -4627,7 +4664,7 @@
             "value": 1299,
             "unit": "mm",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -4637,7 +4674,7 @@
             "value": 0.0,
             "unit": "day",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -4647,7 +4684,7 @@
             "value": 0.0,
             "unit": "day",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -4696,10 +4733,10 @@
         },
         "sc_salt_early": {
           "irrigation_need": {
-            "value": 844,
+            "value": 843,
             "unit": "mm",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
               "ev_power_daily",
@@ -4710,7 +4747,7 @@
             "value": 1084,
             "unit": "mm",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
               "ev_power_daily",
@@ -4721,7 +4758,7 @@
             "value": 0.0,
             "unit": "day",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
               "ev_power_daily",
@@ -4732,7 +4769,7 @@
             "value": 0.0,
             "unit": "day",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
               "ev_power_daily",
@@ -4866,8 +4903,8 @@
           "irrigation_need": {
             "value": 974,
             "unit": "mm",
-            "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "origin": "forecast",
+            "label": "Dự báo mùa",
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
@@ -4877,8 +4914,8 @@
           "irrigation_need_bad_year": {
             "value": 1161,
             "unit": "mm",
-            "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "origin": "forecast",
+            "label": "Dự báo mùa",
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
@@ -4888,8 +4925,8 @@
           "water_stress_days": {
             "value": 0.0,
             "unit": "day",
-            "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "origin": "forecast",
+            "label": "Dự báo mùa",
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
@@ -4899,8 +4936,8 @@
           "heat_stress_days_sensitive_stage": {
             "value": 0.0,
             "unit": "day",
-            "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "origin": "forecast",
+            "label": "Dự báo mùa",
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
@@ -4954,7 +4991,7 @@
           {
             "member": 0,
             "year": 2001,
-            "irrigation_mm": 1024,
+            "irrigation_mm": 1023,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -4968,7 +5005,7 @@
           {
             "member": 2,
             "year": 2003,
-            "irrigation_mm": 975,
+            "irrigation_mm": 974,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -4989,7 +5026,7 @@
           {
             "member": 5,
             "year": 2006,
-            "irrigation_mm": 838,
+            "irrigation_mm": 836,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -5003,70 +5040,70 @@
           {
             "member": 7,
             "year": 2008,
-            "irrigation_mm": 837,
+            "irrigation_mm": 836,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
           {
             "member": 8,
             "year": 2009,
-            "irrigation_mm": 1082,
+            "irrigation_mm": 1081,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
           {
             "member": 9,
             "year": 2010,
-            "irrigation_mm": 937,
+            "irrigation_mm": 936,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
           {
             "member": 10,
             "year": 2011,
-            "irrigation_mm": 858,
+            "irrigation_mm": 857,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
           {
             "member": 11,
             "year": 2012,
-            "irrigation_mm": 816,
+            "irrigation_mm": 815,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
           {
             "member": 12,
             "year": 2013,
-            "irrigation_mm": 1086,
+            "irrigation_mm": 1085,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
           {
             "member": 13,
             "year": 2014,
-            "irrigation_mm": 1202,
+            "irrigation_mm": 1201,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
           {
             "member": 14,
             "year": 2015,
-            "irrigation_mm": 1060,
+            "irrigation_mm": 1058,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
           {
             "member": 15,
             "year": 2016,
-            "irrigation_mm": 766,
+            "irrigation_mm": 765,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
           {
             "member": 16,
             "year": 2017,
-            "irrigation_mm": 778,
+            "irrigation_mm": 777,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -5080,7 +5117,7 @@
           {
             "member": 18,
             "year": 2019,
-            "irrigation_mm": 1063,
+            "irrigation_mm": 1061,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -5094,14 +5131,14 @@
           {
             "member": 20,
             "year": 2021,
-            "irrigation_mm": 661,
+            "irrigation_mm": 660,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
           {
             "member": 21,
             "year": 2022,
-            "irrigation_mm": 767,
+            "irrigation_mm": 766,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -5115,7 +5152,7 @@
           {
             "member": 23,
             "year": 2024,
-            "irrigation_mm": 743,
+            "irrigation_mm": 742,
             "water_stress_days": 0,
             "heat_stress_days": 0
           }
@@ -5154,7 +5191,7 @@
           {
             "member": 1,
             "year": 2002,
-            "irrigation_mm": 860,
+            "irrigation_mm": 861,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -5175,7 +5212,7 @@
           {
             "member": 4,
             "year": 2005,
-            "irrigation_mm": 758,
+            "irrigation_mm": 759,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -5273,7 +5310,7 @@
           {
             "member": 18,
             "year": 2019,
-            "irrigation_mm": 1088,
+            "irrigation_mm": 1087,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -5308,7 +5345,7 @@
           {
             "member": 23,
             "year": 2024,
-            "irrigation_mm": 774,
+            "irrigation_mm": 775,
             "water_stress_days": 0,
             "heat_stress_days": 0
           }
@@ -5352,7 +5389,7 @@
           {
             "member": 5,
             "year": 2006,
-            "irrigation_mm": 1006,
+            "irrigation_mm": 1005,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -5443,7 +5480,7 @@
           {
             "member": 18,
             "year": 2019,
-            "irrigation_mm": 1128,
+            "irrigation_mm": 1127,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -5487,7 +5524,7 @@
           {
             "member": 0,
             "year": 2001,
-            "irrigation_mm": 1024,
+            "irrigation_mm": 1023,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -5501,7 +5538,7 @@
           {
             "member": 2,
             "year": 2003,
-            "irrigation_mm": 975,
+            "irrigation_mm": 974,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -5522,7 +5559,7 @@
           {
             "member": 5,
             "year": 2006,
-            "irrigation_mm": 838,
+            "irrigation_mm": 836,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -5536,70 +5573,70 @@
           {
             "member": 7,
             "year": 2008,
-            "irrigation_mm": 837,
+            "irrigation_mm": 836,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
           {
             "member": 8,
             "year": 2009,
-            "irrigation_mm": 1082,
+            "irrigation_mm": 1081,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
           {
             "member": 9,
             "year": 2010,
-            "irrigation_mm": 937,
+            "irrigation_mm": 936,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
           {
             "member": 10,
             "year": 2011,
-            "irrigation_mm": 858,
+            "irrigation_mm": 857,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
           {
             "member": 11,
             "year": 2012,
-            "irrigation_mm": 816,
+            "irrigation_mm": 815,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
           {
             "member": 12,
             "year": 2013,
-            "irrigation_mm": 1086,
+            "irrigation_mm": 1085,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
           {
             "member": 13,
             "year": 2014,
-            "irrigation_mm": 1202,
+            "irrigation_mm": 1201,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
           {
             "member": 14,
             "year": 2015,
-            "irrigation_mm": 1060,
+            "irrigation_mm": 1058,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
           {
             "member": 15,
             "year": 2016,
-            "irrigation_mm": 766,
+            "irrigation_mm": 765,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
           {
             "member": 16,
             "year": 2017,
-            "irrigation_mm": 778,
+            "irrigation_mm": 777,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -5613,7 +5650,7 @@
           {
             "member": 18,
             "year": 2019,
-            "irrigation_mm": 1063,
+            "irrigation_mm": 1061,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -5627,14 +5664,14 @@
           {
             "member": 20,
             "year": 2021,
-            "irrigation_mm": 661,
+            "irrigation_mm": 660,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
           {
             "member": 21,
             "year": 2022,
-            "irrigation_mm": 767,
+            "irrigation_mm": 766,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -5648,7 +5685,7 @@
           {
             "member": 23,
             "year": 2024,
-            "irrigation_mm": 743,
+            "irrigation_mm": 742,
             "water_stress_days": 0,
             "heat_stress_days": 0
           }
@@ -5988,7 +6025,7 @@
       "delta_vs_baseline": {
         "sc_clim": {
           "irrigation_need": {
-            "value": -743,
+            "value": -744,
             "unit": "mm",
             "evidence_ids": [
               "ev_power_daily",
@@ -6027,7 +6064,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           },
           "water_stress_days": {
             "value": 0,
@@ -6037,7 +6074,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           },
           "heat_stress_days_sensitive_stage": {
             "value": 0,
@@ -6047,7 +6084,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           }
         },
         "sc_hot": {
@@ -6059,7 +6096,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           },
           "water_stress_days": {
             "value": 0.0,
@@ -6069,7 +6106,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           },
           "heat_stress_days_sensitive_stage": {
             "value": 0.0,
@@ -6079,7 +6116,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           }
         },
         "sc_rain_minus30": {
@@ -6091,7 +6128,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           },
           "water_stress_days": {
             "value": 0.0,
@@ -6101,7 +6138,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           },
           "heat_stress_days_sensitive_stage": {
             "value": 0.0,
@@ -6111,12 +6148,12 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           }
         },
         "sc_salt_early": {
           "irrigation_need": {
-            "value": -743,
+            "value": -744,
             "unit": "mm",
             "evidence_ids": [
               "ev_salinity_season",
@@ -6124,7 +6161,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           },
           "water_stress_days": {
             "value": 0.0,
@@ -6135,7 +6172,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           },
           "heat_stress_days_sensitive_stage": {
             "value": 0.0,
@@ -6146,7 +6183,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           }
         },
         "sc_wet_ref": {
@@ -6190,8 +6227,8 @@
               "ev_power_daily",
               "ev_crop_catalog"
             ],
-            "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "origin": "forecast",
+            "label": "Dự báo mùa"
           },
           "water_stress_days": {
             "value": 0.0,
@@ -6201,8 +6238,8 @@
               "ev_power_daily",
               "ev_crop_catalog"
             ],
-            "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "origin": "forecast",
+            "label": "Dự báo mùa"
           },
           "heat_stress_days_sensitive_stage": {
             "value": 0.0,
@@ -6212,8 +6249,8 @@
               "ev_power_daily",
               "ev_crop_catalog"
             ],
-            "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "origin": "forecast",
+            "label": "Dự báo mùa"
           }
         }
       },
@@ -6289,7 +6326,7 @@
       ],
       "reasons": [
         {
-          "text": "Nhu cầu tưới trung vị giảm ~743 mm (~7.430 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER.",
+          "text": "Nhu cầu tưới trung vị giảm ~744 mm (~7.440 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER.",
           "evidence_ids": [
             "ev_power_daily",
             "ev_crop_catalog"
@@ -6383,7 +6420,22 @@
         "Xác nhận nguồn giống và đầu ra cho Đậu xanh (Đậu xanh ngắn ngày (60-75 ngày), vốn thấp, phù hợp xen vụ giữa hai vụ lúa.)",
         "Trao đổi với cán bộ khuyến nông địa phương trước khi xuống giống"
       ],
-      "summary_vi": "Đổi vụ Đông Xuân sang Đậu xanh: Nhu cầu tưới trung vị giảm ~743 mm (~7.430 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER; cần xác nhận thoát nước."
+      "robustness": {
+        "wins": 7,
+        "total": 7,
+        "lost_scenarios": [],
+        "rule": "Thắng một kịch bản khi trung vị nước tưới thấp hơn hiện tại VÀ trung vị (ngày thiếu nước + ngày nắng nóng) không cao hơn hiện tại, trên cùng kịch bản."
+      },
+      "confidence": {
+        "level": "MEDIUM",
+        "robust_scenarios": "7/7",
+        "unknowns": [
+          "canal_ecw",
+          "drainage"
+        ],
+        "basis": "HIGH: thắng ≥ 90 % kịch bản, không thiếu dữ liệu đầu vào của luật, trạng thái RECOMMEND_FOR_CONSIDERATION, không thua kịch bản dự báo mùa/CMIP6; MEDIUM: thắng ≥ 60 %; còn lại LOW. Chuỗi hiện tại là mốc so sánh nên chỉ xét dữ liệu thiếu và trạng thái."
+      },
+      "summary_vi": "Đổi vụ Đông Xuân sang Đậu xanh: Nhu cầu tưới trung vị giảm ~744 mm (~7.440 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER; cần xác nhận thoát nước."
     },
     {
       "sequence_id": "seq_soybean_rice_rice__early_standard_standard",
@@ -6511,7 +6563,7 @@
             "value": 1143,
             "unit": "mm",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -6521,7 +6573,7 @@
             "value": 1194,
             "unit": "mm",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -6531,7 +6583,7 @@
             "value": 0,
             "unit": "day",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -6541,7 +6593,7 @@
             "value": 0,
             "unit": "day",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -6565,7 +6617,7 @@
           },
           "per_season": [
             {
-              "irrigation_mm": 252,
+              "irrigation_mm": 251,
               "water_stress_days": 0,
               "heat_stress_days_sensitive": 0,
               "rain_mm": 62,
@@ -6593,17 +6645,17 @@
             "value": 985,
             "unit": "mm",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
             ]
           },
           "irrigation_need_bad_year": {
-            "value": 1224,
+            "value": 1223,
             "unit": "mm",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -6613,7 +6665,7 @@
             "value": 0.0,
             "unit": "day",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -6623,7 +6675,7 @@
             "value": 0.0,
             "unit": "day",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -6675,7 +6727,7 @@
             "value": 1143,
             "unit": "mm",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -6685,7 +6737,7 @@
             "value": 1387,
             "unit": "mm",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -6695,7 +6747,7 @@
             "value": 0.0,
             "unit": "day",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -6705,7 +6757,7 @@
             "value": 0.0,
             "unit": "day",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_power_daily",
               "ev_crop_catalog"
@@ -6729,7 +6781,7 @@
           },
           "per_season": [
             {
-              "irrigation_mm": 246,
+              "irrigation_mm": 245,
               "water_stress_days": 0.0,
               "heat_stress_days_sensitive": 0.0,
               "rain_mm": 78,
@@ -6757,7 +6809,7 @@
             "value": 929,
             "unit": "mm",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
               "ev_power_daily",
@@ -6768,7 +6820,7 @@
             "value": 1193,
             "unit": "mm",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
               "ev_power_daily",
@@ -6779,7 +6831,7 @@
             "value": 0.0,
             "unit": "day",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
               "ev_power_daily",
@@ -6790,7 +6842,7 @@
             "value": 0.0,
             "unit": "day",
             "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "label": "Kịch bản thử thách",
             "evidence_ids": [
               "ev_salinity_season",
               "ev_power_daily",
@@ -6924,8 +6976,8 @@
           "irrigation_need": {
             "value": 1095,
             "unit": "mm",
-            "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "origin": "forecast",
+            "label": "Dự báo mùa",
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
@@ -6935,8 +6987,8 @@
           "irrigation_need_bad_year": {
             "value": 1280,
             "unit": "mm",
-            "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "origin": "forecast",
+            "label": "Dự báo mùa",
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
@@ -6946,8 +6998,8 @@
           "water_stress_days": {
             "value": 0.0,
             "unit": "day",
-            "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "origin": "forecast",
+            "label": "Dự báo mùa",
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
@@ -6957,8 +7009,8 @@
           "heat_stress_days_sensitive_stage": {
             "value": 0.0,
             "unit": "day",
-            "origin": "assumed_scenario",
-            "label": "Kịch bản",
+            "origin": "forecast",
+            "label": "Dự báo mùa",
             "evidence_ids": [
               "ev_seasonal_forecast",
               "ev_power_daily",
@@ -7110,7 +7162,7 @@
           {
             "member": 14,
             "year": 2015,
-            "irrigation_mm": 1143,
+            "irrigation_mm": 1142,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -7182,7 +7234,7 @@
           {
             "member": 0,
             "year": 2023,
-            "irrigation_mm": 1099,
+            "irrigation_mm": 1100,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -7196,7 +7248,7 @@
           {
             "member": 2,
             "year": 2004,
-            "irrigation_mm": 1206,
+            "irrigation_mm": 1207,
             "water_stress_days": 0,
             "heat_stress_days": 0
           }
@@ -7303,7 +7355,7 @@
           {
             "member": 14,
             "year": 2015,
-            "irrigation_mm": 1161,
+            "irrigation_mm": 1160,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -7331,7 +7383,7 @@
           {
             "member": 18,
             "year": 2019,
-            "irrigation_mm": 1171,
+            "irrigation_mm": 1170,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -7431,7 +7483,7 @@
           {
             "member": 8,
             "year": 2009,
-            "irrigation_mm": 1328,
+            "irrigation_mm": 1329,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -7466,7 +7518,7 @@
           {
             "member": 13,
             "year": 2014,
-            "irrigation_mm": 1490,
+            "irrigation_mm": 1491,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -7501,7 +7553,7 @@
           {
             "member": 18,
             "year": 2019,
-            "irrigation_mm": 1217,
+            "irrigation_mm": 1216,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -7515,7 +7567,7 @@
           {
             "member": 20,
             "year": 2021,
-            "irrigation_mm": 927,
+            "irrigation_mm": 928,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -7529,7 +7581,7 @@
           {
             "member": 22,
             "year": 2023,
-            "irrigation_mm": 1232,
+            "irrigation_mm": 1233,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -7643,7 +7695,7 @@
           {
             "member": 14,
             "year": 2015,
-            "irrigation_mm": 1143,
+            "irrigation_mm": 1142,
             "water_stress_days": 0,
             "heat_stress_days": 0
           },
@@ -8085,7 +8137,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           },
           "water_stress_days": {
             "value": 0,
@@ -8095,7 +8147,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           },
           "heat_stress_days_sensitive_stage": {
             "value": 0,
@@ -8105,7 +8157,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           }
         },
         "sc_hot": {
@@ -8117,7 +8169,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           },
           "water_stress_days": {
             "value": 0.0,
@@ -8127,7 +8179,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           },
           "heat_stress_days_sensitive_stage": {
             "value": 0.0,
@@ -8137,7 +8189,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           }
         },
         "sc_rain_minus30": {
@@ -8149,7 +8201,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           },
           "water_stress_days": {
             "value": 0.0,
@@ -8159,7 +8211,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           },
           "heat_stress_days_sensitive_stage": {
             "value": 0.0,
@@ -8169,7 +8221,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           }
         },
         "sc_salt_early": {
@@ -8182,7 +8234,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           },
           "water_stress_days": {
             "value": 0.0,
@@ -8193,7 +8245,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           },
           "heat_stress_days_sensitive_stage": {
             "value": 0.0,
@@ -8204,7 +8256,7 @@
               "ev_crop_catalog"
             ],
             "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "label": "Kịch bản thử thách"
           }
         },
         "sc_wet_ref": {
@@ -8248,8 +8300,8 @@
               "ev_power_daily",
               "ev_crop_catalog"
             ],
-            "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "origin": "forecast",
+            "label": "Dự báo mùa"
           },
           "water_stress_days": {
             "value": 0.0,
@@ -8259,8 +8311,8 @@
               "ev_power_daily",
               "ev_crop_catalog"
             ],
-            "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "origin": "forecast",
+            "label": "Dự báo mùa"
           },
           "heat_stress_days_sensitive_stage": {
             "value": 0.0,
@@ -8270,8 +8322,8 @@
               "ev_power_daily",
               "ev_crop_catalog"
             ],
-            "origin": "assumed_scenario",
-            "label": "Kịch bản"
+            "origin": "forecast",
+            "label": "Dự báo mùa"
           }
         }
       },
@@ -8442,6 +8494,21 @@
         "Xác nhận nguồn giống và đầu ra cho Đậu nành (Đậu nành vụ Xuân Hè trong luân canh lúa-màu; giá nội địa thấp hơn nhập khẩu, thị trường nhỏ.)",
         "Trao đổi với cán bộ khuyến nông địa phương trước khi xuống giống"
       ],
+      "robustness": {
+        "wins": 7,
+        "total": 7,
+        "lost_scenarios": [],
+        "rule": "Thắng một kịch bản khi trung vị nước tưới thấp hơn hiện tại VÀ trung vị (ngày thiếu nước + ngày nắng nóng) không cao hơn hiện tại, trên cùng kịch bản."
+      },
+      "confidence": {
+        "level": "MEDIUM",
+        "robust_scenarios": "7/7",
+        "unknowns": [
+          "canal_ecw",
+          "drainage"
+        ],
+        "basis": "HIGH: thắng ≥ 90 % kịch bản, không thiếu dữ liệu đầu vào của luật, trạng thái RECOMMEND_FOR_CONSIDERATION, không thua kịch bản dự báo mùa/CMIP6; MEDIUM: thắng ≥ 60 %; còn lại LOW. Chuỗi hiện tại là mốc so sánh nên chỉ xét dữ liệu thiếu và trạng thái."
+      },
       "summary_vi": "Đổi vụ Đông Xuân sang Đậu nành: Nhu cầu tưới trung vị giảm ~658 mm (~6.580 m³/ha) so với hiện tại trên cùng 24 năm lịch sử NASA POWER; cần xác nhận thoát nước."
     }
   ],
@@ -8804,17 +8871,17 @@
     "calendar_feasible": 52,
     "evaluated_feasible": 52,
     "pareto_front": 4,
-    "season_simulations": 1731,
+    "season_simulations": 2613,
     "timings_ms": {
-      "setup": 168.47,
-      "candidate_generation": 1.8,
-      "screening": 480.77,
-      "selection": 0.39,
-      "selected_scenarios": 384.63,
+      "setup": 164.39,
+      "candidate_generation": 1.69,
+      "screening": 561.25,
+      "selection": 0.18,
+      "selected_scenarios": 391.15,
       "explanation_setup": 0.02,
-      "trajectories": 633.07,
-      "packaging": 0.46,
-      "total": 1669.62
+      "trajectories": 469.57,
+      "packaging": 0.66,
+      "total": 1588.93
     }
   },
   "irrigation_cap_mm_per_season": null,

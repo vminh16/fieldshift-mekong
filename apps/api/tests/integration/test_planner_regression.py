@@ -13,11 +13,14 @@ from fieldshift.main import app
 
 FIXTURES = Path(__file__).resolve().parents[4] / "contracts" / "fixtures"
 # Captured before two-stage screening; fixture regeneration must never redefine the shortlist.
+# One deliberate physics change since: the harvest-to-sowing fallow gap is now simulated (P1-3).
+# In Can Tho the ~5-week dry-season gap after the Dong Xuan rice dries the bed before Xuan He
+# peanut (sc_clim irrigation 1077 -> 1144 mm, stress p90 12 -> 13 d), so rice-peanut-rice
+# becomes dominated by soybean-rice-rice and leaves the Pareto front; only 3 options remain.
 EXPECTED_IDS = {
     "cantho": [
         "seq_soybean_rice_rice__early_standard_standard",
         "seq_mungbean_rice_rice__early_standard_standard",
-        "seq_rice_peanut_rice__early_standard_standard",
         "seq_fallow_cover_rice_rice__early_standard_standard",
     ],
     "soctrang": [

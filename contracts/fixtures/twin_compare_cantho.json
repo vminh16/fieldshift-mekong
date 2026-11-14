@@ -1,6 +1,6 @@
 {
   "baseline": {
-    "decision_id": "dec_9797d31f4f71",
+    "decision_id": "dec_4413b686a9b2",
     "sequence_id": "seq_rice_rice_rice__standard_standard_standard",
     "scenario_id": "sc_clim",
     "member": 22,
@@ -4179,7 +4179,7 @@
     ]
   },
   "option": {
-    "decision_id": "dec_9797d31f4f71",
+    "decision_id": "dec_4413b686a9b2",
     "sequence_id": "seq_soybean_rice_rice__early_standard_standard",
     "scenario_id": "sc_clim",
     "member": 22,
@@ -4218,7 +4218,7 @@
       {
         "member": 5,
         "year": 2006,
-        "irrigation_mm": 1110,
+        "irrigation_mm": 1109,
         "label_vi": "Năm tham chiếu"
       },
       {
@@ -4272,7 +4272,7 @@
       {
         "member": 14,
         "year": 2015,
-        "irrigation_mm": 1247,
+        "irrigation_mm": 1190,
         "label_vi": "Năm tham chiếu"
       },
       {
