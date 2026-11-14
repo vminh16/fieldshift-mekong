@@ -7,8 +7,8 @@ Trang này liệt kê những gì hệ thống **chưa làm được hoặc chư
 | Giới hạn | Ảnh hưởng | Hướng xử lý |
 |---|---|---|
 | **`R_MACHINERY` không hoạt động.** `machinery_required` đang rỗng ở cả 8 cây trong `resources/crops.json`, vì nhóm chưa có nguồn khuyến nông cụ thể về yêu cầu cơ giới cho từng cây ở ĐBSCL. Nhóm chủ động giữ trống, không tự gán | Ràng buộc "không đầu tư máy mới" (`no_new_machinery`) hiện **không loại** chuỗi nào. AC-07 chỉ được kiểm chứng trên danh mục cây giả lập (`tests/integration/test_data_integrity.py`), chưa đúng với danh mục thật | Điền `machinery_required` khi có tài liệu khuyến nông hoặc MARD trích dẫn được, rồi sinh lại fixture |
-| Một số ngưỡng là **heuristic do nhóm đặt** (số ngày stress nhiệt/nước, mưa gây úng, số ngày trùng mùa mặn, lịch khung vụ) | Có thể đổi trạng thái của phương án | Xem nhãn `[B]` trong RULES.md và kết quả quét trong [SENSITIVITY_REPORT.md](SENSITIVITY_REPORT.md) |
-| TAW đất và hệ số Kc lấy theo giá trị chuẩn vùng hoặc FAO-56, chưa hiệu chỉnh tại thực địa | Shortlist đổi ở 25% trường hợp khi thay TAW 120/200 hoặc Kc ±10% (phương án đứng đầu không đổi) | Hiệu chỉnh theo số đo đất và ET thực tế (MODIS ET, ECOSTRESS) |
+| Một số ngưỡng là **heuristic do nhóm đặt** (số ngày stress nhiệt/nước, mưa gây úng, số ngày trùng mùa mặn, lịch khung vụ) | Trên 4 điểm demo, quét ngưỡng ngày nóng 3/5/10, ngày thiếu nước 5/7/14 và mưa úng 400/600/800 mm **không làm đổi** shortlist hay trạng thái. Lịch khung vụ và khung mùa mặn chưa được quét | Xem nhãn `[B]` trong RULES.md và [SENSITIVITY_REPORT.md](SENSITIVITY_REPORT.md) |
+| TAW đất và hệ số Kc lấy theo giá trị chuẩn vùng hoặc FAO-56, chưa hiệu chỉnh tại thực địa | Phương án đứng đầu không đổi ở mọi lần quét. TAW 120/200 làm shortlist đổi ở 2/12 trường hợp (Jaccard 0,75). Kc ±10% không làm đổi shortlist nhưng làm nhu cầu tưới dao động khoảng ±8% | Hiệu chỉnh theo số đo đất và ET thực tế (MODIS ET, ECOSTRESS) |
 | Độ thấm ruộng lúa cố định 2 mm/ngày (thực tế 1–5) | Nhu cầu tưới tuyệt đối của baseline dao động từ −13% đến +46%. **Không trích con số mm tưới như thể đó là số đo** | Chỉ dùng để so sánh tương đối giữa các phương án |
 
 ## Dữ liệu
@@ -23,10 +23,14 @@ Trang này liệt kê những gì hệ thống **chưa làm được hoặc chư
 
 ## Đánh giá quá khứ
 
-Kết quả chi tiết nằm trong [BACKTEST_REPORT.md](BACKTEST_REPORT.md). Khi chạy ngược tại 15/11/2015, trước mùa khô kỷ lục 2015–16, engine đưa ra **cùng các cảnh báo** như khi chạy tại 15/11/2019. Lý do là khi chạy ngược quá khứ không có dự báo mùa, và các kịch bản chỉ dựa trên phân bố lịch sử, nên engine **không phân biệt được trước** một năm hạn bất thường. Tỷ lệ phương án dùng ít nước hơn baseline trong thời tiết thật cao, nhưng phần lớn là do cây cạn vốn dùng ít nước hơn lúa trong cùng mô hình.
+Kết quả chi tiết nằm trong [BACKTEST_REPORT.md](BACKTEST_REPORT.md). Khi chạy ngược tại 15/11/2015, trước mùa khô kỷ lục 2015–16, engine đưa ra **cùng các cảnh báo** như khi chạy tại 15/11/2019. Lý do là khi chạy ngược quá khứ không có dự báo mùa, và các kịch bản chỉ dựa trên phân bố lịch sử, nên engine **không phân biệt được trước** một năm hạn bất thường. Trong thời tiết thật, 34/42 phương án tốt hơn baseline về nước tưới mà không tăng thiếu nước; 8 phương án không tốt hơn đều có vụ `fallow_cover`. Kết quả này phần lớn là do cây cạn vốn dùng ít nước hơn lúa trong cùng mô hình.
 
 ## Mô hình
 
 - **Không có mô hình năng suất hay lợi nhuận đã hiệu chỉnh** (gate G7 luôn trượt). Hệ thống chỉ so sánh nước, stress, lịch vụ và lợi ích đất tiềm năng (định tính).
 - Không có mô hình sâu bệnh theo thời tiết. `R_PEST_CYCLE` chỉ là luật định tính cho trường hợp lúa liên tục.
+- **Liên vụ chỉ truyền độ ẩm đất.** Khoảng nghỉ giữa hai vụ được mô phỏng như đất trống không tưới. Muối tích tụ, tàn dư và dinh dưỡng **không** được truyền giữa các vụ, nên lợi ích đất chỉ là định tính.
+- **Vụ bỏ hóa hoặc cây phủ bị tính bất lợi.** Số ngày "thiếu nước" của đất trống được cộng vào `water_stress_days`. Vì vậy phương án có vụ `fallow_cover` dễ bị xếp thua baseline về stress và bị `confidence` LOW (ví dụ Sóc Trăng 0/7). Đây là giới hạn của cách tổng hợp chỉ số, không phải bằng chứng cây phủ có hại.
+- **`confidence` của baseline** chỉ bị giới hạn bởi biến chưa biết và trạng thái (baseline không so với chính nó). Mức HIGH của baseline nghĩa là "đủ dữ liệu", không có nghĩa là "tốt nhất".
+- **Beam search cho chân trời trên 3 vụ** chỉ giữ ngày gieo tốt nhất cho mỗi tiền tố chuỗi cây, nên có thể bỏ sót tổ hợp ngày gieo. Không tuyên bố tối ưu toàn cục. Chân trời 1–3 vụ vẫn vét cạn.
 - Kết quả là **gợi ý để cân nhắc cùng cán bộ khuyến nông**, không thay thế khuyến cáo chuyên môn.

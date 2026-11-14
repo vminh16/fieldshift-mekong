@@ -27,11 +27,11 @@
 | DEFAULT_CANAL_CAP_MM | 500.0 | hằng số module | [B] heuristic nhóm tự đặt | Trần tưới mỗi vụ cho 'canal_limited' (mm), giả định |
 | PPT_PER_DS_M | 0.64 | hằng số module | [A] tài liệu khoa học | TDS ≈ 640·ECw (FAO-29) -> ‰ |
 | SCREENING_SCENARIOS | ['sc_clim', 'sc_dry'] | hằng số module | [B] heuristic nhóm tự đặt | Kịch bản dùng để sàng lọc |
-| HEAT_STRESS_DAYS_SOFT | 5 | literal trong field_rules (chưa export) | [B] heuristic nhóm tự đặt | R_HEAT: ngày |
-| WATER_STRESS_DAYS_SOFT | 7 | literal trong field_rules (chưa export) | [B] heuristic nhóm tự đặt | R_WATER_STRESS: ngày |
-| WATERLOG_RAIN_MM | 600 | literal trong field_rules (chưa export) | [B] heuristic nhóm tự đặt | R_WATERLOG: mm mưa/vụ |
-| SALINITY_OVERLAP_DAYS | 7 | literal trong field_rules (chưa export) | [B] heuristic nhóm tự đặt | R_SALINITY*: ngày trùng mùa mặn |
-| SALINITY_EARLY_WEEKS | -4 | literal trong field_rules (chưa export) | [B] heuristic nhóm tự đặt | R_SALINITY*: mặn đến sớm (tuần, âm = sớm) |
+| HEAT_STRESS_DAYS_SOFT | 5 | hằng số module | [B] heuristic nhóm tự đặt | R_HEAT: ngày |
+| WATER_STRESS_DAYS_SOFT | 7 | hằng số module | [B] heuristic nhóm tự đặt | R_WATER_STRESS: ngày |
+| WATERLOG_RAIN_MM | 600 | hằng số module | [B] heuristic nhóm tự đặt | R_WATERLOG: mm mưa/vụ |
+| SALINITY_OVERLAP_DAYS | 7 | hằng số module | [B] heuristic nhóm tự đặt | R_SALINITY*: ngày trùng mùa mặn |
+| SALINITY_EARLY_WEEKS | -4 | hằng số module | [B] heuristic nhóm tự đặt | R_SALINITY*: mặn đến sớm (tuần, âm = sớm) |
 
 ## 3. Tham số cây trồng (`crops.json` crops-2026.11.0)
 
@@ -70,4 +70,4 @@ Mã trong ô: [A]/[B]/[C] như trên.
 | mekong | Mùa mặn: đầu / đỉnh / cuối | 01-15 / 04-15 / 06-15 | [A] tài liệu khoa học | MARD/SIWRP salinity intrusion reports 2016, 2020, 2024; MRC Mekong salinity intrusion studies | Dates are multi-year typical; actual onset and peak shift with El Nino years and upstream discharge. / Applies to coastal zones only; inland sites have negligible risk. |
 
 ---
-Hash nội dung (sha256, 16 ký tự đầu, không gồm dòng này): `a24802f0e7f5857d`
+Hash nội dung (sha256, 16 ký tự đầu, không gồm dòng này): `bff12d112befb85f`
