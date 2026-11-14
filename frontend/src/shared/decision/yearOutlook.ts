@@ -1,20 +1,6 @@
-import type { DecisionPackage } from '../../../../contracts/types'
+import type { DecisionPackage, EnsoPhase, YearOutlook } from '../../../../contracts/types'
 
-// TODO(after BE merge): switch to the `YearOutlook` / `EnsoPhase` exports in contracts/types.ts.
-export type EnsoPhase = 'EL_NINO_STRONG' | 'EL_NINO' | 'NEUTRAL' | 'LA_NINA' | 'LA_NINA_STRONG'
-
-export interface YearOutlook {
-  status: 'OK' | 'UNAVAILABLE'
-  reason?: string | null
-  enso: { index: 'ONI'; centered_month: string; value: number; phase: EnsoPhase; source: string } | null
-  analog_years: number[]
-  analog_labels_vi: string[]
-  dry_season_rain: { analog_median_mm: number | null; all_years_median_mm: number | null; ratio: number | null; sources: string[] }
-  skill: { correlation_r: number | null; n_years: number; note_vi: string }
-  headline_vi: string
-  scenario_id: string | null
-  evidence_ids: string[]
-}
+export type { EnsoPhase, YearOutlook }
 
 export const PHASE_VI: Record<EnsoPhase, string> = {
   EL_NINO_STRONG: 'El Niño mạnh',
@@ -27,7 +13,7 @@ export const PHASE_VI: Record<EnsoPhase, string> = {
 /** The package's outlook when usable; null hides every outlook UI (absent or status !== 'OK'). */
 export function yearOutlookOf(d: DecisionPackage | undefined | null): YearOutlook | null {
   if (!d) return null
-  const yo = (d as DecisionPackage & { year_outlook?: YearOutlook }).year_outlook
+  const yo = d.year_outlook as YearOutlook | undefined // older snapshots lack it
   // Dev-only layout check: add `mau_enso=1` to the hash query. Dropped from production builds.
   if (import.meta.env.DEV && !yo && window.location.hash.includes('mau_enso=1')) return DEV_SAMPLE
   return yo && yo.status === 'OK' ? yo : null

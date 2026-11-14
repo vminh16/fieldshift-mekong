@@ -7,10 +7,12 @@ def evaluate_triggers(package: dict, observations: list[dict]) -> dict:
     for option in options:
         for trigger in option.get("triggers", []):
             for obs in observations:
-                if obs["observed_at"] <= package["as_of"] or obs["variable"] != trigger.get(
+                if obs["observed_at"] < package["as_of"] or obs["variable"] != trigger.get(
                     "variable"
                 ):
                     continue
+                # Same-day readings count only when entered after the plan was generated
+                # (readings existing at planning time were already plan inputs).
                 if obs.get("created_at", "") < package["generated_at"]:
                     continue
                 value = obs.get("value_text") if trigger["op"] == "eq" else obs.get("value")
