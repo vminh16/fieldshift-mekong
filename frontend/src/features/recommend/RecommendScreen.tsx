@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AppShell } from '../shell/AppShell'
 import { href, navigate } from '../../shared/router'
 import { formatHa } from '../../shared/geo/area'
@@ -15,6 +15,11 @@ import { FieldProfileStep } from './FieldProfileStep'
 import { CompareBars, PairedBars, RotationRibbon } from './charts'
 import { ParcelMiniMap } from './ParcelMiniMap'
 import { SeasonTimeline } from './SeasonTimeline'
+import { api } from '../../shared/api/client'
+import type { PlanRequest } from '../../../../contracts/types'
+import type { SalinityWindow } from '../../shared/api/auditTypes'
+import { PlanPreferences, PRIORITY_VI, requestOf } from './PlanPreferences'
+import { exposureDays, salinityWindowOf } from './salinity'
 import { CROP_PHOTO } from '../../shared/decision/photos'
 import './recommend.css'
 
@@ -22,13 +27,6 @@ import './recommend.css'
 const nf = (n: number) => n.toLocaleString('vi-VN', { maximumFractionDigits: 0 })
 const crop = (c: string) => CROP_SHORT[c] ?? c
 const windowName = (w: string) => w.split(' /')[0]
-const PRIORITY: Record<string, string> = {
-  avoid_crop_failure: 'tránh mất mùa',
-  save_water: 'tiết kiệm nước',
-  soil_health: 'cải thiện đất',
-  supplemental_income: 'thêm thu nhập',
-  minimal_change: 'ít thay đổi',
-}
 function headline(pick: Option, base: Option) {
   const changed = pick.seasons.filter((s, i) => s.crop !== base.seasons[i]?.crop)
   if (changed.length === 0) return { main: `Giữ ${crop(base.seasons[0].crop).toLowerCase()} cả 3 vụ`, sub: '' }
@@ -57,16 +55,28 @@ export function RecommendScreen({ fieldId }: { fieldId: string | null }) {
   const [result, setResult] = useState<DecisionResult | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [replanning, setReplanning] = useState(false)
+  const currentFieldId = useRef(field?.id)
+  currentFieldId.current = field?.id
+  const [rankingNotice, setRankingNotice] = useState<string | null>(null)
 
   // Profile saved → run a fresh plan so the answer reflects what the farmer just confirmed.
-  const replan = () => {
-    if (!field) return
+  const replan = (settings?: Partial<PlanRequest>) => {
+    if (!field || replanning) return
+    const old = result?.decision.options ?? []
+    const ranking = (options: Option[]) => options.map((o) => o.seasons.map((s) => `${s.crop}:${s.sow}`).join(',')).join('|')
+    const fieldAtStart = field.id
     setReplanning(true)
     setError(null)
-    refreshPlan(field.id)
-      .then((decision) => setResult({ decision, source: 'engine' }))
-      .catch(() => setError('Đã lưu, nhưng engine chưa tính lại được. Thử tải lại trang.'))
-      .finally(() => setReplanning(false))
+    setRankingNotice(null)
+    refreshPlan(field.id, settings ?? (result ? requestOf(result.decision) : {}))
+      .then((decision) => {
+        if (currentFieldId.current !== fieldAtStart) return
+        setResult({ decision, source: 'engine' })
+        const changed = ranking(old) !== ranking(decision.options)
+        setRankingNotice(`${changed ? 'Thứ tự hoặc tập phương án đã thay đổi.' : 'Đã tính lại; thứ tự phương án giữ nguyên với lựa chọn này.'} Đứng đầu: ${decision.options[0]?.seasons.map((s) => crop(s.crop)).join(' – ') ?? 'chưa có phương án phù hợp'}.`)
+      })
+      .catch(() => { if (currentFieldId.current === fieldAtStart) setError('Chưa tính lại được. Kết quả cũ vẫn hiển thị; hãy thử lại.') })
+      .finally(() => { if (currentFieldId.current === fieldAtStart) setReplanning(false) })
   }
 
   useEffect(() => {
@@ -74,6 +84,8 @@ export function RecommendScreen({ fieldId }: { fieldId: string | null }) {
     let live = true
     setResult(null)
     setError(null)
+    setRankingNotice(null)
+    setReplanning(false)
     loadDecision(field)
       .then((r) => live && setResult(r))
       .catch(() => live && setError('Không tải được đề xuất.'))
@@ -107,10 +119,10 @@ export function RecommendScreen({ fieldId }: { fieldId: string | null }) {
             {result.notice}
           </p>
         )}
-        {result && result.source === 'engine' && <FieldProfileStep field={field} decision={result.decision} busy={replanning} onSaved={replan} />}
+        {result && result.source === 'engine' && <FieldProfileStep field={field} decision={result.decision} busy={replanning} onSaved={() => replan()} />}
         {replanning && (
           <p className="rec-notice" role="status">
-            Đã lưu. Engine đang tính lại đề xuất…
+            Engine đang tính lại đề xuất theo thông tin của bạn…
           </p>
         )}
         {!result && !error && (
@@ -118,7 +130,9 @@ export function RecommendScreen({ fieldId }: { fieldId: string | null }) {
             <span>Engine đang tính đề xuất cho thửa này… lần đầu có thể mất khoảng nửa phút.</span>
           </div>
         )}
-        {result && <Recommendation key={result.decision.decision_id} field={field} decision={result.decision} />}
+        {rankingNotice && <p className="rec-notice" role="status">{rankingNotice}</p>}
+        {result?.source === 'engine' && <PlanPreferences key={`preferences:${result.decision.decision_id}`} decision={result.decision} busy={replanning} onApply={replan} />}
+        {result && <Recommendation key={`recommendation:${result.decision.decision_id}`} field={field} decision={result.decision} />}
       </div>
     </AppShell>
   )
@@ -151,6 +165,16 @@ function Recommendation({ field, decision: d }: { field: LocalField; decision: D
   const [shownId, setShownId] = useState(d.options[0]?.sequence_id)
   const [chosen, setChosen] = useState(() => readChoice(field.id))
   const [why, setWhy] = useState(false)
+  const [saltWindow, setSaltWindow] = useState<SalinityWindow | null>(null)
+  const coastal = (d.field_state.coastal_salinity_risk as { value?: boolean } | undefined)?.value ?? field.profile?.coastal_salinity_risk ?? false
+  useEffect(() => {
+    if (!coastal) return
+    let live = true
+    api.twin(d.decision_id, d.baseline.sequence_id, 'sc_clim', null)
+      .then((twin) => { if (live) setSaltWindow(salinityWindowOf(twin)) })
+      .catch(() => { if (live) setSaltWindow(null) })
+    return () => { live = false }
+  }, [d.decision_id, d.baseline.sequence_id, coastal])
   const pick = d.options.find((o) => o.sequence_id === shownId) ?? d.options[0]
   if (!pick) return <p className="rec-error">Engine chưa tìm được chuỗi nào phù hợp hơn cách đang làm.</p>
 
@@ -160,9 +184,10 @@ function Recommendation({ field, decision: d }: { field: LocalField; decision: D
   const dry = pick.delta_vs_baseline.sc_dry?.irrigation_need?.value ?? null
   const status = STATUS_VI[pick.decision_status]
   const conf = confidenceOf(pick)
-  const saltDays = pick.salinity_overlap_avoided_days?.typical
+  const saltDays = exposureDays(pick, saltWindow)
+  const baseSaltDays = exposureDays(base, saltWindow)
   const yo = yearOutlookOf(d)
-  const priorities = ((d.request as { priorities?: string[] } | undefined)?.priorities ?? []).map((p) => PRIORITY[p] ?? p)
+  const priorities = (requestOf(d).priorities ?? []).map((p) => PRIORITY_VI[p] ?? p)
   const tried = (d.stats as { generated?: number }).generated
   const isChosen = chosen === pick.sequence_id
   const baseName = new Set(base.seasons.map((s) => s.crop)).size === 1 ? `${crop(base.seasons[0].crop)} 3 vụ` : 'Cách đang làm'
@@ -205,36 +230,32 @@ function Recommendation({ field, decision: d }: { field: LocalField; decision: D
           {h.sub && <p className="answer__sub">{h.sub}</p>}
         </div>
 
-        <SeasonTimeline pick={pick.seasons} base={base.seasons} today={d.as_of} />
+        <dl className="gains">
+          {coastal && <div className="gains__salinity">
+            <dt>Cây trùng mùa mặn (phương án / hiện tại)</dt>
+            <dd>{saltDays !== null && baseSaltDays !== null ? <>{nf(saltDays)} / {nf(baseSaltDays)}<small> ngày</small></> : <small>Chưa có đủ dữ liệu lịch mặn</small>}</dd>
+          </div>}
+          {pct !== null && (
+            <div>
+              <dt>{pct < 0 ? 'Ít nước tưới hơn' : 'Nhiều nước tưới hơn'}</dt>
+              <dd>{Math.abs(pct)}%</dd>
+            </div>
+          )}
+          {dry !== null && (
+            <div>
+              <dt>Năm khô hạn, {dry < 0 ? 'bớt' : 'thêm'}</dt>
+              <dd>
+                {nf(Math.abs(dry) * 10)}
+                <small> m³/ha</small>
+              </dd>
+            </div>
+          )}
+        </dl>
+
+        <SeasonTimeline pick={pick.seasons} base={base.seasons} today={d.as_of} salinityWindow={coastal ? saltWindow : null} />
 
         <div className="answer__rest">
-          <dl className="gains">
-            {pct !== null && (
-              <div>
-                <dt>{pct < 0 ? 'Ít nước tưới hơn' : 'Nhiều nước tưới hơn'}</dt>
-                <dd>{Math.abs(pct)}%</dd>
-              </div>
-            )}
-            {dry !== null && (
-              <div>
-                <dt>Năm khô hạn, bớt</dt>
-                <dd>
-                  {nf(Math.abs(dry) * 10)}
-                  <small> m³/ha</small>
-                </dd>
-              </div>
-            )}
-            {saltDays ? (
-              <div>
-                <dt>Né mùa mặn</dt>
-                <dd>
-                  {saltDays}
-                  <small> ngày ít trùng hơn</small>
-                </dd>
-              </div>
-            ) : null}
-          </dl>
-
+          {coastal && <p className="why__note">Số ngày cây có mặt trong khung mặn vùng, không phải số ngày ruộng đã bị mặn. Chưa biết nước kênh có an toàn nếu chưa đo.</p>}
           {pick.soil_benefit.indicators.length > 0 && (
             <p className="soil-line">
               <span>Lợi ích cho đất (định tính):</span> {pick.soil_benefit.indicators.map((i) => SOIL_INDICATOR[i] ?? i).join(' · ')}
@@ -277,8 +298,6 @@ function Recommendation({ field, decision: d }: { field: LocalField; decision: D
               )}
             </div>
           )}
-
-          {pick.summary_vi && <p className="answer__summary">{pick.summary_vi}</p>}
 
           <div className="answer__actions">
             <button type="button" className={isChosen ? 'btn btn--ghost' : 'btn btn--primary'} onClick={choose}>
@@ -423,6 +442,9 @@ function Why({
       </button>
       {open && (
         <div className="why__panel">
+          <div className="heuristic-detail">
+            <p><strong>Chỉ số giá trị — ước lượng nhóm (heuristic)</strong>: {pick.production_value_index.toLocaleString('vi-VN')} so với {base.production_value_index.toLocaleString('vi-VN')} ở cách đang làm. Không phải năng suất hay lợi nhuận dự báo.</p>
+          </div>
           <div className="tabs" role="tablist">
             {TABS.map(([id, label]) => (
               <button key={id} role="tab" aria-selected={tab === id} onClick={() => setTab(id)}>
@@ -497,14 +519,14 @@ function Why({
                   { key: 'base', label: baseName, seasons: base.seasons },
                 ]}
               />
-              <p className="why__note">Khoảng trống giữa các vụ là thời gian làm đất, phơi ruộng.</p>
+              <p className="why__note">Khoảng trống giữa các vụ là ngày không có cây trong lịch; cần kiểm tra việc làm đất và che phủ tại ruộng.</p>
             </>
           )}
 
           {tab === 'sources' && (
             <div className="sources">
               <ul>
-                {pick.reasons.map((r) => (
+                {pick.reasons.filter((r) => !/chỉ số giá trị/i.test(r.text)).map((r) => (
                   <li key={r.text}>{r.text}</li>
                 ))}
               </ul>
@@ -533,6 +555,7 @@ function Why({
                   ))}
                 ; đã cắt và thu nhỏ.
               </p>
+              <p className="why__note"><a href={href('/nguon')}>Xem danh mục dữ liệu NASA & nguồn khác</a></p>
               <p className="why__note">
                 Nguồn: {sources.join(' · ')}. {d.excluded.length} chuỗi bị loại vì không hợp lịch vụ hoặc ràng buộc của ruộng.
               </p>

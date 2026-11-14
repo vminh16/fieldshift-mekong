@@ -43,13 +43,14 @@
 .answer {
   display: grid;
   grid-template-columns: 240px minmax(0, 1fr);
-  grid-template-areas: 'map head' 'tl tl' 'rest rest';
+  grid-template-areas: 'map head' 'gains gains' 'tl tl' 'rest rest';
   gap: 0 32px;
   padding-bottom: 32px;
   border-bottom: 1px solid var(--color-border);
 }
 .answer .minimap { grid-area: map; height: 150px; min-height: 0; }
 .answer__head { grid-area: head; align-self: center; }
+.answer .gains { grid-area: gains; }
 .answer .tl { grid-area: tl; }
 .answer__rest { grid-area: rest; }
 .minimap { height: 100%; min-height: 260px; border-radius: 8px; overflow: hidden; background: var(--color-bg-deep); }
@@ -317,7 +318,7 @@ button.alt:hover .alt__go { color: var(--color-accent-strong); }
 .ribbon__band[data-tip]:hover, .ribbon__band[data-tip]:focus-visible { overflow: visible; }
 
 @media (max-width: 859px) {
-  .answer { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'map' 'head' 'tl' 'rest'; gap: 16px; }
+  .answer { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'map' 'head' 'gains' 'tl' 'rest'; gap: 16px; }
   .answer .minimap { height: 160px; }
   .alt { grid-template-columns: 56px minmax(0, 1fr) auto; }
   .alt .chain, .alt .alt__facts { grid-column: 2 / -1; }
@@ -375,3 +376,39 @@ button.alt:hover .alt__go { color: var(--color-accent-strong); }
 .step__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
 .step__foot .step__hint { margin: 0; }
 @media (max-width: 599px) { .step__seasons { grid-template-columns: minmax(0, 1fr); } }
+
+/* User priorities and engine constraints. Native controls work with keyboard and touch. */
+.plan-prefs { border-block: 1px solid var(--color-border-strong); padding: 12px 0; }
+.plan-prefs summary { cursor: pointer; font-size: .9375rem; font-weight: 600; }
+.plan-prefs form { margin-top: 16px; }
+.plan-prefs fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
+.plan-prefs legend { font-size: .875rem; font-weight: 600; }
+.plan-prefs__note { font-size: .8125rem; color: var(--color-text-muted); }
+.plan-prefs__list { margin: 12px 0; padding-left: 24px; max-width: 640px; }
+.plan-prefs__list li { padding: 5px 0; }
+.plan-prefs__list li > span { display: inline-block; min-width: 180px; font-size: .875rem; }
+.plan-prefs__list li > div { display: inline-flex; gap: 6px; }
+.plan-prefs button:not(.btn), .plan-prefs input, .plan-prefs select { font: inherit; color: var(--color-text); background: var(--color-surface); border: 1px solid var(--color-border-strong); border-radius: 4px; padding: 8px 10px; min-height: 40px; }
+.plan-prefs button { cursor: pointer; }
+.plan-prefs button:disabled { opacity: .45; cursor: default; }
+.plan-prefs__add { display: flex; flex-wrap: wrap; gap: 8px; font-size: .8125rem; }
+.plan-prefs__constraints { display: grid; grid-template-columns: repeat(2, minmax(0, 260px)); gap: 16px; margin: 20px 0; }
+.plan-prefs label { display: grid; align-content: start; gap: 6px; font-size: .875rem; }
+.plan-prefs input, .plan-prefs select { width: 100%; min-width: 0; }
+.plan-prefs small { color: var(--color-text-muted); font-size: .75rem; }
+.plan-prefs :focus-visible, .tl__scroll:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+.gains { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px 0; }
+.gains__salinity dd { color: #f3bc7a; }
+.heuristic-detail { margin: 0 0 18px; color: var(--color-text-muted); font-size: .8125rem; line-height: 1.6; }
+.tl__salt-track { height: 30px; position: relative; }
+.tl__salt { position: absolute; display: block; padding: 3px 6px; overflow: hidden; white-space: nowrap; background: #4b3420; border: 1px solid #c58a46; color: #ffcf97; font-size: .6875rem; border-radius: 3px; }
+.tl__gap, .tl__gap-key { background: repeating-linear-gradient(135deg, transparent, transparent 4px, #8e9988 4px, #8e9988 5px); border: 1px dashed #8e9988; }
+.tl__gap { position: absolute; top: 0; bottom: 0; }
+.tl__note { font-size: .75rem; line-height: 1.6; color: var(--color-text-muted); margin: 10px 0 0; }
+.tl__gap-key { display: inline-block; width: 14px; height: 12px; vertical-align: middle; margin-right: 4px; }
+@media (max-width: 640px) {
+  .plan-prefs__constraints { grid-template-columns: 1fr; }
+  .plan-prefs__list li > span { display: block; margin-bottom: 5px; }
+  .gains { grid-template-columns: 1fr; }
+  .gains > div + div { padding: 10px 0 0; border-left: 0; border-top: 1px solid var(--color-border); }
+}

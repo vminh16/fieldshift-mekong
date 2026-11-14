@@ -2,7 +2,9 @@
  * Thin fetch wrapper for the FieldShift API (contracts/API_CONTRACT.md).
  * Types come straight from contracts/types.ts so the frontend cannot drift from the backend contract.
  */
-import type { CropId, DecisionPackage, Field, FieldProfile, Observation, ScenarioOverride, Trigger, Twin } from '../../../../contracts/types'
+import type { CropId, DecisionPackage, Field, FieldProfile, Observation, PlanRequest, ScenarioOverride, Trigger, Twin } from '../../../../contracts/types'
+
+import type { SourceInventory } from './auditTypes'
 
 export type { CropId, DecisionPackage, Field, FieldProfile, Observation, ScenarioOverride, Twin }
 
@@ -73,6 +75,7 @@ export const api = {
   getField: (id: string) => request<Field>(`/fields/${encodeURIComponent(id)}`),
   addObservation: (fieldId: string, body: ObservationWrite) =>
     request<Observation>(`/fields/${encodeURIComponent(fieldId)}/observations`, { method: 'POST', body: JSON.stringify(body) }),
+  sources: () => request<SourceInventory>('/sources'),
   crops: () => request<{ crops: CatalogCrop[] }>('/crops'),
   planStatus: (id: string) => request<PlanStatus>(`/plans/${encodeURIComponent(id)}/status`),
   exportUrl: (id: string) => `${API_BASE}/v1/plans/${encodeURIComponent(id)}/export`,
@@ -82,7 +85,7 @@ export const api = {
       `/fields/${encodeURIComponent(fieldId)}/plans`,
     ),
   getPlan: (id: string) => request<DecisionPackage>(`/plans/${encodeURIComponent(id)}`),
-  createPlan: (fieldId: string) => request<DecisionPackage>('/plans', { method: 'POST', body: JSON.stringify({ field_id: fieldId, horizon_seasons: 3 }) }),
+  createPlan: (fieldId: string, settings: Partial<Omit<PlanRequest, 'field_id'>> = {}) => request<DecisionPackage>('/plans', { method: 'POST', body: JSON.stringify({ horizon_seasons: 3, ...settings, field_id: fieldId }) }),
   /** Simulate a user-chosen chain: returns a WHAT_IF child whose `baseline` is that chain. */
   evaluateChain: (decisionId: string, crops: CropId[], opts: { sow_timing?: string[]; override?: ScenarioOverride } = {}) =>
     request<DecisionPackage>(`/plans/${encodeURIComponent(decisionId)}/evaluate`, { method: 'POST', body: JSON.stringify({ crops, ...opts }) }),
