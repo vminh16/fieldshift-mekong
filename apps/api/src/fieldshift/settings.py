@@ -16,7 +16,8 @@ class Settings:
 
 @lru_cache
 def get_settings() -> Settings:
-    cors = os.getenv("CORS_ORIGINS", "http://localhost:5173")
+    # 5180 = frontend/ (Vite), 5173 = legacy apps/web scaffold.
+    cors = os.getenv("CORS_ORIGINS", "http://localhost:5180,http://localhost:5173")
     data_dir = Path(os.getenv("FIELDSHIFT_DATA_DIR", ".fieldshift")).resolve()
     return Settings(
         environment=os.getenv("APP_ENV", "development"),

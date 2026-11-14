@@ -1,0 +1,42 @@
+1
+00:00:00,350 --> 00:00:02,930
+Một nửa lúa gạo Việt Nam trồng ở đây.
+
+2
+00:00:02,930 --> 00:00:04,394
+Năm nay, mặn đến sớm.
+
+3
+00:00:04,794 --> 00:00:05,781
+El Niño mạnh.
+
+4
+00:00:05,781 --> 00:00:11,173
+Những năm như vậy, NASA chỉ ghi nhận
+30% lượng mưa mùa khô bình thường.
+
+5
+00:00:11,323 --> 00:00:13,273
+Vẽ thửa ruộng của bạn.
+
+6
+00:00:13,523 --> 00:00:17,861
+FieldShift thử mọi chuỗi luân canh,
+theo từng ngày, qua 12 kịch bản.
+
+7
+00:00:18,261 --> 00:00:20,530
+Gieo sớm, nghỉ vụ mặn nhất:
+
+8
+00:00:20,530 --> 00:00:24,059
+số ngày cây phơi mặn giảm từ 177 xuống 84.
+
+9
+00:00:24,459 --> 00:00:26,201
+Mỗi con số đều có nguồn.
+
+10
+00:00:26,551 --> 00:00:29,132
+FieldShift. Lên kế hoạch trước khi mặn về.
+

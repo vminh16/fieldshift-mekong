@@ -22,16 +22,18 @@
 | GET | `/fields` | danh sách ruộng | |
 | POST | `/fields` | tạo ruộng `{name, lat 8–11.5, lon 104–107.5, area_ha?, profile}` | 201 |
 | GET | `/fields/{id}` | ruộng + observations | |
-| PATCH | `/fields/{id}` | sửa `{name?, profile?}` (merge profile) | |
+| DELETE | `/fields/{id}` | xoá ruộng cùng observations, field_states, decisions của nó | 204; 404 `FIELD_NOT_FOUND` |
+| PATCH | `/fields/{id}` | sửa `{name?, lat?, lon?, area_ha?, geometry?, profile?}` (merge profile) | lat/lon khi vẽ lại ranh giới |
 | POST | `/fields/{id}/observations` | đo ECw: `{variable:"canal_ecw", value, unit:"dS/m", observed_at:"YYYY-MM-DD", evidence_kind:"OBSERVED_FIELD"}` | 0–60 dS/m, sai → 422 `ECW_OUT_OF_RANGE` |
 | GET | `/fields/{id}/context?as_of=` | trạng thái ruộng + khí hậu tháng + evidence | ~0.1–15 s lần đầu |
 | GET | `/fields/{id}/plans` | lịch sử decision của ruộng | |
 | POST | `/plans` | **lập kế hoạch** → DecisionPackage | 2–4 s, 201 |
 | GET | `/plans/{id}` | đọc lại decision (bất biến) | |
 | POST | `/plans/{id}/what-if` | `{priorities?, override?}` → decision **mới** (`parent_id`) | chỉ đổi priorities → nhanh |
+| POST | `/plans/{id}/evaluate` | `{crops: CropId[], sow_timing?: ("early"\|"standard")[], override?: ScenarioOverride}` (đúng số vụ của decision; `override` có thì thêm kịch bản `sc_whatif`) → decision **mới** WHAT_IF, `baseline` = chuỗi người dùng chọn, `request.evaluate_chain` | mô phỏng chuỗi tự chọn; 422 `CHAIN_LENGTH_MISMATCH`; twin qua `/twin?sequence_id=<baseline.sequence_id>` |
 | POST | `/plans/{id}/replan` | `{as_of, completed:[{crop, sow, harvest, note?}]}` → decision mới cho các vụ còn lại | `history`, `changed_since_parent` |
 | GET | `/plans/{id}/status` | `{status:"OK"|"REPLAN_REQUIRED", fired:[…]}` so trigger với quan trắc mới | |
-| GET | `/plans/{id}/twin?sequence_id=&scenario_id=&member=` | quỹ đạo tuần của 1 phương án | `member` mặc định = năm trung vị |
+| GET | `/plans/{id}/twin?sequence_id=&scenario_id=&member=&aligned=` | quỹ đạo tuần của 1 phương án | `member` mặc định = năm trung vị; `aligned=true` = lịch tuần chung (52 tuần) để ghép hai chuỗi, kể cả khác decision |
 | GET | `/plans/{id}/twin-compare?sequence_id=&scenario_id=&member=` | `{baseline, option}` **cùng năm thời tiết** | dùng cho Twin so sánh |
 | GET | `/plans/{id}/export` | trang HTML 1 trang để in/chia sẻ | mở tab mới |
 
@@ -45,16 +47,17 @@ Lỗi: `{"detail": {"code": "...", "message": "..."}}` — 404 `FIELD_NOT_FOUND`
   "field_id": "fld_cantho",
   "as_of": "2026-11-14",            // optional, mặc định hôm nay
   "horizon_seasons": 3,             // 1–3
-  "baseline": null,                 // optional, mặc định profile.baseline ["rice","rice","rice"]
+  "baseline": null,                 // optional, mặc định profile.baseline; nếu profile không có baseline → lúa liên tục GIẢ ĐỊNH và gate G2 `passed=false`
   "priorities": ["save_water", "avoid_crop_failure", "soil_health"], // + "supplemental_income" | "minimal_change"
   "constraints": { "no_new_machinery": true, "max_changed_seasons": 1, "max_fallow_seasons": 1,
                    "irrigation": null, "irrigation_cap_mm": null, "budget_level": null }
 }
 // POST /v1/plans/{id}/what-if
 { "priorities": ["soil_health"],     // chỉ priorities -> xếp lại, không mô phỏng lại
-  "override": { "rain_delta_pct": -30, "temp_delta_c": 1.5, "salinity_shift_weeks": -4, "sow_shift_days": 7 } }
+  "override": { "rain_delta_pct": -30, "temp_delta_c": 1.5, "salinity_onset_shift_weeks": -4, "sow_shift_days": { "1": 7 }, "irrigation_cap_mm": 300 } }
 ```
-`profile`: `{baseline: CropId[], irrigation: "full"|"canal_limited"|"rainfed", drainage: "good"|"poor"|"unknown", coastal_salinity_risk: bool, equipment: string[], history: []}`.
+`geometry` (FE `frontend/`): GeoJSON **Feature** — `geometry` là `Polygon` (ranh giới đã khoanh) hoặc `Point` (chỉ ghim), `properties: {place_name, area_source: "drawn"|"reported"}`. Backend lưu nguyên, không đọc. `null` = ruộng mẫu/chưa có hình.
+`profile`: `{baseline?: CropId[]|null, irrigation?: "full"|"canal_limited"|"rainfed"|null, drainage?: "good"|"poor"|"unknown"|null, coastal_salinity_risk: bool, equipment: string[], history: []}`. Trường để `null` = người dùng chưa khai báo: `field_state.irrigation` trả `origin: "assumed_default"` (label "Giả định mặc định", tính như `full`), `drainage` = `unknown`, và G2 fail với "baseline GIẢ ĐỊNH".
 `CropId`: `rice | maize | soybean | mungbean | sesame | peanut | watermelon | fallow_cover`.
 
 ## 4. DecisionPackage (POST/GET /plans)
@@ -65,6 +68,7 @@ field_state            trạng thái ruộng: Measure cho canal_ecw, root_zone_w
 gates[]                {gate G1..G8, passed, message}  -> passed=false hiển thị trong "Giới hạn"
 windows[]              cửa sổ vụ {id, name_vi, sow_from, sow_to}
 scenarios[]            {scenario_id, kind, name, probability: null, probability_semantics, assumptions[], quality_flags?, issue_time? (FORECAST)}
+year_outlook           YearOutlook (types.ts) — luôn có; status OK|UNAVAILABLE (UNAVAILABLE: ẩn banner, engine như cũ)
 baseline               Option (is_baseline=true) — luôn có
 options[]              2–4 Option (hoặc ít hơn + notes giải thích)
 excluded[]             chuỗi bị loại {crops, rule_id, severity HARD, reason}
@@ -88,7 +92,9 @@ triggers[]             {condition, variable, op, threshold, unit, season_index, 
 checklist[]            string
 ```
 
-Scenario kinds → nhãn UI: `CLIMATOLOGY` "Lịch sử", `STRESS_TEST` "Thử thách", `FORECAST` "Dự báo (chưa kiểm định)", `CLIMATE_PROJECTION` "Kịch bản khí hậu". Scenario ids hiện có: `sc_clim`, `sc_dry`, `sc_hot`, `sc_rain_minus30`, `sc_salt_early`, `sc_wet_ref`, `sc_forecast`, `sc_proj_<model>_<ssp>` (chỉ Cần Thơ), `sc_whatif` (trong what-if).
+Scenario kinds → nhãn UI: `CLIMATOLOGY` "Lịch sử", `STRESS_TEST` "Thử thách", `FORECAST` "Dự báo (chưa kiểm định)", `CLIMATE_PROJECTION` "Kịch bản khí hậu". Scenario ids hiện có: `sc_clim`, `sc_dry`, `sc_hot`, `sc_rain_minus30`, `sc_salt_early`, `sc_wet_ref`, `sc_forecast`, `sc_proj_<model>_<ssp>` (chỉ Cần Thơ), `sc_whatif` (trong what-if), `sc_enso_analog` (khi `year_outlook.status = OK`).
+
+**year_outlook / `sc_enso_analog`**: ONI (NOAA) mới nhất có cửa sổ 3 tháng đã KẾT THÚC trước tháng của `as_of` (as_of 2026-11-14 → `centered_month` 2026-09 = ASO). Năm tương tự = các năm lịch sử cùng nhóm pha (El Niño / trung tính / La Niña; "mạnh" chỉ là nhãn) tại cùng tháng giữa, gần ONI hiện tại nhất, tối đa 5; < 3 năm → `UNAVAILABLE`. Kịch bản `sc_enso_analog` (kind `CLIMATOLOGY`, `probability_semantics: ANALOG_YEARS_CONDITIONED_ON_ENSO_NOT_FORECAST`, `members: [{year}]`) có metrics/delta/distribution/twin như các kịch bản khác và thay `sc_dry` làm tiêu chí "năm khô" khi sàng lọc; phương án được chọn khác so với khi coi mọi năm như nhau có thêm câu giải thích trong `reasons`/`summary_vi`. Mưa mùa khô (tháng 12–4) lấy từ NASA GPM IMERG monthly (POWER khi điểm không có IMERG), chỉ các mùa đã kết thúc trước `as_of`. Thời điểm mặn KHÔNG đổi theo ENSO. Không phải dự báo.
 
 ## 5. Digital Twin
 
@@ -116,3 +122,15 @@ Gợi ý vẽ: mặt cắt ruộng SVG — `ponding_mm` = nước mặt ruộng 
 4. `POST /plans/{id}/what-if` → decision mới (giữ bản gốc để so)
 5. Checklist/triggers/evidence → `GET /plans/{id}/export` (chia sẻ Zalo/in)
 6. Sau vụ: `POST /plans/{id}/replan`; định kỳ `GET /plans/{id}/status`
+
+## Audit 14/11/2026: nguồn, khung mặn và xung đột nhiệt
+
+`GET /v1/sources` trả `SourcesResponse` trong `types.ts`: `{sources: DataSource[], generated_at, nasa_used_count, challenge_sources_used}`. Mỗi `DataSource` có `id`, `name`, `provider`, `is_nasa`, `use`, `used_for_vi`, `variables`, `spatial_resolution`, `time_range`, `latency`, `limitations_vi`, `url`, `in_challenge_list`. Thứ tự `use`: `DECISION` → `EVIDENCE` → `CONTEXT` → `NOT_USED`; `id` khớp khóa evidence của plan demo. Số đếm NASA là số **mục evidence** NASA có dùng, nên POWER daily và GWETROOT là hai mục của cùng sản phẩm; `challenge_sources_used` chứa các id tương ứng, không phải số sản phẩm độc lập.
+
+POWER = DECISION; IMERG = EVIDENCE (thống kê mưa/banner, không thay mưa mô phỏng nước); SRTM = CONTEXT (độ cao trong ET₀ chỉ dùng áp suất khí quyển và bức xạ trời quang FAO-56; không mô hình địa hình/ngập). NOAA ONI, ERA5, SEAS5, GloFAS, SoilGrids đều `is_nasa=false`. SMAP/MODIS/Landsat/ECOSTRESS/GRACE = NOT_USED kèm lý do. SEAS5/CMIP6 không chọn shortlist nhưng có thể thay đánh giá độ bền/confidence. `sources.json` là fixture endpoint.
+
+Mỗi option và baseline có `salinity_exposure_days: {option: number, baseline: number}`: số ngày **cây có trồng** trùng khung mặn, không cộng vụ nghỉ; đây là số đếm lịch không gán unit/Measure. Với nội đồng, đây chỉ là phép so lịch, không khẳng định có mặn. `salinity_window` của plan có `start`, `end`, `typical_start`, `typical_end`, `adjusted`, `kind`, `evidence_ids`. Chỉ mùa 2026–27, khi có tín hiệu El Niño và dẫn SIWRR qua báo, khung bắt đầu 01/12/2026 thay 15/01/2027; kết thúc vẫn 15/06. Đây là ASSUMPTION, không phải mặn đo tại thửa. Twin và số ngày phơi nhiễm cùng dùng cửa sổ này; `sc_salt_early` thêm 4 tuần sớm hơn để thử.
+
+`salinity_avoidance` giữ id kỹ thuật nhưng nhãn mới là **Gieo đầu khung vụ**. `sow_timing=early` chỉ nghĩa đầu khung engine, ngày 15/11 thuộc đợt 1 chính thức; khung gieo sớm né mặn 10–30/10 đã qua tại as_of 14/11. `reasons` trả đầy đủ theo thứ tự mặn/nước/stress/thực hành/chỉ đạo, điểm giữ vụ do nhóm đặt ở cuối; FE không nên tự sắp xếp lại.
+
+`source_conflicts` nằm trong plan và context. `ev_heat_conflict` dẫn cả `ev_power_daily` và `ev_era5`; ghi ngưỡng 2 °C, chênh lệch từng tháng, `fit_before`, chính sách `MONTHLY_MEAN_BIAS_CORRECTION_HEAT_ONLY`, `et0_uses=ORIGINAL_POWER_TMAX`. Tmax gốc được giữ cho ET₀/nước; chỉ `heat_tmax` dùng đếm nóng, theo cùng delta nhiệt ở kịch bản. SEAS5 dùng Tmax riêng trong 180 ngày đầu, không áp sai lệch POWER lên SEAS5. Không có bundle ERA5 → POWER thô, ghi UNAVAILABLE. `/context.climate.monthly[].days_tmax_ge_35` dùng quy tắc nhiệt, `days_tmax_ge_35_raw_power` giữ số cũ; `tmax_c` vẫn là POWER gốc, có `tmax_basis` giải thích.

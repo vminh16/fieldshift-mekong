@@ -1,6 +1,6 @@
 {
-  "decision_id": "dec_9797d31f4f71",
-  "sequence_id": "seq_soybean_rice_rice__early_standard_standard",
+  "decision_id": "dec_d929fa0dbd5a",
+  "sequence_id": "seq_rice_peanut_rice__early_standard_standard",
   "scenario_id": "sc_clim",
   "member": 22,
   "analog_year": 2023,
@@ -8,145 +8,145 @@
     {
       "member": 0,
       "year": 2001,
-      "irrigation_mm": 1275,
+      "irrigation_mm": 1453,
       "label_vi": "Năm tham chiếu"
     },
     {
       "member": 1,
       "year": 2002,
-      "irrigation_mm": 1141,
+      "irrigation_mm": 1226,
       "label_vi": "Năm tham chiếu"
     },
     {
       "member": 2,
       "year": 2003,
-      "irrigation_mm": 1311,
+      "irrigation_mm": 1399,
       "label_vi": "Năm tham chiếu"
     },
     {
       "member": 3,
       "year": 2004,
-      "irrigation_mm": 1422,
+      "irrigation_mm": 1489,
       "label_vi": "Năm hạn như 2004–2005"
     },
     {
       "member": 4,
       "year": 2005,
-      "irrigation_mm": 918,
+      "irrigation_mm": 1000,
       "label_vi": "Năm tham chiếu"
     },
     {
       "member": 5,
       "year": 2006,
-      "irrigation_mm": 1110,
+      "irrigation_mm": 1233,
       "label_vi": "Năm tham chiếu"
     },
     {
       "member": 6,
       "year": 2007,
-      "irrigation_mm": 987,
+      "irrigation_mm": 1136,
       "label_vi": "Năm tham chiếu"
     },
     {
       "member": 7,
       "year": 2008,
-      "irrigation_mm": 931,
+      "irrigation_mm": 1117,
       "label_vi": "Năm tham chiếu"
     },
     {
       "member": 8,
       "year": 2009,
-      "irrigation_mm": 1282,
+      "irrigation_mm": 1414,
       "label_vi": "Năm tham chiếu"
     },
     {
       "member": 9,
       "year": 2010,
-      "irrigation_mm": 1028,
+      "irrigation_mm": 1060,
       "label_vi": "Năm tham chiếu"
     },
     {
       "member": 10,
       "year": 2011,
-      "irrigation_mm": 979,
+      "irrigation_mm": 1048,
       "label_vi": "Năm tham chiếu"
     },
     {
       "member": 11,
       "year": 2012,
-      "irrigation_mm": 1189,
+      "irrigation_mm": 1324,
       "label_vi": "Năm tham chiếu"
     },
     {
       "member": 12,
       "year": 2013,
-      "irrigation_mm": 1420,
+      "irrigation_mm": 1463,
       "label_vi": "Năm tham chiếu"
     },
     {
       "member": 13,
       "year": 2014,
-      "irrigation_mm": 1424,
+      "irrigation_mm": 1558,
       "label_vi": "Năm tham chiếu"
     },
     {
       "member": 14,
       "year": 2015,
-      "irrigation_mm": 1247,
+      "irrigation_mm": 1358,
       "label_vi": "Năm tham chiếu"
     },
     {
       "member": 15,
       "year": 2016,
-      "irrigation_mm": 712,
+      "irrigation_mm": 721,
       "label_vi": "Năm tham chiếu"
     },
     {
       "member": 16,
       "year": 2017,
-      "irrigation_mm": 758,
+      "irrigation_mm": 756,
       "label_vi": "Năm tham chiếu"
     },
     {
       "member": 17,
       "year": 2018,
-      "irrigation_mm": 782,
+      "irrigation_mm": 878,
       "label_vi": "Năm tham chiếu"
     },
     {
       "member": 18,
       "year": 2019,
-      "irrigation_mm": 1114,
+      "irrigation_mm": 1296,
       "label_vi": "Năm bình thường"
     },
     {
       "member": 19,
       "year": 2020,
-      "irrigation_mm": 659,
+      "irrigation_mm": 856,
       "label_vi": "Năm tham chiếu"
     },
     {
       "member": 20,
       "year": 2021,
-      "irrigation_mm": 643,
+      "irrigation_mm": 874,
       "label_vi": "Năm ướt như 2021–2022"
     },
     {
       "member": 21,
       "year": 2022,
-      "irrigation_mm": 832,
+      "irrigation_mm": 884,
       "label_vi": "Năm tham chiếu"
     },
     {
       "member": 22,
       "year": 2023,
-      "irrigation_mm": 1078,
+      "irrigation_mm": 1152,
       "label_vi": "Năm tham chiếu"
     },
     {
       "member": 23,
       "year": 2024,
-      "irrigation_mm": 783,
+      "irrigation_mm": 944,
       "label_vi": "Năm tham chiếu"
     }
   ],
@@ -156,25 +156,25 @@
       "date": "2026-11-15",
       "type": "sow",
       "season_index": 1,
-      "crop": "soybean"
+      "crop": "rice"
     },
     {
-      "date": "2027-01-15",
+      "date": "2026-12-01",
       "type": "salinity_season_start",
       "season_index": null,
       "crop": null
     },
     {
-      "date": "2027-02-07",
+      "date": "2027-02-22",
       "type": "harvest",
       "season_index": 1,
-      "crop": "soybean"
+      "crop": "rice"
     },
     {
       "date": "2027-03-31",
       "type": "sow",
       "season_index": 2,
-      "crop": "rice"
+      "crop": "peanut"
     },
     {
       "date": "2027-06-15",
@@ -186,7 +186,7 @@
       "date": "2027-07-08",
       "type": "harvest",
       "season_index": 2,
-      "crop": "rice"
+      "crop": "peanut"
     },
     {
       "date": "2027-07-31",
@@ -206,65 +206,82 @@
       "date": "2026-11-15",
       "stage": "initial",
       "root_depth_m": {
-        "value": 0.4,
+        "value": 0.3,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "root_zone_water": {
-        "value": 0.97,
+        "value": 1.0,
         "unit": "fraction",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": null,
+        "value": 68.5,
         "unit": "mm",
-        "origin": "unknown",
-        "label": "Chưa biết",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
-        ],
-        "reason": "NOT_PADDY"
+        ]
       },
       "rain_week": {
         "value": 45.4,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "irrigation_week": {
-        "value": 0.0,
+        "value": 200.0,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 1,
-      "crop": "soybean",
+      "crop": "rice",
       "irrigation_cum": {
-        "value": 0,
+        "value": 200,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -283,43 +300,54 @@
       "date": "2026-11-22",
       "stage": "initial",
       "root_depth_m": {
-        "value": 0.47,
+        "value": 0.328,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "root_zone_water": {
-        "value": 0.98,
+        "value": 0.95,
         "unit": "fraction",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": null,
+        "value": 49.7,
         "unit": "mm",
-        "origin": "unknown",
-        "label": "Chưa biết",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
-        ],
-        "reason": "NOT_PADDY"
+        ]
       },
       "rain_week": {
         "value": 20.8,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -330,18 +358,24 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 1,
-      "crop": "soybean",
+      "crop": "rice",
       "irrigation_cum": {
-        "value": 0,
+        "value": 200,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -360,65 +394,82 @@
       "date": "2026-11-29",
       "stage": "initial",
       "root_depth_m": {
-        "value": 0.54,
+        "value": 0.356,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "root_zone_water": {
-        "value": 0.98,
+        "value": 0.7,
         "unit": "fraction",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": null,
+        "value": 35.0,
         "unit": "mm",
-        "origin": "unknown",
-        "label": "Chưa biết",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
-        ],
-        "reason": "NOT_PADDY"
+        ]
       },
       "rain_week": {
         "value": 16.3,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "irrigation_week": {
-        "value": 0.0,
+        "value": 27.6,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 1,
-      "crop": "soybean",
+      "crop": "rice",
       "irrigation_cum": {
-        "value": 0,
+        "value": 228,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -437,65 +488,82 @@
       "date": "2026-12-06",
       "stage": "development",
       "root_depth_m": {
-        "value": 0.61,
+        "value": 0.384,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "root_zone_water": {
-        "value": 0.96,
+        "value": 0.82,
         "unit": "fraction",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": null,
+        "value": 40.8,
         "unit": "mm",
-        "origin": "unknown",
-        "label": "Chưa biết",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
-        ],
-        "reason": "NOT_PADDY"
+        ]
       },
       "rain_week": {
         "value": 17.5,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "irrigation_week": {
-        "value": 0.0,
+        "value": 28.3,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 1,
-      "crop": "soybean",
+      "crop": "rice",
       "irrigation_cum": {
-        "value": 0,
+        "value": 256,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -514,12 +582,15 @@
       "date": "2026-12-13",
       "stage": "development",
       "root_depth_m": {
-        "value": 0.68,
+        "value": 0.412,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -530,49 +601,63 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": null,
+        "value": 40.0,
         "unit": "mm",
-        "origin": "unknown",
-        "label": "Chưa biết",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
-        ],
-        "reason": "NOT_PADDY"
+        ]
       },
       "rain_week": {
         "value": 2.9,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "irrigation_week": {
-        "value": 0.0,
+        "value": 25.1,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 1,
-      "crop": "soybean",
+      "crop": "rice",
       "irrigation_cum": {
-        "value": 0,
+        "value": 281,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -591,65 +676,82 @@
       "date": "2026-12-20",
       "stage": "development",
       "root_depth_m": {
-        "value": 0.75,
+        "value": 0.44,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "root_zone_water": {
-        "value": 0.62,
+        "value": 0.77,
         "unit": "fraction",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": null,
+        "value": 38.7,
         "unit": "mm",
-        "origin": "unknown",
-        "label": "Chưa biết",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
-        ],
-        "reason": "NOT_PADDY"
+        ]
       },
       "rain_week": {
         "value": 1.9,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "irrigation_week": {
-        "value": 0.0,
+        "value": 58.2,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 1,
-      "crop": "soybean",
+      "crop": "rice",
       "irrigation_cum": {
-        "value": 0,
+        "value": 339,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -666,67 +768,84 @@
     },
     {
       "date": "2026-12-27",
-      "stage": "mid",
+      "stage": "development",
       "root_depth_m": {
-        "value": 0.8,
+        "value": 0.468,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "root_zone_water": {
-        "value": 0.91,
+        "value": 0.79,
         "unit": "fraction",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": null,
+        "value": 39.6,
         "unit": "mm",
-        "origin": "unknown",
-        "label": "Chưa biết",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
-        ],
-        "reason": "NOT_PADDY"
+        ]
       },
       "rain_week": {
         "value": 3.8,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "irrigation_week": {
-        "value": 60.6,
+        "value": 28.5,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 1,
-      "crop": "soybean",
+      "crop": "rice",
       "irrigation_cum": {
-        "value": 61,
+        "value": 368,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -743,67 +862,84 @@
     },
     {
       "date": "2027-01-03",
-      "stage": "mid",
+      "stage": "development",
       "root_depth_m": {
-        "value": 0.8,
+        "value": 0.496,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "root_zone_water": {
-        "value": 0.66,
+        "value": 0.81,
         "unit": "fraction",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": null,
+        "value": 40.7,
         "unit": "mm",
-        "origin": "unknown",
-        "label": "Chưa biết",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
-        ],
-        "reason": "NOT_PADDY"
+        ]
       },
       "rain_week": {
         "value": 0.6,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "irrigation_week": {
-        "value": 0.0,
+        "value": 52.5,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 1,
-      "crop": "soybean",
+      "crop": "rice",
       "irrigation_cum": {
-        "value": 61,
+        "value": 420,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -822,65 +958,82 @@
       "date": "2027-01-10",
       "stage": "mid",
       "root_depth_m": {
-        "value": 0.8,
+        "value": 0.5,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "root_zone_water": {
-        "value": 0.84,
+        "value": 0.78,
         "unit": "fraction",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": null,
+        "value": 39.2,
         "unit": "mm",
-        "origin": "unknown",
-        "label": "Chưa biết",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
-        ],
-        "reason": "NOT_PADDY"
+        ]
       },
       "rain_week": {
         "value": 0.0,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "irrigation_week": {
-        "value": 63.6,
+        "value": 55.7,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 1,
-      "crop": "soybean",
+      "crop": "rice",
       "irrigation_cum": {
-        "value": 124,
+        "value": 476,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -899,65 +1052,82 @@
       "date": "2027-01-17",
       "stage": "mid",
       "root_depth_m": {
-        "value": 0.8,
+        "value": 0.5,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "root_zone_water": {
-        "value": 0.7,
+        "value": 0.74,
         "unit": "fraction",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": null,
+        "value": 37.1,
         "unit": "mm",
-        "origin": "unknown",
-        "label": "Chưa biết",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
-        ],
-        "reason": "NOT_PADDY"
+        ]
       },
       "rain_week": {
         "value": 0.0,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "irrigation_week": {
-        "value": 61.5,
+        "value": 29.5,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 1,
-      "crop": "soybean",
+      "crop": "rice",
       "irrigation_cum": {
-        "value": 186,
+        "value": 505,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -974,67 +1144,84 @@
     },
     {
       "date": "2027-01-24",
-      "stage": "late",
+      "stage": "mid",
       "root_depth_m": {
-        "value": 0.8,
+        "value": 0.5,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "root_zone_water": {
-        "value": 0.8,
+        "value": 0.85,
         "unit": "fraction",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": null,
+        "value": 42.4,
         "unit": "mm",
-        "origin": "unknown",
-        "label": "Chưa biết",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
-        ],
-        "reason": "NOT_PADDY"
+        ]
       },
       "rain_week": {
         "value": 0.0,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "irrigation_week": {
-        "value": 0.0,
+        "value": 85.5,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 1,
-      "crop": "soybean",
+      "crop": "rice",
       "irrigation_cum": {
-        "value": 186,
+        "value": 591,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -1051,67 +1238,84 @@
     },
     {
       "date": "2027-01-31",
-      "stage": "late",
+      "stage": "mid",
       "root_depth_m": {
-        "value": 0.8,
+        "value": 0.5,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "root_zone_water": {
-        "value": 0.75,
+        "value": 0.72,
         "unit": "fraction",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": null,
+        "value": 36.2,
         "unit": "mm",
-        "origin": "unknown",
-        "label": "Chưa biết",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
-        ],
-        "reason": "NOT_PADDY"
+        ]
       },
       "rain_week": {
         "value": 0.0,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "irrigation_week": {
-        "value": 60.3,
+        "value": 32.6,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 1,
-      "crop": "soybean",
+      "crop": "rice",
       "irrigation_cum": {
-        "value": 246,
+        "value": 623,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -1130,12 +1334,203 @@
       "date": "2027-02-07",
       "stage": "late",
       "root_depth_m": {
-        "value": 0.8,
+        "value": 0.5,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
+          "ev_crop_catalog"
+        ]
+      },
+      "root_zone_water": {
+        "value": 0.79,
+        "unit": "fraction",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
+        "evidence_ids": [
+          "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
+          "ev_crop_catalog"
+        ]
+      },
+      "ponding_mm": {
+        "value": 39.4,
+        "unit": "mm",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
+        "evidence_ids": [
+          "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
+          "ev_crop_catalog"
+        ]
+      },
+      "rain_week": {
+        "value": 0.0,
+        "unit": "mm",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
+        "evidence_ids": [
+          "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
+          "ev_crop_catalog"
+        ]
+      },
+      "irrigation_week": {
+        "value": 65.1,
+        "unit": "mm",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
+        "evidence_ids": [
+          "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
+          "ev_crop_catalog"
+        ]
+      },
+      "season_index": 1,
+      "crop": "rice",
+      "irrigation_cum": {
+        "value": 689,
+        "unit": "mm",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
+        "evidence_ids": [
+          "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
+          "ev_crop_catalog"
+        ]
+      },
+      "stress_risk": "LOW",
+      "salinity": {
+        "value": null,
+        "unit": "dS/m",
+        "origin": "unknown",
+        "label": "Chưa biết",
+        "evidence_ids": [],
+        "reason": "CANAL_ECW_NOT_MEASURED",
+        "in_salinity_season": false
+      }
+    },
+    {
+      "date": "2027-02-14",
+      "stage": "late",
+      "root_depth_m": {
+        "value": 0.5,
+        "unit": "m",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
+        "evidence_ids": [
+          "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
+          "ev_crop_catalog"
+        ]
+      },
+      "root_zone_water": {
+        "value": 0.8,
+        "unit": "fraction",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
+        "evidence_ids": [
+          "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
+          "ev_crop_catalog"
+        ]
+      },
+      "ponding_mm": {
+        "value": 39.9,
+        "unit": "mm",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
+        "evidence_ids": [
+          "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
+          "ev_crop_catalog"
+        ]
+      },
+      "rain_week": {
+        "value": 0.0,
+        "unit": "mm",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
+        "evidence_ids": [
+          "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
+          "ev_crop_catalog"
+        ]
+      },
+      "irrigation_week": {
+        "value": 52.9,
+        "unit": "mm",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
+        "evidence_ids": [
+          "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
+          "ev_crop_catalog"
+        ]
+      },
+      "season_index": 1,
+      "crop": "rice",
+      "irrigation_cum": {
+        "value": 741,
+        "unit": "mm",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
+        "evidence_ids": [
+          "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
+          "ev_crop_catalog"
+        ]
+      },
+      "stress_risk": "LOW",
+      "salinity": {
+        "value": null,
+        "unit": "dS/m",
+        "origin": "unknown",
+        "label": "Chưa biết",
+        "evidence_ids": [],
+        "reason": "CANAL_ECW_NOT_MEASURED",
+        "in_salinity_season": false
+      }
+    },
+    {
+      "date": "2027-02-21",
+      "stage": "late",
+      "root_depth_m": {
+        "value": 0.5,
+        "unit": "m",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
+        "evidence_ids": [
+          "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -1146,49 +1541,63 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": null,
+        "value": 46.5,
         "unit": "mm",
-        "origin": "unknown",
-        "label": "Chưa biết",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
-        ],
-        "reason": "NOT_PADDY"
+        ]
       },
       "rain_week": {
         "value": 0.0,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "irrigation_week": {
-        "value": 0.0,
+        "value": 28.4,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 1,
-      "crop": "soybean",
+      "crop": "rice",
       "irrigation_cum": {
-        "value": 246,
+        "value": 770,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -1207,68 +1616,87 @@
       "date": "2027-03-31",
       "stage": "initial",
       "root_depth_m": {
-        "value": 0.3,
+        "value": 0.5,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "root_zone_water": {
-        "value": 0.8,
+        "value": 0.92,
         "unit": "fraction",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": 40.2,
+        "value": null,
         "unit": "mm",
-        "origin": "inferred_by_model",
-        "label": "Dự kiến",
+        "origin": "unknown",
+        "label": "Chưa biết",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
-        ]
+        ],
+        "reason": "NOT_PADDY"
       },
       "rain_week": {
         "value": 4.3,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "irrigation_week": {
-        "value": 259.5,
+        "value": 69.7,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 2,
-      "crop": "rice",
+      "crop": "peanut",
       "irrigation_cum": {
-        "value": 259,
+        "value": 70,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
-      "stress_risk": "LOW",
+      "stress_risk": "MEDIUM",
       "salinity": {
         "value": null,
         "unit": "dS/m",
@@ -1283,64 +1711,83 @@
       "date": "2027-04-07",
       "stage": "initial",
       "root_depth_m": {
-        "value": 0.328,
+        "value": 0.57,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "root_zone_water": {
-        "value": 0.78,
+        "value": 0.69,
         "unit": "fraction",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": 39.2,
+        "value": null,
         "unit": "mm",
-        "origin": "inferred_by_model",
-        "label": "Dự kiến",
+        "origin": "unknown",
+        "label": "Chưa biết",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
-        ]
+        ],
+        "reason": "NOT_PADDY"
       },
       "rain_week": {
         "value": 0.0,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "irrigation_week": {
-        "value": 64.9,
+        "value": 0.0,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 2,
-      "crop": "rice",
+      "crop": "peanut",
       "irrigation_cum": {
-        "value": 324,
+        "value": 70,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -1359,64 +1806,83 @@
       "date": "2027-04-14",
       "stage": "initial",
       "root_depth_m": {
-        "value": 0.356,
+        "value": 0.64,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "root_zone_water": {
-        "value": 0.76,
+        "value": 0.78,
         "unit": "fraction",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": 38.0,
+        "value": null,
         "unit": "mm",
-        "origin": "inferred_by_model",
-        "label": "Dự kiến",
+        "origin": "unknown",
+        "label": "Chưa biết",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
-        ]
+        ],
+        "reason": "NOT_PADDY"
       },
       "rain_week": {
         "value": 0.0,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "irrigation_week": {
-        "value": 61.7,
+        "value": 50.6,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 2,
-      "crop": "rice",
+      "crop": "peanut",
       "irrigation_cum": {
-        "value": 386,
+        "value": 120,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -1435,64 +1901,83 @@
       "date": "2027-04-21",
       "stage": "development",
       "root_depth_m": {
-        "value": 0.384,
+        "value": 0.71,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "root_zone_water": {
-        "value": 0.82,
+        "value": 0.78,
         "unit": "fraction",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": 41.0,
+        "value": null,
         "unit": "mm",
-        "origin": "inferred_by_model",
-        "label": "Dự kiến",
+        "origin": "unknown",
+        "label": "Chưa biết",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
-        ]
+        ],
+        "reason": "NOT_PADDY"
       },
       "rain_week": {
         "value": 0.0,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "irrigation_week": {
-        "value": 95.8,
+        "value": 0.0,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 2,
-      "crop": "rice",
+      "crop": "peanut",
       "irrigation_cum": {
-        "value": 482,
+        "value": 120,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -1511,64 +1996,83 @@
       "date": "2027-04-28",
       "stage": "development",
       "root_depth_m": {
-        "value": 0.412,
+        "value": 0.78,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "root_zone_water": {
-        "value": 0.81,
+        "value": 0.75,
         "unit": "fraction",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": 40.3,
+        "value": null,
         "unit": "mm",
-        "origin": "inferred_by_model",
-        "label": "Dự kiến",
+        "origin": "unknown",
+        "label": "Chưa biết",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
-        ]
+        ],
+        "reason": "NOT_PADDY"
       },
       "rain_week": {
         "value": 9.2,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "irrigation_week": {
-        "value": 61.8,
+        "value": 62.9,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 2,
-      "crop": "rice",
+      "crop": "peanut",
       "irrigation_cum": {
-        "value": 544,
+        "value": 183,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -1587,42 +2091,55 @@
       "date": "2027-05-05",
       "stage": "development",
       "root_depth_m": {
-        "value": 0.44,
+        "value": 0.85,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "root_zone_water": {
-        "value": 0.72,
+        "value": 0.97,
         "unit": "fraction",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": 35.9,
+        "value": null,
+        "unit": "mm",
+        "origin": "unknown",
+        "label": "Chưa biết",
+        "evidence_ids": [
+          "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
+          "ev_crop_catalog"
+        ],
+        "reason": "NOT_PADDY"
+      },
+      "rain_week": {
+        "value": 38.0,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
-          "ev_crop_catalog"
-        ]
-      },
-      "rain_week": {
-        "value": 38.0,
-        "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
-        "evidence_ids": [
-          "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -1633,18 +2150,24 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 2,
-      "crop": "rice",
+      "crop": "peanut",
       "irrigation_cum": {
-        "value": 544,
+        "value": 183,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -1663,12 +2186,15 @@
       "date": "2027-05-12",
       "stage": "development",
       "root_depth_m": {
-        "value": 0.468,
+        "value": 0.92,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -1679,48 +2205,64 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": 50.2,
+        "value": null,
         "unit": "mm",
-        "origin": "inferred_by_model",
-        "label": "Dự kiến",
+        "origin": "unknown",
+        "label": "Chưa biết",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
-        ]
+        ],
+        "reason": "NOT_PADDY"
       },
       "rain_week": {
         "value": 50.6,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "irrigation_week": {
-        "value": 30.2,
+        "value": 0.0,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 2,
-      "crop": "rice",
+      "crop": "peanut",
       "irrigation_cum": {
-        "value": 574,
+        "value": 183,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -1739,42 +2281,55 @@
       "date": "2027-05-19",
       "stage": "development",
       "root_depth_m": {
-        "value": 0.496,
+        "value": 0.99,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "root_zone_water": {
-        "value": 0.95,
+        "value": 0.98,
         "unit": "fraction",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": 50.4,
+        "value": null,
+        "unit": "mm",
+        "origin": "unknown",
+        "label": "Chưa biết",
+        "evidence_ids": [
+          "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
+          "ev_crop_catalog"
+        ],
+        "reason": "NOT_PADDY"
+      },
+      "rain_week": {
+        "value": 39.5,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
-          "ev_crop_catalog"
-        ]
-      },
-      "rain_week": {
-        "value": 39.5,
-        "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
-        "evidence_ids": [
-          "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -1785,18 +2340,24 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 2,
-      "crop": "rice",
+      "crop": "peanut",
       "irrigation_cum": {
-        "value": 574,
+        "value": 183,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -1815,42 +2376,55 @@
       "date": "2027-05-26",
       "stage": "mid",
       "root_depth_m": {
-        "value": 0.5,
+        "value": 1.0,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "root_zone_water": {
-        "value": 0.72,
+        "value": 0.95,
         "unit": "fraction",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": 36.1,
+        "value": null,
+        "unit": "mm",
+        "origin": "unknown",
+        "label": "Chưa biết",
+        "evidence_ids": [
+          "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
+          "ev_crop_catalog"
+        ],
+        "reason": "NOT_PADDY"
+      },
+      "rain_week": {
+        "value": 61.9,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
-          "ev_crop_catalog"
-        ]
-      },
-      "rain_week": {
-        "value": 61.9,
-        "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
-        "evidence_ids": [
-          "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -1861,18 +2435,24 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 2,
-      "crop": "rice",
+      "crop": "peanut",
       "irrigation_cum": {
-        "value": 574,
+        "value": 183,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -1891,64 +2471,83 @@
       "date": "2027-06-02",
       "stage": "mid",
       "root_depth_m": {
-        "value": 0.5,
+        "value": 1.0,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "root_zone_water": {
-        "value": 0.79,
+        "value": 0.94,
         "unit": "fraction",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": 39.6,
+        "value": null,
         "unit": "mm",
-        "origin": "inferred_by_model",
-        "label": "Dự kiến",
+        "origin": "unknown",
+        "label": "Chưa biết",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
-        ]
+        ],
+        "reason": "NOT_PADDY"
       },
       "rain_week": {
         "value": 18.6,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "irrigation_week": {
-        "value": 30.8,
+        "value": 0.0,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 2,
-      "crop": "rice",
+      "crop": "peanut",
       "irrigation_cum": {
-        "value": 605,
+        "value": 183,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -1967,42 +2566,55 @@
       "date": "2027-06-09",
       "stage": "mid",
       "root_depth_m": {
-        "value": 0.5,
+        "value": 1.0,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "root_zone_water": {
-        "value": 0.96,
+        "value": 0.95,
         "unit": "fraction",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": 56.4,
+        "value": null,
+        "unit": "mm",
+        "origin": "unknown",
+        "label": "Chưa biết",
+        "evidence_ids": [
+          "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
+          "ev_crop_catalog"
+        ],
+        "reason": "NOT_PADDY"
+      },
+      "rain_week": {
+        "value": 52.5,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
-          "ev_crop_catalog"
-        ]
-      },
-      "rain_week": {
-        "value": 52.5,
-        "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
-        "evidence_ids": [
-          "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2013,18 +2625,24 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 2,
-      "crop": "rice",
+      "crop": "peanut",
       "irrigation_cum": {
-        "value": 605,
+        "value": 183,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2043,64 +2661,83 @@
       "date": "2027-06-16",
       "stage": "mid",
       "root_depth_m": {
-        "value": 0.5,
+        "value": 1.0,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "root_zone_water": {
-        "value": 0.87,
+        "value": 0.9,
         "unit": "fraction",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": 53.8,
+        "value": null,
         "unit": "mm",
-        "origin": "inferred_by_model",
-        "label": "Dự kiến",
+        "origin": "unknown",
+        "label": "Chưa biết",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
-        ]
+        ],
+        "reason": "NOT_PADDY"
       },
       "rain_week": {
         "value": 82.3,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "irrigation_week": {
-        "value": 26.8,
+        "value": 0.0,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 2,
-      "crop": "rice",
+      "crop": "peanut",
       "irrigation_cum": {
-        "value": 631,
+        "value": 183,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2117,44 +2754,57 @@
     },
     {
       "date": "2027-06-23",
-      "stage": "late",
+      "stage": "mid",
       "root_depth_m": {
-        "value": 0.5,
+        "value": 1.0,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "root_zone_water": {
-        "value": 1.0,
+        "value": 0.98,
         "unit": "fraction",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": 94.6,
+        "value": null,
+        "unit": "mm",
+        "origin": "unknown",
+        "label": "Chưa biết",
+        "evidence_ids": [
+          "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
+          "ev_crop_catalog"
+        ],
+        "reason": "NOT_PADDY"
+      },
+      "rain_week": {
+        "value": 84.3,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
-          "ev_crop_catalog"
-        ]
-      },
-      "rain_week": {
-        "value": 84.3,
-        "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
-        "evidence_ids": [
-          "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2165,18 +2815,24 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 2,
-      "crop": "rice",
+      "crop": "peanut",
       "irrigation_cum": {
-        "value": 631,
+        "value": 183,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2195,42 +2851,55 @@
       "date": "2027-06-30",
       "stage": "late",
       "root_depth_m": {
-        "value": 0.5,
+        "value": 1.0,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "root_zone_water": {
-        "value": 1.0,
+        "value": 0.97,
         "unit": "fraction",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": 88.7,
+        "value": null,
+        "unit": "mm",
+        "origin": "unknown",
+        "label": "Chưa biết",
+        "evidence_ids": [
+          "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
+          "ev_crop_catalog"
+        ],
+        "reason": "NOT_PADDY"
+      },
+      "rain_week": {
+        "value": 55.5,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
-          "ev_crop_catalog"
-        ]
-      },
-      "rain_week": {
-        "value": 55.5,
-        "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
-        "evidence_ids": [
-          "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2241,18 +2910,24 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 2,
-      "crop": "rice",
+      "crop": "peanut",
       "irrigation_cum": {
-        "value": 631,
+        "value": 183,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2271,42 +2946,55 @@
       "date": "2027-07-07",
       "stage": "late",
       "root_depth_m": {
-        "value": 0.5,
+        "value": 1.0,
         "unit": "m",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "root_zone_water": {
-        "value": 1.0,
+        "value": 0.98,
         "unit": "fraction",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "ponding_mm": {
-        "value": 87.8,
+        "value": null,
+        "unit": "mm",
+        "origin": "unknown",
+        "label": "Chưa biết",
+        "evidence_ids": [
+          "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
+          "ev_crop_catalog"
+        ],
+        "reason": "NOT_PADDY"
+      },
+      "rain_week": {
+        "value": 5.7,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
-          "ev_crop_catalog"
-        ]
-      },
-      "rain_week": {
-        "value": 5.7,
-        "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
-        "evidence_ids": [
-          "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2317,18 +3005,24 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "season_index": 2,
-      "crop": "rice",
+      "crop": "peanut",
       "irrigation_cum": {
-        "value": 631,
+        "value": 183,
         "unit": "mm",
         "origin": "inferred_by_model",
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2353,6 +3047,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2363,6 +3060,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2373,16 +3073,22 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "rain_week": {
         "value": 66.7,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2393,6 +3099,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2405,6 +3114,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2429,6 +3141,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2439,6 +3154,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2449,16 +3167,22 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "rain_week": {
         "value": 30.1,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2469,6 +3193,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2481,6 +3208,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2505,6 +3235,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2515,6 +3248,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2525,16 +3261,22 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "rain_week": {
         "value": 22.9,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2545,6 +3287,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2557,6 +3302,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2581,6 +3329,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2591,6 +3342,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2601,16 +3355,22 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "rain_week": {
         "value": 89.9,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2621,6 +3381,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2633,6 +3396,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2657,6 +3423,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2667,6 +3436,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2677,16 +3449,22 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "rain_week": {
         "value": 116.9,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2697,6 +3475,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2709,6 +3490,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2733,6 +3517,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2743,6 +3530,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2753,16 +3543,22 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "rain_week": {
         "value": 74.6,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2773,6 +3569,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2785,6 +3584,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2809,6 +3611,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2819,6 +3624,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2829,16 +3637,22 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "rain_week": {
         "value": 115.6,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2849,6 +3663,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2861,6 +3678,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2885,6 +3705,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2895,6 +3718,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2905,16 +3731,22 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "rain_week": {
         "value": 119.9,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2925,6 +3757,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2937,6 +3772,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2961,6 +3799,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2971,6 +3812,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -2981,16 +3825,22 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "rain_week": {
         "value": 19.2,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3001,6 +3851,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3013,6 +3866,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3037,6 +3893,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3047,6 +3906,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3057,16 +3919,22 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "rain_week": {
         "value": 75.2,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3077,6 +3945,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3089,6 +3960,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3113,6 +3987,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3123,6 +4000,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3133,16 +4013,22 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "rain_week": {
         "value": 73.5,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3153,6 +4039,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3165,6 +4054,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3189,6 +4081,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3199,6 +4094,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3209,16 +4107,22 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "rain_week": {
         "value": 109.3,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3229,6 +4133,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3241,6 +4148,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3265,6 +4175,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3275,6 +4188,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3285,16 +4201,22 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "rain_week": {
         "value": 86.3,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3305,6 +4227,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3317,6 +4242,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3341,6 +4269,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3351,6 +4282,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3361,16 +4295,22 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "rain_week": {
         "value": 77.6,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3381,6 +4321,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3393,6 +4336,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3417,6 +4363,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3427,6 +4376,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3437,16 +4389,22 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
       "rain_week": {
         "value": 9.4,
         "unit": "mm",
-        "origin": "assumed_scenario",
-        "label": "Kịch bản",
+        "origin": "inferred_by_model",
+        "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3457,6 +4415,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },
@@ -3469,6 +4430,9 @@
         "label": "Dự kiến",
         "evidence_ids": [
           "ev_power_daily",
+          "ev_siwrr_2026_press",
+          "ev_era5",
+          "ev_heat_conflict",
           "ev_crop_catalog"
         ]
       },

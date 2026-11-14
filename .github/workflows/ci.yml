@@ -35,3 +35,19 @@ jobs:
       - name: Typecheck and build
         run: npm run typecheck && npm run build
         working-directory: apps/web
+  frontend-app:
+    # frontend/ is the product UI (React 19 + Vite); apps/web is the legacy scaffold.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install
+        run: npm ci --no-audit --no-fund
+        working-directory: frontend
+      - name: Typecheck and build
+        run: npm run typecheck && npm run build
+        working-directory: frontend

@@ -27,6 +27,8 @@ Nguyên tắc bất biến:
 - [Repository Blueprint](docs/architecture/REPOSITORY_BLUEPRINT.md) — cây thư mục và dependency rules.
 - [CARP Research](docs/research/CARP_RESEARCH_2026.md) — bối cảnh nghiên cứu, giải pháp đối chiếu, giới hạn khoa học.
 - [Product Scope](docs/product/PRODUCT_SCOPE.md) · [Acceptance Criteria](docs/product/ACCEPTANCE_CRITERIA.md).
+- [Khai báo sử dụng AI / AI usage declaration](docs/AI_USAGE.md).
+- [Giới hạn đã biết](docs/LIMITATIONS.md) · [Bảng luật](docs/RULES.md) · [Độ nhạy](docs/SENSITIVITY_REPORT.md) · [Backtest](docs/BACKTEST_REPORT.md).
 
 ## 2. Kiến trúc ở mức hệ thống
 

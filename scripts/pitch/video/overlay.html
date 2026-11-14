@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+@font-face { font-family: BVP; font-weight: 400; src: url(fonts/be-vietnam-pro-vietnamese-400-normal.woff2) format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+@font-face { font-family: BVP; font-weight: 400; src: url(fonts/be-vietnam-pro-latin-400-normal.woff2) format('woff2'); }
+@font-face { font-family: BVP; font-weight: 600; src: url(fonts/be-vietnam-pro-vietnamese-600-normal.woff2) format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+@font-face { font-family: BVP; font-weight: 600; src: url(fonts/be-vietnam-pro-latin-600-normal.woff2) format('woff2'); }
+@font-face { font-family: BVP; font-weight: 800; src: url(fonts/be-vietnam-pro-vietnamese-800-normal.woff2) format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+@font-face { font-family: BVP; font-weight: 800; src: url(fonts/be-vietnam-pro-latin-800-normal.woff2) format('woff2'); }
+:root {
+  --bg: #121513; --bg-deep: #0d0f0e; --surface: rgba(18, 21, 19, .82); --line: rgba(238, 240, 235, .14);
+  --text: #eef0eb; --muted: #b1b8ae; --accent: #a6d388; --accent-strong: #c2e3a8; --warn: #e3b866; --danger: #e58b7b;
+}
+html, body { margin: 0; width: 1920px; height: 1080px; background: transparent; overflow: hidden; font-family: BVP, sans-serif; color: var(--text); -webkit-font-smoothing: antialiased; }
+.el { position: absolute; opacity: 0; will-change: transform, opacity, filter; }
+.glass { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; backdrop-filter: blur(18px); box-shadow: 0 24px 60px rgba(0,0,0,.45); }
+.kicker { font-size: 16px; letter-spacing: .18em; text-transform: uppercase; font-weight: 600; color: var(--accent); }
+
+/* corner brand chip */
+#brand { left: 56px; top: 44px; padding: 14px 22px 14px 18px; display: flex; gap: 14px; align-items: center; border-radius: 999px; }
+#brand svg { width: 30px; height: 30px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; }
+#brand b { font-size: 22px; font-weight: 800; letter-spacing: .01em; }
+#brand span { font-size: 17px; color: var(--muted); }
+
+/* stat cards */
+.stat { padding: 24px 26px 26px; width: 330px; box-sizing: border-box; }
+.stat .num { white-space: nowrap; font-size: 64px; line-height: 1; font-weight: 800; letter-spacing: -.02em; margin: 12px 0 10px; }
+.stat .cap { font-size: 20px; color: var(--muted); line-height: 1.35; }
+.stat .src { margin-top: 14px; font-size: 16px; color: var(--accent); letter-spacing: .04em; }
+#oni { right: 40px; top: 150px; } #oni .num { color: var(--warn); }
+#rain { right: 40px; top: 430px; } #rain .num { color: var(--danger); }
+
+/* chips */
+.chip { padding: 14px 24px; border-radius: 999px; font-size: 24px; font-weight: 600; display: flex; gap: 12px; align-items: center; }
+.chip i { flex: none; margin-top: 2px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 14px var(--accent); }
+#draw { left: 50%; top: 190px; transform: translateX(-50%); }
+#badges { right: 34px; top: 150px; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+#badges .chip { font-size: 21px; padding: 12px 20px; }
+
+/* the answer */
+#answer { right: 36px; top: 150px; padding: 26px 28px 28px; width: 370px; box-sizing: border-box; }
+#answer .row { display: flex; align-items: baseline; gap: 22px; margin-top: 16px; }
+#answer .from { font-size: 52px; font-weight: 800; color: var(--muted); text-decoration: line-through; text-decoration-color: var(--danger); text-decoration-thickness: 5px; }
+#answer .arrow { font-size: 48px; color: var(--muted); }
+#answer .to { font-size: 112px; font-weight: 800; line-height: 1; color: var(--accent-strong); letter-spacing: -.03em; }
+#answer .unit { font-size: 21px; color: var(--muted); margin-top: 6px; }
+#answer .ok { margin-top: 18px; display: inline-flex; gap: 10px; align-items: center; font-size: 19px; font-weight: 600; color: var(--accent); padding: 10px 16px; border: 1px solid rgba(166,211,136,.4); border-radius: 12px; }
+#sources { right: 36px; top: 150px; width: 330px; font-size: 24px; border-radius: 22px; line-height: 1.35; align-items: flex-start; }
+#foot { left: 56px; bottom: 34px; font-size: 16px; color: var(--muted); letter-spacing: .03em; }
+
+/* end card */
+#end { inset: 0; display: grid; place-items: center; background: radial-gradient(1200px 700px at 50% 45%, rgba(25,40,22,.94), rgba(10,12,11,.985)); }
+#end .wrap { text-align: center; }
+#end svg { width: 84px; height: 84px; stroke: var(--accent); fill: none; stroke-width: 1.6; stroke-linecap: round; }
+#end h1 { margin: 18px 0 8px; font-size: 96px; font-weight: 800; letter-spacing: -.02em; }
+#end h1 em { font-style: normal; color: var(--accent); }
+#end .tag { font-size: 40px; color: var(--accent-strong); font-weight: 600; }
+#end .meta { margin-top: 44px; font-size: 22px; color: var(--muted); letter-spacing: .06em; }
+#end .meta b { color: var(--text); font-weight: 600; }
+#end .data { margin-top: 16px; font-size: 18px; color: var(--muted); opacity: .85; }
+
+/* Vietnamese subtitles */
+#sub { left: 50%; bottom: 74px; transform: translateX(-50%); text-align: center; }
+#sub span { display: inline-block; padding: 12px 26px 14px; border-radius: 14px; background: rgba(8,10,9,.72); font-size: 40px; font-weight: 600; line-height: 1.32; text-shadow: 0 2px 4px rgba(0,0,0,.6); white-space: nowrap; }
+</style>
+</head>
+<body>
+<div id="brand" class="el glass"><svg viewBox="0 0 32 32"><path d="M16 28V15M16 15c0-5.5-4.2-8.5-9.5-8.5 0 5.5 4.2 8.5 9.5 8.5Zm0 0c0-5.5 4.2-8.5 9.5-8.5 0 5.5-4.2 8.5-9.5 8.5Z"/></svg><b>FieldShift</b><span>Mekong Delta · Vietnam</span></div>
+
+<div id="oni" class="el glass stat"><div class="kicker">Dry season 2026–27</div><div class="num">ONI +2.5</div><div class="cap">Strong El Niño. Analog years: 2015–16, 2023–24</div><div class="src">NOAA ONI</div></div>
+<div id="rain" class="el glass stat"><div class="kicker">Dry-season rain in analog years</div><div class="num">30%</div><div class="cap">of a normal year · 49 mm vs 161 mm</div><div class="src">NASA GPM IMERG + NASA POWER</div></div>
+
+<div id="draw" class="el glass chip"><i></i>Draw your field on satellite imagery</div>
+
+<div id="badges" class="el"><div class="chip glass"><i></i>FAO-56 daily water balance</div><div class="chip glass"><i></i>NASA POWER</div><div class="chip glass"><i></i>12 scenarios</div><div class="chip glass"><i></i>CMIP6 → 2050</div></div>
+
+<div id="answer" class="el glass"><div class="kicker">Sóc Trăng · days crops stand in salt</div><div class="row"><span class="from">177</span><span class="arrow">→</span><span class="to" id="count">84</span></div><div class="unit">Sow early · rest the saltiest season</div><div class="ok">✓ Holds in 12 / 12 scenarios</div></div>
+
+<div id="sources" class="el glass chip"><i></i>Every number shows its source and its limits</div>
+<div id="foot" class="el">Model estimates from NASA data · not field measurements · verify canal salinity on site</div>
+
+<div id="end" class="el"><div class="wrap">
+  <svg viewBox="0 0 32 32"><path d="M16 28V15M16 15c0-5.5-4.2-8.5-9.5-8.5 0 5.5 4.2 8.5 9.5 8.5Zm0 0c0-5.5 4.2-8.5 9.5-8.5 0 5.5-4.2 8.5-9.5 8.5Z"/></svg>
+  <h1>FieldShift <em>Mekong</em></h1>
+  <div class="tag">Plan before the salt arrives.</div>
+  <div class="meta"><b>NASA Space Apps Challenge 2026</b> · Field Shift: Adapting Farms with NASA Data</div>
+  <div class="data">NASA POWER · GPM IMERG · NEX-GDDP-CMIP6 · SRTM</div>
+</div></div>
+
+<div id="sub" class="el"><span id="subtext"></span></div>
+
+<script>
+const ease = (k) => 1 - Math.pow(1 - Math.min(1, Math.max(0, k)), 3)
+let T = null
+window.setTimeline = (t) => { T = t }
+// in/out with fade + rise + de-blur
+function show(id, a, b, { rise = 26, dur = 0.5, base = '' } = {}) {
+  const el = document.getElementById(id)
+  return (t) => {
+    const kin = ease((t - a) / dur), kout = ease((b - t) / 0.35)
+    const k = t < a || t > b ? 0 : Math.min(kin, kout)
+    el.style.opacity = k
+    el.style.transform = `${base} translateY(${(1 - k) * rise}px) scale(${0.97 + 0.03 * k})`
+    el.style.filter = `blur(${(1 - k) * 8}px)`
+  }
+}
+window.render = (t) => {
+  const s = T.scenes, f = []
+  f.push(show('oni', s.outlook + 0.6, s.draw - 0.1, { rise: 0 }))
+  f.push(show('rain', s.outlook + 1.9, s.draw - 0.1, { rise: 0 }))
+  f.push(show('draw', s.draw + 0.15, s.twin - 0.1, { base: 'translateX(-50%)' }))
+  f.push(show('badges', s.twin + 0.4, s.answer - 0.1, { rise: 0 }))
+  f.push(show('answer', s.answer + 0.5, s.sources - 0.1, { rise: 0 }))
+  f.push(show('sources', s.sources + 0.2, s.end - 0.05, { rise: 0 }))
+  f.push(show('foot', s.twin + 0.4, s.end - 0.1, { rise: 0 }))
+  for (const fn of f) fn(t)
+  // end card: plain fade, content rises
+  const end = document.getElementById('end'), ke = ease((t - s.end) / 0.6)
+  end.style.opacity = t < s.end ? 0 : ke
+  end.querySelector('.wrap').style.transform = `translateY(${(1 - ke) * 30}px)`
+  // 177 → 84 count-down
+  const kc = ease((t - (s.answer + 1.1)) / 1.6)
+  document.getElementById('count').textContent = Math.round(177 - (177 - 84) * kc)
+  // subtitles
+  const cue = T.subs.find((c) => t >= c[0] && t < c[1])
+  const sub = document.getElementById('sub')
+  if (cue) {
+    document.getElementById('subtext').innerHTML = cue[2].replace(/\n/g, '<br>')
+    const k = Math.min(ease((t - cue[0]) / 0.18), ease((cue[1] - t) / 0.12))
+    sub.style.opacity = k; sub.style.transform = 'translateX(-50%)'
+  } else sub.style.opacity = 0
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+/* Year outlook banner (ENSO analog years) — shared by recommendation and simulation. */
+.yo { display: grid; gap: 8px; padding: 16px 18px; border-left: 3px solid var(--color-warn); border-radius: 0 var(--radius-md) var(--radius-md) 0; background: var(--color-surface); }
+.yo__head { display: flex; align-items: center; gap: 10px; }
+.yo__kicker { margin: 0; font-size: 0.8125rem; font-weight: 500; color: var(--color-text-muted); }
+.yo__chip { padding: 2px 8px; border-radius: var(--radius-pill); background: rgba(227, 184, 102, 0.16); color: var(--color-warn); font-size: 0.75rem; font-weight: 600; white-space: nowrap; }
+.yo__chip[data-phase^='LA_NINA'] { background: rgba(74, 143, 217, 0.18); color: #9cc6f2; }
+.yo__chip[data-phase='NEUTRAL'] { background: var(--color-surface-2); color: var(--color-text-muted); }
+.yo__title { margin: 0; font-size: 1.1875rem; font-weight: 600; line-height: 1.35; text-wrap: balance; }
+.yo__facts { display: flex; flex-wrap: wrap; gap: 6px 32px; margin: 0; }
+.yo__facts dt { font-size: 0.75rem; color: var(--color-text-subtle); }
+.yo__facts dd { margin: 0; font-size: 0.9375rem; font-variant-numeric: tabular-nums; }
+.yo__facts small { color: var(--color-text-muted); }
+.yo__note { margin: 0; font-size: 0.8125rem; color: var(--color-text-muted); }
+.yo__note strong { color: var(--color-text); font-weight: 600; }
+.yo__src { margin: 0; font-size: 0.6875rem; color: var(--color-text-subtle); }
+.yo .btn { justify-self: start; }
+.yo--compact { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin: 0; padding: 8px 12px; font-size: 0.875rem; }
+.yo__fine { font-size: 0.75rem; color: var(--color-text-subtle); }

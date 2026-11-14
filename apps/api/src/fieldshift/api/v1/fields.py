@@ -60,6 +60,23 @@ def patch_field(field_id: str, body: FieldPatch):
     return get_field(field_id)
 
 
+@router.delete("/{field_id}", status_code=204)
+def delete_field(field_id: str) -> None:
+    """Remove a field and everything recorded for it (decisions, states, observations).
+
+    Decisions reference each other (parent_id) and field_states, so children go first,
+    all in one transaction.
+    """
+    c = db.connect()
+    must(c, "fields", field_id, "FIELD_NOT_FOUND")
+    with c:
+        c.execute("UPDATE decisions SET parent_id = NULL WHERE field_id = ?", (field_id,))
+        c.execute("DELETE FROM decisions WHERE field_id = ?", (field_id,))
+        c.execute("DELETE FROM field_states WHERE field_id = ?", (field_id,))
+        c.execute("DELETE FROM observations WHERE field_id = ?", (field_id,))
+        c.execute("DELETE FROM fields WHERE id = ?", (field_id,))
+
+
 @router.post("/{field_id}/observations", status_code=201)
 def add_observation(field_id: str, body: ObservationIn):
     c = db.connect()
@@ -90,6 +107,7 @@ def field_context(field_id: str, as_of: dt.date | None = None):
         "state": state,
         "climate": climate_summary(ctx["weather"]),
         "sources_status": ctx["sources_status"],
+        "source_conflicts": ctx.get("source_conflicts", []),
         "evidence": ctx["evidence"],
     }
 

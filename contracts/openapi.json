@@ -118,6 +118,63 @@
         "title": "Constraints",
         "type": "object"
       },
+      "EvaluateChainIn": {
+        "description": "A rotation chosen by the user, one crop per season of the parent decision's horizon.",
+        "properties": {
+          "crops": {
+            "items": {
+              "enum": [
+                "rice",
+                "maize",
+                "soybean",
+                "mungbean",
+                "sesame",
+                "peanut",
+                "watermelon",
+                "fallow_cover"
+              ],
+              "type": "string"
+            },
+            "maxItems": 3,
+            "minItems": 1,
+            "title": "Crops",
+            "type": "array"
+          },
+          "override": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ScenarioOverride"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sow_timing": {
+            "anyOf": [
+              {
+                "items": {
+                  "enum": [
+                    "early",
+                    "standard"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sow Timing"
+          }
+        },
+        "required": [
+          "crops"
+        ],
+        "title": "EvaluateChainIn",
+        "type": "object"
+      },
       "FieldIn": {
         "properties": {
           "area_ha": {
@@ -167,16 +224,9 @@
           "profile": {
             "$ref": "#/components/schemas/FieldProfile",
             "default": {
-              "baseline": [
-                "rice",
-                "rice",
-                "rice"
-              ],
               "coastal_salinity_risk": false,
-              "drainage": "unknown",
               "equipment": [],
-              "history": [],
-              "irrigation": "full"
+              "history": []
             }
           },
           "region_id": {
@@ -221,6 +271,32 @@
             ],
             "title": "Geometry"
           },
+          "lat": {
+            "anyOf": [
+              {
+                "maximum": 11.5,
+                "minimum": 8.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lat"
+          },
+          "lon": {
+            "anyOf": [
+              {
+                "maximum": 107.5,
+                "minimum": 104.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lon"
+          },
           "name": {
             "anyOf": [
               {
@@ -251,23 +327,30 @@
       "FieldProfile": {
         "properties": {
           "baseline": {
-            "items": {
-              "enum": [
-                "rice",
-                "maize",
-                "soybean",
-                "mungbean",
-                "sesame",
-                "peanut",
-                "watermelon",
-                "fallow_cover"
-              ],
-              "type": "string"
-            },
-            "maxItems": 6,
-            "minItems": 1,
-            "title": "Baseline",
-            "type": "array"
+            "anyOf": [
+              {
+                "items": {
+                  "enum": [
+                    "rice",
+                    "maize",
+                    "soybean",
+                    "mungbean",
+                    "sesame",
+                    "peanut",
+                    "watermelon",
+                    "fallow_cover"
+                  ],
+                  "type": "string"
+                },
+                "maxItems": 6,
+                "minItems": 1,
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Baseline"
           },
           "cache_key": {
             "anyOf": [
@@ -286,14 +369,20 @@
             "type": "boolean"
           },
           "drainage": {
-            "default": "unknown",
-            "enum": [
-              "good",
-              "poor",
-              "unknown"
+            "anyOf": [
+              {
+                "enum": [
+                  "good",
+                  "poor",
+                  "unknown"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
             ],
-            "title": "Drainage",
-            "type": "string"
+            "title": "Drainage"
           },
           "equipment": {
             "default": [],
@@ -313,14 +402,20 @@
             "type": "array"
           },
           "irrigation": {
-            "default": "full",
-            "enum": [
-              "full",
-              "canal_limited",
-              "rainfed"
+            "anyOf": [
+              {
+                "enum": [
+                  "full",
+                  "canal_limited",
+                  "rainfed"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
             ],
-            "title": "Irrigation",
-            "type": "string"
+            "title": "Irrigation"
           }
         },
         "title": "FieldProfile",
@@ -772,6 +867,40 @@
       }
     },
     "/v1/fields/{field_id}": {
+      "delete": {
+        "description": "Remove a field and everything recorded for it (decisions, states, observations).\n\nDecisions reference each other (parent_id) and field_states, so children go first,\nall in one transaction.",
+        "operationId": "delete_field_v1_fields__field_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "field_id",
+            "required": true,
+            "schema": {
+              "title": "Field Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Delete Field",
+        "tags": [
+          "fields"
+        ]
+      },
       "get": {
         "operationId": "get_field_v1_fields__field_id__get",
         "parameters": [
@@ -1109,6 +1238,57 @@
         ]
       }
     },
+    "/v1/plans/{decision_id}/evaluate": {
+      "post": {
+        "description": "Simulate any chain the user picks; result's ``baseline`` is that chain (twin via /twin).",
+        "operationId": "evaluate_chain_v1_plans__decision_id__evaluate_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "decision_id",
+            "required": true,
+            "schema": {
+              "title": "Decision Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EvaluateChainIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Evaluate Chain",
+        "tags": [
+          "plans"
+        ]
+      }
+    },
     "/v1/plans/{decision_id}/export": {
       "get": {
         "operationId": "export_v1_plans__decision_id__export_get",
@@ -1288,6 +1468,18 @@
                 }
               ],
               "title": "Member"
+            }
+          },
+          {
+            "description": "Weekly rows on the shared calendar (as in /twin-compare), so twins of different chains or decisions line up week by week.",
+            "in": "query",
+            "name": "aligned",
+            "required": false,
+            "schema": {
+              "default": false,
+              "description": "Weekly rows on the shared calendar (as in /twin-compare), so twins of different chains or decisions line up week by week.",
+              "title": "Aligned",
+              "type": "boolean"
             }
           }
         ],

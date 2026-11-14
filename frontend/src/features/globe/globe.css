@@ -1,0 +1,141 @@
+.earth-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.earth-stage__globe,
+.earth-stage__map,
+.earth-stage__canvas {
+  position: absolute;
+  inset: 0;
+}
+.earth-stage__canvas canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.earth-stage__canvas canvas.is-over { cursor: grab; }
+.earth-stage__canvas canvas.is-dragging { cursor: grabbing; }
+
+/* Opacity of both layers is written per frame by the zoom timeline. */
+.earth-stage__map { opacity: 0; pointer-events: none; }
+.earth-stage[data-mode='map'] .earth-stage__map { pointer-events: auto; }
+.earth-stage[data-mode='map'] .earth-stage__globe { pointer-events: none; }
+
+.world-map {
+  position: absolute;
+  inset: 0;
+  background: var(--color-bg-deep);
+}
+.world-map .maplibregl-ctrl-attrib {
+  background: rgba(7, 17, 26, 0.72);
+  color: var(--color-text-subtle);
+  font: 400 11px var(--font-sans);
+}
+.world-map .maplibregl-ctrl-attrib a { color: var(--color-text-muted); }
+.world-map .maplibregl-ctrl-group {
+  background: rgba(8, 20, 28, 0.88);
+  border: 1px solid var(--color-border);
+  box-shadow: none;
+}
+.world-map .maplibregl-ctrl-group button + button { border-top-color: var(--color-border); }
+.world-map .maplibregl-ctrl-icon { filter: invert(1) brightness(1.4); }
+.world-map .maplibregl-ctrl-bottom-right { margin-bottom: 64px; }
+
+.earth-stage__credit {
+  position: absolute;
+  right: var(--gutter);
+  bottom: 14px;
+  margin: 0;
+  font-size: 0.6875rem;
+  color: var(--color-text-subtle);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ---------- Mekong hint on the turning globe ---------- */
+.earth-hint {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: -22px 0 0 -22px;
+  padding: 0;
+  min-height: 44px;
+  border: 0;
+  background: none;
+  color: #fff;
+  font: 600 12px var(--font-sans);
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: opacity 300ms var(--ease-out);
+}
+.earth-hint.is-hidden { opacity: 0; pointer-events: none; }
+.earth-hint__pulse {
+  position: relative;
+  width: 44px;
+  height: 44px;
+}
+.earth-hint__pulse::before,
+.earth-hint__pulse::after {
+  content: '';
+  position: absolute;
+  inset: 50%;
+  border-radius: 50%;
+}
+.earth-hint__pulse::before {
+  width: 10px; height: 10px; margin: -5px;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(6, 32, 25, 0.5), 0 0 16px 2px rgba(166, 211, 136, 0.5);
+}
+.earth-hint__pulse::after {
+  width: 44px; height: 44px; margin: -22px;
+  border: 1.5px solid var(--color-accent);
+  animation: hint-pulse 2.2s var(--ease-out) infinite;
+}
+@keyframes hint-pulse {
+  from { transform: scale(0.25); opacity: 1; }
+  to { transform: scale(1); opacity: 0; }
+}
+.earth-hint__label {
+  margin-left: -6px;
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  background: rgba(7, 17, 26, 0.6);
+  backdrop-filter: blur(6px);
+}
+.earth-hint:hover .earth-hint__label,
+.earth-hint:focus-visible .earth-hint__label { background: var(--color-action); color: var(--color-on-action); }
+
+/* ---------- province markers on the map ---------- */
+.map-marker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px 4px 6px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-pill);
+  background: rgba(7, 17, 26, 0.68);
+  backdrop-filter: blur(6px);
+  color: #eef4f5;
+  font: 500 12px/1.2 var(--font-sans);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.map-marker:hover { border-color: var(--color-accent); background: rgba(32, 37, 31, 0.95); }
+.map-marker__dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(166, 211, 136, 0.25);
+}
+.map-marker.is-active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #062019;
+  font-weight: 600;
+}
+.map-marker.is-active .map-marker__dot { background: #062019; box-shadow: 0 0 0 4px rgba(6, 32, 25, 0.25); }

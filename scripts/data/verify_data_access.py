@@ -15,7 +15,7 @@ import zipfile
 from pathlib import Path
 
 import httpx
-from common import DEFAULT_CACHE, earthdata_get
+from common import DEFAULT_CACHE, SITES, earthdata_get
 from fetch_era5_cds import check_date_coverage, csv_tables
 from fetch_imerg import parse_point, parse_window
 
@@ -80,8 +80,8 @@ def protocol_checks():
     return "PASS: URS-only Basic auth; IMERG scalar/fill/HTML; CDS CSV/ZIP"
 
 
-def verify_nex(root):
-    path = root / "nex_cmip6" / "cantho.json"
+def verify_nex(root, site="cantho"):
+    path = root / "nex_cmip6" / f"{site}.json"
     data = json.loads(path.read_text())
     assert data["period"] == [2025, 2050]
     assert data["version"] == "2.0"
@@ -98,7 +98,7 @@ def verify_nex(root):
                 root
                 / "nex_cmip6"
                 / "raw"
-                / "cantho"
+                / site
                 / series["model"]
                 / series["scenario"]
                 / f"{var}_{year}_v2.0.csv"
@@ -132,10 +132,13 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--cache-root", type=Path, default=DEFAULT_CACHE)
     ap.add_argument("--protocol-only", action="store_true")
+    ap.add_argument("--sites", nargs="+", choices=SITES, default=list(SITES))
     args = ap.parse_args()
     print(protocol_checks())
     if not args.protocol_only:
-        print(json.dumps(verify_nex(args.cache_root), indent=2))
+        print(
+            json.dumps({site: verify_nex(args.cache_root, site) for site in args.sites}, indent=2)
+        )
 
 
 if __name__ == "__main__":

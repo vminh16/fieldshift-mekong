@@ -1,0 +1,9 @@
+# One line per segment: <scene>|<pause_before_s>|<text for TTS>. Lines starting with # are ignored.
+# Scenes follow the voice: each scene starts with its line. "draw" is silent (click sounds only).
+landing|0.35|Half of Vietnam's rice grows here. This year, the salt comes early.
+outlook|0.35|A strong El Niño. And in years like this, NASA saw just thirty percent of normal dry-season rain.
+draw|0.2|
+twin|0.15|FieldShift tests every rotation, day by day, across twelve scenarios.
+answer|0.35|Sow early, rest the saltiest season, and days in salt fall from 177 to 84.
+sources|0.35|Every number shows its source.
+end|0.3|FieldShift. Plan before the salt arrives.

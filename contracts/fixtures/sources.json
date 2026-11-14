@@ -1,0 +1,426 @@
+{
+  "sources": [
+    {
+      "id": "ev_power_daily",
+      "name": "NASA POWER Daily (MERRA-2/CERES)",
+      "provider": "NASA",
+      "is_nasa": true,
+      "use": "DECISION",
+      "used_for_vi": "Tính ET₀, cân bằng nước, ước tính tưới; Tmax dùng cho nóng có đối chiếu ERA5.",
+      "variables": [
+        "T2M_MAX",
+        "T2M_MIN",
+        "T2MDEW",
+        "PRECTOTCORR",
+        "WS2M",
+        "ALLSKY_SFC_SW_DWN"
+      ],
+      "spatial_resolution": "0,5° × 0,625° (~50 km)",
+      "time_range": "2001-01-01 → 2026-11-09 (bundle demo)",
+      "latency": "Vài ngày; tùy biến",
+      "limitations_vi": [
+        "Ước lượng vùng; Tmax có sai lệch ấm, ET₀ chưa hiệu chỉnh."
+      ],
+      "url": "https://power.larc.nasa.gov/",
+      "in_challenge_list": true
+    },
+    {
+      "id": "ev_power_gwet",
+      "name": "NASA POWER GWETROOT",
+      "provider": "NASA",
+      "is_nasa": true,
+      "use": "DECISION",
+      "used_for_vi": "Khởi tạo độ thiếu hụt ẩm đất trong mô hình.",
+      "variables": [
+        "GWETROOT"
+      ],
+      "spatial_resolution": "0,5° × 0,625°",
+      "time_range": null,
+      "latency": null,
+      "limitations_vi": [
+        "Độ ẩm mô hình, không phải đo tại ruộng."
+      ],
+      "url": "https://power.larc.nasa.gov/",
+      "in_challenge_list": true
+    },
+    {
+      "id": "ev_era5",
+      "name": "ERA5 via Open-Meteo",
+      "provider": "ECMWF/Copernicus",
+      "is_nasa": false,
+      "use": "DECISION",
+      "used_for_vi": "Đối chiếu và chỉnh chênh lệch trung bình tháng Tmax cho đếm ngày nóng; không thay ET₀ POWER.",
+      "variables": [
+        "temperature_2m_max"
+      ],
+      "spatial_resolution": "0,25° (~28 km)",
+      "time_range": "2001-01-01 → 2026-11-08",
+      "latency": null,
+      "limitations_vi": [
+        "Chỉ 4 bundle demo; tái phân tích không phải quan trắc tại thửa."
+      ],
+      "url": "https://open-meteo.com/en/docs/historical-weather-api",
+      "in_challenge_list": false
+    },
+    {
+      "id": "ev_heat_conflict",
+      "name": "Quy tắc xung đột POWER–ERA5",
+      "provider": "FieldShift team",
+      "is_nasa": false,
+      "use": "DECISION",
+      "used_for_vi": "Chỉnh Tmax chỉ cho ngày nóng khi |chênh lệch tháng| > 2 °C; giữ nguyên Tmax gốc trong ET₀.",
+      "variables": [
+        "heat_tmax"
+      ],
+      "spatial_resolution": "Không áp dụng",
+      "time_range": null,
+      "latency": null,
+      "limitations_vi": [
+        "Giả định nhóm; chưa kiểm định cực trị ngày; không dùng dữ liệu sau as_of."
+      ],
+      "url": null,
+      "in_challenge_list": false
+    },
+    {
+      "id": "ev_crop_catalog",
+      "name": "Tham số cây FAO-56 / FAO-29",
+      "provider": "FAO / literature",
+      "is_nasa": false,
+      "use": "DECISION",
+      "used_for_vi": "Tham số cây, mô hình nước và ngưỡng kiểm tra.",
+      "variables": [
+        "Kc",
+        "duration",
+        "ECw",
+        "heat_threshold"
+      ],
+      "spatial_resolution": "Không áp dụng",
+      "time_range": null,
+      "latency": null,
+      "limitations_vi": [
+        "Chưa hiệu chỉnh giống địa phương."
+      ],
+      "url": "https://www.fao.org/4/X0490E/X0490E00.htm",
+      "in_challenge_list": false
+    },
+    {
+      "id": "ev_region_calendar",
+      "name": "Lịch vùng trong regions.json",
+      "provider": "FieldShift / regional literature",
+      "is_nasa": false,
+      "use": "DECISION",
+      "used_for_vi": "Tạo khung vụ và ràng buộc ngày gieo.",
+      "variables": [],
+      "spatial_resolution": "Không áp dụng",
+      "time_range": null,
+      "latency": null,
+      "limitations_vi": [
+        "Khung tham khảo; lịch 2026 phải đối chiếu Công văn 2504."
+      ],
+      "url": null,
+      "in_challenge_list": false
+    },
+    {
+      "id": "ev_salinity_season",
+      "name": "Khung mặn nhiều năm",
+      "provider": "FieldShift / regional literature",
+      "is_nasa": false,
+      "use": "DECISION",
+      "used_for_vi": "Đếm số ngày cây trùng khung mặn; yêu cầu đo ECw.",
+      "variables": [
+        "onset",
+        "end"
+      ],
+      "spatial_resolution": "Không áp dụng",
+      "time_range": null,
+      "latency": null,
+      "limitations_vi": [
+        "Giả định 15/01–15/06; không có số đo mặn tại thửa."
+      ],
+      "url": null,
+      "in_challenge_list": false
+    },
+    {
+      "id": "ev_value_heuristic",
+      "name": "Điểm giữ vụ do nhóm tự đặt",
+      "provider": "FieldShift team",
+      "is_nasa": false,
+      "use": "DECISION",
+      "used_for_vi": "Phá hòa giữa các phương án, ưu tiên giữ vụ Đông Xuân.",
+      "variables": [],
+      "spatial_resolution": "Không áp dụng",
+      "time_range": null,
+      "latency": null,
+      "limitations_vi": [
+        "Không phải năng suất, giá hay lợi nhuận."
+      ],
+      "url": null,
+      "in_challenge_list": false
+    },
+    {
+      "id": "ev_enso_oni",
+      "name": "NOAA PSL ONI (ERSSTv6)",
+      "provider": "NOAA",
+      "is_nasa": false,
+      "use": "DECISION",
+      "used_for_vi": "Chọn các năm tương tự ENSO cho tiêu chí năm khô; hiển thị tín hiệu thống kê.",
+      "variables": [
+        "ONI"
+      ],
+      "spatial_resolution": "Niño-3.4",
+      "time_range": null,
+      "latency": null,
+      "limitations_vi": [
+        "Tín hiệu thống kê, không phải dự báo; hindcast 12/15 đúng hướng, không có lợi thế tưới top-1."
+      ],
+      "url": "https://psl.noaa.gov/data/correlation/oni.data",
+      "in_challenge_list": false
+    },
+    {
+      "id": "ev_siwrr_2026_press",
+      "name": "SIWRR 2026–27 qua Tiền Phong",
+      "provider": "Vietnam (SIWRR, press report)",
+      "is_nasa": false,
+      "use": "DECISION",
+      "used_for_vi": "Có thể đưa khung mặn về 01/12/2026 khi năm El Niño; ngày cụ thể là giả định nhóm.",
+      "variables": [
+        "salinity_window"
+      ],
+      "spatial_resolution": "ĐBSCL",
+      "time_range": null,
+      "latency": null,
+      "limitations_vi": [
+        "PRESS_REPORT_ONLY: chưa đọc bản tin gốc; không phải ngày mặn tại thửa."
+      ],
+      "url": "https://tienphong.vn/khuyen-cao-mien-tay-ung-pho-han-man-gay-gat-mua-kho-sap-toi-post1882122.tpo",
+      "in_challenge_list": false
+    },
+    {
+      "id": "ev_imerg_monthly",
+      "name": "GPM IMERG V07 Final monthly",
+      "provider": "NASA",
+      "is_nasa": true,
+      "use": "EVIDENCE",
+      "used_for_vi": "Thống kê mưa mùa khô và banner năm tương tự; mô phỏng nước vẫn dùng POWER.",
+      "variables": [
+        "precipitation_mm_month"
+      ],
+      "spatial_resolution": "0,1° (~11 km)",
+      "time_range": null,
+      "latency": null,
+      "limitations_vi": [
+        "Chỉ 4 điểm demo; không phải đo mưa tại ruộng."
+      ],
+      "url": "https://disc.gsfc.nasa.gov/datasets/GPM_3IMERGM_07/summary",
+      "in_challenge_list": true
+    },
+    {
+      "id": "ev_nex_cmip6",
+      "name": "NASA NEX-GDDP-CMIP6 v2.0",
+      "provider": "NASA",
+      "is_nasa": true,
+      "use": "EVIDENCE",
+      "used_for_vi": "Kịch bản khí hậu 2041–2050; không chọn shortlist nhưng có trong so sánh độ bền và confidence.",
+      "variables": [
+        "tasmax",
+        "pr"
+      ],
+      "spatial_resolution": "0,25°",
+      "time_range": null,
+      "latency": null,
+      "limitations_vi": [
+        "Không phải dự báo mùa tới; không gán xác suất."
+      ],
+      "url": "https://nccs.smce.nasa.gov/data-collections/nex-gddp-cmip6/",
+      "in_challenge_list": false
+    },
+    {
+      "id": "ev_seasonal_forecast",
+      "name": "ECMWF SEAS5 via Open-Meteo",
+      "provider": "ECMWF/Copernicus",
+      "is_nasa": false,
+      "use": "EVIDENCE",
+      "used_for_vi": "Kịch bản mùa để thử độ bền và confidence; không chọn shortlist.",
+      "variables": [
+        "Tmax",
+        "Tmin",
+        "rain"
+      ],
+      "spatial_resolution": "36 km",
+      "time_range": null,
+      "latency": null,
+      "limitations_vi": [
+        "Chưa kiểm định kỹ năng tại ĐBSCL, chưa hiệu chỉnh sai lệch."
+      ],
+      "url": "https://open-meteo.com/en/docs/seasonal-forecast-api",
+      "in_challenge_list": false
+    },
+    {
+      "id": "ev_official_2504",
+      "name": "Công văn 2504/TTTV-TTBVTV, 19/6/2026",
+      "provider": "Vietnam (Cục TT&BVTV)",
+      "is_nasa": false,
+      "use": "EVIDENCE",
+      "used_for_vi": "Đối chiếu hướng giảm vụ, chuyển màu và lịch xuống giống (PDF gốc đã đọc).",
+      "variables": [],
+      "spatial_resolution": "Không áp dụng",
+      "time_range": null,
+      "latency": null,
+      "limitations_vi": [
+        "Chỉ đạo vùng, không xác nhận phù hợp từng thửa."
+      ],
+      "url": "https://storage-vnportal.vnpt.vn/cmu-khdn/5342/Vanban/2026.6.19-cv-chi-dao-sx-trong-trot-ung-pho-elnino-2026_-_nqmanh_19062026180253__19062026180725_signed.pdf",
+      "in_challenge_list": false
+    },
+    {
+      "id": "ev_srtm",
+      "name": "SRTM 30 m via OpenTopoData",
+      "provider": "NASA",
+      "is_nasa": true,
+      "use": "CONTEXT",
+      "used_for_vi": "Độ cao bối cảnh; trong ET₀ chỉ vào số hạng áp suất (và bức xạ trời quang FAO-56), không là mô hình ngập.",
+      "variables": [
+        "elevation"
+      ],
+      "spatial_resolution": "30 m",
+      "time_range": null,
+      "latency": null,
+      "limitations_vi": [
+        "Không có đê bao/cống; không suy ra khả năng thoát nước."
+      ],
+      "url": "https://www2.jpl.nasa.gov/srtm/",
+      "in_challenge_list": true
+    },
+    {
+      "id": "ev_glofas",
+      "name": "GloFAS via Open-Meteo",
+      "provider": "ECMWF/Copernicus",
+      "is_nasa": false,
+      "use": "CONTEXT",
+      "used_for_vi": "Lưu lượng Mekong và bất thường tại Tân Châu; cờ cảnh báo mềm, không đổi shortlist.",
+      "variables": [
+        "river_discharge"
+      ],
+      "spatial_resolution": "5 km",
+      "time_range": null,
+      "latency": null,
+      "limitations_vi": [
+        "Không phải ECw kênh hay số đo mặn."
+      ],
+      "url": "https://open-meteo.com/en/docs/flood-api",
+      "in_challenge_list": false
+    },
+    {
+      "id": "ev_soil",
+      "name": "SoilGrids / giả định đất vùng",
+      "provider": "ISRIC",
+      "is_nasa": false,
+      "use": "CONTEXT",
+      "used_for_vi": "Hiển thị đất chưa biết; cân bằng nước dùng giả định đất vùng.",
+      "variables": [
+        "soil"
+      ],
+      "spatial_resolution": "250 m",
+      "time_range": null,
+      "latency": null,
+      "limitations_vi": [
+        "SoilGrids trả null ở cả 4 điểm demo."
+      ],
+      "url": "https://soilgrids.org/",
+      "in_challenge_list": false
+    },
+    {
+      "id": "ev_smap",
+      "name": "SMAP",
+      "provider": "NASA",
+      "is_nasa": true,
+      "use": "NOT_USED",
+      "used_for_vi": "Chưa có chuỗi dữ liệu dùng được trong engine.",
+      "variables": [],
+      "spatial_resolution": "Không áp dụng",
+      "time_range": null,
+      "latency": null,
+      "limitations_vi": [
+        "Chưa có chuỗi dữ liệu dùng được trong engine."
+      ],
+      "url": null,
+      "in_challenge_list": true
+    },
+    {
+      "id": "ev_modis",
+      "name": "MODIS",
+      "provider": "NASA",
+      "is_nasa": true,
+      "use": "NOT_USED",
+      "used_for_vi": "Chưa dùng NDVI hay ET để tính quyết định.",
+      "variables": [],
+      "spatial_resolution": "Không áp dụng",
+      "time_range": null,
+      "latency": null,
+      "limitations_vi": [
+        "Chưa dùng NDVI hay ET để tính quyết định."
+      ],
+      "url": null,
+      "in_challenge_list": true
+    },
+    {
+      "id": "ev_landsat",
+      "name": "Landsat / HLS",
+      "provider": "NASA",
+      "is_nasa": true,
+      "use": "NOT_USED",
+      "used_for_vi": "Chưa dùng phân loại cây hay phenology.",
+      "variables": [],
+      "spatial_resolution": "Không áp dụng",
+      "time_range": null,
+      "latency": null,
+      "limitations_vi": [
+        "Chưa dùng phân loại cây hay phenology."
+      ],
+      "url": null,
+      "in_challenge_list": true
+    },
+    {
+      "id": "ev_ecostress",
+      "name": "ECOSTRESS",
+      "provider": "NASA",
+      "is_nasa": true,
+      "use": "NOT_USED",
+      "used_for_vi": "Chưa dùng ET hay stress nhiệt.",
+      "variables": [],
+      "spatial_resolution": "Không áp dụng",
+      "time_range": null,
+      "latency": null,
+      "limitations_vi": [
+        "Chưa dùng ET hay stress nhiệt."
+      ],
+      "url": null,
+      "in_challenge_list": true
+    },
+    {
+      "id": "ev_grace",
+      "name": "GRACE",
+      "provider": "NASA",
+      "is_nasa": true,
+      "use": "NOT_USED",
+      "used_for_vi": "Chưa dùng trữ lượng nước quy mô lưu vực.",
+      "variables": [],
+      "spatial_resolution": "Không áp dụng",
+      "time_range": null,
+      "latency": null,
+      "limitations_vi": [
+        "Chưa dùng trữ lượng nước quy mô lưu vực."
+      ],
+      "url": null,
+      "in_challenge_list": true
+    }
+  ],
+  "generated_at": "2026-11-14T10:46:34+00:00",
+  "nasa_used_count": 5,
+  "challenge_sources_used": [
+    "ev_power_daily",
+    "ev_power_gwet",
+    "ev_imerg_monthly",
+    "ev_srtm"
+  ]
+}

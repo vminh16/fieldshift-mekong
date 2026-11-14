@@ -2,13 +2,23 @@
 
 import json
 import math
+from datetime import date
 from pathlib import Path
 from statistics import mean
 
 RESOURCES = Path(__file__).resolve().parents[3] / "resources" / "projections"
 
 
-def load_projections(cache_key: str | None) -> tuple[list[dict], list[str]]:
+# NEX-GDDP-CMIP6 v2.0 was published in 2022; a hindcast before that would leak future knowledge.
+RELEASE_DATE = date(2022, 1, 1)
+
+
+def load_projections(cache_key: str | None, as_of: date) -> tuple[list[dict], list[str]]:
+    if as_of < RELEASE_DATE:
+        return [], [
+            "PROJECTION_UNAVAILABLE_AT_AS_OF: NEX-GDDP-CMIP6 v2.0 was published after this as_of; "
+            "not used in the hindcast."
+        ]
     path = RESOURCES / f"{cache_key}.json"
     if not path.exists():
         return [], ["NEX-GDDP-CMIP6: no processed projection series for this site."]

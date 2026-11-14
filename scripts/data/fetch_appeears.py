@@ -38,7 +38,15 @@ LAYERS = [
 ]
 
 
-def task_body(start="2015-01-01", end="2026-11-10"):
+SECOND_LAYERS = (
+    [{"product": "ECO_L2T_LSTE.002", "layer": x} for x in ("LST", "LST_err", "QC", "cloud")]
+    + [{"product": "ECO_L3T_JET.002", "layer": x} for x in ("ETdaily", "cloud")]
+    + [{"product": p, "layer": "NDVI"} for p in ("HLSL30_VI.020", "HLSS30_VI.020")]
+    + [{"product": p, "layer": "Fmask"} for p in ("HLSL30.020", "HLSS30.020")]
+)
+
+
+def task_body(start="2015-01-01", end="2026-11-10", layers=None):
     return {
         "task_type": "point",
         "task_name": "FieldShift Mekong demo 2015-2026",
@@ -49,7 +57,7 @@ def task_body(start="2015-01-01", end="2026-11-10"):
                     "endDate": date.fromisoformat(end).strftime("%m-%d-%Y"),
                 }
             ],
-            "layers": LAYERS,
+            "layers": layers or LAYERS,
             "coordinates": [
                 {
                     "id": site,
@@ -65,6 +73,7 @@ def task_body(start="2015-01-01", end="2026-11-10"):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--profile", choices=["primary", "thermal_hls"], default="primary")
     ap.add_argument("--start", default="2015-01-01")
     ap.add_argument("--end", default="2026-11-10")
     ap.add_argument("--dry-run", action="store_true")
@@ -75,18 +84,25 @@ def main():
     args = ap.parse_args()
     if date.fromisoformat(args.start) > date.fromisoformat(args.end):
         ap.error("start must be <= end")
-    body = task_body(args.start, args.end)
+    layers = SECOND_LAYERS if args.profile == "thermal_hls" else LAYERS
+    body = task_body(args.start, args.end, layers)
+    if args.profile == "thermal_hls":
+        body["task_name"] = "FieldShift Mekong ECOSTRESS HLS 2023-2026"
     body_hash = hashlib.sha256(json.dumps(body, sort_keys=True).encode()).hexdigest()
-    state_path = args.cache_root / "appeears" / "task.json"
+    state_path = (
+        args.cache_root
+        / "appeears"
+        / ("task_thermal_hls.json" if args.profile == "thermal_hls" else "task.json")
+    )
     transport = httpx.HTTPTransport(local_address="0.0.0.0", retries=2)  # IPv4: IPv6 stalls here
     with httpx.Client(timeout=120, follow_redirects=True, transport=transport) as client:
         products = {p["ProductAndVersion"]: p for p in get(client, API + "/product").json()}
         metadata = {}
-        for product in sorted({x["product"] for x in LAYERS}):
+        for product in sorted({x["product"] for x in layers}):
             if not products.get(product, {}).get("Available"):
                 raise RuntimeError(f"Product unavailable: {product}")
             metadata[product] = get(client, API + "/product/" + product).json()
-        for layer in LAYERS:
+        for layer in layers:
             if not metadata[layer["product"]].get(layer["layer"], {}).get("Available"):
                 raise RuntimeError(f"Layer unavailable: {layer}")
         if args.dry_run:
@@ -171,13 +187,13 @@ def main():
                     raise ValueError("Unrecognized AppEEARS point ID: " + site)
                 tables[site].setdefault(path.name, []).append(row)
         selected_metadata = {
-            x["product"] + "/" + x["layer"]: metadata[x["product"]][x["layer"]] for x in LAYERS
+            x["product"] + "/" + x["layer"]: metadata[x["product"]][x["layer"]] for x in layers
         }
         for site in SITES:
             if not tables[site]:
                 raise ValueError("No data rows for site " + site)
             write_json(
-                args.cache_root / "appeears" / f"{site}.json",
+                args.cache_root / "appeears" / f"{site}_{args.profile}.json",
                 envelope(
                     "AppEEARS",
                     site,

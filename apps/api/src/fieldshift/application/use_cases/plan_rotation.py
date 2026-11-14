@@ -91,8 +91,11 @@ def make_plan(c, f, req: dict, kind: str, parent_id=None, override=None, history
     as_of = dt.date.fromisoformat(req["as_of"])
     ctx = context_for(f, as_of)
     state = estimate_state(f, ctx, as_of, observations(c, f["id"]))
+    # Unset profile keys (None) are dropped so the planner applies its own defaults
+    # (baseline -> assumed rice + failed G2, irrigation -> "full"); state keeps them as assumed.
+    f_run = {**f, "profile": {k: v for k, v in f["profile"].items() if v is not None}}
     try:
-        core = run_plan(f, ctx, state, req, override, simulate=simulate_season)
+        core = run_plan(f_run, ctx, state, req, override, simulate=simulate_season)
     except ValueError as e:
         raise InvalidInput("PLAN_INPUT_INVALID", str(e)) from e
     st_id = db.new_id("st")
@@ -212,6 +215,38 @@ def what_if(c, decision_id: str, priorities, override):
     )
 
 
+def evaluate_chain(c, decision_id: str, crops: list[str], sow_timing=None, override=None):
+    """Simulate a user-chosen chain under the parent decision's inputs and scenarios.
+
+    The engine always evaluates its baseline in full — metrics, rules (including HARD
+    calendar violations), member trajectories — so the chosen chain is run as the
+    baseline of a WHAT_IF child. The parent decision is never modified, and the child's
+    request carries ``evaluate_chain`` so clients can tell it apart from a priorities/
+    override what-if.
+    """
+    parent = must(c, "decisions", decision_id, "DECISION_NOT_FOUND")
+    req = dict(parent["request"])
+    horizon = req.get("horizon_seasons", 3)
+    if len(crops) != horizon:
+        raise InvalidInput(
+            "CHAIN_LENGTH_MISMATCH", f"Cần đúng {horizon} vụ, nhận được {len(crops)}."
+        )
+    req["baseline"] = list(crops)
+    req["evaluate_chain"] = list(crops)
+    if sow_timing:
+        req["baseline_sow_timing"] = list(sow_timing)
+    f = must(c, "fields", parent["field_id"], "FIELD_NOT_FOUND")
+    return make_plan(
+        c,
+        f,
+        req,
+        "WHAT_IF",
+        parent_id=decision_id,
+        override=override if override is not None else parent["package"].get("override"),
+        history=parent["package"].get("history"),
+    )
+
+
 def replan(c, decision_id: str, as_of: dt.date, completed: list):
     parent = must(c, "decisions", decision_id, "DECISION_NOT_FOUND")
     f = must(c, "fields", parent["field_id"], "FIELD_NOT_FOUND")
@@ -220,7 +255,7 @@ def replan(c, decision_id: str, as_of: dt.date, completed: list):
     remaining = req["horizon_seasons"] - done
     if remaining < 1:
         raise InvalidInput("NOTHING_TO_REPLAN", "Tất cả các vụ đã hoàn thành")
-    base = req.get("baseline") or f["profile"]["baseline"]
+    base = req.get("baseline") or f["profile"].get("baseline") or []
     req.update(
         as_of=str(as_of), horizon_seasons=remaining, baseline=base[done : done + remaining] or None
     )

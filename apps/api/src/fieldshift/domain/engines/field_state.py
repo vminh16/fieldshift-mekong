@@ -16,12 +16,14 @@ def climate_summary(weather: list[dict]) -> dict:
     rain = {m: [] for m in range(1, 13)}
     tmax = {m: [] for m in range(1, 13)}
     hot = {m: 0 for m in range(1, 13)}
+    raw_hot = {m: 0 for m in range(1, 13)}
     for y in full:
         for m in range(1, 13):
             rows = by_ym.get((y, m), [])
             rain[m].append(sum(w["rain_mm"] for w in rows))
             tmax[m] += [w["tmax"] for w in rows]
-            hot[m] += sum(1 for w in rows if w["tmax"] >= 35)
+            hot[m] += sum(1 for w in rows if w.get("heat_tmax", w["tmax"]) >= 35)
+            raw_hot[m] += sum(1 for w in rows if w["tmax"] >= 35)
     n = len(full) or 1
     return {
         "years": [full[0], full[-1]] if full else None,
@@ -31,10 +33,13 @@ def climate_summary(weather: list[dict]) -> dict:
                 "rain_mm": round(st.mean(rain[m]), 1) if rain[m] else None,
                 "tmax_c": round(st.mean(tmax[m]), 1) if tmax[m] else None,
                 "days_tmax_ge_35": round(hot[m] / n, 1),
+                "days_tmax_ge_35_raw_power": round(raw_hot[m] / n, 1),
             }
             for m in range(1, 13)
         ],
-        "evidence_ids": ["ev_power_daily"],
+        "tmax_basis": "ORIGINAL_POWER; days_tmax_ge_35 uses heat conflict policy where available",
+        "evidence_ids": ["ev_power_daily"]
+        + (["ev_era5", "ev_heat_conflict"] if any("heat_tmax" in w for w in weather) else []),
     }
 
 
@@ -58,7 +63,8 @@ def estimate_state(field: dict, ctx: dict, as_of: dt.date, observations: list[di
     upstream = ctx.get("upstream_discharge", {})
     ecw = latest.get("canal_ecw")
     drainage = latest.get("drainage")
-    drainage_val = drainage["value_text"] if drainage else prof.get("drainage", "unknown")
+    drainage_val = drainage["value_text"] if drainage else prof.get("drainage") or "unknown"
+    irrigation = prof.get("irrigation")
     return {
         "as_of": str(as_of),
         "upstream_discharge": measure(
@@ -121,7 +127,10 @@ def estimate_state(field: dict, ctx: dict, as_of: dt.date, observations: list[di
             "origin": "reported_by_farmer" if drainage_val != "unknown" else "unknown",
             "label": "Nông dân khai báo" if drainage_val != "unknown" else "Chưa biết",
         },
-        "irrigation": {"value": prof.get("irrigation", "unknown"), "origin": "reported_by_farmer"},
+        # Missing irrigation is computed as "full" (planner default) but must not read as farmer-reported.
+        "irrigation": {"value": irrigation, "origin": "reported_by_farmer"}
+        if irrigation
+        else {"value": "full", "origin": "assumed_default", "label": "Giả định mặc định"},
         "coastal_salinity_risk": {
             "value": bool(prof.get("coastal_salinity_risk")),
             "origin": "regional_config",

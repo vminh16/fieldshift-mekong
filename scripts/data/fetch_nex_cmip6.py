@@ -20,7 +20,7 @@ from pathlib import Path
 from urllib.parse import urlencode
 
 import httpx
-from common import DEFAULT_CACHE, SITES, envelope, get, write_json
+from common import DEFAULT_CACHE, ROOT, SITES, envelope, get, write_json
 
 BUCKET = "https://nex-gddp-cmip6.s3.amazonaws.com/"
 NCSS = "https://ds.nccs.nasa.gov/thredds/ncss/grid/AMES/NEX/GDDP-CMIP6/"
@@ -86,7 +86,11 @@ def extract(job, site, cache_root, refresh=False):
     if cached:
         text = raw.read_text()
     else:
-        with httpx.Client(timeout=180, follow_redirects=True) as client:
+        with httpx.Client(
+            timeout=180,
+            follow_redirects=True,
+            transport=httpx.HTTPTransport(local_address="0.0.0.0"),
+        ) as client:
             text = get(client, url).text
     reader = csv.DictReader(io.StringIO(text))
     headers = reader.fieldnames or []
@@ -162,7 +166,7 @@ def main():
         ap.error("start-year must be <= end-year")
     start = time.monotonic()
     jobs = []
-    with httpx.Client(timeout=60) as client:
+    with httpx.Client(timeout=60, transport=httpx.HTTPTransport(local_address="0.0.0.0")) as client:
         for model in args.models:
             for scenario in ("ssp245", "ssp585"):
                 for variable in ("tasmax", "pr"):
@@ -243,6 +247,13 @@ def main():
                 elapsed_seconds=round(time.monotonic() - start, 3),
             ),
         )
+        if args.start_year == 2025 and args.end_year == 2050:
+            import json
+
+            value = json.loads((args.cache_root / "nex_cmip6" / f"{site}.json").read_text())
+            write_json(
+                ROOT / "apps/api/src/fieldshift/resources/projections" / f"{site}.json", value
+            )
     print(f"Done in {time.monotonic() - start:.1f}s", flush=True)
 
 

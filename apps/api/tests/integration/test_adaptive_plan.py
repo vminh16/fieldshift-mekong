@@ -43,7 +43,7 @@ def test_status_threshold_units_timing_and_drainage():
             assert response.status_code == 201
             return response.json()["id"]
 
-        observe("canal_ecw", AS_OF, value=10, unit="dS/m")
+        observe("canal_ecw", "2026-11-13", value=10, unit="dS/m")  # before as_of: ignored
         observe("canal_ecw", "2026-11-15", value=10, unit="ppt")
         observe("canal_ecw", "2026-11-15", value=0, unit="dS/m")
         threshold = min(
@@ -61,6 +61,18 @@ def test_status_threshold_units_timing_and_drainage():
         assert {x["observation_id"] for x in status["fired"]} == {ecw_id, drainage_id}
         assert client.get(url).json() == p  # snapshot remains immutable
         assert client.get("/v1/plans/nonexistent/status").status_code == 404
+
+
+def test_same_day_reading_entered_after_plan_fires():
+    with TestClient(app) as client:
+        p = create_plan(client, coastal=True)
+        r = client.post(
+            f"/v1/fields/{p['field_id']}/observations",
+            json={"variable": "canal_ecw", "observed_at": AS_OF, "value": 10, "unit": "dS/m"},
+        )
+        assert r.status_code == 201
+        status = client.get(f"/v1/plans/{p['decision_id']}/status").json()
+        assert status["status"] == "REPLAN_REQUIRED"
 
 
 def test_priorities_reuse_matches_full_run(monkeypatch):

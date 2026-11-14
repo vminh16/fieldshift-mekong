@@ -1,10 +1,10 @@
 // FieldShift-Mekong API v1 — TypeScript types (hand-written from contracts/fixtures; see API_CONTRACT.md).
 // Backend changes are additive only: keep `[key: string]: unknown` tolerance where noted.
 
-export type Label = 'Đo tại ruộng' | 'Ước lượng vùng' | 'Dự kiến' | 'Kịch bản' | 'Chưa biết' | string
+export type Label = 'Đo tại ruộng' | 'Ước lượng vùng' | 'Dự kiến' | 'Kịch bản' | 'Giả định mặc định' | 'Chưa biết' | string
 export type Origin =
   | 'measured_at_field' | 'reported_by_farmer' | 'estimated_from_regional_data'
-  | 'inferred_by_model' | 'assumed_scenario' | 'unknown' | string
+  | 'inferred_by_model' | 'assumed_scenario' | 'assumed_default' | 'unknown' | string
 
 export interface Measure<T = number> {
   value: T | null
@@ -24,9 +24,11 @@ export type ScenarioKind = 'CLIMATOLOGY' | 'STRESS_TEST' | 'FORECAST' | 'CLIMATE
 export type Severity = 'HARD' | 'SOFT' | 'UNKNOWN_REQUIRES_CHECK'
 
 export interface FieldProfile {
-  baseline: CropId[]
-  irrigation: 'full' | 'canal_limited' | 'rainfed'
-  drainage: 'good' | 'poor' | 'unknown'
+  /** null = chưa khai báo → engine dùng baseline GIẢ ĐỊNH (gate G2 fail) */
+  baseline?: CropId[] | null
+  /** null = chưa khai báo → state.irrigation.origin = 'assumed_default' (tính như 'full') */
+  irrigation?: 'full' | 'canal_limited' | 'rainfed' | null
+  drainage?: 'good' | 'poor' | 'unknown' | null
   coastal_salinity_risk: boolean
   equipment: string[]
   history: unknown[]
@@ -55,8 +57,11 @@ export interface PlanRequest {
     max_changed_seasons?: number; max_fallow_seasons?: number
   }
 }
+// Matches apps/api ScenarioOverride (openapi.json). Negative salinity shift = salinity arrives earlier.
 export interface ScenarioOverride {
-  rain_delta_pct?: number; temp_delta_c?: number; salinity_shift_weeks?: number; sow_shift_days?: number
+  rain_delta_pct?: number | null; temp_delta_c?: number | null; salinity_onset_shift_weeks?: number | null
+  /** {"2": -10} = season 2 sown 10 days earlier */
+  sow_shift_days?: Record<string, number>; irrigation_cap_mm?: number | null
 }
 
 export interface Gate { gate: string; passed: boolean; message: string }
@@ -89,16 +94,24 @@ export interface Trigger {
 }
 export interface Option {
   sequence_id: string; is_baseline: boolean
-  strategy_tag: 'save_water' | 'low_risk' | 'soil_support' | 'balanced' | null
+  strategy_tag:
+    | 'save_water' | 'low_risk' | 'soil_support' | 'balanced'
+    | 'third_season_rest' | 'salinity_avoidance' | null
   strategy_name_vi: string | null; summary_vi?: string
   decision_status: DecisionStatus
   seasons: Season[]
   metrics: Record<string, ScenarioMetrics>
   delta_vs_baseline: Record<string, Record<string, { value: number | null; unit: string }>>
   distribution?: Record<string, DistributionPoint[]>
+  /** Σ season_value_weight × crop value_index; team heuristic [B], not yield/profit */
+  production_value_index: number
+  /** Calendar overlap counts for every option; no salinity measurement implied. */
+  salinity_exposure_days: { option: number; baseline: number }
+  /** salinity_avoidance only: overlap days removed vs the standard-sow baseline */
+  salinity_overlap_avoided_days?: { typical: number; early_onset: number }
   soil_benefit: { claim_type: 'POTENTIAL_QUALITATIVE'; value: null; indicators: string[] }
   rules: Rule[]
-  reasons: { text: string; evidence_ids?: string[] }[]
+  reasons: { text: string; evidence_ids?: string[]; claim_type?: 'POTENTIAL_QUALITATIVE' }[]
   risks: { code: string; severity: Severity; season_index: number | null; text: string }[]
   triggers: Trigger[]
   checklist: string[]
@@ -108,6 +121,31 @@ export interface Evidence {
   time_scope?: [string, string] | null; status?: string; limitations?: string[]; quality_flags?: string[]
   [key: string]: unknown
 }
+export type EnsoPhase = 'EL_NINO_STRONG' | 'EL_NINO' | 'NEUTRAL' | 'LA_NINA' | 'LA_NINA_STRONG'
+/** ENSO-conditioned analog years (association, never a rainfall/salinity forecast). */
+export interface YearOutlook {
+  status: 'OK' | 'UNAVAILABLE'            // UNAVAILABLE -> hide banner; engine behaves as before
+  reason?: string | null                  // 'ONI_NOT_AVAILABLE_AT_AS_OF' | 'TOO_FEW_ANALOG_YEARS'
+  enso: {
+    index: 'ONI'
+    centered_month: string                // 'YYYY-MM', latest 3-month window ended before as_of's month
+    value: number
+    phase: EnsoPhase
+    source: string
+  } | null
+  analog_years: number[]                  // dry-season START years (2015 = 2015–16)
+  analog_labels_vi: string[]
+  dry_season_rain: {                      // Dec–Apr totals at this field's site, mm
+    analog_median_mm: number | null
+    all_years_median_mm: number | null
+    ratio: number | null
+    sources: string[]
+  }
+  skill: { correlation_r: number | null; n_years: number; note_vi: string }
+  headline_vi: string
+  scenario_id: string | null              // 'sc_enso_analog' when present in scenarios[]
+  evidence_ids: string[]
+}
 export interface DecisionPackage {
   decision_id: string; parent_id: string | null; kind: 'PLAN' | 'WHAT_IF' | 'REPLAN'
   field_id: string; as_of: string; generated_at: string; versions: Record<string, string>
@@ -115,6 +153,9 @@ export interface DecisionPackage {
   gates: Gate[]
   windows: { id: string; name_vi: string; sow_from: string; sow_to: string }[]
   scenarios: Scenario[]
+  year_outlook: YearOutlook
+  salinity_window: { start: string; end: string; typical_start: string; typical_end: string; adjusted: boolean; kind: string; evidence_ids: string[] }
+  source_conflicts: { status: string; policy: string; note_vi?: string; evidence_ids: string[]; [key: string]: unknown }[]
   baseline: Option
   options: Option[]
   excluded: { sequence_id: string; crops: CropId[]; rule_id: string; severity: 'HARD'; reason: string }[]
@@ -146,3 +187,14 @@ export interface Twin {
 }
 export interface TwinCompare { baseline: Twin; option: Twin }
 export interface ApiError { detail: { code: string; message: string } | unknown }
+
+export type SourceUse = 'DECISION' | 'EVIDENCE' | 'CONTEXT' | 'NOT_USED'
+export interface DataSource {
+  id: string; name: string; provider: string; is_nasa: boolean; use: SourceUse
+  used_for_vi: string; variables: string[]; spatial_resolution: string
+  time_range: string | null; latency: string | null; limitations_vi: string[]
+  url: string | null; in_challenge_list: boolean
+}
+export interface SourcesResponse {
+  sources: DataSource[]; generated_at: string; nasa_used_count: number; challenge_sources_used: string[]
+}

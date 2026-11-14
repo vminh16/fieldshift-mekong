@@ -6,7 +6,7 @@ import html
 from fastapi import APIRouter, Query
 from fastapi.responses import HTMLResponse
 
-from fieldshift.api.schemas.requests import PlanRequest, ReplanIn, WhatIfIn
+from fieldshift.api.schemas.requests import EvaluateChainIn, PlanRequest, ReplanIn, WhatIfIn
 from fieldshift.application.use_cases import plan_rotation as uc
 from fieldshift.application.use_cases.plan_rotation import must
 from fieldshift.domain.formatting import number_vi
@@ -40,6 +40,13 @@ def what_if(decision_id: str, body: WhatIfIn):
     return uc.what_if(db.connect(), decision_id, body.priorities, override)
 
 
+@router.post("/{decision_id}/evaluate", status_code=201)
+def evaluate_chain(decision_id: str, body: EvaluateChainIn):
+    """Simulate any chain the user picks; result's ``baseline`` is that chain (twin via /twin)."""
+    override = body.override.model_dump(mode="json") if body.override else None
+    return uc.evaluate_chain(db.connect(), decision_id, list(body.crops), body.sow_timing, override)
+
+
 @router.post("/{decision_id}/replan", status_code=201)
 def replan(decision_id: str, body: ReplanIn):
     return uc.replan(db.connect(), decision_id, body.as_of, body.completed)
@@ -51,9 +58,14 @@ def twin(
     sequence_id: str,
     scenario_id: str = "sc_clim",
     member: int | None = Query(default=None, ge=0),
+    aligned: bool = Query(
+        default=False,
+        description="Weekly rows on the shared calendar (as in /twin-compare), so twins of different "
+        "chains or decisions line up week by week.",
+    ),
 ):
     pkg = must(db.connect(), "decisions", decision_id, "DECISION_NOT_FOUND")["package"]
-    return uc.twin_slice(pkg, sequence_id, scenario_id, member)
+    return uc.twin_slice(pkg, sequence_id, scenario_id, member, aligned=aligned)
 
 
 @router.get("/{decision_id}/twin-compare")

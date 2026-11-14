@@ -16,11 +16,11 @@ Drainage = Literal["good", "poor", "unknown"]
 
 
 class FieldProfile(BaseModel):
-    baseline: list[CropId] = Field(
-        default_factory=lambda: ["rice", "rice", "rice"], min_length=1, max_length=6
-    )
-    irrigation: Irrigation = "full"
-    drainage: Drainage = "unknown"
+    # None = the farmer has not told us. Never default these to a value: the state would then
+    # label an assumption as "reported_by_farmer" and gate G2 would always pass.
+    baseline: list[CropId] | None = Field(default=None, min_length=1, max_length=6)
+    irrigation: Irrigation | None = None
+    drainage: Drainage | None = None
     coastal_salinity_risk: bool = False
     equipment: list[str] = []
     history: list[dict] = []
@@ -39,6 +39,9 @@ class FieldIn(BaseModel):
 
 class FieldPatch(BaseModel):
     name: str | None = Field(default=None, min_length=1, max_length=120)
+    # Redrawing a parcel moves its centroid; NASA context is fetched for these coordinates.
+    lat: float | None = Field(default=None, ge=8.0, le=11.5)
+    lon: float | None = Field(default=None, ge=104.0, le=107.5)
     area_ha: float | None = Field(default=None, gt=0, le=10000)
     geometry: dict | None = None
     profile: FieldProfile | None = None
@@ -84,6 +87,16 @@ class ScenarioOverride(BaseModel):
         default_factory=dict, description='{"2": -10} = vụ 2 gieo sớm 10 ngày'
     )
     irrigation_cap_mm: float | None = Field(default=None, ge=0, le=3000)
+
+
+class EvaluateChainIn(BaseModel):
+    """A rotation chosen by the user, one crop per season of the parent decision's horizon."""
+
+    crops: list[CropId] = Field(min_length=1, max_length=3)
+    # Keep an engine option's own timing when re-running it; default is the standard sow date.
+    sow_timing: list[Literal["early", "standard"]] | None = None
+    # User assumptions (what-if). None keeps the parent's override.
+    override: ScenarioOverride | None = None
 
 
 class WhatIfIn(BaseModel):

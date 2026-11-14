@@ -1,0 +1,22 @@
+.source-page { max-width: 1080px; margin: 0 auto; display: grid; gap: 28px; padding-bottom: 40px; line-height: 1.65; overflow-wrap: anywhere; }
+.source-page h1 { margin: 0; font-size: clamp(1.8rem, 5vw, 2.6rem); }
+.source-page h2 { margin: 0 0 6px; font-size: 1.2rem; }
+.source-page p { margin: 6px 0; }
+.source-page__kicker, .source-badge[data-nasa='true'] { color: var(--color-accent); }
+.source-page__muted { color: var(--color-text-muted); font-size: .875rem; }
+.source-explainer, .source-legacy { padding: 18px; border: 1px solid var(--color-border-strong); border-radius: 8px; background: var(--color-surface); }
+.source-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 12px; }
+.source-card { padding: 18px; border: 1px solid var(--color-border-strong); border-radius: 8px; }
+.source-card__head { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
+.source-card h3 { margin: 0; font-size: 1rem; }
+.source-badge { flex-shrink: 0; padding: 2px 8px; border: 1px solid currentColor; border-radius: 4px; font-size: .75rem; }
+.source-card dl { display: grid; gap: 8px; font-size: .875rem; }
+.source-card dt { color: var(--color-text-muted); }
+.source-card dd { margin: 0; }
+.source-card ul { padding-left: 20px; margin-top: 6px; font-size: .875rem; }
+.source-page a { color: var(--color-accent); text-underline-offset: 3px; }
+.source-legacy ul { padding-left: 20px; }
+.source-legacy li { margin: 12px 0; }
+.source-legacy li span, .source-legacy li small { display: block; font-size: .875rem; color: var(--color-text-muted); }
+.source-page button:focus-visible, .source-page a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 4px; }
+@media (max-width: 640px) { .source-cards { grid-template-columns: 1fr; } .source-card__head { flex-wrap: wrap; } }

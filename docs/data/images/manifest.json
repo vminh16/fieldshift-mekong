@@ -1,0 +1,194 @@
+[
+  {
+    "date": "2016-03-16",
+    "representative_date": "2016-03-16",
+    "layer": "MODIS_Terra_CorrectedReflectance_TrueColor",
+    "file": "docs/data/images/2016-03-16_truecolor.png",
+    "snapshot_url": "https://wvs.earthdata.nasa.gov/api/v1/snapshot?REQUEST=GetSnapshot&TIME=2016-03-16&BBOX=8.5%2C104.4%2C11.2%2C106.9&CRS=EPSG%3A4326&LAYERS=MODIS_Terra_CorrectedReflectance_TrueColor&WRAP=none&FORMAT=image%2Fpng&WIDTH=600&HEIGHT=648",
+    "bytes": 878632,
+    "bbox_lon_lat": [
+      104.4,
+      8.5,
+      106.9,
+      11.2
+    ],
+    "axis_order": "EPSG:4326 WMS latitude,longitude",
+    "note": "Browse only; NDVI is a 16-day composite; precipitation is rate at selected UTC time, not daily accumulation."
+  },
+  {
+    "date": "2016-03-05",
+    "representative_date": "2016-03-16",
+    "layer": "MODIS_Terra_L3_NDVI_16Day",
+    "file": "docs/data/images/2016-03-16_ndvi.png",
+    "snapshot_url": "https://wvs.earthdata.nasa.gov/api/v1/snapshot?REQUEST=GetSnapshot&TIME=2016-03-05&BBOX=8.5%2C104.4%2C11.2%2C106.9&CRS=EPSG%3A4326&LAYERS=MODIS_Terra_L3_NDVI_16Day&WRAP=none&FORMAT=image%2Fpng&WIDTH=600&HEIGHT=648",
+    "bytes": 301571,
+    "bbox_lon_lat": [
+      104.4,
+      8.5,
+      106.9,
+      11.2
+    ],
+    "axis_order": "EPSG:4326 WMS latitude,longitude",
+    "note": "Browse only; NDVI is a 16-day composite; precipitation is rate at selected UTC time, not daily accumulation."
+  },
+  {
+    "date": "2016-03-16",
+    "representative_date": "2016-03-16",
+    "layer": "IMERG_Precipitation_Rate",
+    "file": "docs/data/images/2016-03-16_precipitation.png",
+    "snapshot_url": "https://wvs.earthdata.nasa.gov/api/v1/snapshot?REQUEST=GetSnapshot&TIME=2016-03-16&BBOX=8.5%2C104.4%2C11.2%2C106.9&CRS=EPSG%3A4326&LAYERS=IMERG_Precipitation_Rate&WRAP=none&FORMAT=image%2Fpng&WIDTH=600&HEIGHT=648",
+    "bytes": 1587,
+    "bbox_lon_lat": [
+      104.4,
+      8.5,
+      106.9,
+      11.2
+    ],
+    "axis_order": "EPSG:4326 WMS latitude,longitude",
+    "note": "Browse only; NDVI is a 16-day composite; precipitation is rate at selected UTC time, not daily accumulation."
+  },
+  {
+    "date": "2020-03-15",
+    "representative_date": "2020-03-15",
+    "layer": "MODIS_Terra_CorrectedReflectance_TrueColor",
+    "file": "docs/data/images/2020-03-15_truecolor.png",
+    "snapshot_url": "https://wvs.earthdata.nasa.gov/api/v1/snapshot?REQUEST=GetSnapshot&TIME=2020-03-15&BBOX=8.5%2C104.4%2C11.2%2C106.9&CRS=EPSG%3A4326&LAYERS=MODIS_Terra_CorrectedReflectance_TrueColor&WRAP=none&FORMAT=image%2Fpng&WIDTH=600&HEIGHT=648",
+    "bytes": 943331,
+    "bbox_lon_lat": [
+      104.4,
+      8.5,
+      106.9,
+      11.2
+    ],
+    "axis_order": "EPSG:4326 WMS latitude,longitude",
+    "note": "Browse only; NDVI is a 16-day composite; precipitation is rate at selected UTC time, not daily accumulation."
+  },
+  {
+    "date": "2020-03-05",
+    "representative_date": "2020-03-15",
+    "layer": "MODIS_Terra_L3_NDVI_16Day",
+    "file": "docs/data/images/2020-03-15_ndvi.png",
+    "snapshot_url": "https://wvs.earthdata.nasa.gov/api/v1/snapshot?REQUEST=GetSnapshot&TIME=2020-03-05&BBOX=8.5%2C104.4%2C11.2%2C106.9&CRS=EPSG%3A4326&LAYERS=MODIS_Terra_L3_NDVI_16Day&WRAP=none&FORMAT=image%2Fpng&WIDTH=600&HEIGHT=648",
+    "bytes": 303140,
+    "bbox_lon_lat": [
+      104.4,
+      8.5,
+      106.9,
+      11.2
+    ],
+    "axis_order": "EPSG:4326 WMS latitude,longitude",
+    "note": "Browse only; NDVI is a 16-day composite; precipitation is rate at selected UTC time, not daily accumulation."
+  },
+  {
+    "date": "2020-03-15",
+    "representative_date": "2020-03-15",
+    "layer": "IMERG_Precipitation_Rate",
+    "file": "docs/data/images/2020-03-15_precipitation.png",
+    "snapshot_url": "https://wvs.earthdata.nasa.gov/api/v1/snapshot?REQUEST=GetSnapshot&TIME=2020-03-15&BBOX=8.5%2C104.4%2C11.2%2C106.9&CRS=EPSG%3A4326&LAYERS=IMERG_Precipitation_Rate&WRAP=none&FORMAT=image%2Fpng&WIDTH=600&HEIGHT=648",
+    "bytes": 1587,
+    "bbox_lon_lat": [
+      104.4,
+      8.5,
+      106.9,
+      11.2
+    ],
+    "axis_order": "EPSG:4326 WMS latitude,longitude",
+    "note": "Browse only; NDVI is a 16-day composite; precipitation is rate at selected UTC time, not daily accumulation."
+  },
+  {
+    "date": "2024-03-15",
+    "representative_date": "2024-03-15",
+    "layer": "MODIS_Terra_CorrectedReflectance_TrueColor",
+    "file": "docs/data/images/2024-03-15_truecolor.png",
+    "snapshot_url": "https://wvs.earthdata.nasa.gov/api/v1/snapshot?REQUEST=GetSnapshot&TIME=2024-03-15&BBOX=8.5%2C104.4%2C11.2%2C106.9&CRS=EPSG%3A4326&LAYERS=MODIS_Terra_CorrectedReflectance_TrueColor&WRAP=none&FORMAT=image%2Fpng&WIDTH=600&HEIGHT=648",
+    "bytes": 778344,
+    "bbox_lon_lat": [
+      104.4,
+      8.5,
+      106.9,
+      11.2
+    ],
+    "axis_order": "EPSG:4326 WMS latitude,longitude",
+    "note": "Browse only; NDVI is a 16-day composite; precipitation is rate at selected UTC time, not daily accumulation."
+  },
+  {
+    "date": "2024-03-05",
+    "representative_date": "2024-03-15",
+    "layer": "MODIS_Terra_L3_NDVI_16Day",
+    "file": "docs/data/images/2024-03-15_ndvi.png",
+    "snapshot_url": "https://wvs.earthdata.nasa.gov/api/v1/snapshot?REQUEST=GetSnapshot&TIME=2024-03-05&BBOX=8.5%2C104.4%2C11.2%2C106.9&CRS=EPSG%3A4326&LAYERS=MODIS_Terra_L3_NDVI_16Day&WRAP=none&FORMAT=image%2Fpng&WIDTH=600&HEIGHT=648",
+    "bytes": 295635,
+    "bbox_lon_lat": [
+      104.4,
+      8.5,
+      106.9,
+      11.2
+    ],
+    "axis_order": "EPSG:4326 WMS latitude,longitude",
+    "note": "Browse only; NDVI is a 16-day composite; precipitation is rate at selected UTC time, not daily accumulation."
+  },
+  {
+    "date": "2024-03-15",
+    "representative_date": "2024-03-15",
+    "layer": "IMERG_Precipitation_Rate",
+    "file": "docs/data/images/2024-03-15_precipitation.png",
+    "snapshot_url": "https://wvs.earthdata.nasa.gov/api/v1/snapshot?REQUEST=GetSnapshot&TIME=2024-03-15&BBOX=8.5%2C104.4%2C11.2%2C106.9&CRS=EPSG%3A4326&LAYERS=IMERG_Precipitation_Rate&WRAP=none&FORMAT=image%2Fpng&WIDTH=600&HEIGHT=648",
+    "bytes": 1898,
+    "bbox_lon_lat": [
+      104.4,
+      8.5,
+      106.9,
+      11.2
+    ],
+    "axis_order": "EPSG:4326 WMS latitude,longitude",
+    "note": "Browse only; NDVI is a 16-day composite; precipitation is rate at selected UTC time, not daily accumulation."
+  },
+  {
+    "date": "2024-09-15",
+    "representative_date": "2024-09-15",
+    "layer": "MODIS_Terra_CorrectedReflectance_TrueColor",
+    "file": "docs/data/images/2024-09-15_truecolor.png",
+    "snapshot_url": "https://wvs.earthdata.nasa.gov/api/v1/snapshot?REQUEST=GetSnapshot&TIME=2024-09-15&BBOX=8.5%2C104.4%2C11.2%2C106.9&CRS=EPSG%3A4326&LAYERS=MODIS_Terra_CorrectedReflectance_TrueColor&WRAP=none&FORMAT=image%2Fpng&WIDTH=600&HEIGHT=648",
+    "bytes": 511803,
+    "bbox_lon_lat": [
+      104.4,
+      8.5,
+      106.9,
+      11.2
+    ],
+    "axis_order": "EPSG:4326 WMS latitude,longitude",
+    "note": "Browse only; NDVI is a 16-day composite; precipitation is rate at selected UTC time, not daily accumulation."
+  },
+  {
+    "date": "2024-09-13",
+    "representative_date": "2024-09-15",
+    "layer": "MODIS_Terra_L3_NDVI_16Day",
+    "file": "docs/data/images/2024-09-15_ndvi.png",
+    "snapshot_url": "https://wvs.earthdata.nasa.gov/api/v1/snapshot?REQUEST=GetSnapshot&TIME=2024-09-13&BBOX=8.5%2C104.4%2C11.2%2C106.9&CRS=EPSG%3A4326&LAYERS=MODIS_Terra_L3_NDVI_16Day&WRAP=none&FORMAT=image%2Fpng&WIDTH=600&HEIGHT=648",
+    "bytes": 326183,
+    "bbox_lon_lat": [
+      104.4,
+      8.5,
+      106.9,
+      11.2
+    ],
+    "axis_order": "EPSG:4326 WMS latitude,longitude",
+    "note": "Browse only; NDVI is a 16-day composite; precipitation is rate at selected UTC time, not daily accumulation."
+  },
+  {
+    "date": "2024-09-15",
+    "representative_date": "2024-09-15",
+    "layer": "IMERG_Precipitation_Rate",
+    "file": "docs/data/images/2024-09-15_precipitation.png",
+    "snapshot_url": "https://wvs.earthdata.nasa.gov/api/v1/snapshot?REQUEST=GetSnapshot&TIME=2024-09-15&BBOX=8.5%2C104.4%2C11.2%2C106.9&CRS=EPSG%3A4326&LAYERS=IMERG_Precipitation_Rate&WRAP=none&FORMAT=image%2Fpng&WIDTH=600&HEIGHT=648",
+    "bytes": 11728,
+    "bbox_lon_lat": [
+      104.4,
+      8.5,
+      106.9,
+      11.2
+    ],
+    "axis_order": "EPSG:4326 WMS latitude,longitude",
+    "note": "Browse only; NDVI is a 16-day composite; precipitation is rate at selected UTC time, not daily accumulation."
+  }
+]

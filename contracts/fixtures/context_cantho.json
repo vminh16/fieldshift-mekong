@@ -130,87 +130,205 @@
         "month": 1,
         "rain_mm": 18.9,
         "tmax_c": 31.7,
-        "days_tmax_ge_35": 1.8
+        "days_tmax_ge_35": 0.0,
+        "days_tmax_ge_35_raw_power": 1.8
       },
       {
         "month": 2,
         "rain_mm": 9.9,
         "tmax_c": 34.8,
-        "days_tmax_ge_35": 14.0
+        "days_tmax_ge_35": 0.3,
+        "days_tmax_ge_35_raw_power": 14.0
       },
       {
         "month": 3,
         "rain_mm": 24.3,
         "tmax_c": 36.7,
-        "days_tmax_ge_35": 25.6
+        "days_tmax_ge_35": 2.8,
+        "days_tmax_ge_35_raw_power": 25.6
       },
       {
         "month": 4,
         "rain_mm": 56.5,
         "tmax_c": 36.7,
-        "days_tmax_ge_35": 22.0
+        "days_tmax_ge_35": 10.5,
+        "days_tmax_ge_35_raw_power": 22.0
       },
       {
         "month": 5,
         "rain_mm": 165.5,
         "tmax_c": 33.6,
-        "days_tmax_ge_35": 8.0
+        "days_tmax_ge_35": 8.0,
+        "days_tmax_ge_35_raw_power": 8.0
       },
       {
         "month": 6,
         "rain_mm": 221.6,
         "tmax_c": 31.0,
-        "days_tmax_ge_35": 0.6
+        "days_tmax_ge_35": 0.6,
+        "days_tmax_ge_35_raw_power": 0.6
       },
       {
         "month": 7,
         "rain_mm": 241.5,
         "tmax_c": 30.1,
-        "days_tmax_ge_35": 0.0
+        "days_tmax_ge_35": 0.0,
+        "days_tmax_ge_35_raw_power": 0.0
       },
       {
         "month": 8,
         "rain_mm": 207.9,
         "tmax_c": 30.0,
-        "days_tmax_ge_35": 0.0
+        "days_tmax_ge_35": 0.0,
+        "days_tmax_ge_35_raw_power": 0.0
       },
       {
         "month": 9,
         "rain_mm": 250.3,
         "tmax_c": 29.8,
-        "days_tmax_ge_35": 0.0
+        "days_tmax_ge_35": 0.0,
+        "days_tmax_ge_35_raw_power": 0.0
       },
       {
         "month": 10,
         "rain_mm": 227.9,
         "tmax_c": 29.9,
-        "days_tmax_ge_35": 0.0
+        "days_tmax_ge_35": 0.0,
+        "days_tmax_ge_35_raw_power": 0.0
       },
       {
         "month": 11,
         "rain_mm": 136.8,
         "tmax_c": 30.0,
-        "days_tmax_ge_35": 0.0
+        "days_tmax_ge_35": 0.0,
+        "days_tmax_ge_35_raw_power": 0.0
       },
       {
         "month": 12,
         "rain_mm": 43.7,
         "tmax_c": 30.1,
-        "days_tmax_ge_35": 0.0
+        "days_tmax_ge_35": 0.0,
+        "days_tmax_ge_35_raw_power": 0.0
       }
     ],
+    "tmax_basis": "ORIGINAL_POWER; days_tmax_ge_35 uses heat conflict policy where available",
     "evidence_ids": [
-      "ev_power_daily"
+      "ev_power_daily",
+      "ev_era5",
+      "ev_heat_conflict"
     ]
   },
   "sources_status": {
     "NASA_POWER": "CACHED",
     "SRTM": "CACHED",
     "SOILGRIDS": "CACHED",
+    "NOAA_ONI": "BUNDLED",
+    "IMERG_MONTHLY": "BUNDLED",
     "OPEN_METEO_SEASONAL": "CACHED",
     "GLOFAS": "CACHED",
     "NEX_GDDP_CMIP6": "CACHED"
   },
+  "source_conflicts": [
+    {
+      "status": "APPLIED",
+      "policy": "MONTHLY_MEAN_BIAS_CORRECTION_HEAT_ONLY",
+      "threshold_c": 2.0,
+      "months": {
+        "1": {
+          "paired_days": 806,
+          "power_mean_c": 31.629,
+          "era5_mean_c": 29.471,
+          "power_minus_era5_c": 2.159,
+          "heat_correction_c": 2.1586352357320098
+        },
+        "2": {
+          "paired_days": 734,
+          "power_mean_c": 34.729,
+          "era5_mean_c": 30.852,
+          "power_minus_era5_c": 3.877,
+          "heat_correction_c": 3.876989100817439
+        },
+        "3": {
+          "paired_days": 806,
+          "power_mean_c": 36.747,
+          "era5_mean_c": 32.551,
+          "power_minus_era5_c": 4.195,
+          "heat_correction_c": 4.195322580645161
+        },
+        "4": {
+          "paired_days": 780,
+          "power_mean_c": 36.831,
+          "era5_mean_c": 33.625,
+          "power_minus_era5_c": 3.207,
+          "heat_correction_c": 3.206730769230769
+        },
+        "5": {
+          "paired_days": 806,
+          "power_mean_c": 33.601,
+          "era5_mean_c": 32.816,
+          "power_minus_era5_c": 0.785,
+          "heat_correction_c": 0.0
+        },
+        "6": {
+          "paired_days": 780,
+          "power_mean_c": 31.01,
+          "era5_mean_c": 31.624,
+          "power_minus_era5_c": -0.615,
+          "heat_correction_c": 0.0
+        },
+        "7": {
+          "paired_days": 806,
+          "power_mean_c": 30.121,
+          "era5_mean_c": 30.9,
+          "power_minus_era5_c": -0.779,
+          "heat_correction_c": 0.0
+        },
+        "8": {
+          "paired_days": 806,
+          "power_mean_c": 30.07,
+          "era5_mean_c": 31.028,
+          "power_minus_era5_c": -0.958,
+          "heat_correction_c": 0.0
+        },
+        "9": {
+          "paired_days": 780,
+          "power_mean_c": 29.846,
+          "era5_mean_c": 30.884,
+          "power_minus_era5_c": -1.038,
+          "heat_correction_c": 0.0
+        },
+        "10": {
+          "paired_days": 806,
+          "power_mean_c": 29.966,
+          "era5_mean_c": 31.024,
+          "power_minus_era5_c": -1.059,
+          "heat_correction_c": 0.0
+        },
+        "11": {
+          "paired_days": 753,
+          "power_mean_c": 30.029,
+          "era5_mean_c": 30.719,
+          "power_minus_era5_c": -0.69,
+          "heat_correction_c": 0.0
+        },
+        "12": {
+          "paired_days": 775,
+          "power_mean_c": 30.143,
+          "era5_mean_c": 29.785,
+          "power_minus_era5_c": 0.358,
+          "heat_correction_c": 0.0
+        }
+      },
+      "fit_before": "2026-11-14",
+      "et0_uses": "ORIGINAL_POWER_TMAX",
+      "note_vi": "Đếm ngày nóng bằng Tmax POWER đã chỉnh chênh lệch trung bình tháng với ERA5 khi |chênh lệch| > 2 °C. Giữ cả hai nguồn; chưa kiểm định cực trị ngày. ET₀ và tưới giữ nguyên đầu vào POWER; sai lệch nhu cầu tưới tuyệt đối vẫn còn.",
+      "evidence_ids": [
+        "ev_power_daily",
+        "ev_era5",
+        "ev_heat_conflict"
+      ]
+    }
+  ],
   "evidence": {
     "ev_power_daily": {
       "kind": "OBSERVED_REMOTE_ESTIMATE",
@@ -258,7 +376,7 @@
     },
     "ev_crop_catalog": {
       "kind": "LITERATURE_RULE",
-      "source": "crops.json (crops-2026.11.0): FAO-56, FAO-29, Maas-Hoffman",
+      "source": "crops.json (crops-2026.11.1): FAO-56, FAO-29, Maas-Hoffman",
       "limitations": [
         "Tham số tham khảo, chưa hiệu chỉnh giống địa phương"
       ]
@@ -271,12 +389,208 @@
         "Upland crops in Hè Thu face rain onset in May; their duration must be checked per sowing date."
       ]
     },
+    "ev_value_heuristic": {
+      "kind": "ASSUMPTION",
+      "source": "[B] heuristic nhóm: regions.json season_value_weight × crops.json value_index",
+      "limitations": [
+        "Team heuristic weights (1.3 / 1.0 / 0.85); no statistical yearbook table or institute publication is cited for these exact values.",
+        "Not a yield, price or profit model: only orders seasons by relative production value for the planner's Pareto criterion production_value_index.",
+        "Province- and year-specific yields differ; replace with GSO/provincial season yields × prices when available.",
+        "Team heuristic values; no price statistic, statistical yearbook table or institute publication is cited.",
+        "Ignores price volatility, input cost and local market access; it is an ordering aid, not a profit estimate (profit stays unknown, G7).",
+        "Used only in production_value_index = Σ_seasons season_value_weight(window) × value_index(crop)."
+      ]
+    },
     "ev_salinity_season": {
       "kind": "ASSUMPTION",
       "source": "MARD/SIWRP salinity intrusion reports 2016, 2020, 2024; MRC Mekong salinity intrusion studies",
       "limitations": [
         "Dates are multi-year typical; actual onset and peak shift with El Nino years and upstream discharge.",
         "Applies to coastal zones only; inland sites have negligible risk."
+      ]
+    },
+    "ev_official_2504": {
+      "kind": "OFFICIAL_GUIDANCE",
+      "source": "Cục Trồng trọt và BVTV, Công văn 2504/TTTV-TTBVTV, 19/6/2026",
+      "url": "https://storage-vnportal.vnpt.vn/cmu-khdn/5342/Vanban/2026.6.19-cv-chi-dao-sx-trong-trot-ung-pho-elnino-2026_-_nqmanh_19062026180253__19062026180725_signed.pdf",
+      "status": "VERIFIED_PRIMARY_PDF",
+      "verified_at": "2026-11-14",
+      "summary_vi": "Vùng thiếu nước hoặc 3 vụ kém hiệu quả: cân nhắc 2 vụ hay chuyển một phần sang ngô, vừng, rau đậu; không vượt khả năng cấp nước.",
+      "calendar_2026": {
+        "early": [
+          "2026-10-10",
+          "2026-10-30"
+        ],
+        "dot_1": [
+          "2026-11-01",
+          "2026-11-30"
+        ],
+        "dot_2": [
+          "2026-12-01",
+          "2026-12-31"
+        ]
+      },
+      "limitations": [
+        "Chỉ đạo vùng, không xác nhận an toàn hay tính phù hợp của từng thửa."
+      ]
+    },
+    "ev_siwrr_2026_press": {
+      "kind": "ASSUMPTION",
+      "source": "Viện KHTL miền Nam (SIWRR), qua Tiền Phong 05/10/2026",
+      "url": "https://tienphong.vn/khuyen-cao-mien-tay-ung-pho-han-man-gay-gat-mua-kho-sap-toi-post1882122.tpo",
+      "status": "PRESS_REPORT_ONLY",
+      "verified_at": "2026-11-14",
+      "summary_vi": "Báo dẫn SIWRR: mặn có thể xuất hiện từ tháng 12/2026; mạnh trong tháng 1 đến đầu tháng 3/2027.",
+      "limitations": [
+        "Chỉ đọc báo dẫn SIWRR, chưa đọc bản tin gốc; chọn 01/12 là giả định của nhóm, không phải ngày mặn tại thửa."
+      ]
+    },
+    "ev_era5": {
+      "kind": "MODEL_ESTIMATE",
+      "source": "Copernicus ERA5 via Open-Meteo (non-NASA)",
+      "url": "https://open-meteo.com/en/docs/historical-weather-api",
+      "status": "BUNDLED",
+      "resolution": "0.25 deg",
+      "limitations": [
+        "Tái phân tích vùng; không phải đo tại ruộng",
+        "Chỉ đối chiếu Tmax, không thay vector thời tiết POWER trong ET₀"
+      ]
+    },
+    "ev_heat_conflict": {
+      "kind": "ASSUMPTION",
+      "source": "POWER–ERA5 conflict policy (§7.3)",
+      "status": "APPLIED",
+      "policy": "MONTHLY_MEAN_BIAS_CORRECTION_HEAT_ONLY",
+      "threshold_c": 2.0,
+      "months": {
+        "1": {
+          "paired_days": 806,
+          "power_mean_c": 31.629,
+          "era5_mean_c": 29.471,
+          "power_minus_era5_c": 2.159,
+          "heat_correction_c": 2.1586352357320098
+        },
+        "2": {
+          "paired_days": 734,
+          "power_mean_c": 34.729,
+          "era5_mean_c": 30.852,
+          "power_minus_era5_c": 3.877,
+          "heat_correction_c": 3.876989100817439
+        },
+        "3": {
+          "paired_days": 806,
+          "power_mean_c": 36.747,
+          "era5_mean_c": 32.551,
+          "power_minus_era5_c": 4.195,
+          "heat_correction_c": 4.195322580645161
+        },
+        "4": {
+          "paired_days": 780,
+          "power_mean_c": 36.831,
+          "era5_mean_c": 33.625,
+          "power_minus_era5_c": 3.207,
+          "heat_correction_c": 3.206730769230769
+        },
+        "5": {
+          "paired_days": 806,
+          "power_mean_c": 33.601,
+          "era5_mean_c": 32.816,
+          "power_minus_era5_c": 0.785,
+          "heat_correction_c": 0.0
+        },
+        "6": {
+          "paired_days": 780,
+          "power_mean_c": 31.01,
+          "era5_mean_c": 31.624,
+          "power_minus_era5_c": -0.615,
+          "heat_correction_c": 0.0
+        },
+        "7": {
+          "paired_days": 806,
+          "power_mean_c": 30.121,
+          "era5_mean_c": 30.9,
+          "power_minus_era5_c": -0.779,
+          "heat_correction_c": 0.0
+        },
+        "8": {
+          "paired_days": 806,
+          "power_mean_c": 30.07,
+          "era5_mean_c": 31.028,
+          "power_minus_era5_c": -0.958,
+          "heat_correction_c": 0.0
+        },
+        "9": {
+          "paired_days": 780,
+          "power_mean_c": 29.846,
+          "era5_mean_c": 30.884,
+          "power_minus_era5_c": -1.038,
+          "heat_correction_c": 0.0
+        },
+        "10": {
+          "paired_days": 806,
+          "power_mean_c": 29.966,
+          "era5_mean_c": 31.024,
+          "power_minus_era5_c": -1.059,
+          "heat_correction_c": 0.0
+        },
+        "11": {
+          "paired_days": 753,
+          "power_mean_c": 30.029,
+          "era5_mean_c": 30.719,
+          "power_minus_era5_c": -0.69,
+          "heat_correction_c": 0.0
+        },
+        "12": {
+          "paired_days": 775,
+          "power_mean_c": 30.143,
+          "era5_mean_c": 29.785,
+          "power_minus_era5_c": 0.358,
+          "heat_correction_c": 0.0
+        }
+      },
+      "fit_before": "2026-11-14",
+      "et0_uses": "ORIGINAL_POWER_TMAX",
+      "note_vi": "Đếm ngày nóng bằng Tmax POWER đã chỉnh chênh lệch trung bình tháng với ERA5 khi |chênh lệch| > 2 °C. Giữ cả hai nguồn; chưa kiểm định cực trị ngày. ET₀ và tưới giữ nguyên đầu vào POWER; sai lệch nhu cầu tưới tuyệt đối vẫn còn.",
+      "evidence_ids": [
+        "ev_power_daily",
+        "ev_era5",
+        "ev_heat_conflict"
+      ]
+    },
+    "ev_enso_oni": {
+      "kind": "OBSERVED_INDEX",
+      "source": "NOAA PSL ONI (CPC, ERSSTv6) (non-NASA)",
+      "url": "https://psl.noaa.gov/data/correlation/oni.data",
+      "retrieved": "2026-11-14",
+      "license": "NOAA data, U.S. public domain",
+      "spatial_scale": "ocean basin (Niño-3.4)",
+      "status": "BUNDLED",
+      "time_scope": [
+        null,
+        "2026-09"
+      ],
+      "limitations": [
+        "ONI là chỉ số của NOAA (không phải NASA), đo nhiệt độ mặt biển Thái Bình Dương, không phải mưa tại ruộng.",
+        "Chỉ dùng tháng có cửa sổ 3 tháng đã kết thúc trước tháng của as_of (không nhìn trước, AC-04); NOAA có thể hiệu chỉnh lại giá trị cũ.",
+        "Năm tương tự là liên hệ thống kê với ~24 năm dữ liệu, KHÔNG phải dự báo mưa hay mặn; có năm El Niño vẫn mưa nhiều.",
+        "ENSO riêng lẻ không dời khung mặn; kế hoạch 2026–27 có thể dùng giả định sớm hơn nếu có dẫn bản tin SIWRR."
+      ]
+    },
+    "ev_imerg_monthly": {
+      "kind": "OBSERVED_REMOTE_ESTIMATE",
+      "source": "NASA GPM IMERG V07 Final monthly (GPM_3IMERGM)",
+      "url": "https://disc.gsfc.nasa.gov/datasets/GPM_3IMERGM_07/summary",
+      "spatial_scale": "regional",
+      "resolution": "0.1 deg (~11 km)",
+      "status": "BUNDLED",
+      "time_scope": [
+        "2001-01",
+        "2025-09"
+      ],
+      "limitations": [
+        "Ước tính vệ tinh ô lưới ~11 km, chưa hiệu chỉnh với trạm đo tại chỗ.",
+        "Chỉ dùng mùa khô (tháng 12–4) đã kết thúc trước as_of; không có cho thửa ngoài 4 điểm demo (khi đó dùng NASA POWER).",
+        "Mô phỏng nước của năm tương tự vẫn chạy trên ngày NASA POWER cùng năm; IMERG chỉ dùng cho thống kê mưa mùa khô."
       ]
     },
     "ev_seasonal_forecast": {
