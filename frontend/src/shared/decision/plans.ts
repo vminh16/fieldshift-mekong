@@ -1,3 +1,4 @@
+import type { PlanRequest } from '../../../../contracts/types'
 import { api, type DecisionPackage } from '../api/client'
 
 const planCache = new Map<string, Promise<DecisionPackage>>()
@@ -20,8 +21,8 @@ export function latestPlan(fieldId: string): Promise<DecisionPackage> {
 }
 
 /** Run a fresh PLAN (after the field profile or observations changed); later reads get this one. */
-export function refreshPlan(fieldId: string): Promise<DecisionPackage> {
-  const p = api.createPlan(fieldId)
+export function refreshPlan(fieldId: string, settings: Partial<Omit<PlanRequest, 'field_id'>> = {}): Promise<DecisionPackage> {
+  const p = api.createPlan(fieldId, settings)
   p.catch(() => planCache.delete(fieldId))
   planCache.set(fieldId, p)
   return p
