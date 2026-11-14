@@ -43,7 +43,8 @@ def what_if(decision_id: str, body: WhatIfIn):
 @router.post("/{decision_id}/evaluate", status_code=201)
 def evaluate_chain(decision_id: str, body: EvaluateChainIn):
     """Simulate any chain the user picks; result's ``baseline`` is that chain (twin via /twin)."""
-    return uc.evaluate_chain(db.connect(), decision_id, list(body.crops))
+    override = body.override.model_dump(mode="json") if body.override else None
+    return uc.evaluate_chain(db.connect(), decision_id, list(body.crops), body.sow_timing, override)
 
 
 @router.post("/{decision_id}/replan", status_code=201)

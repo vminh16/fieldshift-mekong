@@ -139,6 +139,34 @@
             "minItems": 1,
             "title": "Crops",
             "type": "array"
+          },
+          "override": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ScenarioOverride"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sow_timing": {
+            "anyOf": [
+              {
+                "items": {
+                  "enum": [
+                    "early",
+                    "standard"
+                  ],
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sow Timing"
           }
         },
         "required": [

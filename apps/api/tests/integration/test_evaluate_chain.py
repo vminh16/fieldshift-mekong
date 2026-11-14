@@ -79,3 +79,40 @@ def test_chain_length_must_match_the_horizon():
             f"/v1/plans/{parent['decision_id']}/evaluate", json={"crops": ["rice", "rice", "kale"]}
         )
         assert bad.status_code == 422
+
+
+def test_engine_option_rerun_keeps_its_sow_timing_and_user_assumptions():
+    with TestClient(app) as client:
+        parent = plan(client)
+        option = parent["options"][0]
+        r = client.post(
+            f"/v1/plans/{parent['decision_id']}/evaluate",
+            json={
+                "crops": [s["crop"] for s in option["seasons"]],
+                "sow_timing": [s["sow_timing"] for s in option["seasons"]],
+                "override": {"rain_delta_pct": -30, "salinity_onset_shift_weeks": -4},
+            },
+        )
+        assert r.status_code == 201, r.text
+        child = r.json()
+        # Same chain and timing as the engine option, now under the user's assumptions.
+        assert child["baseline"]["sequence_id"] == option["sequence_id"]
+        assert child["override"]["rain_delta_pct"] == -30
+        whatif = next(s for s in child["scenarios"] if s["scenario_id"] == "sc_whatif")
+        assert whatif["origin"] == "user_what_if" and whatif["probability"] is None
+        twin = client.get(
+            f"/v1/plans/{child['decision_id']}/twin",
+            params={"sequence_id": option["sequence_id"], "scenario_id": "sc_whatif", "member": 0},
+        )
+        assert twin.status_code == 200, twin.text
+        assert client.get(f"/v1/plans/{parent['decision_id']}").json()["override"] is None
+
+
+def test_sow_timing_must_match_the_chain():
+    with TestClient(app) as client:
+        parent = plan(client)
+        r = client.post(
+            f"/v1/plans/{parent['decision_id']}/evaluate",
+            json={"crops": ["rice", "rice", "rice"], "sow_timing": ["early"]},
+        )
+        assert r.status_code == 422

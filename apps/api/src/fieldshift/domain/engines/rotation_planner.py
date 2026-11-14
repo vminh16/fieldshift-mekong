@@ -1070,7 +1070,20 @@ def run_plan(
         ]
 
     std = [next(o for o in sow_options(w) if o[0] == "standard") for w in windows]
-    base_seq = make_sequence(windows, baseline_crops, shifted(std))
+    # A chain evaluated on request may keep its own sow timings (e.g. an engine option sown early).
+    base_timing = req.get("baseline_sow_timing")
+    if base_timing:
+        if len(base_timing) != n:
+            raise ValueError("SOW_TIMING_LENGTH_MISMATCH")
+        base_sows = []
+        for w, t in zip(windows, base_timing):
+            opt = next((o for o in sow_options(w) if o[0] == t), None)
+            if opt is None:
+                raise ValueError(f"SOW_TIMING_NOT_AVAILABLE:{w['id']}:{t}")
+            base_sows.append(opt)
+    else:
+        base_sows = std
+    base_seq = make_sequence(windows, baseline_crops, shifted(base_sows))
     candidates, excluded = [], []
     crop_ids = [c["id"] for c in CROPS["crops"]]
     max_changes = constraints.get(

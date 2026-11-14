@@ -212,7 +212,7 @@ def what_if(c, decision_id: str, priorities, override):
     )
 
 
-def evaluate_chain(c, decision_id: str, crops: list[str]):
+def evaluate_chain(c, decision_id: str, crops: list[str], sow_timing=None, override=None):
     """Simulate a user-chosen chain under the parent decision's inputs and scenarios.
 
     The engine always evaluates its baseline in full — metrics, rules (including HARD
@@ -230,6 +230,8 @@ def evaluate_chain(c, decision_id: str, crops: list[str]):
         )
     req["baseline"] = list(crops)
     req["evaluate_chain"] = list(crops)
+    if sow_timing:
+        req["baseline_sow_timing"] = list(sow_timing)
     f = must(c, "fields", parent["field_id"], "FIELD_NOT_FOUND")
     return make_plan(
         c,
@@ -237,7 +239,7 @@ def evaluate_chain(c, decision_id: str, crops: list[str]):
         req,
         "WHAT_IF",
         parent_id=decision_id,
-        override=parent["package"].get("override"),
+        override=override if override is not None else parent["package"].get("override"),
         history=parent["package"].get("history"),
     )
 

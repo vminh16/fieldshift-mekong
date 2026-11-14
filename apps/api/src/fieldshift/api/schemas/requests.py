@@ -93,6 +93,10 @@ class EvaluateChainIn(BaseModel):
     """A rotation chosen by the user, one crop per season of the parent decision's horizon."""
 
     crops: list[CropId] = Field(min_length=1, max_length=3)
+    # Keep an engine option's own timing when re-running it; default is the standard sow date.
+    sow_timing: list[Literal["early", "standard"]] | None = None
+    # User assumptions (what-if). None keeps the parent's override.
+    override: ScenarioOverride | None = None
 
 
 class WhatIfIn(BaseModel):

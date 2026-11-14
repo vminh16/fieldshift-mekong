@@ -55,8 +55,11 @@ export interface PlanRequest {
     max_changed_seasons?: number; max_fallow_seasons?: number
   }
 }
+// Matches apps/api ScenarioOverride (openapi.json). Negative salinity shift = salinity arrives earlier.
 export interface ScenarioOverride {
-  rain_delta_pct?: number; temp_delta_c?: number; salinity_shift_weeks?: number; sow_shift_days?: number
+  rain_delta_pct?: number | null; temp_delta_c?: number | null; salinity_onset_shift_weeks?: number | null
+  /** {"2": -10} = season 2 sown 10 days earlier */
+  sow_shift_days?: Record<string, number>; irrigation_cap_mm?: number | null
 }
 
 export interface Gate { gate: string; passed: boolean; message: string }
