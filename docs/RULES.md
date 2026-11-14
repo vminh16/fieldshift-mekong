@@ -33,20 +33,22 @@
 | SALINITY_OVERLAP_DAYS | 7 | hằng số module | [B] heuristic nhóm tự đặt | R_SALINITY*: ngày trùng mùa mặn |
 | SALINITY_EARLY_WEEKS | -4 | hằng số module | [B] heuristic nhóm tự đặt | R_SALINITY*: mặn đến sớm (tuần, âm = sớm) |
 
-## 3. Tham số cây trồng (`crops.json` crops-2026.11.0)
+## 3. Tham số cây trồng (`crops.json` crops-2026.11.1)
 
-| Cây | Kc ini/mid/end | Mặn ECe ngưỡng, độ dốc; ECw | Ngưỡng Tmax | Thời gian ngày min/typ/max | Cửa sổ | Máy móc |
-|---|---|---|---|---|---|---|
-| rice | 1.05/1.2/0.75 [A] | 3.0 dS/m, 12%/dS/m; ECw 2.0 [A] | 35 °C [A] | 90/100/110 [A] | dong_xuan, xuan_he, thu_dong [A] | rỗng [C] |
-| maize | 0.3/1.2/0.6 [A] | 1.7 dS/m, 12%/dS/m; ECw 1.13 [A] | 35 °C [B] | 85/95/110 [B] | dong_xuan, xuan_he [B] | rỗng [C] |
-| soybean | 0.4/1.15/0.5 [A] | 5.0 dS/m, 20%/dS/m; ECw 3.33 [A] | 35 °C [B] | 75/85/100 [B] | dong_xuan, xuan_he [B] | rỗng [C] |
-| mungbean | 0.4/1.05/0.35 [A] | 1.8 dS/m, 20%/dS/m; ECw 1.2 [B] | 35 °C [B] | 60/70/80 [B] | dong_xuan, xuan_he [B] | rỗng [C] |
-| sesame | 0.35/1.1/0.25 [A] | 2.5 dS/m, 15%/dS/m; ECw 1.67 [B] | 36 °C [B] | 75/90/100 [B] | dong_xuan, xuan_he [B] | rỗng [C] |
-| peanut | 0.4/1.15/0.6 [A] | 3.2 dS/m, 29%/dS/m; ECw 2.13 [A] | 35 °C [B] | 90/100/115 [B] | dong_xuan, xuan_he [B] | rỗng [C] |
-| watermelon | 0.4/1.0/0.75 [A] | 2.2 dS/m, 16%/dS/m; ECw 1.47 [B] | 35 °C [B] | 75/85/95 [B] | dong_xuan, xuan_he [B] | rỗng [C] |
-| fallow_cover | 0.3/0.4/0.3 [B] | 99.0 dS/m, 0.0%/dS/m; ECw 66.0 [C] | 45 °C [C] | 30/60/90 [B] | dong_xuan, xuan_he, thu_dong [B] | rỗng [C] |
+| Cây | Kc ini/mid/end | Mặn ECe ngưỡng, độ dốc; ECw | Ngưỡng Tmax | Thời gian ngày min/typ/max | Cửa sổ | Máy móc | Giá trị tương đối |
+|---|---|---|---|---|---|---|---|
+| rice | 1.05/1.2/0.75 [A] | 3.0 dS/m, 12%/dS/m; ECw 2.0 [A] | 35 °C [A] | 90/100/110 [A] | dong_xuan, xuan_he, thu_dong [A] | rỗng [C] | 1.0 [B] |
+| maize | 0.3/1.2/0.6 [A] | 1.7 dS/m, 12%/dS/m; ECw 1.13 [A] | 35 °C [B] | 85/95/110 [B] | dong_xuan, xuan_he [B] | rỗng [C] | 0.8 [B] |
+| soybean | 0.4/1.15/0.5 [A] | 5.0 dS/m, 20%/dS/m; ECw 3.33 [A] | 35 °C [B] | 75/85/100 [B] | dong_xuan, xuan_he [B] | rỗng [C] | 0.6 [B] |
+| mungbean | 0.4/1.05/0.35 [A] | 1.8 dS/m, 20%/dS/m; ECw 1.2 [B] | 35 °C [B] | 60/70/80 [B] | dong_xuan, xuan_he [B] | rỗng [C] | 0.8 [B] |
+| sesame | 0.35/1.1/0.25 [A] | 2.5 dS/m, 15%/dS/m; ECw 1.67 [B] | 36 °C [B] | 75/90/100 [B] | dong_xuan, xuan_he [B] | rỗng [C] | 0.8 [B] |
+| peanut | 0.4/1.15/0.6 [A] | 3.2 dS/m, 29%/dS/m; ECw 2.13 [A] | 35 °C [B] | 90/100/115 [B] | dong_xuan, xuan_he [B] | rỗng [C] | 0.8 [B] |
+| watermelon | 0.4/1.0/0.75 [A] | 2.2 dS/m, 16%/dS/m; ECw 1.47 [B] | 35 °C [B] | 75/85/95 [B] | dong_xuan, xuan_he [B] | rỗng [C] | 0.8 [B] |
+| fallow_cover | 0.3/0.4/0.3 [B] | 99.0 dS/m, 0.0%/dS/m; ECw 66.0 [C] | 45 °C [C] | 30/60/90 [B] | dong_xuan, xuan_he, thu_dong [B] | rỗng [C] | 0.0 [B] |
 
 Mã trong ô: [A]/[B]/[C] như trên.
+
+Giá trị tương đối (`value_index`): [B] TEAM HEURISTIC, not a cited statistic. Relative production/market value of one season of each crop, rice = 1.0. Upland cash crops (maize, mungbean, sesame, peanut, watermelon) share one lower value because the team has no price series to separate them; soybean is lower because domestic soybean competes with imports (see market_note_vi); fallow produces nothing (0). Hạn chế: Team heuristic values; no price statistic, statistical yearbook table or institute publication is cited. | Ignores price volatility, input cost and local market access; it is an ordering aid, not a profit estimate (profit stays unknown, G7). | Used only in production_value_index = Σ_seasons season_value_weight(window) × value_index(crop).
 
 ### Nguồn và hạn chế theo cây
 
@@ -57,17 +59,18 @@ Mã trong ô: [A]/[B]/[C] như trên.
 - **sesame** — nguồn: FAO-56 Table 12 (sesame Kc 0.35/1.10/0.25), Table 22; AquaCrop/FAO-33 oilcrop data; FAO-29 (sesame sensitive at germination). Hạn chế: Salinity threshold 2.5 dS/m and slope 15 are uncertain best estimates, not Maas-Hoffman listed values. | Very intolerant of waterlogging; unsuitable on poorly drained clay. | Stage lengths are regional estimates. | ecw_threshold_ds_m approximated as ECe/1.5 (FAO-29 convention ECe ~ 1.5 ECw); salinity values are Maas-Hoffman steady-state, not Mekong-calibrated.
 - **peanut** — nguồn: FAO-56 Table 12 (Kc), Table 22 (root depth, p) (groundnut); Maas & Hoffman 1977 (peanut ECe 3.2, 29%); FAO-33. Hạn chế: Stage lengths scaled from FAO-56 130-day groundnut to ~100 days (estimate). | Sensitive to waterlogging at pod filling; needs sandy-loam or raised bed. | Kc end 0.60 assumes harvest at moderate moisture. | ecw_threshold_ds_m approximated as ECe/1.5 (FAO-29 convention ECe ~ 1.5 ECw); salinity values are Maas-Hoffman steady-state, not Mekong-calibrated.
 - **watermelon** — nguồn: FAO-56 Table 12 (Kc), Table 22 (root depth, p) (watermelon); Maas & Hoffman 1977 (watermelon ECe 2.2, 16%); FAO-33. Hạn chế: Rooting depth 0.8-1.5 m exceeds usable Mekong depth with high water table; real effective depth likely lower. | Highly susceptible to waterlogging and soil-borne disease, needs raised beds. | Salinity values are lower-confidence (limited trials). | ecw_threshold_ds_m approximated as ECe/1.5 (FAO-29 convention ECe ~ 1.5 ECw); salinity values are Maas-Hoffman steady-state, not Mekong-calibrated.
-- **fallow_cover** — nguồn: FAO-56 Table 12 (bare soil/ground cover Kc 0.15-0.5); FAO-56 Table 22 (generic p 0.5). Hạn chế: Salinity: not applicable, values are placeholders (tolerance T, threshold 99) so salinity penalty is zero. | Kc ~0.3-0.4 is a mid-value for sparse cover/weeds, not a specific species. | Duration and stages are nominal; farmer-set. | ecw_threshold_ds_m approximated as ECe/1.5 (FAO-29 convention ECe ~ 1.5 ECw); salinity values are Maas-Hoffman steady-state, not Mekong-calibrated.
+- **fallow_cover** — nguồn: FAO-56 Table 12 (bare soil/ground cover Kc 0.15-0.5); FAO-56 Table 22 (generic p 0.5). Hạn chế: Salinity: not applicable, values are placeholders (tolerance T, threshold 99) so salinity penalty is zero. | Kc ~0.3-0.4 is a mid-value for sparse cover/weeds, not a specific species. | Duration and stages are nominal; farmer-set. | breaks_rice_pest_cycle is a qualitative potential benefit of a rice-free season; it assumes volunteer/ratoon rice (green bridge for brown planthopper) is removed. | ecw_threshold_ds_m approximated as ECe/1.5 (FAO-29 convention ECe ~ 1.5 ECw); salinity values are Maas-Hoffman steady-state, not Mekong-calibrated.
 
-## 4. Giá trị vùng (`regions.json` regions-2026.11.0)
+## 4. Giá trị vùng (`regions.json` regions-2026.11.1)
 
 | Vùng | Tham số | Giá trị | Phân loại | Nguồn | Hạn chế |
 |---|---|---|---|---|---|
 | mekong | Cửa sổ vụ | dong_xuan 11-15→12-31; xuan_he 03-01→04-30; thu_dong 07-01→08-31 | [A] tài liệu khoa học | MARD/Cuc Trong trot cropping calendars for Mekong Delta (Đông Xuân Nov-Dec, Hè Thu Mar-May, Thu Đông Jul-Aug) | Windows are widened to guarantee a 3-crop rice sequence: latest sowing + 110 d + 10 d turnaround fits the next window's end; actual local calendars vary by province and flood/salinity status. / Upland crops in Hè Thu face rain onset in May; their duration must be checked per sowing date. |
+| mekong | Trọng số giá trị vụ (production_value_index) | dong_xuan 1.3; xuan_he 1.0; thu_dong 0.85 | [B] heuristic nhóm tự đặt | - | Team heuristic weights (1.3 / 1.0 / 0.85); no statistical yearbook table or institute publication is cited for these exact values. / Not a yield, price or profit model: only orders seasons by relative production value for the planner's Pareto criterion production_value_index. / Province- and year-specific yields differ; replace with GSO/provincial season yields × prices when available. |
 | mekong | min_turnaround_days | 10 | [A] tài liệu khoa học | MARD/Cuc Trong trot cropping calendars for Mekong Delta (Đông Xuân Nov-Dec, Hè Thu Mar-May, Thu Đông Jul-Aug) | Windows are widened to guarantee a 3-crop rice sequence: latest sowing + 110 d + 10 d turnaround fits the next window's end; actual local calendars vary by province and flood/salinity status. / Upland crops in Hè Thu face rain onset in May; their duration must be checked per sowing date. |
 | mekong | Paddy: thấm / làm đất / ponding | 2.0 mm/ngày / 200 mm / 50-100 mm | [A] tài liệu khoa học | FAO-56 section on rice (land prep ~200 mm, ponding 50-100 mm); FAO Irrigation Paper 33/IRRI: percolation 1-5 mm/d on heavy clay; Mekong alluvial paddy studies (Can Tho Univ.) | Percolation 2 mm/day is a mid value for heavy clay; varies 1-5 mm/day by soil and water table. / Land prep 200 mm is the FAO-56 standard, not locally measured. / Ponding depths are agronomic guidance, not field-specific. |
 | mekong | Đất: TAW / pH / kết cấu | 150.0 mm/m / [4.5, 6.5] / clay | [A] tài liệu khoa học | FAO-56 Table 19 (clay TAW 120-200 mm/m); Vietnamese Mekong soil surveys (SIWRP / Can Tho Univ.) | Regional prior only; replace with field soil data when available. / TAW 150 mm/m is a mid value; acid sulfate soils have pH down to ~3.5-4.5. |
 | mekong | Mùa mặn: đầu / đỉnh / cuối | 01-15 / 04-15 / 06-15 | [A] tài liệu khoa học | MARD/SIWRP salinity intrusion reports 2016, 2020, 2024; MRC Mekong salinity intrusion studies | Dates are multi-year typical; actual onset and peak shift with El Nino years and upstream discharge. / Applies to coastal zones only; inland sites have negligible risk. |
 
 ---
-Hash nội dung (sha256, 16 ký tự đầu, không gồm dòng này): `bff12d112befb85f`
+Hash nội dung (sha256, 16 ký tự đầu, không gồm dòng này): `adb660f6e0ad8305`

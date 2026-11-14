@@ -168,7 +168,7 @@ def test_ac05_order_changes_carryover_and_gap_mass_balance(client):
 
 
 def reference_pareto(cands):
-    keys = ["irr", "irr_dry", "stress_p90", "salt", "soil", "changes", "idle"]
+    keys = planner.PARETO_KEYS
     return [
         a
         for a in cands
@@ -183,7 +183,7 @@ def reference_pareto(cands):
 
 def test_fast_pareto_matches_quadratic_reference(client, monkeypatch):
     rng = random.Random(7)
-    keys = ["irr", "irr_dry", "stress_p90", "salt", "soil", "changes", "idle"]
+    keys = planner.PARETO_KEYS
     for _ in range(50):
         cands = [{"crit": {k: rng.randint(0, 3) for k in keys}} for _ in range(rng.randint(0, 60))]
         assert planner.pareto(cands) == reference_pareto(cands)

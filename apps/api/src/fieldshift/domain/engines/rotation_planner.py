@@ -23,7 +23,7 @@ VERSIONS = {
     "catalog": CROPS["version"],
     "rules": "rules-1",
     "water_model": "fao56-v1",
-    "planner": "pareto-v1",
+    "planner": "pareto-v2",
 }
 PPT_PER_DS_M = 0.64  # TDS ≈ 640·ECw (FAO-29, ECw < 5 dS/m); VN extension reports salinity in ‰
 DEFAULT_CANAL_CAP_MM = (
@@ -41,7 +41,16 @@ STRATEGY_VI = {
     "low_risk": "Giảm rủi ro",
     "soil_support": "Hỗ trợ đất",
     "balanced": "Thay đổi ít, cân bằng",
+    "third_season_rest": "Nghỉ vụ ba / xả lũ",
+    "salinity_avoidance": "Né mặn: xuống giống sớm",
 }
+# Strategies whose ranking prefers keeping the high-value seasons (production_value_index).
+VALUE_AWARE_STRATEGIES = frozenset({"low_risk", "soil_support", "balanced"})
+# 4 Pareto strategies + at most one zone practice (inland rest OR coastal early sow).
+MAX_OPTIONS = 5
+REST_WINDOW = "thu_dong"
+EARLY_SOW_WINDOW = "dong_xuan"
+VALUE_REASON_EVIDENCE = ["ev_value_heuristic", "ev_region_calendar"]
 # criteria() reads climate/dry summaries; field_rules() reads climate only.
 # Keep this set aligned with those dependencies so optional outlooks cannot change selection.
 SCREENING_SCENARIOS = frozenset({"sc_clim", "sc_dry"})
@@ -316,6 +325,11 @@ class Evaluator:
                 dep,
                 self.cap,
             )
+            if CROP_BY_ID[crop_id]["water_regime"] == "none":
+                # Bare-soil drying is not crop damage: a fallow season adds 0 stress days to
+                # every total; the raw counts stay on the result for the Twin/debugging.
+                for key in ("water_stress_days", "heat_stress_days_sensitive"):
+                    r["bare_soil_" + key], r[key] = r[key], 0
             self.memo[k] = r
         return self.memo[k]
 
@@ -605,9 +619,32 @@ def soil_indicators(seq) -> list[str]:
 # ---------- planner ----------
 
 
+def production_value_index(seq: dict, region: dict) -> float:
+    """Σ over seasons of season_value_weight(window) × value_index(crop).
+
+    Team heuristic [B] (regions.json season_value_weight, crops.json value_index): an ordering
+    aid so the planner does not trade away the most valuable season; not yield, price or profit.
+    """
+    weight = {w["id"]: w["value_weight"] for w in region["season_windows"]}
+    return round(
+        sum(weight[s["window"]] * CROP_BY_ID[s["crop"]]["value_index"] for s in seq["seasons"]), 2
+    )
+
+
+def salinity_exposure_days(seq: dict, region: dict, as_of: dt.date, shift_weeks: int) -> int:
+    """Days crop seasons (not fallow) overlap the salinity window, same dates as field_rules."""
+    lo, hi = salinity_window(region, as_of, shift_weeks)
+    return sum(
+        overlap_days(s["sow"], s["harvest"], lo, hi)
+        for s in seq["seasons"]
+        if CROP_BY_ID[s["crop"]]["water_regime"] != "none"
+    )
+
+
 def criteria(c, baseline):
     s = c["summary"]
     return {
+        "value": -c["production_value_index"],  # maximised; negated for the min-Pareto
         "irr": s["sc_clim"]["irrigation_mm"]["p50"],
         "irr_dry": s["sc_dry"]["irrigation_mm"]["p50"],
         "stress_p90": s["sc_clim"]["water_stress_days"]["p90"]
@@ -619,14 +656,16 @@ def criteria(c, baseline):
     }
 
 
+PARETO_KEYS = ("irr", "irr_dry", "stress_p90", "salt", "soil", "changes", "idle", "value")
+
+
 def pareto(cands):
     """Non-dominated candidates, in input order.
 
     A dominator is lexicographically smaller, so after sorting each candidate only needs
     checking against the front found so far (dominance is transitive): O(n·|front|).
     """
-    keys = ["irr", "irr_dry", "stress_p90", "salt", "soil", "changes", "idle"]
-    vecs = {id(c): tuple(c["crit"][k] for k in keys) for c in cands}
+    vecs = {id(c): tuple(c["crit"][k] for k in PARETO_KEYS) for c in cands}
     front = []
     for a in sorted(cands, key=lambda c: vecs[id(c)]):
         va = vecs[id(a)]
@@ -709,21 +748,70 @@ def rerank_options(options, priorities):
     return sorted(options, key=lambda option: order.index(option["strategy_tag"]))
 
 
-def pick_strategies(front, baseline, priorities):
+def rests_third_season(c, baseline) -> bool:
+    """Baseline with only its Thu Đông crop(s) replaced by fallow, same sow timings."""
+    pairs = list(zip(c["seq"]["seasons"], baseline["seq"]["seasons"]))
+    changed = [s for s, b in pairs if s["crop"] != b["crop"]]
+    return (
+        bool(changed)
+        and all(s["window"] == REST_WINDOW and s["crop"] == "fallow_cover" for s in changed)
+        and all(s["sow_timing"] == b["sow_timing"] for s, b in pairs)
+    )
+
+
+def sows_dong_xuan_early(c, baseline) -> bool:
+    """Baseline crops, Đông Xuân sown early, every other season at the baseline timing."""
+    pairs = list(zip(c["seq"]["seasons"], baseline["seq"]["seasons"]))
+    return (
+        c["seq"]["crops"] == baseline["seq"]["crops"]
+        and any(s["window"] == EARLY_SOW_WINDOW and s["sow"] < b["sow"] for s, b in pairs)
+        and all(
+            s["sow_timing"] == ("early" if s["window"] == EARLY_SOW_WINDOW else b["sow_timing"])
+            for s, b in pairs
+        )
+    )
+
+
+def salinity_avoided(c, baseline) -> dict:
+    """Salinity-window overlap days removed vs the baseline (typical and early-onset windows)."""
+    return {k: baseline["salinity_exposure"][k] - v for k, v in c["salinity_exposure"].items()}
+
+
+def pick_strategies(front, baseline, priorities, evaluated=(), coastal=False):
+    """Diverse Pareto picks, plus one named zone practice chosen from all feasible candidates.
+
+    The practices (inland third-season rest, coastal early Đông Xuân sowing) are defined by
+    agronomic practice, not by the Pareto keys, whose criteria cannot see their benefits.
+    """
+    picked, used = [], set()
+    practice, test = (
+        ("salinity_avoidance", sows_dong_xuan_early)
+        if coastal
+        else ("third_season_rest", rests_third_season)
+    )
+    c = next((c for c in evaluated if test(c, baseline)), None)
+    if c is not None and (not coastal or salinity_avoided(c, baseline)["typical"] > 0):
+        used.add(tuple(c["seq"]["crops"]))
+        picked.append((practice, c))
     pool = [c for c in front if c["seq"]["crops"] != baseline["seq"]["crops"]]
     by = {
         "save_water": lambda c: (c["crit"]["idle"], c["crit"]["irr"], c["crit"]["irr_dry"]),
         "low_risk": lambda c: (
             c["crit"]["salt"],
             c["crit"]["idle"],
+            c["crit"]["value"],
             c["crit"]["stress_p90"],
             c["crit"]["irr_dry"],
         ),
-        "soil_support": lambda c: (c["crit"]["soil"], c["crit"]["irr"]),
-        "balanced": lambda c: (c["crit"]["changes"], c["crit"]["stress_p90"], c["crit"]["irr"]),
+        "soil_support": lambda c: (c["crit"]["soil"], c["crit"]["value"], c["crit"]["irr"]),
+        "balanced": lambda c: (
+            c["crit"]["changes"],
+            c["crit"]["value"],
+            c["crit"]["stress_p90"],
+            c["crit"]["irr"],
+        ),
     }
     order = strategy_order(priorities)
-    picked, used = [], set()
     for s in by:  # assign in fixed order so labels don't depend on priorities; priorities only reorder (§6.7.4)
         for c in sorted(pool, key=by[s]):
             sig = tuple(c["seq"]["crops"])
@@ -731,13 +819,55 @@ def pick_strategies(front, baseline, priorities):
                 used.add(sig)
                 picked.append((s, c))
                 break
-    return sorted(picked, key=lambda x: order.index(x[0]))[:4]
+    return sorted(picked, key=lambda x: order.index(x[0]))[:MAX_OPTIONS]
 
 
 # ---------- explanation ----------
 
 
-def explain(c, base, ev) -> dict:
+def strategy_reasons(c, base, ev, strategy) -> tuple[list[dict], dict | None]:
+    """(leading practice/value reasons, value trade-off reason to place after the first one)."""
+    lead = []
+    if strategy == "third_season_rest":
+        lead.append(
+            {
+                "text": "Nghỉ vụ ba (Thu Đông) — lợi ích tiềm năng, định tính, chưa định lượng: cắt vòng đời rầy nâu vì ruộng không có lúa, đất được nghỉ, và nhận phù sa nếu ruộng nằm trong vùng xả lũ đầu nguồn.",
+                "claim_type": "POTENTIAL_QUALITATIVE",
+                "evidence_ids": ["ev_crop_catalog", "ev_region_calendar"],
+            }
+        )
+    if strategy == "salinity_avoidance":
+        avoided = salinity_avoided(c, base)
+        lo, hi = salinity_window(ev.region, ev.as_of, 0)
+        early = next(s for s in c["seq"]["seasons"] if s["window"] == EARLY_SOW_WINDOW)
+        lead.append(
+            {
+                "text": f"Giữ chuỗi cây hiện tại, xuống giống vụ {early['window_name_vi']} sớm ({early['sow']}, thu hoạch {early['harvest']}): bớt {number_vi(avoided['typical'])} ngày trùng mùa mặn điển hình ({lo}–{hi}) và {number_vi(avoided['early_onset'])} ngày nếu mặn đến sớm {number_vi(-SALINITY_EARLY_WEEKS)} tuần, so với gieo chuẩn. Không loại bỏ rủi ro mặn: vẫn phải đo ECw nước kênh trước khi gieo.",
+                "evidence_ids": ["ev_salinity_season", "ev_region_calendar"],
+            }
+        )
+    vc, vb = c["production_value_index"], base["production_value_index"]
+    if vc == vb:
+        return lead, None
+    weight = {w["id"]: w["value_weight"] for w in ev.region["season_windows"]}
+    top = max(weight, key=weight.get)
+    changed = [
+        s for s, b in zip(c["seq"]["seasons"], base["seq"]["seasons"]) if s["crop"] != b["crop"]
+    ]
+    detail = "đổi vụ " + ", ".join(s["window_name_vi"] for s in changed)
+    kept = next((s for s in c["seq"]["seasons"] if s["window"] == top), None)
+    if kept and all(s["window"] != top for s in changed):
+        detail = f"giữ {kept['crop_name_vi'].lower()} vụ {kept['window_name_vi']} (trọng số giá trị cao nhất), chỉ {detail}"
+    value = {
+        "text": f"Chỉ số giá trị sản xuất tương đối {number_vi(vc)} so với {number_vi(vb)} của chuỗi hiện tại: {detail} (heuristic nhóm [B], không phải năng suất hay lợi nhuận).",
+        "evidence_ids": VALUE_REASON_EVIDENCE,
+    }
+    if strategy in VALUE_AWARE_STRATEGIES:
+        return lead + [value], None
+    return lead, value
+
+
+def explain(c, base, ev, strategy=None) -> dict:
     s, b = c["summary"]["sc_clim"], base["summary"]["sc_clim"]
     sd, bd = c["summary"]["sc_dry"], base["summary"]["sc_dry"]
     reasons = []
@@ -782,6 +912,10 @@ def explain(c, base, ev) -> dict:
                 "evidence_ids": ["ev_crop_catalog"],
             }
         )
+    lead, value = strategy_reasons(c, base, ev, strategy)
+    reasons = lead + reasons
+    if value:
+        reasons.insert(min(len(lead) + 1, len(reasons)), value)
     if not reasons:
         reasons.append(
             {
@@ -1231,6 +1365,11 @@ def run_plan(
             "rules": rules,
             "status": status_of(rules),
             "soil_indicators": soil_indicators(seq),
+            "production_value_index": production_value_index(seq, region),
+            "salinity_exposure": {
+                "typical": salinity_exposure_days(seq, region, as_of, 0),
+                "early_onset": salinity_exposure_days(seq, region, as_of, SALINITY_EARLY_WEEKS),
+            },
         }
         return c
 
@@ -1295,7 +1434,9 @@ def run_plan(
     timed("screening")
     front = pareto(evaluated)
     priorities = req.get("priorities") or ["avoid_crop_failure", "save_water", "soil_health"]
-    picked = pick_strategies(front, base, priorities)
+    picked = pick_strategies(
+        front, base, priorities, evaluated, bool(state["coastal_salinity_risk"]["value"])
+    )
     timed("selection")
 
     # The shortlist is fixed using exactly the same criteria and candidate order as before.
@@ -1376,6 +1517,7 @@ def run_plan(
             "metrics": metrics,
             "distribution": c["distribution"],
             "delta_vs_baseline": delta,
+            "production_value_index": c["production_value_index"],
             "soil_benefit": {
                 "claim_type": "POTENTIAL_QUALITATIVE",
                 "value": None,
@@ -1383,8 +1525,10 @@ def run_plan(
             },
             "rules": c["rules"],
         }
+        if strategy == "salinity_avoidance":
+            out["salinity_overlap_avoided_days"] = salinity_avoided(c, base)
         out.update(
-            explain(c, base, ev)
+            explain(c, base, ev, strategy)
             if c is not base
             else {
                 "reasons": [],
@@ -1417,10 +1561,13 @@ def run_plan(
         if shift_text:
             out["reasons"].append({"text": shift_text, "evidence_ids": ["ev_region_calendar"]})
         if c is not base:
+            pairs = list(zip(seq["seasons"], base["seq"]["seasons"]))
             changes = [
                 f"Đổi vụ {s['window_name_vi']} sang {s['crop_name_vi']}"
-                for s, b in zip(seq["seasons"], base["seq"]["seasons"])
+                for s, b in pairs
                 if s["crop"] != b["crop"]
+            ] or [
+                f"Xuống giống vụ {s['window_name_vi']} sớm" for s, b in pairs if s["sow"] < b["sow"]
             ]
             summary = "; ".join(changes) + ": " + out["reasons"][0]["text"]
             if any(r["rule_id"] == "R_DRAINAGE_UNKNOWN" for r in c["rules"]):

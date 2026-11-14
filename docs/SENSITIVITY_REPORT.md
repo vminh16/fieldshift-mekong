@@ -14,10 +14,10 @@ Kiểm tra xác định: chạy tham chiếu 2 lần cho kết quả GIỐNG H�
 
 | Tham số | Giá trị | Ruộng | Top-1 giữ nguyên | Jaccard | Đổi status | ΔIrr baseline |
 |---|---|---|---|---|---|---|
-| Thấm paddy (mm/ngày) | 1 | Cần Thơ | có | 1.00 | 0 | -11.2% |
+| Thấm paddy (mm/ngày) | 1 | Cần Thơ | KHÔNG | 0.67 | 0 | -11.2% |
 | Thấm paddy (mm/ngày) | 1 | Châu Đốc | có | 1.00 | 0 | -12.6% |
 | Thấm paddy (mm/ngày) | 1 | Bến Tre | có | 1.00 | 0 | -13.2% |
-| Thấm paddy (mm/ngày) | 1 | Sóc Trăng | có | 1.00 | 0 | -11.5% |
+| Thấm paddy (mm/ngày) | 1 | Sóc Trăng | KHÔNG | 0.67 | 0 | -11.5% |
 | Thấm paddy (mm/ngày) | 2 | Cần Thơ | có | 1.00 | 0 | +0.0% |
 | Thấm paddy (mm/ngày) | 2 | Châu Đốc | có | 1.00 | 0 | +0.0% |
 | Thấm paddy (mm/ngày) | 2 | Bến Tre | có | 1.00 | 0 | +0.0% |
@@ -26,30 +26,30 @@ Kiểm tra xác định: chạy tham chiếu 2 lần cho kết quả GIỐNG H�
 | Thấm paddy (mm/ngày) | 5 | Châu Đốc | có | 1.00 | 0 | +46.2% |
 | Thấm paddy (mm/ngày) | 5 | Bến Tre | có | 1.00 | 0 | +42.4% |
 | Thấm paddy (mm/ngày) | 5 | Sóc Trăng | có | 1.00 | 0 | +46.3% |
-| TAW đất (mm/m) | 120 | Cần Thơ | có | 0.75 | 0 | +0.0% |
-| TAW đất (mm/m) | 120 | Châu Đốc | có | 1.00 | 0 | +0.0% |
+| TAW đất (mm/m) | 120 | Cần Thơ | KHÔNG | 0.67 | 0 | +0.0% |
+| TAW đất (mm/m) | 120 | Châu Đốc | KHÔNG | 0.67 | 0 | +0.0% |
 | TAW đất (mm/m) | 120 | Bến Tre | có | 1.00 | 0 | +0.0% |
-| TAW đất (mm/m) | 120 | Sóc Trăng | có | 1.00 | 0 | +0.0% |
+| TAW đất (mm/m) | 120 | Sóc Trăng | có | 0.67 | 0 | +0.0% |
 | TAW đất (mm/m) | 150 | Cần Thơ | có | 1.00 | 0 | +0.0% |
 | TAW đất (mm/m) | 150 | Châu Đốc | có | 1.00 | 0 | +0.0% |
 | TAW đất (mm/m) | 150 | Bến Tre | có | 1.00 | 0 | +0.0% |
 | TAW đất (mm/m) | 150 | Sóc Trăng | có | 1.00 | 0 | +0.0% |
-| TAW đất (mm/m) | 200 | Cần Thơ | có | 1.00 | 0 | +0.0% |
-| TAW đất (mm/m) | 200 | Châu Đốc | có | 1.00 | 0 | +0.0% |
+| TAW đất (mm/m) | 200 | Cần Thơ | có | 0.67 | 0 | +0.0% |
+| TAW đất (mm/m) | 200 | Châu Đốc | có | 0.67 | 0 | +0.0% |
 | TAW đất (mm/m) | 200 | Bến Tre | có | 1.00 | 0 | +0.0% |
-| TAW đất (mm/m) | 200 | Sóc Trăng | có | 0.75 | 0 | +0.0% |
-| Kc mọi cây | ×0.9 | Cần Thơ | có | 1.00 | 0 | -6.9% |
-| Kc mọi cây | ×0.9 | Châu Đốc | có | 1.00 | 0 | -7.7% |
-| Kc mọi cây | ×0.9 | Bến Tre | có | 1.00 | 0 | -7.2% |
+| TAW đất (mm/m) | 200 | Sóc Trăng | có | 0.67 | 0 | +0.0% |
+| Kc mọi cây | ×0.9 | Cần Thơ | KHÔNG | 0.67 | 0 | -6.9% |
+| Kc mọi cây | ×0.9 | Châu Đốc | KHÔNG | 1.00 | 0 | -7.7% |
+| Kc mọi cây | ×0.9 | Bến Tre | KHÔNG | 0.67 | 0 | -7.2% |
 | Kc mọi cây | ×0.9 | Sóc Trăng | có | 1.00 | 0 | -6.1% |
 | Kc mọi cây | ×1.0 | Cần Thơ | có | 1.00 | 0 | +0.0% |
 | Kc mọi cây | ×1.0 | Châu Đốc | có | 1.00 | 0 | +0.0% |
 | Kc mọi cây | ×1.0 | Bến Tre | có | 1.00 | 0 | +0.0% |
 | Kc mọi cây | ×1.0 | Sóc Trăng | có | 1.00 | 0 | +0.0% |
-| Kc mọi cây | ×1.1 | Cần Thơ | có | 1.00 | 0 | +7.6% |
-| Kc mọi cây | ×1.1 | Châu Đốc | có | 1.00 | 0 | +5.7% |
+| Kc mọi cây | ×1.1 | Cần Thơ | KHÔNG | 0.67 | 0 | +7.6% |
+| Kc mọi cây | ×1.1 | Châu Đốc | KHÔNG | 0.67 | 0 | +5.7% |
 | Kc mọi cây | ×1.1 | Bến Tre | có | 1.00 | 0 | +6.2% |
-| Kc mọi cây | ×1.1 | Sóc Trăng | có | 1.00 | 0 | +8.2% |
+| Kc mọi cây | ×1.1 | Sóc Trăng | KHÔNG | 0.43 | 0 | +8.2% |
 | Ngưỡng ngày nóng (R_HEAT) | 3 | Cần Thơ | có | 1.00 | 0 | +0.0% |
 | Ngưỡng ngày nóng (R_HEAT) | 3 | Châu Đốc | có | 1.00 | 0 | +0.0% |
 | Ngưỡng ngày nóng (R_HEAT) | 3 | Bến Tre | có | 1.00 | 0 | +0.0% |
@@ -91,15 +91,15 @@ Kiểm tra xác định: chạy tham chiếu 2 lần cho kết quả GIỐNG H�
 
 | Tham số | Số ca | Đổi top-1 | Đổi shortlist | Đổi status | Max abs ΔIrr baseline | Kết luận |
 |---|---|---|---|---|---|---|
-| Thấm paddy (mm/ngày) | 12 | 0% | 0% | 0% | 46.3% | thứ hạng ổn định; **cần nguồn** (độ lớn nhu cầu tưới đổi > 20%) |
-| TAW đất (mm/m) | 12 | 0% | 17% | 0% | 0.0% | thứ hạng ổn định |
-| Kc mọi cây | 12 | 0% | 0% | 0% | 8.2% | thứ hạng ổn định |
+| Thấm paddy (mm/ngày) | 12 | 17% | 17% | 0% | 46.3% | thứ hạng ổn định; **cần nguồn** (độ lớn nhu cầu tưới đổi > 20%) |
+| TAW đất (mm/m) | 12 | 17% | 50% | 0% | 0.0% | **cần nguồn** (xếp hạng/shortlist đổi) |
+| Kc mọi cây | 12 | 50% | 42% | 0% | 8.2% | **cần nguồn** (xếp hạng/shortlist đổi) |
 | Ngưỡng ngày nóng (R_HEAT) | 12 | 0% | 0% | 0% | 0.0% | thứ hạng ổn định |
 | Ngưỡng ngày thiếu nước (R_WATER_STRESS) | 12 | 0% | 0% | 0% | 0.0% | thứ hạng ổn định |
 | Ngưỡng mưa úng (mm/vụ) | 12 | 0% | 0% | 0% | 0.0% | thứ hạng ổn định |
 
 ## Kết luận
 
-- Tham số làm đổi kết quả > 20%: không có.
+- Tham số làm đổi kết quả > 20%: TAW đất (mm/m), Kc mọi cây.
 - Tham số làm đổi độ lớn nhu cầu tưới baseline > 20% (số tuyệt đối không nên trích như đo đạc): Thấm paddy (mm/ngày).
 - Mẫu nhỏ: 4 ruộng demo, 1 ngày as_of, 1 yêu cầu mặc định; đây là kiểm tra độ nhạy, không phải xác nhận mô hình.

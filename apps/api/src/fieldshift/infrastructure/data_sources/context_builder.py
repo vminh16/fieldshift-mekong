@@ -72,6 +72,12 @@ def build_context(field: dict, as_of: dt.date) -> dict:
             "source": "regions.json: " + "; ".join(region["sources"]),
             "limitations": region["limitations"],
         },
+        "ev_value_heuristic": {
+            "kind": "ASSUMPTION",
+            "source": "[B] heuristic nhóm: regions.json season_value_weight × crops.json value_index",
+            "limitations": region["season_value_weight"]["limitations"]
+            + CROPS["value_index"]["limitations"],
+        },
         "ev_salinity_season": {
             "kind": "ASSUMPTION",
             "source": "; ".join(region["salinity_season"]["sources"]),

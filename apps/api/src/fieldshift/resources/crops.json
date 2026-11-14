@@ -1,5 +1,14 @@
 {
- "version": "crops-2026.11.0",
+ "version": "crops-2026.11.1",
+ "value_index": {
+  "basis": "[B] TEAM HEURISTIC, not a cited statistic. Relative production/market value of one season of each crop, rice = 1.0. Upland cash crops (maize, mungbean, sesame, peanut, watermelon) share one lower value because the team has no price series to separate them; soybean is lower because domestic soybean competes with imports (see market_note_vi); fallow produces nothing (0).",
+  "sources": [],
+  "limitations": [
+   "Team heuristic values; no price statistic, statistical yearbook table or institute publication is cited.",
+   "Ignores price volatility, input cost and local market access; it is an ordering aid, not a profit estimate (profit stays unknown, G7).",
+   "Used only in production_value_index = Σ_seasons season_value_weight(window) × value_index(crop)."
+  ]
+ },
  "crops": [
   {
    "id": "rice",
@@ -52,6 +61,7 @@
     "thu_dong"
    ],
    "relative_cost_level": "medium",
+   "value_index": 1.0,
    "market_note_vi": "Lúa OM/ST ngắn ngày (90-105 ngày), đầu ra ổn định qua thương lái/doanh nghiệp; giá phụ thuộc xuất khẩu.",
    "sources": [
     "FAO-56 Table 12 (Kc), Table 22 (root depth, p)",
@@ -119,6 +129,7 @@
     "xuan_he"
    ],
    "relative_cost_level": "medium",
+   "value_index": 0.8,
    "market_note_vi": "Ngô lai (bắp) cho chăn nuôi; giá biến động, có thương lái thu mua tại ruộng.",
    "sources": [
     "FAO-56 Table 12 (Kc), Table 22 (root depth, p)",
@@ -185,6 +196,7 @@
     "xuan_he"
    ],
    "relative_cost_level": "medium",
+   "value_index": 0.6,
    "market_note_vi": "Đậu nành vụ Xuân Hè trong luân canh lúa-màu; giá nội địa thấp hơn nhập khẩu, thị trường nhỏ.",
    "sources": [
     "FAO-56 Table 12 (Kc), Table 22 (root depth, p)",
@@ -250,6 +262,7 @@
     "xuan_he"
    ],
    "relative_cost_level": "low",
+   "value_index": 0.8,
    "market_note_vi": "Đậu xanh ngắn ngày (60-75 ngày), vốn thấp, phù hợp xen vụ giữa hai vụ lúa.",
    "sources": [
     "FAO-56 Table 12 (pulses/green gram), Table 22",
@@ -314,6 +327,7 @@
     "xuan_he"
    ],
    "relative_cost_level": "low",
+   "value_index": 0.8,
    "market_note_vi": "Mè đen/vàng trồng trên đất giồng cát và đất cao; giá cao nhưng thị trường nhỏ.",
    "sources": [
     "FAO-56 Table 12 (sesame Kc 0.35/1.10/0.25), Table 22",
@@ -380,6 +394,7 @@
     "xuan_he"
    ],
    "relative_cost_level": "medium",
+   "value_index": 0.8,
    "market_note_vi": "Đậu phộng trồng đất cát/đất giồng, lợi nhuận cao hơn lúa nhưng cần đất thoát nước tốt.",
    "sources": [
     "FAO-56 Table 12 (Kc), Table 22 (root depth, p) (groundnut)",
@@ -443,6 +458,7 @@
     "xuan_he"
    ],
    "relative_cost_level": "high",
+   "value_index": 0.8,
    "market_note_vi": "Dưa hấu thu nhập cao nhưng rủi ro giá lớn; vốn đầu tư (phân, màng phủ) cao.",
    "sources": [
     "FAO-56 Table 12 (Kc), Table 22 (root depth, p) (watermelon)",
@@ -499,7 +515,8 @@
    "n_fixing": false,
    "soil_support_indicators": [
     "ground_cover",
-    "residue_return"
+    "residue_return",
+    "breaks_rice_pest_cycle"
    ],
    "machinery_required": [],
    "allowed_windows": [
@@ -508,6 +525,7 @@
     "thu_dong"
    ],
    "relative_cost_level": "low",
+   "value_index": 0.0,
    "market_note_vi": "Không thu hoạch; giữ đất phủ, giảm xói mòn và cỏ dại, chi phí rất thấp.",
    "sources": [
     "FAO-56 Table 12 (bare soil/ground cover Kc 0.15-0.5)",
@@ -517,6 +535,7 @@
     "Salinity: not applicable, values are placeholders (tolerance T, threshold 99) so salinity penalty is zero.",
     "Kc ~0.3-0.4 is a mid-value for sparse cover/weeds, not a specific species.",
     "Duration and stages are nominal; farmer-set.",
+    "breaks_rice_pest_cycle is a qualitative potential benefit of a rice-free season; it assumes volunteer/ratoon rice (green bridge for brown planthopper) is removed.",
     "ecw_threshold_ds_m approximated as ECe/1.5 (FAO-29 convention ECe ~ 1.5 ECw); salinity values are Maas-Hoffman steady-state, not Mekong-calibrated."
    ]
   }

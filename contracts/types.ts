@@ -94,16 +94,22 @@ export interface Trigger {
 }
 export interface Option {
   sequence_id: string; is_baseline: boolean
-  strategy_tag: 'save_water' | 'low_risk' | 'soil_support' | 'balanced' | null
+  strategy_tag:
+    | 'save_water' | 'low_risk' | 'soil_support' | 'balanced'
+    | 'third_season_rest' | 'salinity_avoidance' | null
   strategy_name_vi: string | null; summary_vi?: string
   decision_status: DecisionStatus
   seasons: Season[]
   metrics: Record<string, ScenarioMetrics>
   delta_vs_baseline: Record<string, Record<string, { value: number | null; unit: string }>>
   distribution?: Record<string, DistributionPoint[]>
+  /** Σ season_value_weight × crop value_index; team heuristic [B], not yield/profit */
+  production_value_index: number
+  /** salinity_avoidance only: overlap days removed vs the standard-sow baseline */
+  salinity_overlap_avoided_days?: { typical: number; early_onset: number }
   soil_benefit: { claim_type: 'POTENTIAL_QUALITATIVE'; value: null; indicators: string[] }
   rules: Rule[]
-  reasons: { text: string; evidence_ids?: string[] }[]
+  reasons: { text: string; evidence_ids?: string[]; claim_type?: 'POTENTIAL_QUALITATIVE' }[]
   risks: { code: string; severity: Severity; season_index: number | null; text: string }[]
   triggers: Trigger[]
   checklist: string[]

@@ -193,6 +193,7 @@ def build() -> tuple[str, str]:
                 f"{c['duration_days']['min']}/{c['duration_days']['typical']}/{c['duration_days']['max']} {k['duration'][:3]}",
                 f"{', '.join(c['allowed_windows'])} {k['windows'][:3]}",
                 f"{c['machinery_required'] or 'rỗng'} {k['machinery'][:3]}",
+                f"{c['value_index']} {B[:3]}",
             )
         )
         notes.append(
@@ -212,10 +213,16 @@ def build() -> tuple[str, str]:
                 "Thời gian ngày min/typ/max",
                 "Cửa sổ",
                 "Máy móc",
+                "Giá trị tương đối",
             ],
             rows,
         ),
         "\nMã trong ô: [A]/[B]/[C] như trên.\n",
+        "Giá trị tương đối (`value_index`): "
+        + CROPS["value_index"]["basis"]
+        + " Hạn chế: "
+        + " | ".join(CROPS["value_index"]["limitations"])
+        + "\n",
         "### Nguồn và hạn chế theo cây\n",
         *[f"- {n}" for n in notes],
         "",
@@ -231,6 +238,11 @@ def build() -> tuple[str, str]:
                     f"{w['id']} {w['sow_from']}→{w['sow_to']}" for w in reg["season_windows"]
                 ),
                 reg,
+            ),
+            (
+                "Trọng số giá trị vụ (production_value_index)",
+                "; ".join(f"{w['id']} {w['value_weight']}" for w in reg["season_windows"]),
+                reg["season_value_weight"],
             ),
             ("min_turnaround_days", reg["min_turnaround_days"], reg),
             (
