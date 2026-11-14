@@ -227,6 +227,9 @@ function Recommendation({ field, decision: d }: { field: LocalField; decision: D
             <button type="button" className={isChosen ? 'btn btn--ghost' : 'btn btn--primary'} onClick={choose}>
               {isChosen ? 'Bỏ chọn' : 'Chọn chuỗi này'}
             </button>
+            <a className="btn btn--ghost" href={href('/mo-phong', { thua: field.id, chuoi: pick.sequence_id })}>
+              Mô phỏng trên ruộng
+            </a>
             <button
               type="button"
               className="btn btn--ghost"

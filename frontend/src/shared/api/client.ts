@@ -2,9 +2,9 @@
  * Thin fetch wrapper for the FieldShift API (contracts/API_CONTRACT.md).
  * Types come straight from contracts/types.ts so the frontend cannot drift from the backend contract.
  */
-import type { Field, FieldProfile } from '../../../../contracts/types'
+import type { CropId, DecisionPackage, Field, FieldProfile, Twin } from '../../../../contracts/types'
 
-export type { Field, FieldProfile }
+export type { CropId, DecisionPackage, Field, FieldProfile, Twin }
 
 export const API_BASE: string = (import.meta.env.VITE_API_BASE_URL as string | undefined) ?? 'http://localhost:8000'
 
@@ -57,4 +57,19 @@ export const api = {
   patchField: (id: string, body: Partial<FieldWrite> & { profile?: Partial<FieldProfile> }) =>
     request<Field>(`/fields/${encodeURIComponent(id)}`, { method: 'PATCH', body: JSON.stringify(body) }),
   deleteField: (id: string) => request<void>(`/fields/${encodeURIComponent(id)}`, { method: 'DELETE' }),
+
+  listFieldPlans: (fieldId: string) =>
+    request<{ decision_id: string; kind: 'PLAN' | 'WHAT_IF' | 'REPLAN'; parent_id: string | null; created_at: string }[]>(
+      `/fields/${encodeURIComponent(fieldId)}/plans`,
+    ),
+  getPlan: (id: string) => request<DecisionPackage>(`/plans/${encodeURIComponent(id)}`),
+  createPlan: (fieldId: string) => request<DecisionPackage>('/plans', { method: 'POST', body: JSON.stringify({ field_id: fieldId, horizon_seasons: 3 }) }),
+  /** Simulate a user-chosen chain: returns a WHAT_IF child whose `baseline` is that chain. */
+  evaluateChain: (decisionId: string, crops: CropId[]) =>
+    request<DecisionPackage>(`/plans/${encodeURIComponent(decisionId)}/evaluate`, { method: 'POST', body: JSON.stringify({ crops }) }),
+  twin: (decisionId: string, sequenceId: string, scenarioId: string, member: number | null) => {
+    const q = new URLSearchParams({ sequence_id: sequenceId, scenario_id: scenarioId })
+    if (member !== null) q.set('member', String(member))
+    return request<Twin>(`/plans/${encodeURIComponent(decisionId)}/twin?${q}`)
+  },
 }
