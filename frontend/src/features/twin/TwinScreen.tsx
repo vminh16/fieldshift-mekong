@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { Measure, Option, Twin, TwinWeek } from '../../../../contracts/types'
 import { AppShell } from '../shell/AppShell'
 import { href, navigate } from '../../shared/router'
@@ -9,6 +9,7 @@ import { ApiError } from '../../shared/api/client'
 import { ChainPicker } from './ChainPicker'
 import { SoilColumn } from './SoilColumn'
 import { TwinTimeline } from './TwinTimeline'
+import { WhatIfPanel, describe, toOverride, type Assumptions } from './WhatIfPanel'
 import './twin.css'
 
 interface Side {
@@ -44,6 +45,11 @@ export function TwinScreen({ fieldId, sequenceId }: { fieldId: string | null; se
   const [b, setB] = useState<Side>(EMPTY)
   const [index, setIndex] = useState(0)
   const [playing, setPlaying] = useState(false)
+  const [assume, setAssume] = useState<Assumptions | null>(null)
+  const [history, setHistory] = useState<Assumptions[]>([])
+  const [whatIfOpen, setWhatIfOpen] = useState(false)
+  const override = useMemo(() => (assume ? toOverride(assume) : null), [assume])
+  const overrideKey = override ? JSON.stringify(override) : ''
 
   // Open the field's latest decision (or the captured mock).
   useEffect(() => {
@@ -58,6 +64,8 @@ export function TwinScreen({ fieldId, sequenceId }: { fieldId: string | null; se
       setScenario('sc_clim')
       setMember(null)
       setIndex(0)
+      setAssume(null)
+      setHistory([])
       const d = source.decision
       setSpecA({ kind: 'engine', sequenceId: d.baseline.sequence_id })
       const wanted = d.options.find((o) => o.sequence_id === sequenceId) ?? d.options[0]
@@ -75,7 +83,7 @@ export function TwinScreen({ fieldId, sequenceId }: { fieldId: string | null; se
     let live = true
     setA((s) => ({ ...s, busy: true, error: null }))
     source
-      .load(specA, scenario, member)
+      .load(specA, scenario, member, override)
       .then(({ twin, chain }) => {
         if (!live) return
         setA({ twin, chain, busy: false, error: null })
@@ -85,20 +93,22 @@ export function TwinScreen({ fieldId, sequenceId }: { fieldId: string | null; se
     return () => {
       live = false
     }
-  }, [source, specA, scenario, member])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [source, specA, scenario, member, overrideKey])
 
   useEffect(() => {
     if (!source || !specB || member === null) return
     let live = true
     setB((s) => ({ ...s, busy: true, error: null }))
     source
-      .load(specB, scenario, member)
+      .load(specB, scenario, member, override)
       .then(({ twin, chain }) => live && setB({ twin, chain, busy: false, error: null }))
       .catch((e) => live && setB({ twin: null, chain: null, busy: false, error: errorText(e) }))
     return () => {
       live = false
     }
-  }, [source, specB, scenario, member])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [source, specB, scenario, member, overrideKey])
 
   const weeks = Math.max(a.twin?.series.length ?? 0, b.twin?.series.length ?? 0)
 
@@ -136,6 +146,14 @@ export function TwinScreen({ fieldId, sequenceId }: { fieldId: string | null; se
   const locked = source?.mode === 'mock'
   const members = a.twin?.members ?? []
   const scenarios = d?.scenarios ?? []
+  const seasonNames = (d?.windows ?? []).map((w) => w.name_vi.split(' /')[0])
+  const runAssumptions = (x: Assumptions | null) => {
+    setAssume(x)
+    setMember(null)
+    setIndex(0)
+    setPlaying(false)
+    if (x && toOverride(x)) setHistory((h) => [x, ...h.filter((y) => JSON.stringify(y) !== JSON.stringify(x))].slice(0, 5))
+  }
   const labelA = sideName(specA, a.chain, d)
   const labelB = sideName(specB, b.chain, d)
 
@@ -160,14 +178,15 @@ export function TwinScreen({ fieldId, sequenceId }: { fieldId: string | null; se
             <label className="tw-ctl">
               <span>Thời tiết giả định</span>
               <select
-                value={scenario}
-                disabled={!d || locked}
+                value={override ? 'sc_whatif' : scenario}
+                disabled={!d || locked || Boolean(override)}
                 onChange={(e) => {
                   setScenario(e.target.value)
                   setMember(null)
                   setIndex(0)
                 }}
               >
+                {override && <option value="sc_whatif">Giả định của bạn</option>}
                 {scenarios.map((s) => (
                   <option key={s.scenario_id} value={s.scenario_id}>
                     {KIND_VI[s.kind] ?? s.kind}: {s.name}
@@ -185,8 +204,38 @@ export function TwinScreen({ fieldId, sequenceId }: { fieldId: string | null; se
                 ))}
               </select>
             </label>
+            <button type="button" className="btn btn--ghost btn--sm tw-head__whatif" aria-expanded={whatIfOpen} aria-controls="whatif" onClick={() => setWhatIfOpen(!whatIfOpen)}>
+              Thử nếu…
+            </button>
           </div>
         </header>
+
+        {assume && override && (
+          <div className="tw-assume" role="status">
+            <span className="tw-assume__tag">Giả định do bạn đặt</span>
+            <span>{describe(assume, seasonNames).join(' · ')}</span>
+            <button type="button" className="tw-assume__edit" onClick={() => setWhatIfOpen(true)}>
+              Sửa
+            </button>
+            <button type="button" className="tw-assume__edit" disabled={a.busy || b.busy} onClick={() => runAssumptions(null)}>
+              Bỏ
+            </button>
+          </div>
+        )}
+
+        {whatIfOpen && d && (
+          <div id="whatif">
+            <WhatIfPanel
+              seasonNames={seasonNames}
+              applied={assume}
+              history={history}
+              busy={a.busy || b.busy}
+              locked={locked}
+              onRun={(x) => runAssumptions(x)}
+              onClear={() => runAssumptions(null)}
+            />
+          </div>
+        )}
 
         {notice && (
           <p className="tw-notice" role="status">

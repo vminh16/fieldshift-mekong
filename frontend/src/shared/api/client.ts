@@ -2,9 +2,9 @@
  * Thin fetch wrapper for the FieldShift API (contracts/API_CONTRACT.md).
  * Types come straight from contracts/types.ts so the frontend cannot drift from the backend contract.
  */
-import type { CropId, DecisionPackage, Field, FieldProfile, Twin } from '../../../../contracts/types'
+import type { CropId, DecisionPackage, Field, FieldProfile, ScenarioOverride, Twin } from '../../../../contracts/types'
 
-export type { CropId, DecisionPackage, Field, FieldProfile, Twin }
+export type { CropId, DecisionPackage, Field, FieldProfile, ScenarioOverride, Twin }
 
 export const API_BASE: string = (import.meta.env.VITE_API_BASE_URL as string | undefined) ?? 'http://localhost:8000'
 
@@ -65,8 +65,8 @@ export const api = {
   getPlan: (id: string) => request<DecisionPackage>(`/plans/${encodeURIComponent(id)}`),
   createPlan: (fieldId: string) => request<DecisionPackage>('/plans', { method: 'POST', body: JSON.stringify({ field_id: fieldId, horizon_seasons: 3 }) }),
   /** Simulate a user-chosen chain: returns a WHAT_IF child whose `baseline` is that chain. */
-  evaluateChain: (decisionId: string, crops: CropId[]) =>
-    request<DecisionPackage>(`/plans/${encodeURIComponent(decisionId)}/evaluate`, { method: 'POST', body: JSON.stringify({ crops }) }),
+  evaluateChain: (decisionId: string, crops: CropId[], opts: { sow_timing?: string[]; override?: ScenarioOverride } = {}) =>
+    request<DecisionPackage>(`/plans/${encodeURIComponent(decisionId)}/evaluate`, { method: 'POST', body: JSON.stringify({ crops, ...opts }) }),
   twin: (decisionId: string, sequenceId: string, scenarioId: string, member: number | null) => {
     const q = new URLSearchParams({ sequence_id: sequenceId, scenario_id: scenarioId })
     if (member !== null) q.set('member', String(member))

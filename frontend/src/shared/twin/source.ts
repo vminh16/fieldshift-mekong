@@ -7,7 +7,7 @@
  * - If the API is unreachable, a captured engine run (contracts/fixtures) keeps the screen usable,
  *   with chain choice locked because nothing new can be simulated offline.
  */
-import { api, ApiError, type CropId, type DecisionPackage, type Twin } from '../api/client'
+import { api, ApiError, type CropId, type DecisionPackage, type ScenarioOverride, type Twin } from '../api/client'
 import type { LocalField } from '../fields/store'
 
 export type ChainSpec =
@@ -17,8 +17,16 @@ export type ChainSpec =
 export interface TwinSource {
   mode: 'engine' | 'mock'
   decision: DecisionPackage
-  /** Loads one side. `member` null = the engine's default (median year). */
-  load: (spec: ChainSpec, scenarioId: string, member: number | null) => Promise<{ twin: Twin; chain: DecisionPackage['baseline'] }>
+  /**
+   * Loads one side. `member` null = the engine's default (median year).
+   * With `override`, the chain is re-run under the user's assumptions and read from scenario `sc_whatif`.
+   */
+  load: (
+    spec: ChainSpec,
+    scenarioId: string,
+    member: number | null,
+    override?: ScenarioOverride | null,
+  ) => Promise<{ twin: Twin; chain: DecisionPackage['baseline'] }>
 }
 
 const childCache = new Map<string, Promise<DecisionPackage>>()
@@ -44,19 +52,24 @@ function engineSource(decision: DecisionPackage): TwinSource {
   return {
     mode: 'engine',
     decision,
-    async load(spec, scenarioId, member) {
-      if (spec.kind === 'engine') {
-        const chain = chains.find((c) => c.sequence_id === spec.sequenceId) ?? decision.baseline
-        return { twin: await api.twin(decision.decision_id, chain.sequence_id, scenarioId, member), chain }
+    async load(spec, scenarioId, member, override) {
+      const engineChain = spec.kind === 'engine' ? (chains.find((c) => c.sequence_id === spec.sequenceId) ?? decision.baseline) : null
+      if (engineChain && !override) {
+        return { twin: await api.twin(decision.decision_id, engineChain.sequence_id, scenarioId, member), chain: engineChain }
       }
-      const key = `${decision.decision_id}:${spec.crops.join('-')}`
+      // Custom chain, or any chain under user assumptions: run it through /evaluate (a WHAT_IF child).
+      const crops = engineChain ? engineChain.seasons.map((s) => s.crop) : (spec as { crops: CropId[] }).crops
+      const sow_timing = engineChain?.seasons.map((s) => s.sow_timing)
+      const key = `${decision.decision_id}:${crops.join('-')}:${sow_timing?.join('-') ?? ''}:${override ? JSON.stringify(override) : ''}`
       if (!childCache.has(key)) {
-        const p = api.evaluateChain(decision.decision_id, spec.crops)
+        const p = api.evaluateChain(decision.decision_id, crops, { sow_timing, ...(override ? { override } : {}) })
         p.catch(() => childCache.delete(key))
         childCache.set(key, p)
       }
       const child = await childCache.get(key)!
-      return { twin: await api.twin(child.decision_id, child.baseline.sequence_id, scenarioId, member), chain: child.baseline }
+      const twin = await api.twin(child.decision_id, child.baseline.sequence_id, override ? 'sc_whatif' : scenarioId, member)
+      // Keep the engine option's name; the child's baseline carries none.
+      return { twin, chain: { ...child.baseline, strategy_name_vi: engineChain?.strategy_name_vi ?? null, strategy_tag: engineChain?.strategy_tag ?? null } }
     },
   }
 }
