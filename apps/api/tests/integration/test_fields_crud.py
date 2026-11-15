@@ -89,3 +89,14 @@ def test_browser_may_delete_from_the_frontend_origin():
         )
         assert preflight.status_code == 200
         assert "DELETE" in preflight.headers["access-control-allow-methods"]
+
+
+def test_sample_fields_cannot_be_deleted_or_moved():
+    with TestClient(app) as client:
+        assert client.delete("/v1/fields/fld_soctrang").status_code == 403
+        moved = client.patch("/v1/fields/fld_soctrang", json={"name": "x", "lat": 9.0})
+        assert moved.status_code == 403
+        assert moved.json()["detail"]["code"] == "SAMPLE_FIELD_LOCKED"
+        answered = client.patch("/v1/fields/fld_soctrang", json={"profile": {"drainage": "good"}})
+        assert answered.status_code == 200
+        assert client.get("/v1/fields/fld_soctrang").json()["name"].startswith("Ruộng mẫu")

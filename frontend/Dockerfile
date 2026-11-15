@@ -11,4 +11,17 @@ RUN npm run build
 
 FROM caddy:2-alpine
 COPY --from=build /app/frontend/dist /srv
-CMD ["caddy", "file-server", "--root", "/srv", "--listen", ":80"]
+# /v1 goes to the compose `api` service, so the stack also works standalone (laptop fallback).
+# On the VM the host Caddy already routes /v1 to the API before requests reach this container.
+COPY <<CADDY /etc/caddy/Caddyfile
+:80 {
+	encode gzip
+	handle /v1/* {
+		reverse_proxy api:8000
+	}
+	handle {
+		root * /srv
+		file_server
+	}
+}
+CADDY
