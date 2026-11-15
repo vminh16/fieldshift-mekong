@@ -7,10 +7,22 @@ from fastapi import APIRouter, HTTPException
 
 from fieldshift.api.schemas.requests import FieldIn, FieldPatch, ObservationIn
 from fieldshift.application.use_cases.plan_rotation import context_for, must, observations
+from fieldshift.domain.catalog import REGIONS
 from fieldshift.domain.engines.field_state import climate_summary, estimate_state
 from fieldshift.infrastructure.persistence import sqlite as db
 
 router = APIRouter(prefix="/fields", tags=["fields"])
+
+# Seeded sample fields are shared by every visitor (no accounts), so nobody may delete them or move,
+# rename or redraw them. Profile answers stay editable: the recommendation screen asks for them.
+SAMPLE_IDS = {f["id"] for r in REGIONS.values() for f in r.get("demo_fields", [])}
+SAMPLE_LOCKED = HTTPException(
+    403,
+    {
+        "code": "SAMPLE_FIELD_LOCKED",
+        "message": "Ruộng mẫu dùng chung nên không xoá hay đổi vị trí được. Hãy thêm ruộng mới để thử.",
+    },
+)
 
 
 @router.get("")
@@ -43,6 +55,8 @@ def patch_field(field_id: str, body: FieldPatch):
     c = db.connect()
     f = must(c, "fields", field_id, "FIELD_NOT_FOUND")
     upd = body.model_dump(mode="json", exclude_unset=True)
+    if field_id in SAMPLE_IDS and upd.keys() - {"profile"}:
+        raise SAMPLE_LOCKED
     if "profile" in upd:
         upd["profile"] = {
             **f["profile"],
@@ -67,6 +81,8 @@ def delete_field(field_id: str) -> None:
     Decisions reference each other (parent_id) and field_states, so children go first,
     all in one transaction.
     """
+    if field_id in SAMPLE_IDS:
+        raise SAMPLE_LOCKED
     c = db.connect()
     must(c, "fields", field_id, "FIELD_NOT_FOUND")
     with c:
