@@ -1,0 +1,14 @@
+# Production build of the SPA, served by Caddy. API is reached same-origin at /v1.
+# Build context = repo root: the frontend imports ../contracts.
+FROM node:22-alpine AS build
+WORKDIR /app/frontend
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci --no-audit --no-fund
+COPY contracts /app/contracts
+COPY frontend ./
+ENV VITE_API_BASE_URL=""
+RUN npm run build
+
+FROM caddy:2-alpine
+COPY --from=build /app/frontend/dist /srv
+CMD ["caddy", "file-server", "--root", "/srv", "--listen", ":80"]
