@@ -1,14 +1,34 @@
-# This is an image-build rehearsal, NOT a production deployment.
-# Configure registry, secrets, environment approvals and rollback first.
-name: Container build (manual)
+# Continuous deployment to the Oracle VM (https://fieldshift.loanhviet.dev).
+# Runs after CI passes on main, or by hand. The SSH key can only run infra/oracle/deploy.sh.
+name: Deploy (Oracle VM)
 on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
+concurrency:
+  group: deploy-oracle
+  cancel-in-progress: false
 jobs:
-  build:
+  deploy:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Build API container
-        run: docker build -f apps/api/Dockerfile apps/api
-      - name: Build Web container
-        run: docker build -f apps/web/Dockerfile apps/web
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - name: Ship release
+        env:
+          SSH_KEY: ${{ secrets.ORACLE_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.ORACLE_KNOWN_HOSTS }}
+          HOST: ${{ secrets.ORACLE_HOST }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/id_deploy && chmod 600 ~/.ssh/id_deploy
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          git archive HEAD | ssh -i ~/.ssh/id_deploy "$HOST" "$(git rev-parse HEAD)"
+      - name: Smoke test
+        run: |
+          curl -fsS https://fieldshift.loanhviet.dev/v1/health
+          curl -fsS -o /dev/null https://fieldshift.loanhviet.dev/
